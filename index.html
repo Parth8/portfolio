@@ -654,23 +654,27 @@ nav{
 }
 .sc-list{list-style:none;display:flex;flex-direction:column}
 .sc-list li{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.4rem;
-  letter-spacing:0.02em;
+  font-family:'Inter',sans-serif;
+  font-weight:500;
+  font-size:0.95rem;
+  letter-spacing:0.005em;
   color:#8a867d;
-  padding:0.7rem 0;
+  padding:0.75rem 0;
   border-bottom:1px solid #1a1814;
-  transition:color 0.2s,padding-left 0.25s,border-color 0.2s;
+  transition:color 0.25s,padding-left 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.25s,letter-spacing 0.25s;
   position:relative;
+  --hover-c:var(--neon);
 }
 .sc-list li::before{
   content:'→';
+  font-family:'DM Mono',monospace;
+  font-size:0.85rem;
   position:absolute;left:0;top:50%;transform:translate(-120%,-50%);
-  color:var(--neon);
+  color:var(--hover-c);
   opacity:0;
-  transition:opacity 0.2s,transform 0.2s;
+  transition:opacity 0.25s,transform 0.25s cubic-bezier(0.22,1,0.36,1);
 }
-.sc-list li:hover{color:var(--neon);padding-left:1.75rem;border-color:#333}
+.sc-list li:hover{color:var(--hover-c);padding-left:1.75rem;border-color:var(--hover-c);letter-spacing:0.02em}
 .sc-list li:hover::before{opacity:1;transform:translate(0,-50%)}
 
 .philosophy{
@@ -682,14 +686,62 @@ nav{
   align-items:start;
   background:var(--eggshell-warm);
 }
+.ph-left{
+  position:sticky;top:7rem;
+  display:flex;flex-direction:column;gap:1.5rem;
+}
 .ph-label{
   font-family:'DM Mono',monospace;
   font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
   color:var(--gray);
-  position:sticky;top:7rem;
 }
 .ph-label::before{
   content:'';display:block;width:40px;height:1px;background:var(--neon-dark);margin-bottom:1rem;
+}
+.ph-figure{
+  background:var(--paper);
+  border:1px solid var(--border);
+  padding:1.25rem;
+  margin:0;
+  transform:rotate(-1.2deg);
+  box-shadow:4px 6px 20px rgba(0,0,0,0.06),1px 2px 4px rgba(0,0,0,0.04);
+  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
+  position:relative;
+}
+.ph-figure::before{
+  /* Pin */
+  content:'';
+  position:absolute;
+  top:-8px;left:50%;transform:translateX(-50%);
+  width:16px;height:16px;border-radius:50%;
+  background:var(--pink);
+  box-shadow:0 2px 4px rgba(0,0,0,0.2),inset -2px -2px 3px rgba(0,0,0,0.15);
+  z-index:2;
+}
+.ph-figure:hover{transform:rotate(0deg) translateY(-4px);box-shadow:6px 10px 30px rgba(0,0,0,0.1)}
+.ph-illustration{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.ph-figcaption{
+  display:flex;align-items:baseline;gap:0.6rem;
+  padding-top:0.9rem;
+  margin-top:0.25rem;
+  border-top:1px dashed var(--border);
+}
+.ph-fignum{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--pink);
+  font-weight:500;
+}
+.ph-figtext{
+  font-family:'DM Serif Display',serif;
+  font-style:italic;
+  font-size:0.95rem;
+  color:var(--ink);
+  line-height:1.3;
 }
 .ph-text{
   font-family:'DM Serif Display',serif;
@@ -969,11 +1021,22 @@ nav{
   display:flex;flex-direction:column;justify-content:space-between;
   min-height:180px;
   background:transparent;
-  transition:background 0.3s,color 0.3s;
+  transition:background 0.35s cubic-bezier(0.22,1,0.36,1),color 0.35s,transform 0.35s cubic-bezier(0.22,1,0.36,1),box-shadow 0.35s;
   position:relative;
 }
+.chapter:nth-child(1){transform:rotate(-1.1deg)}
+.chapter:nth-child(2){transform:rotate(0.8deg)}
+.chapter:nth-child(3){transform:rotate(-0.5deg)}
+.chapter:nth-child(4){transform:rotate(1.2deg)}
+.chapter:nth-child(5){transform:rotate(-0.9deg)}
 .chapter:last-child{border-right:none}
-.chapter:hover{background:var(--neon);color:var(--ink)}
+.chapter:hover{
+  background:var(--neon);
+  color:var(--ink);
+  transform:translateY(-8px) rotate(0deg);
+  z-index:2;
+  box-shadow:0 10px 28px rgba(0,0,0,0.4);
+}
 .chapter:hover .chapter-num{color:var(--ink);border-color:var(--ink)}
 .chapter:hover .chapter-name em{color:var(--ink)}
 .chapter-num{
@@ -1087,15 +1150,48 @@ nav{
   background:var(--paper);
   border:1px solid var(--border);
   overflow:hidden;
-  transition:transform 0.3s,box-shadow 0.3s;
+  opacity:0;
+  transform:translateY(36px) rotate(-6deg) scale(0.92);
+  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s,border-color 0.3s;
 }
-.aw-card:hover{transform:translateY(-4px) rotate(-0.6deg);box-shadow:0 12px 32px rgba(0,0,0,0.08)}
-.aw-card.tilt-a{transform:rotate(-1.2deg)}
-.aw-card.tilt-b{transform:rotate(0.8deg)}
-.aw-card.tilt-c{transform:rotate(-0.5deg)}
-.aw-card.tilt-d{transform:rotate(1.3deg)}
-.aw-card.tilt-e{transform:rotate(-0.8deg)}
-.aw-card.tilt-f{transform:rotate(0.6deg)}
+.aw-card.visible{opacity:1}
+.aw-card.visible.tilt-a{animation:aw-in-a 0.8s cubic-bezier(0.22,1,0.36,1) 0s forwards}
+.aw-card.visible.tilt-b{animation:aw-in-b 0.8s cubic-bezier(0.22,1,0.36,1) 0.08s forwards}
+.aw-card.visible.tilt-c{animation:aw-in-c 0.8s cubic-bezier(0.22,1,0.36,1) 0.16s forwards}
+.aw-card.visible.tilt-d{animation:aw-in-d 0.8s cubic-bezier(0.22,1,0.36,1) 0.24s forwards}
+.aw-card.visible.tilt-e{animation:aw-in-e 0.8s cubic-bezier(0.22,1,0.36,1) 0.32s forwards}
+.aw-card.visible.tilt-f{animation:aw-in-f 0.8s cubic-bezier(0.22,1,0.36,1) 0.40s forwards}
+@keyframes aw-in-a{0%{opacity:0;transform:translateY(36px) rotate(-8deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(-0.5deg) scale(1.02)}100%{opacity:1;transform:rotate(-1.2deg)}}
+@keyframes aw-in-b{0%{opacity:0;transform:translateY(36px) rotate(8deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0.2deg) scale(1.02)}100%{opacity:1;transform:rotate(0.8deg)}}
+@keyframes aw-in-c{0%{opacity:0;transform:translateY(36px) rotate(-6deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(-0.5deg)}}
+@keyframes aw-in-d{0%{opacity:0;transform:translateY(36px) rotate(6deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0.5deg) scale(1.02)}100%{opacity:1;transform:rotate(1.3deg)}}
+@keyframes aw-in-e{0%{opacity:0;transform:translateY(36px) rotate(-5deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(-0.8deg)}}
+@keyframes aw-in-f{0%{opacity:0;transform:translateY(36px) rotate(5deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(0.6deg)}}
+.aw-card:hover{transform:translateY(-8px) rotate(0deg) !important;box-shadow:0 14px 36px rgba(0,0,0,0.12);border-color:var(--ink);z-index:2;animation-play-state:paused !important}
+.aw-card:hover .aw-medal{animation:medal-shake 0.5s ease-in-out}
+.aw-card:hover .aw-brush{transform:scale(1.08) rotate(-3deg)}
+@keyframes medal-shake{
+  0%,100%{transform:rotate(0)}
+  25%{transform:rotate(-10deg) scale(1.08)}
+  50%{transform:rotate(8deg) scale(1.1)}
+  75%{transform:rotate(-4deg) scale(1.05)}
+}
+.aw-medal{
+  position:relative;z-index:1;width:56px;height:56px;margin-bottom:1.25rem;
+  transform-origin:50% 10%;
+  animation:medal-sway 5s ease-in-out infinite;
+  transition:transform 0.3s;
+}
+.aw-card:nth-child(1) .aw-medal{animation-delay:-0.2s}
+.aw-card:nth-child(2) .aw-medal{animation-delay:-1.4s}
+.aw-card:nth-child(3) .aw-medal{animation-delay:-2.6s}
+.aw-card:nth-child(4) .aw-medal{animation-delay:-0.8s}
+.aw-card:nth-child(5) .aw-medal{animation-delay:-3.1s}
+.aw-card:nth-child(6) .aw-medal{animation-delay:-1.9s}
+@keyframes medal-sway{
+  0%,100%{transform:rotate(-2deg)}
+  50%{transform:rotate(2deg)}
+}
 .aw-brush{
   position:absolute;
   top:-20px;right:-30px;
@@ -1103,8 +1199,8 @@ nav{
   z-index:0;
   opacity:0.85;
   pointer-events:none;
+  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
 }
-.aw-medal{position:relative;z-index:1;width:56px;height:56px;margin-bottom:1.25rem}
 .aw-year{
   font-family:'DM Mono',monospace;
   font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
@@ -1284,6 +1380,7 @@ nav{
   overflow:hidden;
   background:var(--eggshell-warm);
 }
+/* The giant HELLO ghost text now scrolls horizontally */
 .cta-bg{
   position:absolute;
   font-family:'Bebas Neue',sans-serif;
@@ -1295,6 +1392,11 @@ nav{
   user-select:none;pointer-events:none;
   letter-spacing:-0.02em;
   line-height:0.8;white-space:nowrap;
+  animation:hello-scroll 18s linear infinite;
+}
+@keyframes hello-scroll{
+  0%{transform:translate(-30%,-50%) rotate(-2deg)}
+  100%{transform:translate(-70%,-50%) rotate(-2deg)}
 }
 .cta-content{position:relative;z-index:1;text-align:center}
 .cta-eyebrow{
@@ -1303,7 +1405,10 @@ nav{
   color:var(--gray);
   margin-bottom:2rem;
   display:inline-flex;align-items:center;gap:0.75rem;
+  opacity:0;transform:translateY(16px);
+  transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.22,1,0.36,1);
 }
+.cta-section.in-view .cta-eyebrow{opacity:1;transform:translateY(0);transition-delay:0.1s}
 .cta-eyebrow::before,.cta-eyebrow::after{content:'';width:30px;height:1px;background:var(--ink)}
 .cta-headline{
   font-family:'Bebas Neue',sans-serif;
@@ -1312,6 +1417,15 @@ nav{
   margin-bottom:2.5rem;
   color:var(--ink);
 }
+.cta-line{display:block;overflow:hidden;padding:0.06em 0 0.12em}
+.cta-word{
+  display:inline-block;
+  transform:translateY(110%);
+  transition:transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.cta-section.in-view .cta-word.d1{transform:translateY(0);transition-delay:0.25s}
+.cta-section.in-view .cta-word.d2{transform:translateY(0);transition-delay:0.35s}
+.cta-section.in-view .cta-word.d3{transform:translateY(0);transition-delay:0.5s}
 .cta-headline em{
   font-family:'DM Serif Display',serif;
   font-style:italic;
@@ -1323,7 +1437,10 @@ nav{
   content:'';
   position:absolute;left:-3%;right:-3%;bottom:8%;
   height:18%;background:var(--neon);z-index:-1;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.7s cubic-bezier(0.76,0,0.24,1);
 }
+.cta-section.in-view .cta-headline em::after{transform:scaleX(1);transition-delay:1.1s}
 .cta-sub{
   font-family:'DM Serif Display',serif;
   font-style:italic;
@@ -1332,8 +1449,78 @@ nav{
   max-width:640px;
   margin:0 auto 3.5rem;
   line-height:1.5;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.22,1,0.36,1);
 }
-.cta-buttons{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:4rem}
+.cta-section.in-view .cta-sub{opacity:1;transform:translateY(0);transition-delay:1s}
+.cta-buttons{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.cta-section.in-view .cta-buttons{opacity:1;transform:translateY(0);transition-delay:1.2s}
+.cta-meta{
+  display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--gray);
+  opacity:0;
+  transition:opacity 0.7s ease;
+}
+.cta-section.in-view .cta-meta{opacity:1;transition-delay:1.4s}
+.cta-meta span::before{content:'◦  '}
+
+/* MICHAEL SCOTT POLAROID STICKER */
+.boss-sticker{
+  position:absolute;
+  bottom:6%;left:4%;
+  z-index:3;
+  display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem;
+  opacity:0;
+  transform:translateY(40px) rotate(-20deg) scale(0.7);
+  transition:opacity 0.9s ease 1.3s,transform 0.9s cubic-bezier(0.22,1,0.36,1) 1.3s;
+  pointer-events:auto;
+}
+.cta-section.in-view .boss-sticker{
+  opacity:1;
+  transform:translateY(0) rotate(-6deg) scale(1);
+}
+.boss-sticker:hover{transform:translateY(-4px) rotate(-2deg) scale(1.05) !important;transition-delay:0s,0s}
+.boss-polaroid{
+  background:#fafafa;
+  padding:10px 10px 40px;
+  border:1px solid #d8d3c2;
+  box-shadow:4px 6px 18px rgba(0,0,0,0.18),1px 2px 4px rgba(0,0,0,0.08);
+  width:150px;
+  position:relative;
+}
+.boss-polaroid::before{
+  /* Washi tape */
+  content:'';
+  position:absolute;
+  top:-10px;left:50%;
+  width:54px;height:18px;
+  background:rgba(0,255,148,0.55);
+  transform:translateX(-50%) rotate(-4deg);
+  border:1px solid rgba(0,0,0,0.06);
+  z-index:2;
+}
+.boss-polaroid img{
+  display:block;
+  width:130px;height:104px;
+  object-fit:cover;
+  object-position:center 30%;
+  filter:grayscale(20%) contrast(0.95);
+}
+.boss-caption{
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.15rem;
+  color:var(--pink);
+  transform:rotate(3deg);
+  margin-left:0.75rem;
+  margin-top:-0.25rem;
+}
 .cta-btn{
   font-family:'DM Mono',monospace;
   font-size:0.75rem;font-weight:500;
@@ -1359,14 +1546,6 @@ nav{
 .cta-btn.primary::before{background:var(--neon)}
 .cta-btn.primary:hover{color:var(--ink)}
 
-.cta-meta{
-  display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-}
-.cta-meta span::before{content:'◦  '}
-
 footer{
   background:var(--ink);
   color:var(--gray-light);
@@ -1390,7 +1569,7 @@ footer span.neon{color:var(--neon)}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
-  .ph-label{position:static}
+  .ph-left{position:static}
   .feature-essay{grid-template-columns:1fr}
   .essay-grid{grid-template-columns:1fr;gap:1rem}
   .essay{grid-column:auto !important;transform:none !important}
@@ -1663,7 +1842,106 @@ footer span.neon{color:var(--neon)}
 
 <!-- PHILOSOPHY -->
 <section class="philosophy">
-  <p class="ph-label">Manifesto | No. 00</p>
+  <div class="ph-left">
+    <p class="ph-label">Manifesto | No. 00</p>
+    <figure class="ph-figure" aria-hidden="true">
+      <svg viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" class="ph-illustration">
+        <!-- Blueprint grid -->
+        <defs>
+          <pattern id="blueprintGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(21,19,15,0.06)" stroke-width="0.5"/>
+          </pattern>
+          <pattern id="blueprintGridMajor" width="80" height="80" patternUnits="userSpaceOnUse">
+            <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(21,19,15,0.1)" stroke-width="0.8"/>
+          </pattern>
+          <marker id="arrowPink" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#FF2D78"/>
+          </marker>
+        </defs>
+
+        <!-- Grid background -->
+        <rect x="0" y="0" width="320" height="380" fill="url(#blueprintGrid)"/>
+        <rect x="0" y="0" width="320" height="380" fill="url(#blueprintGridMajor)"/>
+
+        <!-- Technical frame corners -->
+        <g stroke="#15130F" stroke-width="1" fill="none">
+          <path d="M 10 10 L 30 10 M 10 10 L 10 30"/>
+          <path d="M 310 10 L 290 10 M 310 10 L 310 30"/>
+          <path d="M 10 370 L 30 370 M 10 370 L 10 350"/>
+          <path d="M 310 370 L 290 370 M 310 370 L 310 350"/>
+        </g>
+
+        <!-- Title block top-right -->
+        <g font-family="DM Mono, monospace" font-size="7" fill="#15130F" letter-spacing="1">
+          <text x="300" y="22" text-anchor="end" opacity="0.6">FIG. 01 / SHEET 1 OF 1</text>
+          <text x="300" y="32" text-anchor="end" opacity="0.4">P.A. · 2025 · REV A</text>
+        </g>
+
+        <!-- Scale/dimension line top -->
+        <g stroke="#15130F" stroke-width="0.7" fill="none" opacity="0.5">
+          <path d="M 60 50 L 260 50"/>
+          <path d="M 60 46 L 60 54"/>
+          <path d="M 260 46 L 260 54"/>
+        </g>
+        <text x="160" y="45" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#15130F" opacity="0.6">PLATFORM LAYERS</text>
+
+        <!-- Card 1 (bottom) - medallion schematic -->
+        <g transform="translate(60 230) rotate(-8)">
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="#00FF94" opacity="0.12"/>
+          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#15130F" opacity="0.7">LAYER 01 / BRONZE</text>
+          <line x1="12" y1="30" x2="168" y2="30" stroke="#15130F" stroke-width="0.5" opacity="0.3"/>
+          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#15130F">raw ingestion</text>
+          <!-- chip -->
+          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#15130F" stroke-width="0.8"/>
+          <line x1="130" y1="82" x2="160" y2="82" stroke="#15130F" stroke-width="0.4"/>
+          <line x1="130" y1="89" x2="160" y2="89" stroke="#15130F" stroke-width="0.4"/>
+          <line x1="145" y1="75" x2="145" y2="97" stroke="#15130F" stroke-width="0.4"/>
+        </g>
+
+        <!-- Card 2 (middle) -->
+        <g transform="translate(70 170) rotate(-3)">
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="#F3EFE4"/>
+          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#15130F" opacity="0.7">LAYER 02 / SILVER</text>
+          <line x1="12" y1="30" x2="168" y2="30" stroke="#15130F" stroke-width="0.5" opacity="0.3"/>
+          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#15130F">cleaned · modelled</text>
+          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#15130F" stroke-width="0.8"/>
+          <line x1="130" y1="82" x2="160" y2="82" stroke="#15130F" stroke-width="0.4"/>
+          <line x1="130" y1="89" x2="160" y2="89" stroke="#15130F" stroke-width="0.4"/>
+          <line x1="145" y1="75" x2="145" y2="97" stroke="#15130F" stroke-width="0.4"/>
+        </g>
+
+        <!-- Card 3 (top) -->
+        <g transform="translate(80 110) rotate(2)">
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.5"/>
+          <rect x="0" y="0" width="180" height="110" rx="8" fill="#15130F"/>
+          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#00FF94">LAYER 03 / GOLD</text>
+          <line x1="12" y1="30" x2="168" y2="30" stroke="#00FF94" stroke-width="0.5" opacity="0.5"/>
+          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#F3EFE4">served · trusted</text>
+          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#00FF94" stroke-width="0.8"/>
+          <line x1="130" y1="82" x2="160" y2="82" stroke="#00FF94" stroke-width="0.4"/>
+          <line x1="130" y1="89" x2="160" y2="89" stroke="#00FF94" stroke-width="0.4"/>
+          <line x1="145" y1="75" x2="145" y2="97" stroke="#00FF94" stroke-width="0.4"/>
+        </g>
+
+        <!-- Annotation arrows pointing to stack -->
+        <g stroke="#FF2D78" stroke-width="1" fill="none">
+          <path d="M 30 130 Q 50 120 70 125" marker-end="url(#arrowPink)"/>
+        </g>
+        <text x="16" y="118" font-family="Caveat, cursive" font-size="12" fill="#FF2D78" font-weight="600" transform="rotate(-8 16 118)">trust lives here</text>
+
+        <!-- Bottom dimension caption -->
+        <g font-family="DM Mono, monospace" font-size="7" fill="#15130F" opacity="0.55">
+          <text x="16" y="360" letter-spacing="1.5">MEDALLION ARCH. · DIAGRAMMATIC ONLY · NOT TO SCALE</text>
+        </g>
+      </svg>
+      <figcaption class="ph-figcaption">
+        <span class="ph-fignum">Fig. 01</span>
+        <span class="ph-figtext">a platform, as I see it.</span>
+      </figcaption>
+    </figure>
+  </div>
   <div class="ph-text">
     <p>
       I believe fintech infrastructure should ship with <span class="marked">zero critical defects</span> <br>and feel thoughtful end-to-end.<br>I think the best product people think like customer-first architects - and the best architects think like <em>systems engineers</em>.
@@ -2024,12 +2302,21 @@ footer span.neon{color:var(--neon)}
 
 <!-- CTA -->
 <section class="cta-section" id="contact">
-  <div class="cta-bg">HELLO · HELLO · HELLO</div>
+  <div class="cta-bg">HELLO · HELLO · HELLO · HELLO · HELLO ·&nbsp;</div>
+
+  <!-- Michael Scott polaroid sticker -->
+  <div class="boss-sticker" aria-hidden="true">
+    <div class="boss-polaroid">
+      <img src="worlds-best-boss.png" alt="Michael Scott World's Best Boss mug">
+    </div>
+    <div class="boss-caption">hire your next one →</div>
+  </div>
+
   <div class="cta-content">
     <p class="cta-eyebrow">Let's talk</p>
     <h2 class="cta-headline">
-      GOT SOMETHING<br>
-      <em>Brewing?</em>
+      <span class="cta-line"><span class="cta-word d1">GOT</span> <span class="cta-word d2">SOMETHING</span></span>
+      <span class="cta-line"><em><span class="cta-word d3">Brewing?</span></em></span>
     </h2>
     <p class="cta-sub">
       Open to Product &amp; Platform roles - India and global.<br>
@@ -2086,40 +2373,72 @@ const io = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
       e.target.classList.add('visible');
-      const counter = e.target.querySelector('[data-count]');
-      if(counter) countUp(counter);
     }
   });
 },{threshold:0.05});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+// Awards observer — triggers tilt-in animation on entry
+const awardsObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('visible'); }
+  });
+},{threshold:0.1});
+document.querySelectorAll('.aw-card').forEach(el=>awardsObs.observe(el));
+
+// CTA observer — animate headline on entry
+const ctaObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in-view'); }
+    else { e.target.classList.remove('in-view'); }
+  });
+},{threshold:0.25});
+const ctaSec = document.getElementById('contact');
+if(ctaSec) ctaObs.observe(ctaSec);
+
+// Counters — RE-TRIGGER every time they enter the viewport
+const countObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    const counter = e.target.querySelector('[data-count]');
+    if(!counter) return;
+    if(e.isIntersecting){
+      countUp(counter);
+    }
+  });
+},{threshold:0.4});
+document.querySelectorAll('.bn-cell').forEach(el=>countObs.observe(el));
+
 function countUp(el){
-  if(el.dataset.done) return;
-  el.dataset.done='1';
+  // Always allow re-trigger - kill any running rAF from previous run
+  if(el.dataset.raf) cancelAnimationFrame(parseInt(el.dataset.raf));
   const target = parseFloat(el.dataset.count);
   const prefix = el.dataset.prefix || '';
   const dur = 1400;
   const start = performance.now();
-  // For small targets, scramble through higher random numbers to feel rapid
   const scrambleMax = Math.max(target * 20, 99);
   function tick(now){
     const p = Math.min((now - start) / dur, 1);
     const eased = 1 - Math.pow(1 - p, 3);
     if(p < 0.75){
-      // Scramble phase - random numbers climbing toward target
       const climbing = Math.round(scrambleMax * eased * (0.7 + Math.random() * 0.5));
       el.textContent = prefix + climbing;
     } else {
-      // Lock phase - settle to target
       const settlePhase = (p - 0.75) / 0.25;
       const val = Math.round(target + (scrambleMax - target) * (1 - settlePhase) * 0.15 * (Math.random() - 0.5));
       el.textContent = prefix + Math.max(val, target);
     }
-    if(p < 1) requestAnimationFrame(tick);
-    else el.textContent = prefix + target;
+    if(p < 1) el.dataset.raf = requestAnimationFrame(tick);
+    else { el.textContent = prefix + target; delete el.dataset.raf; }
   }
-  requestAnimationFrame(tick);
+  el.dataset.raf = requestAnimationFrame(tick);
 }
+
+// Random hover-color assignment on skill list items
+document.querySelectorAll('.sc-list li').forEach(li=>{
+  const pick = Math.random() > 0.5 ? 'var(--neon)' : 'var(--pink)';
+  li.style.setProperty('--hover-c', pick);
+});
+
 </script>
 </body>
 </html>
