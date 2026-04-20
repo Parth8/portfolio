@@ -6,7 +6,7 @@
 <title>Parth Aggarwal - Technical Product & Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -55,18 +55,19 @@ body::after{
   pointer-events:none;z-index:9999;
   transform:translate(-50%,-50%);
   transition:transform 0.12s ease,width 0.18s,height 0.18s,background 0.18s;
-  mix-blend-mode:multiply;
+  mix-blend-mode:difference;
 }
 #cursor-ring{
   width:38px;height:38px;
-  border:1px solid var(--ink);
+  border:1px solid #fff;
   border-radius:50%;
   position:fixed;top:0;left:0;
   pointer-events:none;z-index:9998;
   transform:translate(-50%,-50%);
   transition:width 0.2s ease,height 0.2s ease,border-color 0.2s;
+  mix-blend-mode:difference;
 }
-#cursor.hover{width:50px;height:50px;background:var(--pink);mix-blend-mode:normal}
+#cursor.hover{width:50px;height:50px}
 #cursor-ring.hover{width:0;height:0;border-color:transparent}
 
 nav{
@@ -157,13 +158,13 @@ nav{
 .hero-type{
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(4rem,11.5vw,12.5rem);
-  line-height:0.88;
+  line-height:0.86;
   letter-spacing:-0.012em;
   color:var(--ink);
   position:relative;
 }
 /* FIX: extra vertical padding around each line so italic descenders (p, g, f, y) don't get clipped by overflow:hidden */
-.hero-line{display:block;overflow:hidden;padding:0.12em 0 0.18em}
+.hero-line{display:block;overflow:hidden;padding:0.06em 0 0.12em}
 .hero-word{
   display:inline-block;
   transform:translateY(110%);
@@ -184,8 +185,10 @@ nav{
   color:var(--neon-dark);
 }
 .hero-word.outline{
-  -webkit-text-stroke:1.5px var(--ink);
+  -webkit-text-stroke:1px var(--ink);
   color:transparent;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 .hero-word.with-mark{position:relative}
 .hero-word.with-mark::after{
@@ -271,21 +274,41 @@ nav{
   display:inline-flex;align-items:center;gap:0.5rem;
 }
 .stamp::before{content:'✦';color:#4a4740;font-size:0.6rem}
-.stamp.hot{color:var(--neon);border-color:var(--neon-dark);background:rgba(0,255,148,0.05)}
+.stamp.hot{color:var(--neon);border-color:var(--neon-dark);background:rgba(0,255,148,0.05);animation:flicker-green 3.6s infinite}
 .stamp.hot::before{color:var(--neon)}
-.stamp.gold{color:var(--gold);border-color:var(--gold-deep)}
+.stamp.gold{color:var(--gold);border-color:var(--gold-deep);animation:flicker-gold 4.2s infinite}
 .stamp.gold::before{color:var(--gold)}
-.stamp:nth-child(1){transform:rotate(-1.6deg)}
-.stamp:nth-child(2){transform:rotate(1.2deg)}
-.stamp:nth-child(3){transform:rotate(-0.8deg)}
-.stamp:nth-child(4){transform:rotate(2deg)}
-.stamp:nth-child(5){transform:rotate(-1.2deg)}
-.stamp:nth-child(6){transform:rotate(0.6deg)}
-.stamp:nth-child(7){transform:rotate(-2deg)}
-.stamp:nth-child(8){transform:rotate(1.4deg)}
-.stamp:nth-child(9){transform:rotate(-0.4deg)}
-.stamp:nth-child(10){transform:rotate(1.8deg)}
-.stamp:hover{transform:rotate(0) scale(1.08);color:var(--neon);border-color:var(--neon);background:rgba(0,255,148,0.12)}
+@keyframes flicker-green{
+  0%,18%,22%,25%,53%,57%,100%{
+    box-shadow:0 0 4px rgba(0,255,148,0.3),0 0 12px rgba(0,255,148,0.25),inset 0 0 6px rgba(0,255,148,0.1);
+    opacity:1;
+  }
+  20%,24%,55%{
+    box-shadow:none;
+    opacity:0.55;
+  }
+}
+@keyframes flicker-gold{
+  0%,8%,12%,62%,67%,100%{
+    box-shadow:0 0 4px rgba(230,181,71,0.35),0 0 10px rgba(230,181,71,0.22);
+    opacity:1;
+  }
+  10%,65%{
+    box-shadow:none;
+    opacity:0.6;
+  }
+}
+.stamp:nth-child(1){transform:rotate(-1.6deg);animation-delay:-0.3s}
+.stamp:nth-child(2){transform:rotate(1.2deg);animation-delay:-0.6s}
+.stamp:nth-child(3){transform:rotate(-0.8deg);animation-delay:-1.1s}
+.stamp:nth-child(4){transform:rotate(2deg);animation-delay:-1.8s}
+.stamp:nth-child(5){transform:rotate(-1.2deg);animation-delay:-2.4s}
+.stamp:nth-child(6){transform:rotate(0.6deg);animation-delay:-0.9s}
+.stamp:nth-child(7){transform:rotate(-2deg);animation-delay:-1.5s}
+.stamp:nth-child(8){transform:rotate(1.4deg);animation-delay:-2.1s}
+.stamp:nth-child(9){transform:rotate(-0.4deg);animation-delay:-0.2s}
+.stamp:nth-child(10){transform:rotate(1.8deg);animation-delay:-2.7s}
+.stamp:hover{transform:rotate(0) scale(1.08);color:var(--neon);border-color:var(--neon);background:rgba(0,255,148,0.12);animation-play-state:paused}
 
 .big-numbers{
   padding:7rem 2.5rem 5rem;
@@ -315,6 +338,76 @@ nav{
   position:relative;
   transition:padding-left 0.4s cubic-bezier(0.76,0,0.24,1);
 }
+.sharpie-note{
+  position:absolute;
+  top:2rem;left:14rem;
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.5rem;
+  color:var(--pink);
+  pointer-events:none;
+  white-space:nowrap;
+  z-index:2;
+  opacity:0;
+  transform:rotate(-5deg);
+  animation:sharpie-in 0.7s cubic-bezier(0.22,1,0.36,1) 1.2s forwards, wiggle 3s ease-in-out 2s infinite;
+}
+.sharpie-note::before{
+  content:'';
+  position:absolute;
+  left:-2.2rem;top:55%;
+  width:2rem;height:1.5px;
+  background:var(--pink);
+  transform:rotate(-8deg);
+  transform-origin:right center;
+}
+.sharpie-note::after{
+  content:'';
+  position:absolute;
+  left:-2.4rem;top:50%;
+  width:0;height:0;
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-right:8px solid var(--pink);
+  transform:rotate(-8deg);
+}
+@keyframes wiggle{
+  0%,100%{transform:rotate(-5deg) translateY(0)}
+  50%{transform:rotate(-3deg) translateY(-2px)}
+}
+@keyframes sharpie-in{
+  from{opacity:0;transform:rotate(-12deg) translateX(-20px) scale(0.7)}
+  to{opacity:1;transform:rotate(-5deg) translateX(0) scale(1)}
+}
+/* Post-it note - used in philosophy */
+.postit{
+  display:inline-block;
+  background:#FFF9A8;
+  color:#4a3b00;
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.15rem;
+  padding:0.5rem 1rem 0.65rem;
+  transform:rotate(-3deg);
+  box-shadow:3px 4px 10px rgba(0,0,0,0.12),1px 1px 0 rgba(0,0,0,0.04);
+  letter-spacing:0.01em;
+  line-height:1.2;
+  position:relative;
+  margin:0 0.3rem;
+  vertical-align:middle;
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
+  cursor:none;
+}
+.postit::before{
+  content:'';
+  position:absolute;
+  top:-6px;left:50%;
+  width:42px;height:14px;
+  background:rgba(255,220,100,0.55);
+  transform:translateX(-50%) rotate(-4deg);
+  border:1px solid rgba(0,0,0,0.04);
+}
+.postit:hover{transform:rotate(0deg) scale(1.08)}
 .bn-cell:nth-child(odd){padding-right:3rem;border-right:1px solid var(--border)}
 .bn-cell:nth-child(even){padding-left:3rem}
 .bn-cell:nth-last-child(-n+2){border-bottom:none;padding-bottom:0}
@@ -682,32 +775,26 @@ nav{
   text-decoration:none;
   color:var(--ink);
   position:relative;
-  transition:transform 0.3s;
+  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
-.feature-essay:hover{transform:translateY(-3px)}
+.feature-essay:hover{transform:translateY(-6px)}
+.feature-essay:hover .feat-title em{color:var(--pink)}
+.feature-essay:hover .feat-badge{transform:rotate(-4deg) scale(1.05);background:var(--pink);color:var(--eggshell)}
+.feature-essay:hover .feat-right{background:var(--neon);color:var(--ink)}
+.feature-essay:hover .feat-right::before{color:var(--ink);opacity:0.18}
+.feature-essay:hover .feat-pullquote{color:var(--ink);transform:translateX(4px)}
+.feature-essay:hover .feat-pullquote em{color:var(--ink);background:var(--ink);color:var(--neon);padding:0 0.2em;font-style:normal;font-family:'Inter',sans-serif;font-weight:500;font-size:0.8em;vertical-align:middle}
 .feature-essay::after{
-  content:'Read ↗';
-  position:absolute;bottom:0;right:0;
-  transform:translateY(100%);
+  content:'Read the full piece ↗';
+  position:absolute;bottom:-1.5rem;right:0;
   font-family:'DM Mono',monospace;
   font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
   color:var(--gray);
   padding-top:0.5rem;
-  transition:color 0.2s;
+  transition:color 0.3s,transform 0.3s,letter-spacing 0.3s;
 }
-.feature-essay:hover::after{color:var(--neon-dark)}
+.feature-essay:hover::after{color:var(--pink);transform:translateX(-8px);letter-spacing:0.2em}
 .feat-left{display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem}
-.feat-badge{
-  display:inline-block;
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;font-weight:500;
-  letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--ink);
-  background:var(--neon);
-  padding:0.45rem 0.9rem;
-  align-self:flex-start;
-  transform:rotate(-2deg);
-}
 .feat-title{
   font-family:'DM Serif Display',serif;
   font-size:clamp(2rem,4.5vw,3.8rem);
@@ -729,6 +816,7 @@ nav{
   display:flex;flex-direction:column;justify-content:center;
   position:relative;
   overflow:hidden;
+  transition:background 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 .feat-right::before{
   content:'"';
@@ -739,6 +827,7 @@ nav{
   color:var(--neon);
   opacity:0.15;
   line-height:1;
+  transition:color 0.4s,opacity 0.4s;
 }
 .feat-pullquote{
   font-family:'DM Serif Display',serif;
@@ -747,8 +836,22 @@ nav{
   line-height:1.35;
   color:var(--eggshell);
   position:relative;z-index:1;
+  transition:color 0.4s,transform 0.4s cubic-bezier(0.22,1,0.36,1);
 }
-.feat-pullquote em{color:var(--neon);font-style:normal}
+.feat-pullquote em{color:var(--neon);font-style:normal;transition:color 0.4s,background 0.4s}
+.feat-badge{
+  display:inline-block;
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;font-weight:500;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--ink);
+  background:var(--neon);
+  padding:0.45rem 0.9rem;
+  align-self:flex-start;
+  transform:rotate(-2deg);
+  transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.35s,color 0.35s;
+}
+.feat-title em{transition:color 0.35s}
 
 .essay-grid{
   display:grid;
@@ -1370,6 +1473,7 @@ footer span.neon{color:var(--neon)}
   <p class="bn-label">Impact · Measured</p>
   <div class="bn-grid">
     <div class="bn-cell reveal">
+      <span class="sharpie-note">yes, with a B.</span>
       <div class="bn-num"><span data-count="2" data-prefix="$">$0</span><span class="sup">B+</span></div>
       <div class="bn-caption">
         <div class="bn-desc">Annual card transactions powered across Mastercard rails for Optum (United Healthcare Group - Fortune 3).</div>
@@ -1568,7 +1672,7 @@ footer span.neon{color:var(--neon)}
       I don't believe in over-engineering. I don't believe in underthinking. I believe in <span class="boxed">earned simplicity</span> - the kind you only get after you've understood every edge case and decided, deliberately, strategically to build for what matters.<br> And I believe in putting customer needs at the front.
     </p>
     <p>
-      Now? I'm looking for the next <em>crazy, impossibly ambitious</em> thing to build.
+      Now? I'm looking for the next <em>crazy, impossibly ambitious</em> thing to build. <span class="postit">yes, I'm that guy</span>
     </p>
   </div>
 </section>
@@ -1700,7 +1804,7 @@ footer span.neon{color:var(--neon)}
       <p class="xp-co">Zeta.</p>
     </div>
     <div class="xp-right">
-      <p class="xp-role">Product Manager <em>- Technical Product Architect, Data Platforms (US + EMEA)</em></p>
+      <p class="xp-role">Technical Product Manager <em>- Data Platforms (US + EMEA)</em></p>
       <ul class="xp-pts">
         <li>Sole architectural decision-maker for a financial data platform serving enterprise banks across US + EMEA.</li>
         <li>Eliminated MongoDB dependency - <strong>$50K/year infra savings</strong> unlocked through platform rearchitecture.</li>
@@ -1986,7 +2090,7 @@ const io = new IntersectionObserver(entries=>{
       if(counter) countUp(counter);
     }
   });
-},{threshold:0.2});
+},{threshold:0.05});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
 function countUp(el){
@@ -1994,14 +2098,27 @@ function countUp(el){
   el.dataset.done='1';
   const target = parseFloat(el.dataset.count);
   const prefix = el.dataset.prefix || '';
-  const dur=1400, steps=50;
-  let i=0;
-  const interval=setInterval(()=>{
-    i++;
-    const val = Math.round(target*(i/steps));
-    el.textContent = prefix + val;
-    if(i>=steps){clearInterval(interval);el.textContent = prefix + target;}
-  }, dur/steps);
+  const dur = 1400;
+  const start = performance.now();
+  // For small targets, scramble through higher random numbers to feel rapid
+  const scrambleMax = Math.max(target * 20, 99);
+  function tick(now){
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    if(p < 0.75){
+      // Scramble phase - random numbers climbing toward target
+      const climbing = Math.round(scrambleMax * eased * (0.7 + Math.random() * 0.5));
+      el.textContent = prefix + climbing;
+    } else {
+      // Lock phase - settle to target
+      const settlePhase = (p - 0.75) / 0.25;
+      const val = Math.round(target + (scrambleMax - target) * (1 - settlePhase) * 0.15 * (Math.random() - 0.5));
+      el.textContent = prefix + Math.max(val, target);
+    }
+    if(p < 1) requestAnimationFrame(tick);
+    else el.textContent = prefix + target;
+  }
+  requestAnimationFrame(tick);
 }
 </script>
 </body>
