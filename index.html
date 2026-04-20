@@ -6,9 +6,10 @@
 <title>Parth Aggarwal - Technical Product & Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,a,button,input,textarea,select,*{cursor:none !important}
 :root{
   --neon:#00FF94;
   --neon-dark:#00CC75;
@@ -54,8 +55,9 @@ body::after{
   position:fixed;top:0;left:0;
   pointer-events:none;z-index:9999;
   transform:translate(-50%,-50%);
-  transition:transform 0.12s ease,width 0.18s,height 0.18s,background 0.18s;
+  transition:transform 0.12s ease,width 0.45s cubic-bezier(0.22,1,0.36,1),height 0.45s cubic-bezier(0.22,1,0.36,1),background 0.45s cubic-bezier(0.22,1,0.36,1),opacity 0.4s cubic-bezier(0.22,1,0.36,1);
   mix-blend-mode:difference;
+  will-change:width,height,transform;
 }
 #cursor-ring{
   width:38px;height:38px;
@@ -64,11 +66,13 @@ body::after{
   position:fixed;top:0;left:0;
   pointer-events:none;z-index:9998;
   transform:translate(-50%,-50%);
-  transition:width 0.2s ease,height 0.2s ease,border-color 0.2s;
+  transition:width 0.55s cubic-bezier(0.22,1,0.36,1),height 0.55s cubic-bezier(0.22,1,0.36,1),border-color 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.4s cubic-bezier(0.22,1,0.36,1);
   mix-blend-mode:difference;
+  opacity:1;
+  will-change:width,height,opacity,transform;
 }
 #cursor.hover{width:50px;height:50px}
-#cursor-ring.hover{width:0;height:0;border-color:transparent}
+#cursor-ring.hover{width:12px;height:12px;border-color:transparent;opacity:0}
 
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
@@ -126,6 +130,116 @@ nav{
 }
 .float-cta:hover .dot{background:var(--ink)}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
+
+/* SCROLL PROGRESS - vertical bar on left edge */
+.scroll-progress{
+  position:fixed;
+  top:0;bottom:0;left:0;
+  width:2px;
+  background:transparent;
+  z-index:200;
+  pointer-events:none;
+}
+.scroll-progress-fill{
+  width:100%;
+  height:0%;
+  background:linear-gradient(180deg,var(--neon) 0%,var(--neon) 40%,var(--pink) 100%);
+  transition:height 0.08s linear;
+  box-shadow:0 0 10px rgba(0,255,148,0.5);
+}
+
+/* SIDE SECTION DOTS - progress indicator */
+.side-nav{
+  position:fixed;
+  top:50%;right:1.5rem;
+  transform:translateY(-50%);
+  z-index:80;
+  display:flex;flex-direction:column;gap:0.85rem;
+  opacity:0;
+  transition:opacity 0.4s;
+  pointer-events:none;
+}
+.side-nav.visible{opacity:1;pointer-events:auto}
+.side-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  border:1px solid var(--ink);
+  background:transparent;
+  position:relative;
+  transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
+  text-decoration:none;
+  display:block;
+}
+.side-dot::before{
+  content:attr(data-label);
+  position:absolute;
+  right:calc(100% + 0.85rem);
+  top:50%;transform:translateY(-50%) translateX(6px);
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--ink);
+  white-space:nowrap;
+  opacity:0;
+  transition:opacity 0.25s,transform 0.25s;
+  pointer-events:none;
+  background:rgba(243,239,228,0.9);
+  padding:0.25rem 0.5rem;
+  border-radius:3px;
+}
+.side-dot:hover::before,.side-dot.active::before{opacity:1;transform:translateY(-50%) translateX(0)}
+.side-dot.active{background:var(--neon);border-color:var(--neon);transform:scale(1.3)}
+.side-dot:hover{transform:scale(1.3)}
+.side-dot.active:hover{transform:scale(1.4)}
+
+/* SHIPPED-WITH STRIP */
+.shipped-with{
+  padding:3rem 0;
+  background:var(--eggshell-warm);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+  position:relative;
+}
+.sw-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--gray);
+  margin-bottom:1.75rem;
+  padding:0 2.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.sw-label::before,.sw-label::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--border);
+}
+.sw-marquee-wrap{overflow:hidden;white-space:nowrap}
+.sw-marquee{
+  display:inline-flex;align-items:center;gap:0;
+  animation:sw-scroll 48s linear infinite;
+  will-change:transform;
+}
+.sw-marquee:hover{animation-play-state:paused}
+.sw-item{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:2rem;
+  letter-spacing:0.02em;
+  color:var(--ink);
+  padding:0 1.5rem;
+  flex-shrink:0;
+  transition:color 0.3s,transform 0.3s;
+}
+.sw-item:hover{color:var(--pink);transform:translateY(-3px)}
+.sw-dot{
+  color:var(--neon-dark);
+  font-size:0.75rem;
+  padding:0 0.5rem;
+  flex-shrink:0;
+}
+@keyframes sw-scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
 
 /* HERO - restored original layout */
 .hero{
@@ -464,9 +578,26 @@ nav{
   user-select:none;pointer-events:none;
   line-height:0.8;
 }
-.quote-inner{max-width:900px;position:relative;z-index:1;margin-bottom:4rem}
+.quote-inner{
+  max-width:900px;position:relative;z-index:1;margin-bottom:4rem;
+  opacity:0;transform:translateY(30px);
+  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);
+}
+.quote-section.in-view .quote-inner{opacity:1;transform:translateY(0)}
+.quote-section.in-view .quote-inner:nth-child(3){transition-delay:0.25s}
 .quote-inner:last-child{margin-bottom:0}
-.quote-inner.tilt-right{transform:rotate(-0.6deg);margin-left:auto;margin-right:0;max-width:900px}
+.quote-inner.tilt-right{margin-left:auto;margin-right:0;max-width:900px}
+.quote-section.in-view .quote-inner.tilt-right{transform:translateY(0) rotate(-0.6deg)}
+.quote-inner.tilt-right{transform:translateY(30px) rotate(-0.6deg)}
+.quote-inner:hover .quote-text em{text-shadow:0 0 20px rgba(0,255,148,0.6)}
+.quote-inner:hover .quote-text .highlight::after{animation:hl-pulse 1.6s ease-in-out infinite}
+@keyframes hl-pulse{
+  0%,100%{opacity:1;transform:scaleX(1)}
+  50%{opacity:0.6;transform:scaleX(1.04)}
+}
+.quote-text .highlight::after{transition:opacity 0.3s,transform 0.3s;transform-origin:left center}
+.quote-text em{transition:text-shadow 0.4s}
+.quote-bg-mark{transition:transform 0.2s ease-out}
 .quote-label{
   font-family:'DM Mono',monospace;
   font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
@@ -528,16 +659,14 @@ nav{
   gap:4rem;
   align-items:start;
   position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);
 }
-.case:nth-child(odd){background:var(--eggshell)}
-.case:nth-child(even){background:var(--eggshell-deep)}
-.case-left{position:sticky;top:6rem}
-.case-num{
-  font-family:'DM Mono',monospace;
-  font-size:0.68rem;letter-spacing:0.15em;color:var(--gray);
-  margin-bottom:1rem;
-}
-.case-num span{color:var(--pink)}
+.case.in-view{opacity:1;transform:translateY(0)}
+.case:hover .case-title em{color:var(--pink)}
+.case:hover .case-metric-hero .c-accent{transform:scale(1.05) translateY(-3px)}
+.case-metric-hero .c-accent{display:inline-block;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1)}
+.case-title em{transition:color 0.4s}
 .case-client{
   font-family:'DM Mono',monospace;
   font-size:0.75rem;font-weight:500;
@@ -548,7 +677,39 @@ nav{
   background:var(--neon);
   padding:0.4rem 0.9rem;
   transform:rotate(-1.2deg);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),background 0.3s;
 }
+.case:hover .case-client{transform:rotate(0deg) scale(1.05);background:var(--pink);color:var(--eggshell)}
+.case-stack span{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.06em;
+  padding:0.35rem 0.75rem;
+  border:1px solid var(--border);
+  color:var(--gray);
+  background:var(--paper);
+  transition:border-color 0.2s,color 0.2s,transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.2s;
+  opacity:0;
+  transform:translateY(12px);
+}
+.case.in-view .case-stack span{opacity:1;transform:translateY(0)}
+.case.in-view .case-stack span:nth-child(1){transition-delay:0.35s}
+.case.in-view .case-stack span:nth-child(2){transition-delay:0.4s}
+.case.in-view .case-stack span:nth-child(3){transition-delay:0.45s}
+.case.in-view .case-stack span:nth-child(4){transition-delay:0.5s}
+.case.in-view .case-stack span:nth-child(5){transition-delay:0.55s}
+.case.in-view .case-stack span:nth-child(6){transition-delay:0.6s}
+.case.in-view .case-stack span:nth-child(7){transition-delay:0.65s}
+.case.in-view .case-stack span:nth-child(8){transition-delay:0.7s}
+.case-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
+.case:nth-child(odd){background:var(--eggshell)}
+.case:nth-child(even){background:var(--eggshell-deep)}
+.case-left{position:sticky;top:6rem}
+.case-num{
+  font-family:'DM Mono',monospace;
+  font-size:0.68rem;letter-spacing:0.15em;color:var(--gray);
+  margin-bottom:1rem;
+}
+.case-num span{color:var(--pink)}
 .case-title{
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(2.5rem,5vw,4.5rem);
@@ -589,16 +750,6 @@ nav{
 .case-desc{font-size:0.95rem;line-height:1.8;color:#3d3b34;margin-bottom:2rem}
 .case-desc strong{color:var(--ink);font-weight:500;background:var(--neon);padding:0.05em 0.3em}
 .case-stack{display:flex;flex-wrap:wrap;gap:0.4rem}
-.case-stack span{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.06em;
-  padding:0.35rem 0.75rem;
-  border:1px solid var(--border);
-  color:var(--gray);
-  background:var(--paper);
-  transition:border-color 0.2s,color 0.2s,transform 0.2s;
-}
-.case-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-2px) rotate(-1.5deg)}
 
 .skills-wrap{
   padding:6rem 2.5rem;
@@ -642,16 +793,47 @@ nav{
   padding:2.5rem 1.5rem 2.5rem 0;
   border-right:1px solid #1f1c18;
   transition:background 0.3s;
+  position:relative;
 }
 .skill-col:last-child{border-right:none;padding-right:0}
 .skill-col:first-child{padding-left:0}
 .skill-col:not(:first-child){padding-left:2rem}
+.skill-col:hover{background:rgba(0,255,148,0.02)}
+.skill-col::before{
+  /* Column index number */
+  content:counter(col-num,decimal-leading-zero);
+  counter-increment:col-num;
+  position:absolute;
+  top:0.5rem;right:0.5rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;letter-spacing:0.2em;
+  color:#3a3730;
+  opacity:0.8;
+}
+.skill-col:first-child::before{right:auto;left:0}
+.skills-cols{counter-reset:col-num}
+
 .sc-label{
   font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
   color:var(--neon);
   margin-bottom:2rem;
+  display:flex;align-items:center;gap:0.5rem;
+  padding-bottom:0.75rem;
+  border-bottom:1px dashed #2a2722;
 }
+.sc-label::before{
+  content:'';
+  width:8px;height:8px;
+  background:var(--neon);
+  flex-shrink:0;
+  animation:pulse-dot 2.2s ease-in-out infinite;
+}
+.skill-col:nth-child(2) .sc-label::before{background:var(--pink);animation-delay:-0.5s}
+.skill-col:nth-child(3) .sc-label::before{background:var(--gold);animation-delay:-1.1s}
+.skill-col:nth-child(2) .sc-label{color:var(--pink)}
+.skill-col:nth-child(3) .sc-label{color:var(--gold)}
+
 .sc-list{list-style:none;display:flex;flex-direction:column}
 .sc-list li{
   font-family:'Inter',sans-serif;
@@ -661,10 +843,22 @@ nav{
   color:#8a867d;
   padding:0.75rem 0;
   border-bottom:1px solid #1a1814;
-  transition:color 0.25s,padding-left 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.25s,letter-spacing 0.25s;
+  transition:color 0.25s,padding-left 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.25s,letter-spacing 0.25s,transform 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.4s;
   position:relative;
   --hover-c:var(--neon);
+  opacity:0;
+  transform:translateX(-16px);
 }
+.skills-wrap.in-view .sc-list li{opacity:1;transform:translateX(0)}
+.skills-wrap.in-view .sc-list li:nth-child(1){transition-delay:0.15s,0.3s,0.25s,0.25s,0.15s,0.15s}
+.skills-wrap.in-view .sc-list li:nth-child(2){transition-delay:0.2s,0.3s,0.25s,0.25s,0.2s,0.2s}
+.skills-wrap.in-view .sc-list li:nth-child(3){transition-delay:0.25s,0.3s,0.25s,0.25s,0.25s,0.25s}
+.skills-wrap.in-view .sc-list li:nth-child(4){transition-delay:0.3s,0.3s,0.25s,0.25s,0.3s,0.3s}
+.skills-wrap.in-view .sc-list li:nth-child(5){transition-delay:0.35s,0.3s,0.25s,0.25s,0.35s,0.35s}
+.skills-wrap.in-view .sc-list li:nth-child(6){transition-delay:0.4s,0.3s,0.25s,0.25s,0.4s,0.4s}
+.skills-wrap.in-view .sc-list li:nth-child(7){transition-delay:0.45s,0.3s,0.25s,0.25s,0.45s,0.45s}
+.skills-wrap.in-view .sc-list li:nth-child(8){transition-delay:0.5s,0.3s,0.25s,0.25s,0.5s,0.5s}
+.skills-wrap.in-view .sc-list li:nth-child(9){transition-delay:0.55s,0.3s,0.25s,0.25s,0.55s,0.55s}
 .sc-list li::before{
   content:'→';
   font-family:'DM Mono',monospace;
@@ -680,15 +874,16 @@ nav{
 .philosophy{
   padding:7rem 2.5rem;
   display:grid;
-  grid-template-columns:1fr 2fr;
+  grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);
   gap:4rem;
   border-bottom:1px solid var(--border);
-  align-items:start;
+  align-items:center;
   background:var(--eggshell-warm);
 }
 .ph-left{
-  position:sticky;top:7rem;
   display:flex;flex-direction:column;gap:1.5rem;
+  max-width:380px;
+  justify-self:center;
 }
 .ph-label{
   font-family:'DM Mono',monospace;
@@ -701,15 +896,16 @@ nav{
 .ph-figure{
   background:var(--paper);
   border:1px solid var(--border);
-  padding:1.25rem;
+  padding:1rem;
   margin:0;
-  transform:rotate(-1.2deg);
+  --ph-rot:-1.2deg;
+  --ph-ty:0px;
+  transform:rotate(var(--ph-rot)) translateY(var(--ph-ty));
   box-shadow:4px 6px 20px rgba(0,0,0,0.06),1px 2px 4px rgba(0,0,0,0.04);
   transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
   position:relative;
 }
 .ph-figure::before{
-  /* Pin */
   content:'';
   position:absolute;
   top:-8px;left:50%;transform:translateX(-50%);
@@ -718,7 +914,10 @@ nav{
   box-shadow:0 2px 4px rgba(0,0,0,0.2),inset -2px -2px 3px rgba(0,0,0,0.15);
   z-index:2;
 }
-.ph-figure:hover{transform:rotate(0deg) translateY(-4px);box-shadow:6px 10px 30px rgba(0,0,0,0.1)}
+.ph-figure:hover{
+  transform:rotate(0deg) translateY(-8px) scale(1.03) !important;
+  box-shadow:8px 14px 40px rgba(0,0,0,0.12),2px 4px 8px rgba(0,0,0,0.06);
+}
 .ph-illustration{
   display:block;
   width:100%;
@@ -726,40 +925,42 @@ nav{
 }
 .ph-figcaption{
   display:flex;align-items:baseline;gap:0.6rem;
-  padding-top:0.9rem;
+  padding-top:0.75rem;
   margin-top:0.25rem;
   border-top:1px dashed var(--border);
 }
 .ph-fignum{
   font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
+  font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;
   color:var(--pink);
   font-weight:500;
 }
 .ph-figtext{
   font-family:'DM Serif Display',serif;
   font-style:italic;
-  font-size:0.95rem;
+  font-size:0.85rem;
   color:var(--ink);
   line-height:1.3;
 }
 .ph-text{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.8rem,3.5vw,2.8rem);
-  line-height:1.25;
+  font-family:'Fraunces',serif;
+  font-weight:500;
+  font-size:clamp(1.4rem,2.4vw,2.1rem);
+  line-height:1.35;
   color:var(--ink);
-  letter-spacing:-0.01em;
+  letter-spacing:-0.008em;
 }
-.ph-text p{margin-bottom:1.5rem}
-.ph-text em{font-style:italic;color:var(--neon-dark)}
+.ph-text p{margin-bottom:1.75rem}
+.ph-text p:last-child{margin-bottom:0}
+.ph-text em{font-style:italic;color:var(--neon-dark);font-weight:600}
 .ph-text .boxed{
   font-family:'Inter',sans-serif;
   font-style:normal;
-  font-weight:500;
-  font-size:0.85em;
+  font-weight:600;
+  font-size:0.82em;
   background:var(--ink);
   color:var(--eggshell);
-  padding:0.15em 0.4em;
+  padding:0.12em 0.4em;
   display:inline-block;
   letter-spacing:-0.005em;
   transform:rotate(-2deg);
@@ -799,8 +1000,28 @@ nav{
   font-family:'Bebas Neue',sans-serif;
   font-size:clamp(3rem,7vw,6rem);
   line-height:0.9;letter-spacing:-0.01em;
+  position:relative;
 }
-.writings-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
+.writings-title em{
+  font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark);
+  display:inline-block;
+  animation:tilt-hover 6s ease-in-out infinite;
+  transform-origin:center bottom;
+}
+@keyframes tilt-hover{
+  0%,100%{transform:rotate(-1.5deg) translateY(0)}
+  50%{transform:rotate(1.5deg) translateY(-4px)}
+}
+.writings-title .bracket{
+  display:inline-block;
+  color:var(--pink);
+  opacity:0;
+  transform:translateX(-12px);
+  transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.writings-title .bracket.right{transform:translateX(12px)}
+.writings.in-view .writings-title .bracket{opacity:0.85;transform:translateX(0);transition-delay:0.25s}
+.writings.in-view .writings-title .bracket.right{transform:translateX(0);transition-delay:0.4s}
 .writings-edition{
   font-family:'DM Mono',monospace;
   font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
@@ -1441,6 +1662,37 @@ nav{
   transition:transform 0.7s cubic-bezier(0.76,0,0.24,1);
 }
 .cta-section.in-view .cta-headline em::after{transform:scaleX(1);transition-delay:1.1s}
+/* Neon-sign pulse: glow shifts with a subtle flicker */
+.cta-section.in-view .cta-headline em{
+  animation:brew-neon 3.2s ease-in-out 1.8s infinite;
+}
+@keyframes brew-neon{
+  0%,8%,11%,100%{
+    text-shadow:0 0 10px rgba(0,255,148,0.55),0 0 24px rgba(0,255,148,0.4),0 0 42px rgba(0,255,148,0.25);
+    transform:scale(1) rotate(0deg);
+  }
+  9%,10%{
+    /* Flicker - brief dimming like a faulty sign */
+    text-shadow:0 0 3px rgba(0,255,148,0.2);
+    transform:scale(1) rotate(0deg);
+  }
+  45%{
+    text-shadow:0 0 16px rgba(255,45,120,0.55),0 0 32px rgba(255,45,120,0.35),0 0 54px rgba(0,255,148,0.3);
+    transform:scale(1.04) rotate(-1deg);
+  }
+  60%{
+    text-shadow:0 0 10px rgba(0,255,148,0.55),0 0 24px rgba(0,255,148,0.4),0 0 42px rgba(0,255,148,0.25);
+    transform:scale(1.06) rotate(0.5deg);
+  }
+}
+/* Pulsing fill under Brewing */
+.cta-section.in-view .cta-headline em::after{
+  animation:brew-bar-pulse 3.2s ease-in-out 2.4s infinite;
+}
+@keyframes brew-bar-pulse{
+  0%,100%{filter:brightness(1) saturate(1);box-shadow:none}
+  50%{filter:brightness(1.18) saturate(1.3);box-shadow:0 0 24px rgba(0,255,148,0.5)}
+}
 .cta-sub{
   font-family:'DM Serif Display',serif;
   font-style:italic;
@@ -1483,19 +1735,27 @@ nav{
 }
 .cta-section.in-view .boss-sticker{
   opacity:1;
-  transform:translateY(0) rotate(-6deg) scale(1);
+  transform:translateY(0) rotate(-10deg) scale(1);
 }
-.boss-sticker:hover{transform:translateY(-4px) rotate(-2deg) scale(1.05) !important;transition-delay:0s,0s}
+.boss-sticker:hover{
+  transform:translateY(-8px) rotate(-3deg) scale(1.12) !important;
+  transition:transform 0.45s cubic-bezier(0.22,1,0.36,1) 0s,opacity 0.3s 0s !important;
+  z-index:10;
+}
 .boss-polaroid{
   background:#fafafa;
   padding:10px 10px 40px;
   border:1px solid #d8d3c2;
   box-shadow:4px 6px 18px rgba(0,0,0,0.18),1px 2px 4px rgba(0,0,0,0.08);
-  width:150px;
+  width:160px;
   position:relative;
+  transition:box-shadow 0.45s,background 0.45s;
+}
+.boss-sticker:hover .boss-polaroid{
+  box-shadow:12px 16px 40px rgba(0,0,0,0.28),3px 5px 10px rgba(0,0,0,0.14);
+  background:#fff;
 }
 .boss-polaroid::before{
-  /* Washi tape */
   content:'';
   position:absolute;
   top:-10px;left:50%;
@@ -1504,13 +1764,24 @@ nav{
   transform:translateX(-50%) rotate(-4deg);
   border:1px solid rgba(0,0,0,0.06);
   z-index:2;
+  transition:background 0.35s,transform 0.35s,width 0.35s;
+}
+.boss-sticker:hover .boss-polaroid::before{
+  background:rgba(255,45,120,0.7);
+  transform:translateX(-50%) rotate(4deg);
+  width:72px;
 }
 .boss-polaroid img{
   display:block;
-  width:130px;height:104px;
+  width:140px;height:112px;
   object-fit:cover;
   object-position:center 30%;
   filter:grayscale(20%) contrast(0.95);
+  transition:filter 0.45s,transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+.boss-sticker:hover .boss-polaroid img{
+  filter:grayscale(0%) contrast(1.08) saturate(1.1);
+  transform:scale(1.04);
 }
 .boss-caption{
   font-family:'Caveat',cursive;
@@ -1520,6 +1791,12 @@ nav{
   transform:rotate(3deg);
   margin-left:0.75rem;
   margin-top:-0.25rem;
+  transition:transform 0.35s,font-size 0.35s,color 0.35s;
+}
+.boss-sticker:hover .boss-caption{
+  transform:rotate(-2deg) translateX(6px);
+  font-size:1.3rem;
+  color:var(--neon-dark);
 }
 .cta-btn{
   font-family:'DM Mono',monospace;
@@ -1560,6 +1837,10 @@ footer span.neon{color:var(--neon)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 @media(max-width:900px){
+  .side-nav{display:none}
+  .scroll-progress{display:none}
+  .sw-item{font-size:1.4rem}
+  .boss-sticker{display:none}
   .hero-bottom{grid-template-columns:1fr}
   .hero-scroll{display:none}
   .bn-grid{grid-template-columns:1fr}
@@ -1591,11 +1872,16 @@ footer span.neon{color:var(--neon)}
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
+<!-- Scroll progress bar -->
+<div class="scroll-progress" aria-hidden="true">
+  <div class="scroll-progress-fill" id="scrollFill"></div>
+</div>
+
 <nav>
   <a href="#" class="nav-logo">Parth Aggarwal <span>-</span> Technical Product ✦ Platform</a>
   <div class="nav-right">
-    <a href="#work">The Work</a>
-    <a href="#writings">Thoughts</a>
+    <a href="#sec-work">The Work</a>
+    <a href="#sec-writings">Thoughts</a>
     <a href="#contact">Say Hi</a>
   </div>
 </nav>
@@ -1606,7 +1892,7 @@ footer span.neon{color:var(--neon)}
 </a>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="sec-hero">
   <div class="hero-top">
     <span class="left-col">Available · Full-time</span>
     <div class="right-col">
@@ -1619,7 +1905,7 @@ footer span.neon{color:var(--neon)}
     <h1 class="hero-type">
       <span class="hero-line"><span class="hero-word d1">Technical</span></span>
       <span class="hero-line"><span class="hero-word serif d2">Product &amp; Platform</span></span>
-      <span class="hero-line"><span class="hero-word with-mark d3">ARCHITECT</span></span>
+      <span class="hero-line"><span class="hero-word with-mark d3">Manager/Architect</span></span>
       <span class="hero-line"><span class="hero-word outline d4">BUILDING</span></span>
       <span class="hero-line"><span class="hero-word serif d5">big, boring, beautiful</span> <span class="hero-word d6">THINGS.</span></span>
     </h1>
@@ -1627,7 +1913,7 @@ footer span.neon{color:var(--neon)}
 
   <div class="hero-bottom">
     <p class="hero-intro">
-      One multi-tenant data infrastructure, one <strong>$2B</strong> payments platform, one credit card launch, and a handful of awards later - I'm <strong>Parth</strong>. I build systems that work &amp; banks <strong>trust</strong>.
+      Architected one multi-tenant data platform. Shipped one <strong>$2B</strong> payments infrastructure. Launched one US credit card program. A handful of awards. I'm <strong>Parth</strong> - I own systems end-to-end, and I build what <strong>banks bet their license on</strong>.
     </p>
     <div class="hero-scroll">Scroll</div>
   </div>
@@ -1648,11 +1934,11 @@ footer span.neon{color:var(--neon)}
 </div>
 
 <!-- BIG NUMBERS -->
-<section class="big-numbers">
+<section class="big-numbers" id="sec-numbers">
   <p class="bn-label">Impact · Measured</p>
   <div class="bn-grid">
     <div class="bn-cell reveal">
-      <span class="sharpie-note">yes, with a B.</span>
+      <span class="sharpie-note">yes, with a B!</span>
       <div class="bn-num"><span data-count="2" data-prefix="$">$0</span><span class="sup">B+</span></div>
       <div class="bn-caption">
         <div class="bn-desc">Annual card transactions powered across Mastercard rails for Optum (United Healthcare Group - Fortune 3).</div>
@@ -1683,28 +1969,8 @@ footer span.neon{color:var(--neon)}
   </div>
 </section>
 
-<!-- QUOTE -->
-<section class="quote-section">
-  <span class="quote-bg-mark">Parth.</span>
-  <div class="quote-inner">
-    <p class="quote-label">Working Principle · No. 01</p>
-    <p class="quote-text">
-      I build platforms the way systems engineers build <em>infrastructure</em> - <span class="highlight">constraints are features</span>, simplicity is earned, and the most important line of code is the one we decided not to write.
-    </p>
-    <p class="quote-attr">From my desk · Bengaluru</p>
-  </div>
-
-  <div class="quote-inner tilt-right">
-    <p class="quote-label">Working Principle · No. 02</p>
-    <p class="quote-text">
-      Transparency. <span class="highlight">Accountability.</span> <em>Trust.</em>
-    </p>
-    <p class="quote-attr">From my brain cells</p>
-  </div>
-</section>
-
 <!-- WORK -->
-<section id="work">
+<section id="sec-work" data-nav="work">
   <div class="work-header">
     <span class="wh-left">03 · Featured Cases · 2022-2025</span>
     <h2 class="wh-title">Selected <em>work</em></h2>
@@ -1715,13 +1981,13 @@ footer span.neon{color:var(--neon)}
       <p class="case-num">Case <span>/001</span></p>
       <p class="case-client">Optum Financial · UHG</p>
       <h3 class="case-title">Virtual Card<br><em>issuance platform</em></h3>
-      <p class="case-sub">0-defect production launch. 9 functional areas. Clean regulatory sign-off. Mastercard open loop rails.</p>
+      <p class="case-sub">0 P1/P2 defects into production. 9 functional areas. Clean regulatory sign-off from a Fortune 3. Mastercard open loop rails.</p>
     </div>
     <div class="case-right">
       <div class="case-metric-hero"><span>$</span><span class="c-accent">2</span><span class="sup">B+</span></div>
       <p class="case-metric-caption">Annual disbursements enabled → US healthcare providers</p>
       <p class="case-desc">
-        Led product strategy end-to-end for a Fortune 3 enterprise. Built a real-time <strong>FRM rules engine</strong> with configurable merchant/amount/risk thresholds. Owned API specs for the full card lifecycle - issue, cancel, reissue, reset - including webhooks, idempotency, and fallback handling. Integrated FeatureSpace ML for real-time fraud detection and built transaction traceability for compliance teams to debug in real-time.
+        Owned product strategy end-to-end for a Fortune 3 enterprise - discovery through regulatory sign-off, 9 functional areas, zero defects. Architected a real-time <strong>FRM rules engine</strong> with configurable merchant/amount/risk thresholds. Authored API specs and enforced QA across the full card lifecycle - issue, cancel, reissue, reset - webhooks, idempotency, error handling, fallback. Drove FeatureSpace ML integration for real-time fraud detection. Built transaction traceability so UHC compliance could investigate, resolve disputes, and debug production in real-time.
       </p>
       <div class="case-stack">
         <span>Mastercard Rails</span>
@@ -1740,23 +2006,23 @@ footer span.neon{color:var(--neon)}
       <p class="case-num">Case <span>/002</span></p>
       <p class="case-client">US + EMEA Banking</p>
       <h3 class="case-title">Multi-tenant<br><em>data platform</em></h3>
-      <p class="case-sub">Config-driven architecture. 1200+ governed attributes. Medallion layers with data contracts.</p>
+      <p class="case-sub">Config-driven architecture. 1200+ governed attributes. Medallion layers with enforced data contracts. Single point of architectural decision-making.</p>
     </div>
     <div class="case-right">
       <div class="case-metric-hero"><span>$</span><span class="c-accent">50</span><span class="sup">K / YR</span></div>
-      <p class="case-metric-caption">YoY infrastructure savings unlocked</p>
+      <p class="case-metric-caption">YoY infrastructure savings. GTM cut 90 days. CSAT 2.5 → 4.0.</p>
       <p class="case-desc">
-        Rearchitected from engineering-led custom builds to a <strong>fully platformized, subscription-based system</strong>. Eliminated MongoDB dependency. Codified platform guarantees, SLAs, ingress/egress strategy, canonical ingestion and transformation patterns. Established data contracts and a governed semantic layer across 1200+ attributes with full lineage, GDPR handling, RBAC, and freshness guarantees. New clients go live in 30 days flat.
+        Rearchitected from engineering-led one-off builds to a <strong>fully platformized, subscription-based system</strong>. Killed the MongoDB dependency. Mandated multi-tenant, config-driven architecture - optimized for platform reliability over short-term client demands. Codified platform guarantees, SLAs, ingress/egress strategy, canonical ingestion and transformation patterns. Enforced a governed semantic layer across 1200+ attributes with full lineage, GDPR handling, RBAC, and freshness SLAs. New banking clients now go live in 30 days via standardized playbooks - no code changes required.
       </p>
       <div class="case-stack">
         <span>Medallion Architecture</span>
         <span>Data Contracts</span>
-        <span>dbt</span>
-        <span>Apache Airflow</span>
+        <span>dbt · Airflow</span>
         <span>Kafka · S3</span>
         <span>GDPR Compliance</span>
         <span>Multi-tenant</span>
         <span>Semantic Layer</span>
+        <span>20+ Schemas</span>
       </div>
     </div>
   </article>
@@ -1766,13 +2032,13 @@ footer span.neon{color:var(--neon)}
       <p class="case-num">Case <span>/003</span></p>
       <p class="case-client">Evolve Bank · Zeta</p>
       <h3 class="case-title">Sparrow Card<br><em>US market launch</em></h3>
-      <p class="case-sub">Zeta's first US credit card program. Built the ops and support infrastructure from nothing.</p>
+      <p class="case-sub">Zeta's first US credit card program. Stood up the ops and support function from zero.</p>
     </div>
     <div class="case-right">
       <div class="case-metric-hero"><span class="c-accent">100</span><span class="sup">K+</span></div>
-      <p class="case-metric-caption">Card issuances · Jul 2024 · 2× revenue by Dec '24</p>
+      <p class="case-metric-caption">Issuances by Jul 2024 · 2× revenue vs projections by Dec '24</p>
       <p class="case-desc">
-        Multi-phase launch orchestration from onboarding through BAU operations. Built the <strong>US support &amp; ops function from scratch</strong> - reduced first response time by 99%, improved CSAT from 2.5 → 4.6 within 3 months. Built webhook/API-based support automation and managed 300+ releases with 89% SLO and 99% SLA adherence. Positioned Zeta as an emerging US fintech leader in the competitive credit card segment.
+        Ran a multi-phase market launch from onboarding through BAU operations. Stood up the <strong>US support &amp; ops function from zero</strong> - first response time -99%, CSAT 2.5 → 4.6 in 3 months. Designed webhook/API-based support automation, owned vendor onboarding, hired the team, ran training, and closed client feedback loops. Managed 300+ releases with 89% SLO and 99% SLA adherence. Planted Zeta's flag in the US fintech market.
       </p>
       <div class="case-stack">
         <span>Credit Card Launch</span>
@@ -1780,298 +2046,35 @@ footer span.neon{color:var(--neon)}
         <span>Evolve Bank</span>
         <span>Ops Infrastructure</span>
         <span>120+ SQL Dashboards</span>
-        <span>Release Management</span>
+        <span>300+ Releases</span>
       </div>
     </div>
   </article>
 
 </section>
 
-<!-- SKILLS -->
-<section class="skills-wrap">
-  <span class="skills-bg">CAPABILITIES</span>
-  <div class="skills-head">
-    <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
-    <p class="skills-sub">The stack · End to end</p>
-  </div>
-  <div class="skills-cols">
-    <div class="skill-col">
-      <p class="sc-label">◦ Fintech, Platform &amp; Payments</p>
-      <ul class="sc-list">
-        <li>Card issuance</li>
-        <li>Virtual cards &amp; BIN mgmt</li>
-        <li>Fraud detection &amp; FRM</li>
-        <li>REST · GraphQL APIs</li>
-        <li>Webhook architecture</li>
-        <li>Idempotency systems</li>
-        <li>Event-driven systems</li>
-        <li>Medallion architecture</li>
-        <li>Multi-tenant design</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Data &amp; Infrastructure</p>
-      <ul class="sc-list">
-        <li>Data contracts</li>
-        <li>Schema governance</li>
-        <li>DBT · Apache Airflow</li>
-        <li>Kafka · S3 · Batch · API ingestion</li>
-        <li>ETL · ELT pipelines</li>
-        <li>OLTP · OLAP systems</li>
-        <li>GDPR · PII · Lineage</li>
-        <li>Metabase · Superset</li>
-        <li>SQL · Python · MongoDB</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Product &amp; Leadership</p>
-      <ul class="sc-list">
-        <li>PRD · BRD · GTM</li>
-        <li>Agile · Scrum · RACI · Kanban</li>
-        <li>OKR · Product Roadmapping</li>
-        <li>CxO-level stakeholder mgmt</li>
-        <li>AI workflows · Claude · Cursor · Copilot</li>
-        <li>Figma · Notion · Jira</li>
-        <li>0-to-1 platform builds</li>
-        <li>Enterprise banking</li>
-        <li>CSAT &amp; ops scaling</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- PHILOSOPHY -->
-<section class="philosophy">
-  <div class="ph-left">
-    <p class="ph-label">Manifesto | No. 00</p>
-    <figure class="ph-figure" aria-hidden="true">
-      <svg viewBox="0 0 320 380" xmlns="http://www.w3.org/2000/svg" class="ph-illustration">
-        <!-- Blueprint grid -->
-        <defs>
-          <pattern id="blueprintGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(21,19,15,0.06)" stroke-width="0.5"/>
-          </pattern>
-          <pattern id="blueprintGridMajor" width="80" height="80" patternUnits="userSpaceOnUse">
-            <path d="M 80 0 L 0 0 0 80" fill="none" stroke="rgba(21,19,15,0.1)" stroke-width="0.8"/>
-          </pattern>
-          <marker id="arrowPink" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
-            <path d="M 0 0 L 8 4 L 0 8 Z" fill="#FF2D78"/>
-          </marker>
-        </defs>
-
-        <!-- Grid background -->
-        <rect x="0" y="0" width="320" height="380" fill="url(#blueprintGrid)"/>
-        <rect x="0" y="0" width="320" height="380" fill="url(#blueprintGridMajor)"/>
-
-        <!-- Technical frame corners -->
-        <g stroke="#15130F" stroke-width="1" fill="none">
-          <path d="M 10 10 L 30 10 M 10 10 L 10 30"/>
-          <path d="M 310 10 L 290 10 M 310 10 L 310 30"/>
-          <path d="M 10 370 L 30 370 M 10 370 L 10 350"/>
-          <path d="M 310 370 L 290 370 M 310 370 L 310 350"/>
-        </g>
-
-        <!-- Title block top-right -->
-        <g font-family="DM Mono, monospace" font-size="7" fill="#15130F" letter-spacing="1">
-          <text x="300" y="22" text-anchor="end" opacity="0.6">FIG. 01 / SHEET 1 OF 1</text>
-          <text x="300" y="32" text-anchor="end" opacity="0.4">P.A. · 2025 · REV A</text>
-        </g>
-
-        <!-- Scale/dimension line top -->
-        <g stroke="#15130F" stroke-width="0.7" fill="none" opacity="0.5">
-          <path d="M 60 50 L 260 50"/>
-          <path d="M 60 46 L 60 54"/>
-          <path d="M 260 46 L 260 54"/>
-        </g>
-        <text x="160" y="45" text-anchor="middle" font-family="DM Mono, monospace" font-size="7" fill="#15130F" opacity="0.6">PLATFORM LAYERS</text>
-
-        <!-- Card 1 (bottom) - medallion schematic -->
-        <g transform="translate(60 230) rotate(-8)">
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="#00FF94" opacity="0.12"/>
-          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#15130F" opacity="0.7">LAYER 01 / BRONZE</text>
-          <line x1="12" y1="30" x2="168" y2="30" stroke="#15130F" stroke-width="0.5" opacity="0.3"/>
-          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#15130F">raw ingestion</text>
-          <!-- chip -->
-          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#15130F" stroke-width="0.8"/>
-          <line x1="130" y1="82" x2="160" y2="82" stroke="#15130F" stroke-width="0.4"/>
-          <line x1="130" y1="89" x2="160" y2="89" stroke="#15130F" stroke-width="0.4"/>
-          <line x1="145" y1="75" x2="145" y2="97" stroke="#15130F" stroke-width="0.4"/>
-        </g>
-
-        <!-- Card 2 (middle) -->
-        <g transform="translate(70 170) rotate(-3)">
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="#F3EFE4"/>
-          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#15130F" opacity="0.7">LAYER 02 / SILVER</text>
-          <line x1="12" y1="30" x2="168" y2="30" stroke="#15130F" stroke-width="0.5" opacity="0.3"/>
-          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#15130F">cleaned · modelled</text>
-          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#15130F" stroke-width="0.8"/>
-          <line x1="130" y1="82" x2="160" y2="82" stroke="#15130F" stroke-width="0.4"/>
-          <line x1="130" y1="89" x2="160" y2="89" stroke="#15130F" stroke-width="0.4"/>
-          <line x1="145" y1="75" x2="145" y2="97" stroke="#15130F" stroke-width="0.4"/>
-        </g>
-
-        <!-- Card 3 (top) -->
-        <g transform="translate(80 110) rotate(2)">
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="none" stroke="#15130F" stroke-width="1.5"/>
-          <rect x="0" y="0" width="180" height="110" rx="8" fill="#15130F"/>
-          <text x="12" y="22" font-family="DM Mono, monospace" font-size="8" fill="#00FF94">LAYER 03 / GOLD</text>
-          <line x1="12" y1="30" x2="168" y2="30" stroke="#00FF94" stroke-width="0.5" opacity="0.5"/>
-          <text x="12" y="50" font-family="DM Serif Display, serif" font-style="italic" font-size="13" fill="#F3EFE4">served · trusted</text>
-          <rect x="130" y="75" width="30" height="22" rx="2" fill="none" stroke="#00FF94" stroke-width="0.8"/>
-          <line x1="130" y1="82" x2="160" y2="82" stroke="#00FF94" stroke-width="0.4"/>
-          <line x1="130" y1="89" x2="160" y2="89" stroke="#00FF94" stroke-width="0.4"/>
-          <line x1="145" y1="75" x2="145" y2="97" stroke="#00FF94" stroke-width="0.4"/>
-        </g>
-
-        <!-- Annotation arrows pointing to stack -->
-        <g stroke="#FF2D78" stroke-width="1" fill="none">
-          <path d="M 30 130 Q 50 120 70 125" marker-end="url(#arrowPink)"/>
-        </g>
-        <text x="16" y="118" font-family="Caveat, cursive" font-size="12" fill="#FF2D78" font-weight="600" transform="rotate(-8 16 118)">trust lives here</text>
-
-        <!-- Bottom dimension caption -->
-        <g font-family="DM Mono, monospace" font-size="7" fill="#15130F" opacity="0.55">
-          <text x="16" y="360" letter-spacing="1.5">MEDALLION ARCH. · DIAGRAMMATIC ONLY · NOT TO SCALE</text>
-        </g>
-      </svg>
-      <figcaption class="ph-figcaption">
-        <span class="ph-fignum">Fig. 01</span>
-        <span class="ph-figtext">a platform, as I see it.</span>
-      </figcaption>
-    </figure>
-  </div>
-  <div class="ph-text">
-    <p>
-      I believe fintech infrastructure should ship with <span class="marked">zero critical defects</span> <br>and feel thoughtful end-to-end.<br>I think the best product people think like customer-first architects - and the best architects think like <em>systems engineers</em>.
+<!-- QUOTE -->
+<section class="quote-section">
+  <span class="quote-bg-mark">Parth.</span>
+  <div class="quote-inner">
+    <p class="quote-label">Working Principle · No. 01</p>
+    <p class="quote-text">
+      I architect platforms the way systems engineers build <em>critical infrastructure</em> - <span class="highlight">constraints are features</span>, simplicity is earned, and the most important line of code is the one we decided not to write.
     </p>
-    <p>
-      I don't believe in over-engineering. I don't believe in underthinking. I believe in <span class="boxed">earned simplicity</span> - the kind you only get after you've understood every edge case and decided, deliberately, strategically to build for what matters.<br> And I believe in putting customer needs at the front.
+    <p class="quote-attr">From my desk · Bengaluru</p>
+  </div>
+
+  <div class="quote-inner tilt-right">
+    <p class="quote-label">Working Principle · No. 02</p>
+    <p class="quote-text">
+      Own it. <span class="highlight">Ship it.</span> <em>Defend it.</em>
     </p>
-    <p>
-      Now? I'm looking for the next <em>crazy, impossibly ambitious</em> thing to build. <span class="postit">yes, I'm that guy</span>
-    </p>
+    <p class="quote-attr">What every person I've worked with<br>has heard from me</p>
   </div>
-</section>
-
-<!-- WRITINGS -->
-<section class="writings" id="writings">
-  <div class="writings-head">
-    <div class="writings-masthead">
-      <h2 class="writings-title">thoughts, <em>absurd, aloud.</em></h2>
-      <span class="writings-edition">Vol. 001 · Essays · Medium</span>
-    </div>
-    <p class="writings-sub">On fintech, credit cards, tech culture, and the occasional metaphysical detour.</p>
-  </div>
-
-  <a class="feature-essay" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank">
-    <div class="feat-left">
-      <span class="feat-badge">Feature · Fintech Strategy</span>
-      <h3 class="feat-title">OLX is a crime scene. Is the cure a <em>pivot into becoming a fintech?</em></h3>
-      <div class="feat-meta">
-        <span>Medium</span>
-        <span>~8 min read</span>
-        <span>Analysis</span>
-      </div>
-    </div>
-    <div class="feat-right">
-      <p class="feat-pullquote">
-        A marketplace drowning in fraud, user trust collapsing in real time. The unlock is <em>not a safer listing flow</em> — it's a completely different business model.
-      </p>
-    </div>
-  </a>
-
-  <div class="essay-grid">
-    <a class="essay e-a" href="https://parthaggarwal8.medium.com/the-metro-housing-crisis-is-not-a-you-problem-265c167aa122" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Culture</p>
-        <h4 class="essay-title">The metro housing crisis is <em>not a "you problem"</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~7 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-b" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Product · Hot Take</p>
-        <h4 class="essay-title">Why are PM interviews still obsessed with <em>guesstimates like it's 2009?</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~6 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-c" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Tech Culture</p>
-        <h4 class="essay-title">The <em>mental debt</em> of being in tech</h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium · ~5 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-d" href="https://parthaggarwal8.medium.com/metacognition-as-quantum-superposition-rethinking-how-we-think-c75be6777444" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Philosophy</p>
-        <h4 class="essay-title">Metacognition as quantum superposition: <em>rethinking how we think</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~9 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-e" href="https://parthaggarwal8.medium.com/" target="_blank">
-      <div>
-        <p class="essay-kicker">More writing</p>
-        <h4 class="essay-title">Read every piece on <em>Medium</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Archive · All essays</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="series-band">
-    <div class="series-head">
-      <p class="series-name">Series — <strong>Decoding Credit Cards</strong></p>
-      <p class="series-desc">A five-part deep dive · Everything there is to know, from issuance to interest calc.</p>
-    </div>
-    <div class="series-chapters">
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank">
-        <div class="chapter-num">I</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Introduction</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-issuance-part-2-5b0ac72f638d" target="_blank">
-        <div class="chapter-num">II</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Issuance</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-types-part-3-040304533272" target="_blank">
-        <div class="chapter-num">III</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Types</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-transactions-part-4-37d25633fc97" target="_blank">
-        <div class="chapter-num">IV</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Transactions</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-payments-interest-calculations-part-5-bb95accaf804" target="_blank">
-        <div class="chapter-num">V</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Payments &amp; Interest</em></p>
-      </a>
-    </div>
-  </div>
-
 </section>
 
 <!-- EXPERIENCE -->
-<section class="xp-section">
+<section class="xp-section" id="sec-experience">
   <div class="xp-head">
     <h2 class="xp-main-title"><em>the</em> journey</h2>
     <p class="skills-sub" style="color:var(--gray)">2021 · 2026</p>
@@ -2123,8 +2126,273 @@ footer span.neon{color:var(--neon)}
   </div>
 </section>
 
+<!-- SKILLS -->
+<section class="skills-wrap" id="sec-skills">
+  <span class="skills-bg">CAPABILITIES</span>
+  <div class="skills-head">
+    <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
+    <p class="skills-sub">The stack · End to end</p>
+  </div>
+  <div class="skills-cols">
+    <div class="skill-col">
+      <p class="sc-label">◦ Fintech, Platform &amp; Payments</p>
+      <ul class="sc-list">
+        <li>Card issuance</li>
+        <li>Virtual cards &amp; BIN mgmt</li>
+        <li>Fraud detection &amp; FRM</li>
+        <li>REST · GraphQL APIs</li>
+        <li>Webhook architecture</li>
+        <li>Idempotency systems</li>
+        <li>Event-driven systems</li>
+        <li>Medallion architecture</li>
+        <li>Multi-tenant design</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <p class="sc-label">◦ Data &amp; Infrastructure</p>
+      <ul class="sc-list">
+        <li>Data contracts</li>
+        <li>Schema governance</li>
+        <li>DBT · Apache Airflow</li>
+        <li>Kafka · S3 · Batch · API ingestion</li>
+        <li>ETL · ELT pipelines</li>
+        <li>OLTP · OLAP systems</li>
+        <li>GDPR · PII · Lineage</li>
+        <li>Metabase · Superset</li>
+        <li>SQL · Python · MongoDB</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <p class="sc-label">◦ Product &amp; Leadership</p>
+      <ul class="sc-list">
+        <li>PRD · BRD · GTM</li>
+        <li>Agile · Scrum · RACI · Kanban</li>
+        <li>OKR · Product Roadmapping</li>
+        <li>CxO-level stakeholder mgmt</li>
+        <li>AI workflows · Claude · Cursor · Copilot</li>
+        <li>Figma · Notion · Jira</li>
+        <li>0-to-1 platform builds</li>
+        <li>Enterprise banking</li>
+        <li>CSAT &amp; ops scaling</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SHIPPED WITH / CLIENTS & PARTNERS -->
+<section class="shipped-with">
+  <p class="sw-label">Shipped with · Banked by · Integrated through</p>
+  <div class="sw-marquee-wrap">
+    <div class="sw-marquee">
+      <span class="sw-item">Mastercard</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Optum Financial</span><span class="sw-dot">✦</span>
+      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Evolve Bank</span><span class="sw-dot">✦</span>
+      <span class="sw-item">FeatureSpace</span><span class="sw-dot">✦</span>
+      <span class="sw-item">TransUnion</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Equifax</span><span class="sw-dot">✦</span>
+      <span class="sw-item">DigiFi</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Zeta</span><span class="sw-dot">✦</span>
+      <span class="sw-item">HDFC</span><span class="sw-dot">✦</span>
+      <span class="sw-item">MoEngage</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Qualco</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Decta</span><span class="sw-dot">✦</span>
+      <span class="sw-item">GoCardless</span><span class="sw-dot">✦</span>
+      <!-- Loop duplicate -->
+      <span class="sw-item">Mastercard</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Optum Financial</span><span class="sw-dot">✦</span>
+      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Evolve Bank</span><span class="sw-dot">✦</span>
+      <span class="sw-item">FeatureSpace</span><span class="sw-dot">✦</span>
+      <span class="sw-item">TransUnion</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Equifax</span><span class="sw-dot">✦</span>
+      <span class="sw-item">DigiFi</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Zeta</span><span class="sw-dot">✦</span>
+      <span class="sw-item">HDFC</span><span class="sw-dot">✦</span>
+      <span class="sw-item">MoEngage</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Qualco</span><span class="sw-dot">✦</span>
+      <span class="sw-item">Decta</span><span class="sw-dot">✦</span>
+      <span class="sw-item">GoCardless</span><span class="sw-dot">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section class="philosophy" id="sec-manifesto">
+  <div class="ph-left">
+    <p class="ph-label">Manifesto | No. 00</p>
+    <figure class="ph-figure" aria-hidden="true">
+      <svg viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg" class="ph-illustration">
+        <defs>
+          <!-- Wobble filter - makes strokes look hand-drawn -->
+          <filter id="wobble">
+            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/>
+            <feDisplacementMap in="SourceGraphic" scale="1.5"/>
+          </filter>
+          <filter id="wobbleHeavy">
+            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="7"/>
+            <feDisplacementMap in="SourceGraphic" scale="2.5"/>
+          </filter>
+          <!-- Paper texture (dot grid like a notebook) -->
+          <pattern id="dotgrid" width="14" height="14" patternUnits="userSpaceOnUse">
+            <circle cx="7" cy="7" r="0.6" fill="rgba(21,19,15,0.13)"/>
+          </pattern>
+          <marker id="arrHand" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto">
+            <path d="M 0 0 L 10 6 L 0 12 L 3 6 Z" fill="#15130F"/>
+          </marker>
+          <marker id="arrPink" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
+            <path d="M 0 0 L 9 5 L 0 10 Z" fill="#FF2D78"/>
+          </marker>
+        </defs>
+
+        <!-- Notebook dot-grid paper -->
+        <rect width="360" height="460" fill="url(#dotgrid)"/>
+
+        <!-- Coffee stain (bottom right) -->
+        <g opacity="0.18">
+          <ellipse cx="310" cy="420" rx="32" ry="28" fill="#8B6F47"/>
+          <ellipse cx="316" cy="418" rx="24" ry="20" fill="none" stroke="#5C4A2E" stroke-width="1.2"/>
+          <ellipse cx="318" cy="422" rx="16" ry="12" fill="#6B5637" opacity="0.5"/>
+        </g>
+        <text x="276" y="448" font-family="Caveat, cursive" font-size="10" fill="#8B6F47" opacity="0.7" transform="rotate(-8 276 448)">☕ 3rd one</text>
+
+        <!-- Title scribble, hand-written -->
+        <g font-family="Caveat, cursive" font-weight="700">
+          <text x="18" y="32" font-size="22" fill="#15130F" transform="rotate(-1.5 18 32)">data pipeline</text>
+          <text x="180" y="32" font-size="14" fill="#15130F" opacity="0.55" transform="rotate(-1 180 32)">(how I actually build it)</text>
+        </g>
+        <!-- Underline scribble -->
+        <path d="M 20 38 Q 55 42 92 37 Q 130 33 165 39" stroke="#15130F" stroke-width="1.5" fill="none" filter="url(#wobble)" stroke-linecap="round"/>
+
+        <!-- ============ SOURCES ============ -->
+        <text x="20" y="70" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F" transform="rotate(-1 20 70)">sources</text>
+        <path d="M 20 74 L 72 74" stroke="#15130F" stroke-width="1" fill="none" filter="url(#wobble)"/>
+
+        <g filter="url(#wobble)">
+          <rect x="20" y="82" width="66" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="92" y="84" width="66" height="28" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="164" y="80" width="66" height="32" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="236" y="83" width="78" height="29" fill="none" stroke="#15130F" stroke-width="1.3"/>
+        </g>
+        <g font-family="DM Mono, monospace" font-size="9" fill="#15130F" text-anchor="middle">
+          <text x="53" y="101">Kafka</text>
+          <text x="125" y="101">S3</text>
+          <text x="197" y="101">APIs</text>
+          <text x="275" y="101">Batch</text>
+        </g>
+
+        <!-- Hand-drawn arrows converging down -->
+        <g stroke="#15130F" stroke-width="1.3" fill="none" filter="url(#wobble)" stroke-linecap="round">
+          <path d="M 53 114 Q 100 125 167 138" marker-end="url(#arrHand)"/>
+          <path d="M 125 114 Q 145 125 172 138" marker-end="url(#arrHand)"/>
+          <path d="M 197 114 Q 190 126 182 138" marker-end="url(#arrHand)"/>
+          <path d="M 275 114 Q 240 128 195 140" marker-end="url(#arrHand)"/>
+        </g>
+
+        <!-- Margin scribble about sources -->
+        <g font-family="Caveat, cursive" font-size="11" fill="#15130F" opacity="0.6">
+          <text x="326" y="98" transform="rotate(12 326 98)">← all kinds</text>
+        </g>
+
+        <!-- ============ INGEST ============ -->
+        <text x="20" y="168" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">ingest (dbt + airflow)</text>
+        <g filter="url(#wobbleHeavy)">
+          <rect x="20" y="178" width="294" height="42" fill="rgba(0,255,148,0.18)" stroke="#15130F" stroke-width="1.6"/>
+        </g>
+        <text x="167" y="206" font-family="DM Serif Display, serif" font-style="italic" font-size="16" fill="#15130F" text-anchor="middle">contracts enforced here</text>
+
+        <!-- Pink scribble annotation -->
+        <g font-family="Caveat, cursive" font-size="13" font-weight="700" fill="#FF2D78">
+          <text x="328" y="194" text-anchor="end" transform="rotate(-4 328 194)">NO BROKEN PIPES.</text>
+        </g>
+        <path d="M 328 200 Q 324 210 320 218" stroke="#FF2D78" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrPink)" stroke-linecap="round"/>
+
+        <!-- Arrow down -->
+        <path d="M 167 222 L 167 252" stroke="#15130F" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrHand)" stroke-linecap="round"/>
+
+        <!-- ============ MEDALLION ============ -->
+        <text x="20" y="270" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">medallion</text>
+        <text x="88" y="270" font-family="Caveat, cursive" font-size="11" fill="#15130F" opacity="0.55">bronze → silver → gold</text>
+
+        <g filter="url(#wobble)">
+          <rect x="20" y="278" width="92" height="48" fill="rgba(205,127,50,0.12)" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="120" y="278" width="92" height="48" fill="rgba(192,192,192,0.12)" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="220" y="278" width="94" height="48" fill="#15130F" stroke="#15130F" stroke-width="1.3"/>
+        </g>
+        <g font-family="DM Mono, monospace" font-size="9" fill="#15130F">
+          <text x="66" y="297" text-anchor="middle" opacity="0.7">BRONZE</text>
+          <text x="166" y="297" text-anchor="middle" opacity="0.7">SILVER</text>
+        </g>
+        <text x="267" y="297" font-family="DM Mono, monospace" font-size="9" fill="#00FF94" text-anchor="middle">GOLD</text>
+        <g font-family="DM Serif Display, serif" font-style="italic" font-size="12">
+          <text x="66" y="316" text-anchor="middle" fill="#15130F">raw</text>
+          <text x="166" y="316" text-anchor="middle" fill="#15130F">cleaned</text>
+          <text x="267" y="316" text-anchor="middle" fill="#F3EFE4">served</text>
+        </g>
+        <!-- Tiny arrows between layers, hand drawn -->
+        <g stroke="#15130F" stroke-width="1.2" fill="none" filter="url(#wobble)" stroke-linecap="round">
+          <path d="M 112 302 L 120 302" marker-end="url(#arrHand)"/>
+          <path d="M 212 302 L 220 302" marker-end="url(#arrHand)"/>
+        </g>
+
+        <!-- "trust lives here" pointing at gold -->
+        <path d="M 260 264 Q 268 256 273 274" stroke="#FF2D78" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrPink)" stroke-linecap="round"/>
+        <text x="256" y="258" font-family="Caveat, cursive" font-size="13" font-weight="700" fill="#FF2D78" text-anchor="end" transform="rotate(-3 256 258)">trust lives here</text>
+
+        <!-- Crossed-out "just bronze" - an old idea -->
+        <g opacity="0.35">
+          <text x="26" y="344" font-family="Caveat, cursive" font-size="11" fill="#15130F" transform="rotate(-2 26 344)">just bronze was enough</text>
+          <path d="M 22 340 L 152 342" stroke="#FF2D78" stroke-width="2" filter="url(#wobble)" stroke-linecap="round"/>
+        </g>
+
+        <!-- Arrow down to consumers -->
+        <path d="M 167 328 L 167 362" stroke="#15130F" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrHand)" stroke-linecap="round"/>
+
+        <!-- ============ CONSUMERS ============ -->
+        <text x="20" y="378" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">consumers</text>
+        <g filter="url(#wobble)">
+          <rect x="20" y="386" width="92" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="118" y="386" width="108" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
+          <rect x="232" y="386" width="82" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
+        </g>
+        <g font-family="DM Mono, monospace" font-size="7.5" fill="#15130F" text-anchor="middle">
+          <text x="66" y="405">DASHBOARDS</text>
+          <text x="172" y="405">REG. REPORTS</text>
+          <text x="273" y="405">PARTNER APIs</text>
+        </g>
+
+        <!-- Corner scribble -->
+        <g font-family="Caveat, cursive" font-size="10" fill="#15130F" opacity="0.5">
+          <text x="20" y="438" transform="rotate(-1.5 20 438)">1,200+ attrs · 20+ schemas</text>
+          <text x="20" y="452" transform="rotate(-1 20 452)">GDPR · RBAC · lineage</text>
+        </g>
+
+        <!-- Little doodle star bottom-left, like where you absent-mindedly scribble -->
+        <g fill="#FF2D78" opacity="0.6" transform="rotate(18 340 60)">
+          <path d="M 340 52 L 343 60 L 350 60 L 345 65 L 347 73 L 340 68 L 333 73 L 335 65 L 330 60 L 337 60 Z"/>
+        </g>
+      </svg>
+      <figcaption class="ph-figcaption">
+        <span class="ph-fignum">Fig. 01</span>
+        <span class="ph-figtext">the pipeline I own. end-to-end.</span>
+      </figcaption>
+    </figure>
+  </div>
+  <div class="ph-text">
+    <p>
+      I believe fintech infrastructure should ship with <span class="marked">zero critical defects</span> and read cleanly end-to-end. The best product people think like customer-first <em>architects</em>. The best architects think like <em>systems engineers</em>. The best systems engineers sweat the edge cases before shipping.
+    </p>
+    <p>
+      I don't over-engineer. I don't underthink. I <span class="boxed">enforce earned simplicity</span> - the kind you only get after mapping every edge case and deliberately, strategically deciding what not to build. Customer needs at the front. Platform reliability at the core.
+    </p>
+    <p>
+      Now? I'm hunting for the next <em>impossibly ambitious</em> thing to own. <span class="postit">yes, I'm that guy<br>no, I'll not slow down</span>
+    </p>
+  </div>
+</section>
+
 <!-- AWARDS -->
-<section class="awards-section">
+<section class="awards-section" id="sec-awards">
   <div class="aw-head">
     <h2 class="aw-title"><em>recognition</em></h2>
     <p class="skills-sub" style="color:var(--gray)">Six awards · 2021-2024</p>
@@ -2300,6 +2568,121 @@ footer span.neon{color:var(--neon)}
   </div>
 </section>
 
+<!-- WRITINGS -->
+<section class="writings" id="sec-writings">
+  <div class="writings-head">
+    <div class="writings-masthead">
+      <h2 class="writings-title"><span class="bracket">[</span>thoughts, <em>absurd, aloud.</em><span class="bracket right">]</span></h2>
+      <span class="writings-edition">Vol. 001 · Essays · Medium</span>
+    </div>
+    <p class="writings-sub">On fintech, credit cards, tech culture, and the occasional metaphysical detour.</p>
+  </div>
+
+  <a class="feature-essay" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank">
+    <div class="feat-left">
+      <span class="feat-badge">Feature · Fintech Strategy</span>
+      <h3 class="feat-title">OLX is a crime scene. Is the cure a <em>pivot into becoming a fintech?</em></h3>
+      <div class="feat-meta">
+        <span>Medium</span>
+        <span>~8 min read</span>
+        <span>Analysis</span>
+      </div>
+    </div>
+    <div class="feat-right">
+      <p class="feat-pullquote">
+        A marketplace drowning in fraud, user trust collapsing in real time. The unlock is <em>not a safer listing flow</em> - it's a completely different business model.
+      </p>
+    </div>
+  </a>
+
+  <div class="essay-grid">
+    <a class="essay e-a" href="https://parthaggarwal8.medium.com/the-metro-housing-crisis-is-not-a-you-problem-265c167aa122" target="_blank">
+      <div>
+        <p class="essay-kicker">Essay · Culture</p>
+        <h4 class="essay-title">The metro housing crisis is <em>not a "you problem"</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~7 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-b" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank">
+      <div>
+        <p class="essay-kicker">Essay · Product · Hot Take</p>
+        <h4 class="essay-title">Why are PM interviews still obsessed with <em>guesstimates like it's 2009?</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~6 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-c" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank">
+      <div>
+        <p class="essay-kicker">Essay · Tech Culture</p>
+        <h4 class="essay-title">The <em>mental debt</em> of being in tech</h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium · ~5 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-d" href="https://parthaggarwal8.medium.com/metacognition-as-quantum-superposition-rethinking-how-we-think-c75be6777444" target="_blank">
+      <div>
+        <p class="essay-kicker">Essay · Philosophy</p>
+        <h4 class="essay-title">Metacognition as quantum superposition: <em>rethinking how we think</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~9 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-e" href="https://parthaggarwal8.medium.com/" target="_blank">
+      <div>
+        <p class="essay-kicker">More writing</p>
+        <h4 class="essay-title">Read every piece on <em>Medium</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Archive · All essays</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="series-band">
+    <div class="series-head">
+      <p class="series-name">Series - <strong>Decoding Credit Cards</strong></p>
+      <p class="series-desc">A five-part deep dive · Everything there is to know, from issuance to interest calc.</p>
+    </div>
+    <div class="series-chapters">
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank">
+        <div class="chapter-num">I</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Introduction</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-issuance-part-2-5b0ac72f638d" target="_blank">
+        <div class="chapter-num">II</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Issuance</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-types-part-3-040304533272" target="_blank">
+        <div class="chapter-num">III</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Types</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-transactions-part-4-37d25633fc97" target="_blank">
+        <div class="chapter-num">IV</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Transactions</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-payments-interest-calculations-part-5-bb95accaf804" target="_blank">
+        <div class="chapter-num">V</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Payments &amp; Interest</em></p>
+      </a>
+    </div>
+  </div>
+
+</section>
+
 <!-- CTA -->
 <section class="cta-section" id="contact">
   <div class="cta-bg">HELLO · HELLO · HELLO · HELLO · HELLO ·&nbsp;</div>
@@ -2378,7 +2761,7 @@ const io = new IntersectionObserver(entries=>{
 },{threshold:0.05});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-// Awards observer — triggers tilt-in animation on entry
+// Awards observer - triggers tilt-in animation on entry
 const awardsObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){ e.target.classList.add('visible'); }
@@ -2386,7 +2769,7 @@ const awardsObs = new IntersectionObserver(entries=>{
 },{threshold:0.1});
 document.querySelectorAll('.aw-card').forEach(el=>awardsObs.observe(el));
 
-// CTA observer — animate headline on entry
+// CTA observer - animate headline on entry
 const ctaObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){ e.target.classList.add('in-view'); }
@@ -2396,7 +2779,7 @@ const ctaObs = new IntersectionObserver(entries=>{
 const ctaSec = document.getElementById('contact');
 if(ctaSec) ctaObs.observe(ctaSec);
 
-// Counters — RE-TRIGGER every time they enter the viewport
+// Counters - RE-TRIGGER every time they enter the viewport
 const countObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     const counter = e.target.querySelector('[data-count]');
@@ -2437,6 +2820,115 @@ function countUp(el){
 document.querySelectorAll('.sc-list li').forEach(li=>{
   const pick = Math.random() > 0.5 ? 'var(--neon)' : 'var(--pink)';
   li.style.setProperty('--hover-c', pick);
+});
+
+// Re-triggering "in-view" observer for sections that should re-animate
+const repeatObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in-view');
+    else e.target.classList.remove('in-view');
+  });
+},{threshold:0.2});
+// Writings (brackets), skills (left-slide items), quote (entrance), cta already handled separately
+document.querySelectorAll('.writings, .skills-wrap, .quote-section').forEach(el=>repeatObs.observe(el));
+
+// Case cards - re-trigger their scroll-in animation too
+const caseObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('in-view');
+    else e.target.classList.remove('in-view');
+  });
+},{threshold:0.15});
+document.querySelectorAll('.case').forEach(el=>caseObs.observe(el));
+
+// SCROLL PROGRESS BAR (vertical, left edge)
+const scrollFill = document.getElementById('scrollFill');
+function updateScrollProgress(){
+  if(!scrollFill) return;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+  scrollFill.style.height = pct + '%';
+}
+window.addEventListener('scroll', updateScrollProgress, {passive:true});
+updateScrollProgress();
+
+// DARK SECTION DETECTION - swap cursor color on dark bg sections
+const darkBgSections = document.querySelectorAll('.stamps, .quote-section, .skills-wrap, .series-band, footer');
+function checkDarkBg(){
+  const centerY = window.innerHeight / 2;
+  let onDark = false;
+  darkBgSections.forEach(sec=>{
+    const r = sec.getBoundingClientRect();
+    if(r.top < centerY && r.bottom > centerY){ onDark = true; }
+  });
+  document.body.classList.toggle('dark-section', onDark);
+}
+window.addEventListener('scroll', checkDarkBg, {passive:true});
+window.addEventListener('resize', checkDarkBg);
+checkDarkBg();
+
+// SIDE NAV - activate dot based on viewport position
+const sideNav = document.getElementById('sideNav');
+const sideDots = document.querySelectorAll('.side-dot');
+const navSections = Array.from(sideDots).map(d=>document.getElementById(d.dataset.target)).filter(Boolean);
+function updateSideNav(){
+  if(!sideNav) return;
+  const scrolled = window.scrollY > window.innerHeight * 0.4;
+  sideNav.classList.toggle('visible', scrolled);
+  const triggerY = window.innerHeight * 0.4;
+  let activeId = null;
+  navSections.forEach(sec=>{
+    const r = sec.getBoundingClientRect();
+    if(r.top <= triggerY && r.bottom > triggerY){ activeId = sec.id; }
+  });
+  sideDots.forEach(d=>{
+    d.classList.toggle('active', d.dataset.target === activeId);
+  });
+}
+sideDots.forEach(d=>{
+  d.addEventListener('click', e=>{
+    e.preventDefault();
+    const target = document.getElementById(d.dataset.target);
+    if(target) window.scrollTo({top: target.offsetTop - 20, behavior: 'smooth'});
+  });
+});
+window.addEventListener('scroll', updateSideNav, {passive:true});
+window.addEventListener('resize', updateSideNav);
+updateSideNav();
+
+// MANIFESTO FIGURE PARALLAX (CSS vars so :hover still wins)
+const phFig = document.querySelector('.ph-figure');
+if(phFig){
+  window.addEventListener('scroll', ()=>{
+    const r = phFig.getBoundingClientRect();
+    const vh = window.innerHeight;
+    if(r.bottom < 0 || r.top > vh) return;
+    const progress = 1 - (r.top + r.height/2) / vh * 2;
+    const clamped = Math.max(-1, Math.min(1, progress));
+    const rot = -1.2 + clamped * 1.8;
+    const ty = clamped * -8;
+    phFig.style.setProperty('--ph-rot', rot.toFixed(2) + 'deg');
+    phFig.style.setProperty('--ph-ty', ty.toFixed(1) + 'px');
+  }, {passive:true});
+}
+
+// DYNAMIC TAB TITLE
+const originalTitle = document.title;
+const awayTitles = ["👀 come back","missing you already","parth is still here","wait wait wait","don't leave yet"];
+let awayIndex = 0;
+document.addEventListener('visibilitychange', ()=>{
+  if(document.hidden){
+    document.title = awayTitles[awayIndex % awayTitles.length];
+    awayIndex++;
+  } else {
+    document.title = originalTitle;
+  }
+});
+
+// Hook side dots and boss sticker and ph-figure into cursor hover
+document.querySelectorAll('.side-dot,.boss-sticker,.ph-figure').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
 });
 
 </script>
