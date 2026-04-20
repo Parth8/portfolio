@@ -2013,14 +2013,14 @@ footer span.neon{color:var(--neon)}
       <div class="case-metric-hero"><span>$</span><span class="c-accent">50</span><span class="sup">K / YR</span></div>
       <p class="case-metric-caption">YoY infrastructure savings. GTM cut 90 days. CSAT 2.5 → 4.0.</p>
       <p class="case-desc">
-        Rearchitected from engineering-led one-off builds to a <strong>fully platformized, subscription-based system</strong>. Killed the MongoDB dependency. Mandated multi-tenant, config-driven architecture - optimized for platform reliability over short-term client demands. Codified platform guarantees, SLAs, ingress/egress strategy, canonical ingestion and transformation patterns. Enforced a governed semantic layer across 1200+ attributes with full lineage, GDPR handling, RBAC, and freshness SLAs. New banking clients now go live in 30 days via standardized playbooks - no code changes required.
+        Rearchitected from engineering-led one-off builds to a <strong>fully platformized, subscription-based system</strong>. Killed the MongoDB dependency. Mandated multi-tenant, config-driven architecture - optimized for platform reliability over short-term client demands. Codified platform guarantees, SLAs, ingress/egress strategy, canonical ingestion and transformation patterns. Enforced a governed semantic layer across 1200+ attributes with full lineage, GDPR & Sanctions handling, RBAC, and freshness SLAs. New banking clients now go live in 30 days via standardized playbooks - no code changes required.
       </p>
       <div class="case-stack">
         <span>Medallion Architecture</span>
         <span>Data Contracts</span>
         <span>dbt · Airflow</span>
         <span>Kafka · S3</span>
-        <span>GDPR Compliance</span>
+        <span>GDPR & Sanctions Compliance</span>
         <span>Multi-tenant</span>
         <span>Semantic Layer</span>
         <span>20+ Schemas</span>
@@ -2090,7 +2090,7 @@ footer span.neon{color:var(--neon)}
       <ul class="xp-pts">
         <li>Sole architectural decision-maker for a financial data platform serving enterprise banks across US + EMEA.</li>
         <li>Eliminated MongoDB dependency - <strong>$50K/year infra savings</strong> unlocked through platform rearchitecture.</li>
-        <li>Data contracts across <strong>1200+ attributes</strong>, with lineage, GDPR, RBAC, SLAs for regulated banking.</li>
+        <li>Data contracts across <strong>1200+ attributes</strong>, with lineage, GDPR, Sanctions RBAC, SLAs for regulated banking.</li>
         <li>Integration roadmap for <strong>10+ third-party sources</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless.</li>
         <li>Client onboarding reduced from engineering-led builds to <strong>30-day standardized deployments</strong>.</li>
       </ul>
@@ -2158,7 +2158,7 @@ footer span.neon{color:var(--neon)}
         <li>Kafka · S3 · Batch · API ingestion</li>
         <li>ETL · ELT pipelines</li>
         <li>OLTP · OLAP systems</li>
-        <li>GDPR · PII · Lineage</li>
+        <li>GDPR · PII · Lineage · Sanctions · OFAC</li>
         <li>Metabase · Superset</li>
         <li>SQL · Python · MongoDB</li>
       </ul>
@@ -2271,7 +2271,7 @@ footer span.neon{color:var(--neon)}
           <ellipse cx="316" cy="418" rx="24" ry="20" fill="none" stroke="#5C4A2E" stroke-width="1.2"/>
           <ellipse cx="318" cy="422" rx="16" ry="12" fill="#6B5637" opacity="0.5"/>
         </g>
-        <text x="276" y="448" font-family="Caveat, cursive" font-size="10" fill="#8B6F47" opacity="0.7" transform="rotate(-8 276 448)">☕ 3rd one</text>
+        <text x="276" y="448" font-family="Caveat, cursive" font-size="10" fill="#8B6F47" opacity="0.7" transform="rotate(-8 276 448)">☕ 5th one</text>
 
         <!-- Title scribble, hand-written -->
         <g font-family="Caveat, cursive" font-weight="700">
@@ -2294,7 +2294,7 @@ footer span.neon{color:var(--neon)}
         <g font-family="DM Mono, monospace" font-size="9" fill="#15130F" text-anchor="middle">
           <text x="53" y="101">Kafka</text>
           <text x="125" y="101">S3</text>
-          <text x="197" y="101">APIs</text>
+          <text x="197" y="101">APIs/MongoDB</text>
           <text x="275" y="101">Batch</text>
         </g>
 
@@ -2320,7 +2320,7 @@ footer span.neon{color:var(--neon)}
 
         <!-- Pink scribble annotation -->
         <g font-family="Caveat, cursive" font-size="13" font-weight="700" fill="#FF2D78">
-          <text x="328" y="194" text-anchor="end" transform="rotate(-4 328 194)">NO BROKEN PIPES.</text>
+          <text x="328" y="194" text-anchor="end" transform="rotate(-4 328 194)">NO BROKEN PIPES!!!</text>
         </g>
         <path d="M 328 200 Q 324 210 320 218" stroke="#FF2D78" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrPink)" stroke-linecap="round"/>
 
@@ -2381,7 +2381,7 @@ footer span.neon{color:var(--neon)}
         <!-- Corner scribble -->
         <g font-family="Caveat, cursive" font-size="10" fill="#15130F" opacity="0.5">
           <text x="20" y="438" transform="rotate(-1.5 20 438)">1,200+ attrs · 20+ schemas</text>
-          <text x="20" y="452" transform="rotate(-1 20 452)">GDPR · RBAC · lineage</text>
+          <text x="20" y="452" transform="rotate(-1 20 452)">GDPR · RBAC · lineage???</text>
         </g>
 
         <!-- Little doodle star bottom-left, like where you absent-mindedly scribble -->
@@ -2390,7 +2390,7 @@ footer span.neon{color:var(--neon)}
         </g>
       </svg>
       <figcaption class="ph-figcaption">
-        <span class="ph-fignum">Fig. 01</span>
+        <span class="ph-fignum">Fig. 05 | v3</span>
         <span class="ph-figtext">the pipeline I own. end-to-end.</span>
       </figcaption>
     </figure>
