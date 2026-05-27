@@ -241,6 +241,127 @@ nav{
   to{transform:translateX(-50%)}
 }
 
+/* BUILT / PROJECTS */
+.built{
+  background:var(--eggshell);
+  border-bottom:1px solid var(--border);
+}
+.built-header{
+  padding:6rem 2.5rem 2rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:2rem;flex-wrap:wrap;
+}
+.bh-left{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gray);
+}
+.bh-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:0.9;
+  letter-spacing:-0.005em;
+  display:inline-block;
+  transform:rotate(-1deg);
+  transform-origin:left center;
+}
+.bh-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
+
+.project{
+  margin:0 2.5rem 6rem;
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+  display:grid;
+  grid-template-columns:1.15fr 1fr;
+  position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
+  box-shadow:6px 8px 0 var(--eggshell-deep);
+}
+.project.in-view{opacity:1;transform:translateY(0)}
+.project:hover{box-shadow:10px 14px 0 var(--neon)}
+.project-left{
+  padding:3rem;
+  border-right:1.5px solid var(--ink);
+}
+.project-tag{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink);
+  background:var(--neon);
+  display:inline-block;
+  padding:0.35rem 0.8rem;
+  transform:rotate(-1.5deg);
+  margin-bottom:1.5rem;
+}
+.project-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.4rem,4vw,3.6rem);
+  line-height:0.92;
+  letter-spacing:-0.005em;
+  margin-bottom:1rem;
+}
+.project-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
+.project-desc{
+  font-size:0.95rem;line-height:1.75;color:#3d3b34;
+  margin-bottom:1.5rem;
+}
+.project-desc strong{color:var(--ink);font-weight:600;background:var(--neon);padding:0.05em 0.3em}
+.project-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.75rem}
+.project-stack span{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.06em;
+  padding:0.35rem 0.7rem;
+  border:1px solid var(--border);
+  color:var(--gray);
+  background:var(--eggshell);
+  transition:border-color 0.2s,color 0.2s,transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.2s;
+}
+.project-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
+.project-links{display:flex;gap:1rem;flex-wrap:wrap}
+.project-link{
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;
+  color:var(--ink);
+  border:1.5px solid var(--ink);
+  padding:0.7rem 1.1rem;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  transition:background 0.25s,color 0.25s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.project-link.primary{background:var(--ink);color:var(--eggshell)}
+.project-link:hover{background:var(--pink);border-color:var(--pink);color:var(--eggshell);transform:translateY(-3px)}
+.project-link .arr{transition:transform 0.25s}
+.project-link:hover .arr{transform:translate(3px,-3px)}
+
+.project-right{
+  padding:3rem;
+  display:flex;flex-direction:column;justify-content:center;gap:1.5rem;
+  background:var(--ink);
+  color:var(--eggshell);
+}
+.pr-stat{display:flex;flex-direction:column;gap:0.25rem}
+.pr-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.5rem,5vw,3.6rem);
+  line-height:0.9;
+  color:var(--neon);
+}
+.pr-stat-num .sup{font-size:0.4em;color:var(--gray-light)}
+.pr-stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gray-light);
+}
+.pr-divider{height:1px;background:#2a2722}
+.pr-note{
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.15rem;
+  color:var(--gold);
+  transform:rotate(-1.5deg);
+}
+
 /* HERO - restored original layout */
 .hero{
   min-height:100vh;
@@ -1847,6 +1968,8 @@ footer span.neon{color:var(--neon)}
   .bn-cell{padding:2rem 0 !important;border-right:none !important}
   .case{grid-template-columns:1fr;gap:2rem}
   .case-left{position:static}
+  .project{grid-template-columns:1fr;margin-left:1.5rem;margin-right:1.5rem}
+  .project-left{border-right:none;border-bottom:1.5px solid var(--ink)}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
@@ -1881,6 +2004,7 @@ footer span.neon{color:var(--neon)}
   <a href="#" class="nav-logo">Parth Aggarwal <span>-</span> Technical Product ✦ Platform</a>
   <div class="nav-right">
     <a href="#sec-work">The Work</a>
+    <a href="#sec-built">Built</a>
     <a href="#sec-writings">Thoughts</a>
     <a href="#contact">Say Hi</a>
   </div>
@@ -1924,7 +2048,7 @@ footer span.neon{color:var(--neon)}
 <div class="stamps" aria-hidden="true">
   <span class="stamp hot">$2B+ Card Transactions Volume</span>
   <span class="stamp">Mastercard Rails</span>
-  <span class="stamp gold">2x Revenue &amp; 100K Card Issuances</span>
+  <span class="stamp gold">2x Revenue &amp; 150K Card Issuances</span>
   <span class="stamp">Multi-tenant Data Platform</span>
   <span class="stamp hot">0-Defect GTM</span>
   <span class="stamp">Fraud &amp; Risk Management</span>
@@ -1947,9 +2071,9 @@ footer span.neon{color:var(--neon)}
       </div>
     </div>
     <div class="bn-cell reveal" style="transition-delay:0.1s">
-      <div class="bn-num"><span data-count="100">0</span><span class="sup">K+</span></div>
+      <div class="bn-num"><span data-count="150">0</span><span class="sup">K+</span></div>
       <div class="bn-caption">
-        <div class="bn-desc">Card issuances achieved in Sparrow Card's first year, Zeta's first US credit card program.</div>
+        <div class="bn-desc">Onboardings and card issuances in Sparrow Card's first year, Zeta's first US credit card program.</div>
         <div class="bn-tag">US Launch · Jul '24</div>
       </div>
     </div>
@@ -2036,8 +2160,8 @@ footer span.neon{color:var(--neon)}
       <p class="case-sub">Zeta's first US credit card program. Stood up the ops and support function from zero.</p>
     </div>
     <div class="case-right">
-      <div class="case-metric-hero"><span class="c-accent">100</span><span class="sup">K+</span></div>
-      <p class="case-metric-caption">Issuances by Jul 2024 · 2× revenue vs projections by Dec '24</p>
+      <div class="case-metric-hero"><span class="c-accent">150</span><span class="sup">K+</span></div>
+      <p class="case-metric-caption">Onboardings &amp; issuances · 2× revenue vs projections by Dec '24</p>
       <p class="case-desc">
         Ran a multi-phase market launch from onboarding through BAU operations. Stood up the <strong>US support &amp; ops function from zero</strong> - first response time -99%, CSAT 2.5 → 4.6 in 3 months. Designed webhook/API-based support automation, owned vendor onboarding, hired the team, ran training, and closed client feedback loops. Managed 300+ releases with 89% SLO and 99% SLA adherence. Planted Zeta's flag in the US fintech market.
       </p>
@@ -2086,13 +2210,29 @@ footer span.neon{color:var(--neon)}
       <p class="xp-co">Zeta.</p>
     </div>
     <div class="xp-right">
-      <p class="xp-role">Technical Product Manager <em>- Data Platforms (US + EMEA)</em></p>
+      <p class="xp-role">Technical Product Manager <em>- Data Platform SaaS (US + EMEA)</em></p>
       <ul class="xp-pts">
         <li>Sole architectural decision-maker for a financial data platform serving enterprise banks across US + EMEA.</li>
         <li>Eliminated MongoDB dependency - <strong>$50K/year infra savings</strong> unlocked through platform rearchitecture.</li>
         <li>Data contracts across <strong>1200+ attributes</strong>, with lineage, GDPR, Sanctions RBAC, SLAs for regulated banking.</li>
         <li>Integration roadmap for <strong>10+ third-party sources</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless.</li>
         <li>Client onboarding reduced from engineering-led builds to <strong>30-day standardized deployments</strong>.</li>
+        <li>Authored architecture docs across 600+ attributes, driving CardWorks' <strong>$3M+ credit card portfolio data migration</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">Sep 2024 - Present</p>
+      <p class="xp-co">Zeta.</p>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Technical Product Manager <em>- Optum Virtual Card Platform</em></p>
+      <ul class="xp-pts">
+        <li>Owned product strategy across <strong>9 functional areas</strong> for a Fortune 3 - discovery to clean regulatory sign-off for Mastercard integration.</li>
+        <li>Designed API specs and led QA for the full card lifecycle - <strong>issue, cancel, reissue, reset</strong> - webhook triggers, idempotency, error handling, fallback.</li>
+        <li>Architected a real-time <strong>FRM rules engine</strong> with configurable merchant, amount, and risk thresholds.</li>
+        <li>Led <strong>FeatureSpace ML integration</strong> for real-time fraud detection; built event-based transaction traceability for UHC compliance teams.</li>
       </ul>
     </div>
   </div>
@@ -2104,7 +2244,7 @@ footer span.neon{color:var(--neon)}
     <div class="xp-right">
       <p class="xp-role">Technical Program Manager <em>- US &amp; India Banking Program Lead</em></p>
       <ul class="xp-pts">
-        <li>Led Sparrow Card US launch with Evolve Bank - <strong>2x revenue &amp; 100K+ issuances</strong> in first year vs projections by Dec '24.</li>
+        <li>Led Sparrow Card US launch with Evolve Bank - <strong>2x revenue &amp; 150K+ onboardings and issuances</strong> in first year vs projections by Dec '24.</li>
         <li>Built US support &amp; ops from scratch - first response time <strong>-99%</strong>, CSAT 2.5 → 4.6 in 3 months.</li>
         <li>120+ real-time SQL dashboards. 300+ releases managed. 89% SLO, 99% SLA adherence.</li>
         <li>Led RBI-mandated wind-down of <strong>22 fintechs in 60 days</strong> across product, BI, engineering, bank partners.</li>
@@ -2232,6 +2372,54 @@ footer span.neon{color:var(--neon)}
       <span class="sw-item">Office of Foreign Assets Control (OFAC)</span><span class="sw-dot">✦</span>
     </div>
   </div>
+</section>
+
+<!-- BUILT -->
+<section class="built" id="sec-built">
+  <div class="built-header">
+    <span class="bh-left">04 · Shipped Solo · Live Product</span>
+    <h2 class="bh-title">Built <em>because it</em> didn't exist</h2>
+  </div>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Live · Open Source · Free Forever</span>
+      <h3 class="project-title">Decoding <em>Credit Cards</em></h3>
+      <p class="project-desc">
+        I wanted to understand how credit cards <strong>actually work</strong> - not "best card for lounge access" content, the real mechanics. How a transaction clears. What the bank does when you swipe. Why the minimum payment is a trap. There was no clean source for any of it - just scattered tabs, RBI documents, and late-night YouTube rabbit holes. So I built the thing I wished existed: <strong>22 interactive chapters</strong> where you tap a card to watch a transaction settle, drag a slider to see compound interest destroy you in real time, pick the wrong checkout option and see what it costs. Less studying, more accidentally learning. Built end-to-end - design system, content, and code - in <strong>pure HTML, CSS, and JS</strong>. No build step, no frameworks, no dependencies. Free, no login, no ads, no card recommendations, ever.
+      </p>
+      <div class="project-stack">
+        <span>HTML · CSS · JS</span>
+        <span>Zero Dependencies</span>
+        <span>22 Interactive Chapters</span>
+        <span>Mobile-First</span>
+        <span>Design System</span>
+        <span>GitHub Pages</span>
+        <span>AI-Assisted Build</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/credit/" target="_blank" rel="noopener">Visit the site <span class="arr">↗</span></a>
+        <a class="project-link" href="https://github.com/Parth8/credit" target="_blank" rel="noopener">View the code <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <div class="pr-stat">
+        <div class="pr-stat-num">22<span class="sup"> CH</span></div>
+        <div class="pr-stat-label">Interactive chapters, issuance to interest math</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">0<span class="sup"> DEPS</span></div>
+        <div class="pr-stat-label">No frameworks, no build step, no tracking</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">100<span class="sup">%</span></div>
+        <div class="pr-stat-label">Interaction-based learning, not reading</div>
+      </div>
+      <p class="pr-note">no ads. no pitches. just the mechanics.</p>
+    </div>
+  </article>
 </section>
 
 <!-- PHILOSOPHY -->
@@ -2756,7 +2944,7 @@ document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
   ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
   requestAnimationFrame(move);
 })();
-document.querySelectorAll('a,button,.bn-cell,.case-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp').forEach(el=>{
+document.querySelectorAll('a,button,.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp').forEach(el=>{
   el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
   el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
 });
@@ -2856,7 +3044,7 @@ const caseObs = new IntersectionObserver(entries=>{
     else e.target.classList.remove('in-view');
   });
 },{threshold:0.15});
-document.querySelectorAll('.case').forEach(el=>caseObs.observe(el));
+document.querySelectorAll('.case, .project').forEach(el=>caseObs.observe(el));
 
 // SCROLL PROGRESS BAR (vertical, left edge)
 const scrollFill = document.getElementById('scrollFill');
