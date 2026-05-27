@@ -362,6 +362,124 @@ nav{
   transform:rotate(-1.5deg);
 }
 
+/* ===== BUILT SECTION - upgraded header ===== */
+.bh-sub{
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.25rem;
+  color:var(--gray);
+  transform:rotate(-1deg);
+  display:block;
+  margin-top:0.65rem;
+  max-width:34ch;
+}
+.bh-sub b{color:var(--pink);font-weight:700}
+
+/* second project sits closer; first keeps its margin */
+.project + .project{margin-top:-2.5rem}
+
+/* ===== ANIMATED ART - shared scaffold ===== */
+.pr-art{
+  position:relative;
+  width:100%;
+  margin-bottom:0.5rem;
+  overflow:hidden;
+}
+.pr-art svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* --- Credit Cards: the swipe -> settle loop --- */
+.cc-art{height:118px}
+.cc-card{
+  transform-box:fill-box;transform-origin:center;
+  animation:ccSwipe 5.2s cubic-bezier(0.55,0,0.45,1) infinite;
+}
+.cc-track{stroke-dasharray:3 4;opacity:0.45}
+.cc-hop{transform-box:fill-box;transform-origin:center;opacity:0.25}
+.cc-hop.h1{animation:ccPing 5.2s linear infinite;animation-delay:1.05s}
+.cc-hop.h2{animation:ccPing 5.2s linear infinite;animation-delay:1.55s}
+.cc-hop.h3{animation:ccPing 5.2s linear infinite;animation-delay:2.05s}
+.cc-hop.h4{animation:ccPing 5.2s linear infinite;animation-delay:2.55s}
+.cc-pulse{
+  stroke-dasharray:140;stroke-dashoffset:140;
+  animation:ccPulse 5.2s linear infinite;animation-delay:1.05s;
+}
+.cc-approve{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:ccApprove 5.2s ease-out infinite;animation-delay:3.0s}
+@keyframes ccSwipe{
+  0%,8%{transform:translateX(0) rotate(-3deg)}
+  20%,90%{transform:translateX(86px) rotate(0deg)}
+  100%{transform:translateX(0) rotate(-3deg)}
+}
+@keyframes ccPing{
+  0%,18%{opacity:0.22;transform:scale(1)}
+  24%{opacity:1;transform:scale(1.45)}
+  40%,100%{opacity:0.22;transform:scale(1)}
+}
+@keyframes ccPulse{
+  0%,18%{stroke-dashoffset:140;opacity:0}
+  22%{opacity:1}
+  52%{stroke-dashoffset:0;opacity:1}
+  62%,100%{stroke-dashoffset:0;opacity:0}
+}
+@keyframes ccApprove{
+  0%,4%{opacity:0;transform:scale(0.4)}
+  14%{opacity:1;transform:scale(1.12)}
+  20%{transform:scale(1)}
+  72%,100%{opacity:0;transform:scale(1)}
+}
+
+/* --- Jira: noise collapsing into one ranked action --- */
+.jr-art{height:138px}
+.jr-noise rect{transform-box:fill-box;transform-origin:center}
+.jr-noise .n1{animation:jrFade 6s ease-in-out infinite;animation-delay:0.0s}
+.jr-noise .n2{animation:jrFade 6s ease-in-out infinite;animation-delay:0.18s}
+.jr-noise .n3{animation:jrFade 6s ease-in-out infinite;animation-delay:0.36s}
+.jr-noise .n4{animation:jrFade 6s ease-in-out infinite;animation-delay:0.54s}
+.jr-noise .n5{animation:jrFade 6s ease-in-out infinite;animation-delay:0.72s}
+.jr-noise .n6{animation:jrFade 6s ease-in-out infinite;animation-delay:0.90s}
+@keyframes jrFade{
+  0%,6%{opacity:0.9;transform:translateX(0)}
+  34%{opacity:0;transform:translateX(-14px)}
+  82%,100%{opacity:0;transform:translateX(-14px)}
+}
+.jr-action{transform-box:fill-box;transform-origin:center;opacity:0;
+  animation:jrRise 6s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes jrRise{
+  0%,30%{opacity:0;transform:translateY(16px) scale(0.96)}
+  46%{opacity:1;transform:translateY(0) scale(1)}
+  86%,100%{opacity:0;transform:translateY(-8px) scale(0.98)}
+}
+.jr-scan{stroke-dasharray:4 5;animation:jrScanShift 6s linear infinite;opacity:0}
+@keyframes jrScanShift{
+  0%,30%{opacity:0}
+  40%,78%{opacity:0.7}
+  88%,100%{opacity:0}
+}
+.jr-cursor{transform-box:fill-box;transform-origin:center;opacity:0;
+  animation:jrCursor 6s ease-in-out infinite}
+@keyframes jrCursor{
+  0%,48%{opacity:0;transform:translate(0,0)}
+  56%{opacity:1;transform:translate(0,0)}
+  66%{opacity:1;transform:translate(2px,2px)}
+  74%{opacity:1;transform:translate(0,0)}
+  84%,100%{opacity:0}
+}
+.jr-conf{transform-box:fill-box;transform-origin:left center;
+  animation:jrConf 6s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes jrConf{
+  0%,30%{transform:scaleX(0)}
+  50%{transform:scaleX(0.94)}
+  86%,100%{transform:scaleX(0.94)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .cc-card,.cc-hop,.cc-pulse,.cc-approve,
+  .jr-noise rect,.jr-action,.jr-scan,.jr-cursor,.jr-conf{animation:none}
+  .cc-card{transform:translateX(43px)}
+  .cc-hop,.cc-approve,.jr-action{opacity:1}
+  .jr-conf{transform:scaleX(0.94)}
+}
+
 /* HERO - restored original layout */
 .hero{
   min-height:100vh;
@@ -1970,6 +2088,9 @@ footer span.neon{color:var(--neon)}
   .case-left{position:static}
   .project{grid-template-columns:1fr;margin-left:1.5rem;margin-right:1.5rem}
   .project-left{border-right:none;border-bottom:1.5px solid var(--ink)}
+  .project + .project{margin-top:2.5rem}
+  .cc-art{height:104px}
+  .jr-art{height:124px}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
@@ -2378,8 +2499,10 @@ footer span.neon{color:var(--neon)}
 <!-- BUILT -->
 <section class="built" id="sec-built">
   <div class="built-header">
-    <span class="bh-left">04 · Shipped Solo · Live Product</span>
-    <h2 class="bh-title">Built <em>because it</em> didn't exist</h2>
+    <span class="bh-left">04 · Shipped Solo · Off The Clock</span>
+    <h2 class="bh-title">Built <em>because it</em> didn't exist
+      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>two arguments, made in code.</b></span>
+    </h2>
   </div>
 
   <article class="project">
@@ -2404,6 +2527,42 @@ footer span.neon{color:var(--neon)}
       </div>
     </div>
     <div class="project-right">
+      <!-- ANIMATED ART: a card swipes, the network lights up, approval lands -->
+      <div class="pr-art cc-art" aria-hidden="true">
+        <svg viewBox="0 0 320 118" xmlns="http://www.w3.org/2000/svg">
+          <!-- rail the card slides along -->
+          <line class="cc-track" x1="34" y1="40" x2="286" y2="40" stroke="#A8A499" stroke-width="1.5"/>
+          <!-- network hops -->
+          <g stroke="#7E7A70" stroke-width="1.3" fill="none">
+            <circle class="cc-hop h1" cx="34"  cy="40" r="6" fill="#15130F"/>
+            <circle class="cc-hop h2" cx="118" cy="40" r="6" fill="#15130F"/>
+            <circle class="cc-hop h3" cx="202" cy="40" r="6" fill="#15130F"/>
+            <circle class="cc-hop h4" cx="286" cy="40" r="6" fill="#15130F"/>
+          </g>
+          <g font-family="DM Mono, monospace" font-size="6.5" fill="#A8A499" text-anchor="middle">
+            <text x="34" y="58">SWIPE</text>
+            <text x="118" y="58">ACQUIRER</text>
+            <text x="202" y="58">NETWORK</text>
+            <text x="286" y="58">ISSUER</text>
+          </g>
+          <!-- signal pulse traveling the rail -->
+          <line class="cc-pulse" x1="34" y1="40" x2="286" y2="40" stroke="#00FF94" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- the card -->
+          <g class="cc-card">
+            <rect x="14" y="14" width="58" height="38" rx="5" fill="#15130F"/>
+            <rect x="22" y="22" width="13" height="10" rx="2" fill="#E6B547"/>
+            <rect x="22" y="40" width="34" height="3" rx="1.5" fill="#00FF94"/>
+            <rect x="22" y="45" width="20" height="2.5" rx="1.25" fill="#7E7A70"/>
+          </g>
+          <!-- approval stamp -->
+          <g class="cc-approve">
+            <circle cx="160" cy="92" r="15" fill="none" stroke="#00FF94" stroke-width="2.5"/>
+            <path d="M 152 92 L 158 99 L 169 86" fill="none" stroke="#00FF94" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+          <text x="184" y="96" font-family="Caveat, cursive" font-weight="700" font-size="13" fill="#E6B547" transform="rotate(-4 184 96)">approved.</text>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
       <div class="pr-stat">
         <div class="pr-stat-num">22<span class="sup"> CH</span></div>
         <div class="pr-stat-label">Interactive chapters, issuance to interest math</div>
@@ -2413,12 +2572,74 @@ footer span.neon{color:var(--neon)}
         <div class="pr-stat-num">0<span class="sup"> DEPS</span></div>
         <div class="pr-stat-label">No frameworks, no build step, no tracking</div>
       </div>
+      <p class="pr-note">no ads. no pitches. just the mechanics.</p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Product Teardown · Working Prototype</span>
+      <h3 class="project-title">Jira <em>2.0</em></h3>
+      <p class="project-desc">
+        Jira is the most-used PM tool on the planet, and it still asks every user to <strong>low-key be a database admin</strong>. Configure a filter, save it, build a dashboard, wire up a gadget - all before you answer a question that took ten seconds to ask.<br>So I tore it down and rebuilt the interaction layer. Not a Jira clone - <strong>an AI-native layer on top of the existing system of record</strong>. Same data, same workflows, same integrations. It just stops taxing your attention before delivering value.<br>Three surfaces: an action-first home that answers <strong>what blocks others, what blocks me, what's overdue</strong>; conversational ticket creation with maker-checker preserved; and natural-language dashboards that generate the JQL for you.<br>The differentiator is trust - <strong>every AI output is auditable</strong>. Click any suggestion: a drawer opens with signals used, plain-English reasoning, a confidence number, and the cost of getting it wrong.<br>A 13-slide teardown plus a clickable prototype - thesis, friction analysis, role-based views, validation metrics, and the deliberate omissions.
+      </p>
+      <div class="project-stack">
+        <span>Product Strategy</span>
+        <span>AI-Native UX</span>
+        <span>Vanilla JS Prototype</span>
+        <span>Chart.js</span>
+        <span>3 Role Personas</span>
+        <span>AI Transparency Layer</span>
+        <span>13-Slide Teardown</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/jira2/" target="_blank" rel="noopener">Try the prototype <span class="arr">↗</span></a>
+        <a class="project-link" href="https://github.com/Parth8/jira2" target="_blank" rel="noopener">View the code <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: a noisy feed collapses into one ranked, audited action -->
+      <div class="pr-art jr-art" aria-hidden="true">
+        <svg viewBox="0 0 320 138" xmlns="http://www.w3.org/2000/svg">
+          <!-- the noise: recommendation cards, upsells, feed clutter -->
+          <g class="jr-noise">
+            <rect class="n1" x="14" y="10"  width="150" height="13" rx="3" fill="#3a3731"/>
+            <rect class="n2" x="14" y="29"  width="120" height="13" rx="3" fill="#3a3731"/>
+            <rect class="n3" x="14" y="48"  width="160" height="13" rx="3" fill="#3a3731"/>
+            <rect class="n4" x="14" y="67"  width="104" height="13" rx="3" fill="#3a3731"/>
+            <rect class="n5" x="14" y="86"  width="140" height="13" rx="3" fill="#3a3731"/>
+            <rect class="n6" x="14" y="105" width="116" height="13" rx="3" fill="#3a3731"/>
+          </g>
+          <!-- the one action that matters, ranked + surfaced -->
+          <g class="jr-action">
+            <rect x="14" y="40" width="292" height="58" rx="6" fill="#1d1b16" stroke="#00FF94" stroke-width="1.5"/>
+            <!-- priority bar -->
+            <rect x="14" y="40" width="4" height="58" rx="2" fill="#FF2D78"/>
+            <text x="30" y="58" font-family="DM Mono, monospace" font-size="7" fill="#FF2D78" letter-spacing="0.5">BLOCKS 2 PEOPLE · P0</text>
+            <text x="30" y="73" font-family="DM Mono, monospace" font-size="8.5" fill="#F3EFE4">Auth schema mismatch</text>
+            <!-- AI scan line -->
+            <line class="jr-scan" x1="30" y1="80" x2="288" y2="80" stroke="#00FF94" stroke-width="1"/>
+            <!-- confidence bar + audit cue -->
+            <rect x="30" y="85" width="120" height="5" rx="2.5" fill="#3a3731"/>
+            <rect class="jr-conf" x="30" y="85" width="120" height="5" rx="2.5" fill="#00FF94"/>
+            <text x="158" y="90" font-family="DM Mono, monospace" font-size="6.5" fill="#A8A499">96% · why?</text>
+            <!-- cursor about to click the audit -->
+            <path class="jr-cursor" d="M 250 78 L 250 92 L 254 88 L 257 95 L 260 94 L 257 87 L 263 87 Z" fill="#00FF94" stroke="#15130F" stroke-width="0.8"/>
+          </g>
+          <text x="14" y="132" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547" transform="rotate(-2 14 132)">noise out. one decision in.</text>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">3<span class="sup"> SURF</span></div>
+        <div class="pr-stat-label">Action-first home, conversational tickets, NL dashboards</div>
+      </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
         <div class="pr-stat-num">100<span class="sup">%</span></div>
-        <div class="pr-stat-label">Interaction-based learning, not reading</div>
+        <div class="pr-stat-label">AI outputs auditable - signals, reasoning, confidence</div>
       </div>
-      <p class="pr-note">no ads. no pitches. just the mechanics.</p>
+      <p class="pr-note">not a rebuild. a layer.</p>
     </div>
   </article>
 </section>
