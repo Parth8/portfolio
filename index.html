@@ -414,60 +414,67 @@ nav{
   margin-bottom:0.5rem;
   overflow:visible;
 }
-.pr-art svg{display:block;width:100%;height:auto;overflow:visible}
+/* fixed-height band; preserveAspectRatio in the SVG keeps art centered and uncropped */
+.pr-art svg{display:block;width:100%;overflow:visible}
+.cc-art svg{height:160px}
+.jr-art svg{height:172px}
 
-/* --- Credit Cards: tap -> signal travels rail -> approval lands --- */
-.cc-art{height:130px}
-/* the card taps down at the terminal, then the signal fires */
+/* --- Credit Cards: card swipes in, travels the network, approval lands --- */
 .cc-card{
-  transform-origin:50px 33px;
-  animation:ccTap 6s ease-in-out infinite;
+  transform-box:fill-box;transform-origin:center;
+  animation:ccTravel 6s cubic-bezier(0.45,0,0.55,1) infinite;
 }
-@keyframes ccTap{
-  0%,10%{transform:translateY(0) rotate(-4deg)}
-  16%{transform:translateY(6px) rotate(0deg)}      /* tap down */
-  22%,100%{transform:translateY(0) rotate(0deg)}
+@keyframes ccTravel{
+  0%   {opacity:0;transform:translate(-80px,0) rotate(-10deg)}
+  6%   {opacity:1;transform:translate(0,0) rotate(0deg)}        /* arrive at SWIPE */
+  9%   {transform:translate(0,7px) rotate(0deg)}                /* tap down */
+  12%  {transform:translate(0,0) rotate(0deg)}                  /* tap up */
+  26%  {transform:translate(84px,0) rotate(0deg)}               /* over ACQUIRER */
+  40%  {transform:translate(168px,0) rotate(0deg)}              /* over NETWORK */
+  54%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* over ISSUER */
+  76%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* hold for approval */
+  86%  {opacity:0;transform:translate(335px,0) rotate(8deg)}    /* slide out right */
+  100% {opacity:0;transform:translate(-80px,0) rotate(-10deg)}  /* reset off-left */
 }
 .cc-track{stroke-dasharray:3 5;opacity:0.4}
 .cc-hop{transform-origin:center;transform-box:fill-box;opacity:0.3}
-.cc-hop.h1{animation:ccPing 6s ease-out infinite;animation-delay:0.7s}
-.cc-hop.h2{animation:ccPing 6s ease-out infinite;animation-delay:1.5s}
-.cc-hop.h3{animation:ccPing 6s ease-out infinite;animation-delay:2.3s}
-.cc-hop.h4{animation:ccPing 6s ease-out infinite;animation-delay:3.1s}
+.cc-hop.h1{animation:ccPing 6s ease-out infinite;animation-delay:0.45s}
+.cc-hop.h2{animation:ccPing 6s ease-out infinite;animation-delay:1.55s}
+.cc-hop.h3{animation:ccPing 6s ease-out infinite;animation-delay:2.4s}
+.cc-hop.h4{animation:ccPing 6s ease-out infinite;animation-delay:3.25s}
 @keyframes ccPing{
-  0%,9%{opacity:0.3;transform:scale(1);fill:#3a3731}
-  13%{opacity:1;transform:scale(1.6);fill:#00FF94}
-  22%,100%{opacity:0.45;transform:scale(1);fill:#00FF94}
+  0%{opacity:0.3;transform:scale(1);fill:#3a3731}
+  6%{opacity:1;transform:scale(1.7);fill:#00FF94}
+  18%,100%{opacity:0.5;transform:scale(1);fill:#00FF94}
 }
-/* signal pulse drawing along the rail */
+/* signal pulse draws along the rail as the card travels */
 .cc-pulse{
   stroke-dasharray:252;stroke-dashoffset:252;opacity:0;
-  animation:ccPulse 6s ease-in-out infinite;animation-delay:0.7s;
+  animation:ccPulse 6s ease-in-out infinite;
 }
 @keyframes ccPulse{
-  0%,9%{stroke-dashoffset:252;opacity:0}
-  12%{opacity:1}
-  46%{stroke-dashoffset:0;opacity:1}
-  54%,100%{stroke-dashoffset:0;opacity:0}
+  0%,12%{stroke-dashoffset:252;opacity:0}
+  15%{opacity:1}
+  54%{stroke-dashoffset:0;opacity:1}
+  64%,100%{stroke-dashoffset:0;opacity:0}
 }
-/* approval stamp slams in, pink ring then settles */
-.cc-approve{opacity:0;transform-origin:160px 96px;
-  animation:ccApprove 6s cubic-bezier(0.34,1.56,0.64,1) infinite;animation-delay:3.4s}
+/* approval stamp slams in when the card reaches the issuer */
+.cc-approve{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:ccApprove 6s cubic-bezier(0.34,1.56,0.64,1) infinite}
 @keyframes ccApprove{
-  0%,3%{opacity:0;transform:scale(0.2) rotate(-12deg)}
-  10%{opacity:1;transform:scale(1.15) rotate(-6deg)}
-  16%{transform:scale(1) rotate(-6deg)}
-  80%,100%{opacity:0;transform:scale(1) rotate(-6deg)}
+  0%,54%{opacity:0;transform:scale(0.2) rotate(-12deg)}
+  60%{opacity:1;transform:scale(1.15) rotate(-6deg)}
+  64%{transform:scale(1) rotate(-6deg)}
+  82%,100%{opacity:0;transform:scale(1) rotate(-6deg)}
 }
-.cc-stamp-word{opacity:0;animation:ccWord 6s ease-out infinite;animation-delay:3.6s}
+.cc-stamp-word{opacity:0;animation:ccWord 6s ease-out infinite}
 @keyframes ccWord{
-  0%,5%{opacity:0;transform:translateX(-6px)}
-  14%{opacity:1;transform:translateX(0)}
-  80%,100%{opacity:0}
+  0%,57%{opacity:0;transform:translateX(-6px)}
+  64%{opacity:1;transform:translateX(0)}
+  82%,100%{opacity:0}
 }
 
 /* --- Jira: noise sweeps out -> one ranked action rises -> audited --- */
-.jr-art{height:150px}
 .jr-noise rect{transform-origin:center;transform-box:fill-box}
 .jr-noise .n1{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0s}
 .jr-noise .n2{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.12s}
@@ -526,6 +533,7 @@ nav{
   .cc-card,.cc-hop,.cc-pulse,.cc-approve,.cc-stamp-word,
   .jr-noise rect,.jr-action,.jr-prio,.jr-conf,.jr-cursor,.jr-audit,
   .project.in-view .project-desc .pd-mark::before{animation:none}
+  .cc-card{opacity:1;transform:translate(252px,0)}
   .cc-hop{opacity:1;fill:#00FF94}
   .cc-pulse{stroke-dashoffset:0;opacity:1}
   .cc-approve,.cc-stamp-word{opacity:1;transform:none}
@@ -2144,8 +2152,8 @@ footer span.neon{color:var(--neon)}
   .project{grid-template-columns:1fr;margin-left:1.5rem;margin-right:1.5rem}
   .project-left{border-right:none;border-bottom:1.5px solid var(--ink)}
   .project + .project{margin-top:2.5rem}
-  .cc-art{height:104px}
-  .jr-art{height:124px}
+  .cc-art svg{height:128px}
+  .jr-art svg{height:140px}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
@@ -2585,7 +2593,7 @@ footer span.neon{color:var(--neon)}
     <div class="project-right">
       <!-- ANIMATED ART: card taps, signal fires down the rail, approval lands -->
       <div class="pr-art cc-art" aria-hidden="true">
-        <svg viewBox="0 0 320 130" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- rail the signal travels -->
           <line class="cc-track" x1="34" y1="66" x2="286" y2="66" stroke="#A8A499" stroke-width="1.5"/>
           <!-- network hops -->
@@ -2603,12 +2611,12 @@ footer span.neon{color:var(--neon)}
           </g>
           <!-- signal pulse drawn along the rail -->
           <line class="cc-pulse" x1="34" y1="66" x2="286" y2="66" stroke="#00FF94" stroke-width="2.5" stroke-linecap="round"/>
-          <!-- the card, taps at the SWIPE terminal -->
+          <!-- the card, swipes in then travels the rail (centered over SWIPE at rest) -->
           <g class="cc-card">
-            <rect x="22" y="14" width="56" height="38" rx="5" fill="#15130F"/>
-            <rect x="30" y="22" width="12" height="9" rx="2" fill="#E6B547"/>
-            <rect x="30" y="40" width="32" height="3" rx="1.5" fill="#00FF94"/>
-            <rect x="30" y="45" width="18" height="2.5" rx="1.25" fill="#7E7A70"/>
+            <rect x="6" y="14" width="56" height="38" rx="5" fill="#211f1a" stroke="#4a463c" stroke-width="1"/>
+            <rect x="14" y="22" width="12" height="9" rx="2" fill="#E6B547"/>
+            <rect x="14" y="40" width="32" height="3" rx="1.5" fill="#00FF94"/>
+            <rect x="14" y="45" width="18" height="2.5" rx="1.25" fill="#7E7A70"/>
           </g>
           <!-- approval stamp + handwritten word -->
           <g class="cc-approve">
@@ -2659,7 +2667,7 @@ footer span.neon{color:var(--neon)}
     <div class="project-right">
       <!-- ANIMATED ART: a noisy feed sweeps out, one ranked action rises, audited -->
       <div class="pr-art jr-art" aria-hidden="true">
-        <svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- the noise: recommendation cards, upsells, feed clutter -->
           <g class="jr-noise">
             <rect class="n1" x="14" y="8"   width="150" height="12" rx="3" fill="#3a3731"/>
