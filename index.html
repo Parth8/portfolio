@@ -683,11 +683,134 @@ nav{
   88%,100%{opacity:0;transform:translateY(-18px)}
 }
 
+/* --- Cookbook: tap what's in the fridge, match bars fill, the best dish rises to the top --- */
+.ck-art svg{height:168px}
+.ck-chip rect{fill:#1d1b16;stroke:#4a463c;stroke-width:1}
+.ck-chip text{fill:#A8A499}
+.ck-on{opacity:0;transform-box:fill-box;transform-origin:center}
+.ck-on rect{fill:#00FF94}
+.ck-on text{fill:#15130F}
+.ck-on.c1{animation:ckOn1 6.5s ease-out infinite}
+.ck-on.c2{animation:ckOn2 6.5s ease-out infinite}
+.ck-on.c3{animation:ckOn3 6.5s ease-out infinite}
+.ck-on.c4{animation:ckOn4 6.5s ease-out infinite}
+@keyframes ckOn1{0%,5%{opacity:0;transform:scale(1)}7%{opacity:1;transform:scale(1.1)}10%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn2{0%,11%{opacity:0;transform:scale(1)}13%{opacity:1;transform:scale(1.1)}16%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn3{0%,17%{opacity:0;transform:scale(1)}19%{opacity:1;transform:scale(1.1)}22%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn4{0%,23%{opacity:0;transform:scale(1)}25%{opacity:1;transform:scale(1.1)}28%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+/* each dish's bar = how many of your picks it uses */
+.ck-bar{transform-box:fill-box;transform-origin:left center;transform:scaleX(0)}
+.ck-bar.b1{animation:ckB1 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+.ck-bar.b2{animation:ckB2 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+.ck-bar.b3{animation:ckB3 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes ckB1{0%,17%{transform:scaleX(0)}20%,23%{transform:scaleX(0.25)}26%,86%{transform:scaleX(0.5)}93%,100%{transform:scaleX(0)}}
+@keyframes ckB2{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,86%{transform:scaleX(0.75)}93%,100%{transform:scaleX(0)}}
+@keyframes ckB3{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,23%{transform:scaleX(0.75)}26%,86%{transform:scaleX(1)}93%,100%{transform:scaleX(0)}}
+.ck-frac{opacity:0;animation:ckFrac 6.5s ease infinite}
+@keyframes ckFrac{0%,27%{opacity:0}31%,86%{opacity:1}92%,100%{opacity:0}}
+/* re-rank: the full match climbs over the partial ones */
+.ck-up{animation:ckUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+.ck-down{animation:ckDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+@keyframes ckUp{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(-68px)}97%,100%{transform:translateY(0)}}
+@keyframes ckDown{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(68px)}97%,100%{transform:translateY(0)}}
+.ck-best{opacity:0;animation:ckBest 6.5s ease infinite}
+@keyframes ckBest{0%,44%{opacity:0}48%,86%{opacity:1}92%,100%{opacity:0}}
+.ck-macros{opacity:0;animation:ckMacros 6.5s ease-out infinite}
+@keyframes ckMacros{0%,48%{opacity:0;transform:translateY(4px)}54%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+.ck-word{opacity:0;animation:ckWord 6.5s ease-out infinite}
+@keyframes ckWord{0%,56%{opacity:0;transform:translateY(4px)}62%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+
+/* --- GRID: five red lights, lights out, a lap of a blueprint circuit, sectors go green/gold/purple --- */
+.gr-art svg{height:170px}
+.gr-l{opacity:0}
+.gr-l.l1{animation:grL1 6.5s steps(1,end) infinite}
+.gr-l.l2{animation:grL2 6.5s steps(1,end) infinite}
+.gr-l.l3{animation:grL3 6.5s steps(1,end) infinite}
+.gr-l.l4{animation:grL4 6.5s steps(1,end) infinite}
+.gr-l.l5{animation:grL5 6.5s steps(1,end) infinite}
+@keyframes grL1{0%{opacity:0}4%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL2{0%{opacity:0}8%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL3{0%{opacity:0}12%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL4{0%{opacity:0}16%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL5{0%{opacity:0}20%{opacity:1}26%,100%{opacity:0}}
+.gr-out{opacity:0;animation:grOut 6.5s ease-out infinite}
+@keyframes grOut{0%,26%{opacity:0;transform:translateX(-4px)}30%,48%{opacity:1;transform:translateX(0)}56%,100%{opacity:0;transform:translateX(0)}}
+/* the circuit draws itself like a technical plate */
+.gr-track{stroke-dasharray:100;stroke-dashoffset:100;animation:grTrack 6.5s ease-in-out infinite}
+@keyframes grTrack{0%{stroke-dashoffset:100;opacity:1}22%,88%{stroke-dashoffset:0;opacity:1}96%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+/* the car is a short dash travelling the same path */
+.gr-car{stroke-dasharray:2 98;stroke-dashoffset:0;opacity:0;animation:grCar 6.5s linear infinite}
+@keyframes grCar{
+  0%,20%{opacity:0;stroke-dashoffset:0}
+  23%{opacity:1;stroke-dashoffset:0}
+  27%{stroke-dashoffset:0;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
+  72%,88%{opacity:1;stroke-dashoffset:-100}
+  94%,100%{opacity:0;stroke-dashoffset:-100}
+}
+.gr-trail{stroke-dasharray:10 90;stroke-dashoffset:8;opacity:0;animation:grTrail 6.5s linear infinite}
+@keyframes grTrail{
+  0%,27%{opacity:0;stroke-dashoffset:8;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
+  30%,68%{opacity:0.4}
+  72%{opacity:0;stroke-dashoffset:-92}
+  100%{opacity:0;stroke-dashoffset:-92}
+}
+.gr-s{fill:#2a2722}
+.gr-s.s1{animation:grS1 6.5s ease-out infinite}
+.gr-s.s2{animation:grS2 6.5s ease-out infinite}
+.gr-s.s3{animation:grS3 6.5s ease-out infinite}
+@keyframes grS1{0%,41%{fill:#2a2722}43%,88%{fill:#00FF94}94%,100%{fill:#2a2722}}
+@keyframes grS2{0%,56%{fill:#2a2722}58%,88%{fill:#E6B547}94%,100%{fill:#2a2722}}
+@keyframes grS3{0%,71%{fill:#2a2722}73%,88%{fill:#FF2D78}94%,100%{fill:#2a2722}}
+/* timing tower: NOR goes P3 -> P2 */
+.gr-up{animation:grUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+.gr-down{animation:grDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+@keyframes grUp{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(-16px)}96%,100%{transform:translateY(0)}}
+@keyframes grDown{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(16px)}96%,100%{transform:translateY(0)}}
+.gr-gain{opacity:0;animation:grGain 6.5s ease infinite}
+@keyframes grGain{0%,60%{opacity:0}64%,84%{opacity:1}90%,100%{opacity:0}}
+.gr-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
+.gr-fl{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:grFl 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes grFl{0%,71%{opacity:0;transform:scale(0.6)}76%,88%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(1)}}
+
+/* --- Zero to a Hundred: 21 phases light up along the path, the odometer rolls 0 -> 100 --- */
+.ai-art svg{height:170px}
+.ai-fill{stroke-dasharray:100;stroke-dashoffset:100;animation:aiFill 6.5s linear infinite}
+@keyframes aiFill{0%,6%{stroke-dashoffset:100;opacity:1}72%,86%{stroke-dashoffset:0;opacity:1}92%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+.ai-odo{animation:aiOdo 6.5s infinite}
+@keyframes aiOdo{
+  0%,6%{transform:translateY(0);animation-timing-function:steps(20,end)}
+  72%,88%{transform:translateY(-960px);animation-timing-function:cubic-bezier(0.65,0,0.35,1)}
+  97%,100%{transform:translateY(0)}
+}
+.ai-t{opacity:0}
+.ai-t.t0{opacity:1;animation:aiT0 6.5s ease infinite}
+.ai-t.t1{animation:aiT1 6.5s ease infinite}
+.ai-t.t2{animation:aiT2 6.5s ease infinite}
+.ai-t.t3{animation:aiT3 6.5s ease infinite}
+.ai-t.t4{animation:aiT4 6.5s ease infinite}
+.ai-t.t5{animation:aiT5 6.5s ease infinite}
+@keyframes aiT0{0%,20%{opacity:1}22%,93%{opacity:0}97%,100%{opacity:1}}
+@keyframes aiT1{0%,20%{opacity:0}22%,34.7%{opacity:1}36.7%,100%{opacity:0}}
+@keyframes aiT2{0%,34.7%{opacity:0}36.7%,41%{opacity:1}43%,100%{opacity:0}}
+@keyframes aiT3{0%,41%{opacity:0}43%,61.8%{opacity:1}63.8%,100%{opacity:0}}
+@keyframes aiT4{0%,61.8%{opacity:0}63.8%,71%{opacity:1}73%,100%{opacity:0}}
+@keyframes aiT5{0%,71%{opacity:0}73%,88%{opacity:1}93%,100%{opacity:0}}
+.ai-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
+.ai-word{opacity:0;animation:aiWord 6.5s ease-out infinite}
+@keyframes aiWord{0%,72%{opacity:0;transform:translateY(4px)}77%,88%{opacity:1;transform:translateY(0)}93%,100%{opacity:0;transform:translateY(0)}}
+
+/* seven loops on one page: only run the ones on screen */
+.project:not(.in-view) .pr-art *{animation-play-state:paused}
+
 @media (prefers-reduced-motion:reduce){
   .cc-card,.cc-hop,.cc-pulse,.cc-approve,.cc-stamp-word,
   .jr-noise rect,.jr-action,.jr-prio,.jr-conf,.jr-cursor,.jr-audit,
   .tk-island,.tk-island-in,.tk-ring,.tk-eta,.tk-arr,.tk-train,.tk-fill,.tk-st,.tk-ripple,.tk-pin,.tk-plane,.tk-word,
   .sf-pass,.sf-liquid,.sf-wave,.sf-bar,.sf-finger,.sf-zone,.sf-zone-label,.sf-flash,.sf-stamp,.sf-bit,.sf-xp,
+  .ck-on,.ck-bar,.ck-frac,.ck-up,.ck-down,.ck-best,.ck-macros,.ck-word,
+  .gr-l,.gr-out,.gr-track,.gr-car,.gr-trail,.gr-s,.gr-up,.gr-down,.gr-gain,.gr-live,.gr-fl,
+  .ai-fill,.ai-odo,.ai-t,.ai-live,.ai-word,
   .project.in-view .project-desc .pd-mark::before{animation:none}
   .tk-island,.tk-island-in,.tk-arr,.tk-word{opacity:1;transform:none}
   .tk-eta{opacity:0}
@@ -699,6 +822,16 @@ nav{
   .sf-liquid{transform:translateY(-56px)}
   .sf-bar{transform:none}
   .sf-zone,.sf-zone-label,.sf-stamp,.sf-xp{opacity:1;transform:none}
+  .ck-on,.ck-frac,.ck-best,.ck-macros,.ck-word{opacity:1;transform:none}
+  .ck-bar.b1{transform:scaleX(0.5)}.ck-bar.b2{transform:scaleX(0.75)}.ck-bar.b3{transform:none}
+  .ck-up{transform:translateY(-68px)}.ck-down{transform:translateY(68px)}
+  .gr-track{stroke-dashoffset:0}
+  .gr-car,.gr-out,.gr-gain,.gr-fl{opacity:1;transform:none}
+  .gr-s.s1{fill:#00FF94}.gr-s.s2{fill:#E6B547}.gr-s.s3{fill:#FF2D78}
+  .gr-up{transform:translateY(-16px)}.gr-down{transform:translateY(16px)}
+  .ai-fill{stroke-dashoffset:0}
+  .ai-odo{transform:translateY(-960px)}
+  .ai-t.t0{opacity:0}.ai-t.t5,.ai-word{opacity:1;transform:none}
   .cc-card{opacity:1;transform:translate(252px,0)}
   .cc-hop{opacity:1;fill:#00FF94}
   .cc-pulse{stroke-dashoffset:0;opacity:1}
@@ -2335,6 +2468,9 @@ footer span.neon{color:var(--neon)}
   .jr-art svg{height:140px}
   .tk-art svg{height:140px}
   .sf-art svg{height:142px}
+  .ck-art svg{height:140px}
+  .gr-art svg{height:140px}
+  .ai-art svg{height:140px}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
@@ -2764,7 +2900,7 @@ footer span.neon{color:var(--neon)}
   <div class="built-header">
     <span class="bh-left">04 · Shipped Solo · Off The Clock</span>
     <h2 class="bh-title">Built <em>because it</em> didn't exist
-      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>four arguments, made in code.</b></span>
+      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>seven arguments, made in code.</b></span>
     </h2>
   </div>
 
@@ -3056,6 +3192,147 @@ footer span.neon{color:var(--neon)}
 
   <article class="project">
     <div class="project-left">
+      <span class="project-tag">Open Curriculum · Free-First · Vendor-Neutral</span>
+      <h3 class="project-title">Zero <em>to a hundred</em></h3>
+      <div class="project-desc">
+        <p>Every "learn AI" list is either a <span class="pd-mark">vendor's sales funnel</span> or a hundred YouTube tabs in no particular order. People end up able to <em>use</em> AI but unable to explain it.</p>
+        <p>So I wrote the path I wanted: <span class="pd-box">21 phases</span>, from Python and Git through classic ML, how LLMs actually work, RAG, agents and MCP, to evals, security and <em>inference economics</em>. Each phase says what you'll be able to do when it's done, and <span class="pd-mark">asks you to build something</span> before moving on.</p>
+        <p>It maps straight onto my day job: the RAG cleanup, golden-dataset evals and rent-vs-own model calls at Backbase are <span class="pd-mark">phases 09, 15 and 17</span>. <span class="pd-pink">No vendor worship. No "AI is like a brain" metaphors.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>21 Phases</span>
+        <span>154 Concepts</span>
+        <span>105 Curated Resources</span>
+        <span>ML → LLMs → Agents</span>
+        <span>MCP · RAG · Evals</span>
+        <span>Inference Economics</span>
+        <span>One HTML File</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/ai/" target="_blank" rel="noopener">Start at phase 00 <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: 21 phases light up along the path, the odometer rolls 0 -> 100 -->
+      <div class="pr-art ai-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="aiWindow"><rect x="232" y="44" width="72" height="48"/></clipPath>
+          </defs>
+          <!-- what you're on now -->
+          <circle class="ai-live" cx="17" cy="12" r="2" fill="#00FF94"/>
+          <g font-family="DM Mono, monospace" font-size="6.5" fill="#F3EFE4" letter-spacing="0.4">
+            <text class="ai-t t0" x="24" y="14.5">PHASE 00 · THE BUILDER'S TOOLKIT</text>
+            <text class="ai-t t1" x="24" y="14.5">PHASE 05 · HOW LLMs WORK</text>
+            <text class="ai-t t2" x="24" y="14.5">PHASE 09 · EMBEDDINGS, VECTORS &amp; RAG</text>
+            <text class="ai-t t3" x="24" y="14.5">PHASE 11 · MCP &amp; MULTI-AGENT SYSTEMS</text>
+            <text class="ai-t t4" x="24" y="14.5">PHASE 17 · INFERENCE ECONOMICS</text>
+            <text class="ai-t t5" x="24" y="14.5">PHASE 20 · FINE-TUNING &amp; FRONTIER</text>
+          </g>
+          <!-- the path: 21 phases, snaking -->
+          <path d="M 24 40 H 204 A 18 18 0 0 1 204 76 H 24 A 18 18 0 0 0 24 112 H 204" fill="none" stroke="#2a2722" stroke-width="8" stroke-linecap="round"/>
+          <path class="ai-fill" pathLength="100" d="M 24 40 H 204 A 18 18 0 0 1 204 76 H 24 A 18 18 0 0 0 24 112 H 204" fill="none" stroke="#00FF94" stroke-width="8" stroke-linecap="round"/>
+          <g fill="#15130F">
+            <circle cx="24" cy="40" r="2.2"/>
+            <circle cx="54" cy="40" r="2.2"/>
+            <circle cx="84" cy="40" r="2.2"/>
+            <circle cx="114" cy="40" r="2.2"/>
+            <circle cx="144" cy="40" r="2.2"/>
+            <circle cx="174" cy="40" r="2.2"/>
+            <circle cx="204" cy="40" r="2.2"/>
+            <circle cx="204" cy="76" r="2.2"/>
+            <circle cx="174" cy="76" r="2.2"/>
+            <circle cx="144" cy="76" r="2.2"/>
+            <circle cx="114" cy="76" r="2.2"/>
+            <circle cx="84" cy="76" r="2.2"/>
+            <circle cx="54" cy="76" r="2.2"/>
+            <circle cx="24" cy="76" r="2.2"/>
+            <circle cx="24" cy="112" r="2.2"/>
+            <circle cx="54" cy="112" r="2.2"/>
+            <circle cx="84" cy="112" r="2.2"/>
+            <circle cx="114" cy="112" r="2.2"/>
+            <circle cx="144" cy="112" r="2.2"/>
+            <circle cx="174" cy="112" r="2.2"/>
+            <circle cx="204" cy="112" r="2.2"/>
+          </g>
+          <g font-family="DM Mono, monospace" font-size="4.5" fill="#7E7A70" text-anchor="middle">
+            <text x="24" y="31">00</text>
+            <text x="54" y="31">01</text>
+            <text x="84" y="31">02</text>
+            <text x="114" y="31">03</text>
+            <text x="144" y="31">04</text>
+            <text x="174" y="31">05</text>
+            <text x="204" y="31">06</text>
+            <text x="204" y="67">07</text>
+            <text x="174" y="67">08</text>
+            <text x="144" y="67">09</text>
+            <text x="114" y="67">10</text>
+            <text x="84" y="67">11</text>
+            <text x="54" y="67">12</text>
+            <text x="24" y="67">13</text>
+            <text x="24" y="103">14</text>
+            <text x="54" y="103">15</text>
+            <text x="84" y="103">16</text>
+            <text x="114" y="103">17</text>
+            <text x="144" y="103">18</text>
+            <text x="174" y="103">19</text>
+            <text x="204" y="103">20</text>
+          </g>
+          <!-- odometer -->
+          <rect x="228" y="26" width="80" height="80" rx="6" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
+          <text x="268" y="38" font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" text-anchor="middle" letter-spacing="1">PROGRESS</text>
+          <g clip-path="url(#aiWindow)">
+            <g font-family="Bebas Neue, sans-serif" font-size="42" fill="#00FF94" text-anchor="middle">
+              <g class="ai-odo">
+                <text x="268" y="84">0</text>
+                <text x="268" y="132">5</text>
+                <text x="268" y="180">10</text>
+                <text x="268" y="228">15</text>
+                <text x="268" y="276">20</text>
+                <text x="268" y="324">25</text>
+                <text x="268" y="372">30</text>
+                <text x="268" y="420">35</text>
+                <text x="268" y="468">40</text>
+                <text x="268" y="516">45</text>
+                <text x="268" y="564">50</text>
+                <text x="268" y="612">55</text>
+                <text x="268" y="660">60</text>
+                <text x="268" y="708">65</text>
+                <text x="268" y="756">70</text>
+                <text x="268" y="804">75</text>
+                <text x="268" y="852">80</text>
+                <text x="268" y="900">85</text>
+                <text x="268" y="948">90</text>
+                <text x="268" y="996">95</text>
+                <text x="268" y="1044">100</text>
+              </g>
+            </g>
+          </g>
+          <text x="268" y="100" font-family="DM Mono, monospace" font-size="5" fill="#7E7A70" text-anchor="middle" letter-spacing="0.6">ZERO → A HUNDRED</text>
+          <g transform="rotate(-4 236 126)">
+            <text class="ai-word" x="236" y="126" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">a hundred.</text>
+          </g>
+          <g transform="rotate(-2 24 141)">
+            <text x="24" y="141" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">every phase ends in something you build.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">21<span class="sup"> PHASES</span></div>
+        <div class="pr-stat-label">~9-12 months at a steady pace, pre-LLM ML included</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">90<span class="sup">% FREE</span></div>
+        <div class="pr-stat-label">Of the resources. Paid ones are marked and optional</div>
+      </div>
+      <p class="pr-note">watch less. build more.</p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-left">
       <span class="project-tag">Product Teardown · Working Prototype</span>
       <h3 class="project-title">Jira <em>2.0</em></h3>
       <div class="project-desc">
@@ -3119,6 +3396,201 @@ footer span.neon{color:var(--neon)}
         <div class="pr-stat-label">AI outputs auditable - signals, reasoning, confidence</div>
       </div>
       <p class="pr-note">not a rebuild. a layer.</p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Live Data · Editorial Reference</span>
+      <h3 class="project-title">GRID <em>F1 in 2026</em></h3>
+      <div class="project-desc">
+        <p>2026 is the <span class="pd-mark">biggest technical reset</span> in Formula 1's history - new engines, active aero, smaller cars - and most explainers are either 40-minute videos or wikis that assume you've watched since 1998.</p>
+        <p>GRID is a primer that <em>respects your time</em>: five pages, compressed like a blueprint. Eleven teams, twenty-two drivers, twenty-two tracks drawn as abstract silhouettes, and a top-down technical drawing of the car where you can <span class="pd-box">flip the wings</span> between corner and straight-line mode.</p>
+        <p>Then it gets a heartbeat. The live page pulls positions, fastest laps, weather and race-control flags <span class="pd-mark">straight from OpenF1</span>, and any one feed can fail without taking the others down. There's a strategy simulator and a pit-stop reaction game too. <span class="pd-pink">Under 2.5 s is F1-grade.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>Multi-Page · No Framework</span>
+        <span>OpenF1 Live API</span>
+        <span>SVG Technical Drawings</span>
+        <span>Strategy Simulator</span>
+        <span>Pit-Stop Game</span>
+        <span>~190 KB Total</span>
+        <span>Editorial Design</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/grid/" target="_blank" rel="noopener">Lights out <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: five red lights, lights out, a lap of a blueprint circuit, sectors light, P3 takes P2 -->
+      <div class="pr-art gr-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- start lights -->
+          <rect x="14" y="6" width="82" height="18" rx="4" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
+          <g fill="#2a2722">
+            <circle cx="26" cy="15" r="4.5"/><circle cx="40" cy="15" r="4.5"/><circle cx="54" cy="15" r="4.5"/><circle cx="68" cy="15" r="4.5"/><circle cx="82" cy="15" r="4.5"/>
+          </g>
+          <g fill="#FF2D78">
+            <circle class="gr-l l1" cx="26" cy="15" r="4.5"/>
+            <circle class="gr-l l2" cx="40" cy="15" r="4.5"/>
+            <circle class="gr-l l3" cx="54" cy="15" r="4.5"/>
+            <circle class="gr-l l4" cx="68" cy="15" r="4.5"/>
+            <circle class="gr-l l5" cx="82" cy="15" r="4.5"/>
+          </g>
+          <g transform="rotate(-3 104 20)">
+            <text class="gr-out" x="104" y="20" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">lights out.</text>
+          </g>
+          <!-- the circuit, drawn like a plate -->
+          <path class="gr-track" pathLength="100" d="M 44 128 L 150 128 C 170 128 178 116 170 104 L 150 72 C 144 60 150 50 162 50 L 182 50 C 196 50 198 36 184 34 L 70 34 C 50 34 42 46 52 58 L 70 84 C 76 94 66 102 54 98 L 34 92 C 20 88 14 100 20 112 L 28 122 C 32 127 36 128 44 128 Z" fill="none" stroke="#F3EFE4" stroke-opacity="0.6" stroke-width="1.3" stroke-linejoin="round"/>
+          <!-- start / finish -->
+          <g fill="#F3EFE4" opacity="0.7">
+            <rect x="40" y="123" width="2" height="2.5"/><rect x="42" y="125.5" width="2" height="2.5"/>
+            <rect x="40" y="128" width="2" height="2.5"/><rect x="42" y="130.5" width="2" height="2.5"/>
+          </g>
+          <!-- car + trail -->
+          <path class="gr-trail" pathLength="100" d="M 44 128 L 150 128 C 170 128 178 116 170 104 L 150 72 C 144 60 150 50 162 50 L 182 50 C 196 50 198 36 184 34 L 70 34 C 50 34 42 46 52 58 L 70 84 C 76 94 66 102 54 98 L 34 92 C 20 88 14 100 20 112 L 28 122 C 32 127 36 128 44 128 Z" fill="none" stroke="#FF2D78" stroke-width="2.5" stroke-linecap="round"/>
+          <path class="gr-car" pathLength="100" d="M 44 128 L 150 128 C 170 128 178 116 170 104 L 150 72 C 144 60 150 50 162 50 L 182 50 C 196 50 198 36 184 34 L 70 34 C 50 34 42 46 52 58 L 70 84 C 76 94 66 102 54 98 L 34 92 C 20 88 14 100 20 112 L 28 122 C 32 127 36 128 44 128 Z" fill="none" stroke="#FF2D78" stroke-width="4" stroke-linecap="round"/>
+          <!-- blueprint dimension line -->
+          <g stroke="#4a463c" stroke-width="0.8">
+            <line x1="20" y1="142" x2="196" y2="142"/><line x1="20" y1="139" x2="20" y2="145"/><line x1="196" y1="139" x2="196" y2="145"/>
+          </g>
+          <rect x="66" y="138" width="84" height="8" fill="#15130F"/>
+          <text x="108" y="144" font-family="DM Mono, monospace" font-size="5" fill="#7E7A70" text-anchor="middle" letter-spacing="0.6">§A3 · ABSTRACTED CIRCUIT</text>
+          <!-- timing tower -->
+          <circle class="gr-live" cx="215" cy="10" r="2" fill="#FF2D78"/>
+          <text x="221" y="12.5" font-family="DM Mono, monospace" font-size="6" fill="#A8A499" letter-spacing="0.8">LIVE · OPENF1</text>
+          <g fill="#1d1b16">
+            <rect x="212" y="18" width="94" height="14" rx="2"/><rect x="212" y="34" width="94" height="14" rx="2"/>
+            <rect x="212" y="50" width="94" height="14" rx="2"/><rect x="212" y="66" width="94" height="14" rx="2"/>
+          </g>
+          <g font-family="DM Mono, monospace" font-size="6.5">
+            <text x="216" y="27.5" fill="#FF2D78">P1</text><text x="216" y="43.5" fill="#7E7A70">P2</text>
+            <text x="216" y="59.5" fill="#7E7A70">P3</text><text x="216" y="75.5" fill="#7E7A70">P4</text>
+            <g fill="#7E7A70" text-anchor="end" font-size="6">
+              <text x="302" y="27.5">LEAD</text><text x="302" y="43.5">+1.204</text>
+              <text x="302" y="59.5">+2.871</text><text x="302" y="75.5">+4.330</text>
+            </g>
+          </g>
+          <g font-family="DM Mono, monospace" font-size="7" fill="#F3EFE4" letter-spacing="0.5">
+            <g><rect x="230" y="20" width="2.5" height="10" fill="#00FF94"/><text x="237" y="27.5">ANT</text></g>
+            <g class="gr-down"><rect x="230" y="36" width="2.5" height="10" fill="#00FF94"/><text x="237" y="43.5">RUS</text></g>
+            <g class="gr-up"><rect x="230" y="52" width="2.5" height="10" fill="#E6B547"/><text x="237" y="59.5">NOR</text><text class="gr-gain" x="256" y="59.5" font-size="6" fill="#FF2D78">▲1</text></g>
+            <g><rect x="230" y="68" width="2.5" height="10" fill="#FF2D78"/><text x="237" y="75.5">LEC</text></g>
+          </g>
+          <!-- sectors: personal best, gold, fastest overall -->
+          <rect class="gr-s s1" x="212" y="88" width="30" height="12" rx="2"/>
+          <rect class="gr-s s2" x="244" y="88" width="30" height="12" rx="2"/>
+          <rect class="gr-s s3" x="276" y="88" width="30" height="12" rx="2"/>
+          <g font-family="DM Mono, monospace" font-size="6" fill="#A8A499" text-anchor="middle">
+            <text x="227" y="96.5">S1</text><text x="259" y="96.5">S2</text><text x="291" y="96.5">S3</text>
+          </g>
+          <g transform="translate(259 116)">
+            <g class="gr-fl">
+              <rect x="-47" y="-8" width="94" height="16" rx="2" fill="#FF2D78"/>
+              <text x="0" y="2.5" font-family="DM Mono, monospace" font-size="6" fill="#15130F" text-anchor="middle" letter-spacing="0.4">FASTEST LAP · 1:31.447</text>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">5<span class="sup"> PAGES</span></div>
+        <div class="pr-stat-label">Primer, the grid, the car, live timing, learn</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">~190<span class="sup"> KB</span></div>
+        <div class="pr-stat-label">All five pages, no framework, no build</div>
+      </div>
+      <p class="pr-note">lights out and away we go.</p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Live · 216 Dishes · Zero Build</span>
+      <h3 class="project-title">The Cookbook <em>by Parth</em></h3>
+      <div class="project-desc">
+        <p>Recipe sites are built for <span class="pd-mark">search engines, not hungry people</span>. A life story, three ads, and the ingredient list somewhere below the fold. None of them answer the real question: <em>what should I cook tonight?</em></p>
+        <p>So mine starts from context, not chapters. <span class="pd-box">I have 20 minutes.</span> I have chicken. Zero cleanup. Someone's coming over. Tap what's in the fridge and it ranks dishes with <span class="pd-mark">honest set math</span>; pick one and cook mode takes over the screen, timers running and the screen kept awake.</p>
+        <p>Underneath, it's a data product: 216 cards, an ingredient database, 421 aliases, and a graph of pairings and leftovers. A validator <span class="pd-mark">blocks the deploy</span> if any card's macros disagree with the database. <span class="pd-pink">Nothing is estimated.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>ES Modules · Hash Routing</span>
+        <span>JSON as the Database</span>
+        <span>Faceted Filters</span>
+        <span>Fridge Matcher</span>
+        <span>Cook Mode · Wake Lock</span>
+        <span>⌘K Palette</span>
+        <span>Python Data QA</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/cookbook/" target="_blank" rel="noopener">What's for dinner? <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: tap what's in the fridge, match bars fill, the full match climbs to the top -->
+      <div class="pr-art ck-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <g font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" letter-spacing="0.8">
+            <text x="14" y="10">IN THE FRIDGE</text>
+            <text x="110" y="10">RANKED BY WHAT YOU HAVE</text>
+          </g>
+          <!-- ingredient chips -->
+          <g font-family="DM Mono, monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.5">
+            <g class="ck-chip"><rect x="14" y="16" width="78" height="18" rx="9"/><text x="53" y="27.5">CHICKEN</text></g>
+            <g class="ck-chip"><rect x="14" y="40" width="78" height="18" rx="9"/><text x="53" y="51.5">YOGURT</text></g>
+            <g class="ck-chip"><rect x="14" y="64" width="78" height="18" rx="9"/><text x="53" y="75.5">GARLIC</text></g>
+            <g class="ck-chip"><rect x="14" y="88" width="78" height="18" rx="9"/><text x="53" y="99.5">GINGER</text></g>
+            <g class="ck-chip"><rect x="14" y="112" width="78" height="18" rx="9"/><text x="53" y="123.5">LEMON</text></g>
+            <g class="ck-on c1"><rect x="14" y="16" width="78" height="18" rx="9"/><text x="53" y="27.5">CHICKEN ✓</text></g>
+            <g class="ck-on c2"><rect x="14" y="40" width="78" height="18" rx="9"/><text x="53" y="51.5">YOGURT ✓</text></g>
+            <g class="ck-on c3"><rect x="14" y="64" width="78" height="18" rx="9"/><text x="53" y="75.5">GARLIC ✓</text></g>
+            <g class="ck-on c4"><rect x="14" y="88" width="78" height="18" rx="9"/><text x="53" y="99.5">GINGER ✓</text></g>
+          </g>
+          <!-- dishes -->
+          <g font-family="DM Mono, monospace" font-size="7" letter-spacing="0.4">
+            <g class="ck-down">
+              <rect x="110" y="16" width="196" height="26" rx="4" fill="#1d1b16" stroke="#3a3731"/>
+              <text x="120" y="27" fill="#F3EFE4">MATAR PANEER</text>
+              <text class="ck-frac" x="296" y="27" fill="#A8A499" text-anchor="end" font-size="6">2/4</text>
+              <rect x="120" y="32" width="176" height="4" rx="2" fill="#3a3731"/>
+              <rect class="ck-bar b1" x="120" y="32" width="176" height="4" rx="2" fill="#E6B547"/>
+            </g>
+            <g>
+              <rect x="110" y="50" width="196" height="26" rx="4" fill="#1d1b16" stroke="#3a3731"/>
+              <text x="120" y="61" fill="#F3EFE4">SOUVLAKI SKEWERS</text>
+              <text class="ck-frac" x="296" y="61" fill="#A8A499" text-anchor="end" font-size="6">3/4 · NEED LEMON</text>
+              <rect x="120" y="66" width="176" height="4" rx="2" fill="#3a3731"/>
+              <rect class="ck-bar b2" x="120" y="66" width="176" height="4" rx="2" fill="#A8A499"/>
+            </g>
+            <g class="ck-up">
+              <rect x="110" y="84" width="196" height="26" rx="4" fill="#1d1b16" stroke="#3a3731"/>
+              <rect class="ck-best" x="110" y="84" width="196" height="26" rx="4" fill="none" stroke="#00FF94" stroke-width="1.5"/>
+              <text x="120" y="95" fill="#F3EFE4">CHICKEN TIKKA</text>
+              <text class="ck-best" x="276" y="95" fill="#FF2D78" text-anchor="end" font-size="6">★ TONIGHT</text>
+              <text class="ck-frac" x="296" y="95" fill="#00FF94" text-anchor="end" font-size="6">4/4</text>
+              <rect x="120" y="100" width="176" height="4" rx="2" fill="#3a3731"/>
+              <rect class="ck-bar b3" x="120" y="100" width="176" height="4" rx="2" fill="#00FF94"/>
+            </g>
+          </g>
+          <text class="ck-macros" x="110" y="124" font-family="DM Mono, monospace" font-size="6.5" fill="#E6B547" letter-spacing="0.5">54g PROTEIN · 365 KCAL · 30 MIN</text>
+          <g transform="rotate(-3 224 144)">
+            <text class="ck-word" x="224" y="144" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">dinner, sorted.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">216<span class="sup"> DISHES</span></div>
+        <div class="pr-stat-label">58 in rotation, café and bar included</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">0<span class="sup"> ESTIMATES</span></div>
+        <div class="pr-stat-label">Every macro computed from the ingredient database</div>
+      </div>
+      <p class="pr-note">the fridge decides. the data checks.</p>
     </div>
   </article>
 </section>
