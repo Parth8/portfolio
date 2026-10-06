@@ -529,10 +529,176 @@ nav{
   86%,100%{opacity:0.5;fill:#A8A499}
 }
 
+/* --- Track: live island opens, train halts its way to your stop, a flight crosses overhead --- */
+.tk-art svg{height:170px}
+.tk-island{transform-box:fill-box;transform-origin:center;
+  animation:tkIsland 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes tkIsland{
+  0%{opacity:0;transform:scaleX(0.2)}
+  8%,88%{opacity:1;transform:scaleX(1)}
+  96%,100%{opacity:0;transform:scaleX(0.2)}
+}
+.tk-island-in{opacity:0;animation:tkIslandIn 6.5s ease infinite}
+@keyframes tkIslandIn{0%,7%{opacity:0}12%,86%{opacity:1}92%,100%{opacity:0}}
+/* progress ring in the island fills as the journey does */
+.tk-ring{stroke-dasharray:37.7;stroke-dashoffset:37.7;animation:tkRing 6.5s ease-in-out infinite}
+@keyframes tkRing{0%,8%{stroke-dashoffset:37.7}55.5%,100%{stroke-dashoffset:0}}
+.tk-eta{animation:tkEta 6.5s ease infinite}
+@keyframes tkEta{0%,55%{opacity:1}59%,100%{opacity:0}}
+.tk-arr{opacity:0;animation:tkArr 6.5s ease infinite}
+@keyframes tkArr{0%,57%{opacity:0}61%,100%{opacity:1}}
+/* train: eases out of each station, halts, eases into the next */
+.tk-train{animation:tkTrain 6.5s ease-in-out infinite}
+@keyframes tkTrain{
+  0%{opacity:0;transform:translateX(-24px)}
+  6%{opacity:1;transform:translateX(0)}
+  8%{transform:translateX(0)}
+  18%,20.5%{transform:translateX(68px)}     /* halt */
+  30.5%,33%{transform:translateX(136px)}    /* halt */
+  43%,45.5%{transform:translateX(204px)}    /* halt */
+  55.5%{transform:translateX(272px)}        /* your stop */
+  84%{opacity:1;transform:translateX(272px)}
+  92%,100%{opacity:0;transform:translateX(272px)}
+}
+/* journey progress draws behind the train, same beats */
+.tk-fill{stroke-dasharray:272 400;stroke-dashoffset:272;animation:tkFill 6.5s ease-in-out infinite}
+@keyframes tkFill{
+  0%,8%{stroke-dashoffset:272;opacity:1}
+  18%,20.5%{stroke-dashoffset:204}
+  30.5%,33%{stroke-dashoffset:136}
+  43%,45.5%{stroke-dashoffset:68}
+  55.5%,84%{stroke-dashoffset:0;opacity:1}
+  92%{stroke-dashoffset:0;opacity:0}
+  100%{stroke-dashoffset:272;opacity:0}
+}
+.tk-st{fill:#3a3731;stroke:#15130F;stroke-width:2;transform-box:fill-box;transform-origin:center}
+.tk-st.s0{animation:tkS0 6.5s ease-out infinite}
+.tk-st.s1{animation:tkS1 6.5s ease-out infinite}
+.tk-st.s2{animation:tkS2 6.5s ease-out infinite}
+.tk-st.s3{animation:tkS3 6.5s ease-out infinite}
+.tk-st.s4{fill:#FF2D78;animation:tkS4 6.5s ease-out infinite}
+@keyframes tkS0{0%,4%{fill:#3a3731}8%,86%{fill:#00FF94}94%,100%{fill:#3a3731}}
+@keyframes tkS1{0%,17.5%{fill:#3a3731;transform:scale(1)}19.5%{fill:#00FF94;transform:scale(1.6)}24%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS2{0%,30%{fill:#3a3731;transform:scale(1)}32%{fill:#00FF94;transform:scale(1.6)}36.5%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS3{0%,42.5%{fill:#3a3731;transform:scale(1)}44.5%{fill:#00FF94;transform:scale(1.6)}49%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS4{0%,55%{fill:#FF2D78;transform:scale(1)}57.5%{fill:#00FF94;transform:scale(1.7)}62%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#FF2D78;transform:scale(1)}}
+/* arrival ripple at your stop */
+.tk-ripple{opacity:0;transform-box:fill-box;transform-origin:center;animation:tkRipple 6.5s ease-out infinite}
+@keyframes tkRipple{0%,55%{opacity:0;transform:scale(1)}57%{opacity:1;transform:scale(1)}72%,100%{opacity:0;transform:scale(3.4)}}
+.tk-pin{animation:tkPin 1.3s ease-in-out infinite}
+@keyframes tkPin{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* a flight climbs across the sky - same app, other mode */
+.tk-plane{opacity:0;animation:tkPlane 6.5s linear infinite}
+@keyframes tkPlane{
+  0%,16%{opacity:0;transform:translateX(0)}
+  24%,74%{opacity:0.9}
+  84%,100%{opacity:0;transform:translateX(220px)}
+}
+.tk-word{opacity:0;animation:tkWord 6.5s ease-out infinite}
+@keyframes tkWord{0%,58%{opacity:0;transform:translateY(4px)}64%,84%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+
+/* --- Shelfie: drag up to read (liquid rises), lift the pass, magnet-drop it on FINISHED, stamp + confetti + XP --- */
+.sf-art svg{height:172px}
+.sf-pass{transform-box:view-box;transform-origin:70px 70px;
+  animation:sfPass 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfPass{
+  0%{opacity:0;transform:translate(0,10px) scale(0.92) rotate(-4deg)}
+  6%,42%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+  46%{transform:translate(0,-6px) scale(1.07) rotate(3deg)}          /* lifted */
+  56%{transform:translate(171px,-2px) scale(1.04) rotate(-3deg)}     /* overshoots into the magnet */
+  60%,86%{opacity:1;transform:translate(165px,0) scale(1) rotate(-2deg)}
+  93%,100%{opacity:0;transform:translate(165px,6px) scale(0.96) rotate(-2deg)}
+}
+/* liquid rises in three page-flick bursts */
+.sf-liquid{animation:sfFill 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfFill{
+  0%,9%{transform:translateY(0)}
+  15%,21%{transform:translateY(-19px)}
+  27%,33%{transform:translateY(-38px)}
+  39%,100%{transform:translateY(-56px)}
+}
+.sf-wave{animation:sfWave 1.1s linear infinite}
+@keyframes sfWave{from{transform:translateX(0)}to{transform:translateX(32px)}}
+.sf-bar{transform-box:fill-box;transform-origin:left center;animation:sfBar 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfBar{
+  0%,9%{transform:scaleX(0)}
+  15%,21%{transform:scaleX(0.34)}
+  27%,33%{transform:scaleX(0.67)}
+  39%,100%{transform:scaleX(1)}
+}
+/* ghost finger: three drags up, then press-and-hold and carry */
+.sf-finger{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfFinger 6.5s ease-in-out infinite}
+@keyframes sfFinger{
+  0%,7%{opacity:0;transform:translate(0,14px)}
+  9%{opacity:1;transform:translate(0,14px)}
+  15%{opacity:1;transform:translate(0,-16px)}
+  17%{opacity:0;transform:translate(0,-16px)}
+  19%{opacity:0;transform:translate(0,14px)}
+  21%{opacity:1;transform:translate(0,14px)}
+  27%{opacity:1;transform:translate(0,-16px)}
+  29%{opacity:0;transform:translate(0,-16px)}
+  31%{opacity:0;transform:translate(0,14px)}
+  33%{opacity:1;transform:translate(0,14px)}
+  39%{opacity:1;transform:translate(0,-16px)}
+  40.5%{opacity:0;transform:translate(0,-16px)}
+  41.5%{opacity:0;transform:translate(0,0) scale(1)}
+  43%{opacity:1;transform:translate(0,0) scale(1)}
+  45%{opacity:1;transform:translate(0,0) scale(0.8)}               /* hold */
+  48%{opacity:1;transform:translate(0,-6px) scale(0.8)}
+  58%{opacity:1;transform:translate(165px,0) scale(0.8)}
+  61%,100%{opacity:0;transform:translate(165px,0) scale(1.2)}
+}
+.sf-zone,.sf-zone-label{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfZone 6.5s ease-out infinite}
+@keyframes sfZone{
+  0%,40%{opacity:0;transform:scale(0.94)}
+  46%{opacity:1;transform:scale(1)}
+  52%{opacity:1;transform:scale(1.04)}                                 /* magnet pull */
+  58%,86%{opacity:1;transform:scale(1)}
+  94%,100%{opacity:0;transform:scale(0.94)}
+}
+.sf-flash{opacity:0;animation:sfFlash 6.5s ease-out infinite}
+@keyframes sfFlash{0%,58%{opacity:0}61%{opacity:0.28}74%,100%{opacity:0}}
+/* READ stamp slams onto the cover */
+.sf-stamp{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:sfStamp 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes sfStamp{
+  0%,60%{opacity:0;transform:scale(2.4)}
+  64%{opacity:1;transform:scale(0.92)}
+  67%,86%{opacity:1;transform:scale(1)}
+  93%,100%{opacity:0;transform:scale(1)}
+}
+.sf-bit{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:sfBit 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfBit{
+  0%,62%{opacity:0;transform:translate(0,0) rotate(0deg)}
+  64%{opacity:1;transform:translate(0,0) rotate(0deg)}
+  78%{opacity:1}
+  86%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}
+}
+.sf-xp{opacity:0;animation:sfXp 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfXp{
+  0%,63%{opacity:0;transform:translateY(8px)}
+  68%{opacity:1;transform:translateY(0)}
+  82%{opacity:1;transform:translateY(-12px)}
+  88%,100%{opacity:0;transform:translateY(-18px)}
+}
+
 @media (prefers-reduced-motion:reduce){
   .cc-card,.cc-hop,.cc-pulse,.cc-approve,.cc-stamp-word,
   .jr-noise rect,.jr-action,.jr-prio,.jr-conf,.jr-cursor,.jr-audit,
+  .tk-island,.tk-island-in,.tk-ring,.tk-eta,.tk-arr,.tk-train,.tk-fill,.tk-st,.tk-ripple,.tk-pin,.tk-plane,.tk-word,
+  .sf-pass,.sf-liquid,.sf-wave,.sf-bar,.sf-finger,.sf-zone,.sf-zone-label,.sf-flash,.sf-stamp,.sf-bit,.sf-xp,
   .project.in-view .project-desc .pd-mark::before{animation:none}
+  .tk-island,.tk-island-in,.tk-arr,.tk-word{opacity:1;transform:none}
+  .tk-eta{opacity:0}
+  .tk-ring,.tk-fill{stroke-dashoffset:0}
+  .tk-train{opacity:1;transform:translateX(272px)}
+  .tk-st,.tk-st.s4{fill:#00FF94}
+  .tk-plane{opacity:0.9;transform:translateX(110px)}
+  .sf-pass{opacity:1;transform:translate(165px,0) rotate(-2deg)}
+  .sf-liquid{transform:translateY(-56px)}
+  .sf-bar{transform:none}
+  .sf-zone,.sf-zone-label,.sf-stamp,.sf-xp{opacity:1;transform:none}
   .cc-card{opacity:1;transform:translate(252px,0)}
   .cc-hop{opacity:1;fill:#00FF94}
   .cc-pulse{stroke-dashoffset:0;opacity:1}
@@ -1654,6 +1820,19 @@ nav{
   background:var(--neon-dark);
 }
 .xp-pts li strong{color:var(--ink);font-weight:500;background:rgba(0,255,148,0.35);padding:0 0.2em}
+.xp-now{
+  display:inline-flex;align-items:center;gap:0.45rem;
+  margin-top:0.85rem;
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;
+  background:var(--ink);color:var(--neon);
+  padding:0.32rem 0.65rem;
+  transform:rotate(-2deg);
+}
+.xp-now::before{
+  content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);
+  animation:pulse-dot 1.8s ease-in-out infinite;
+}
 
 .awards-section{padding:6rem 2.5rem;border-bottom:1px solid var(--border);background:var(--eggshell);position:relative}
 .aw-head{
@@ -2154,6 +2333,8 @@ footer span.neon{color:var(--neon)}
   .project + .project{margin-top:2.5rem}
   .cc-art svg{height:128px}
   .jr-art svg{height:140px}
+  .tk-art svg{height:140px}
+  .sf-art svg{height:142px}
   .skills-cols{grid-template-columns:1fr}
   .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
   .philosophy{grid-template-columns:1fr}
@@ -2391,29 +2572,48 @@ footer span.neon{color:var(--neon)}
   </div>
   <div class="xp-row">
     <div class="xp-left">
-      <p class="xp-date">Sep 2024 - Present</p>
+      <p class="xp-date">Aug 2026 - Present</p>
+      <p class="xp-co">Backbase.</p>
+      <span class="xp-now">Now · Hyderabad</span>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Forward Deployed Product Manager <em>- Connector Studio · Agentic Banking</em></p>
+      <ul class="xp-pts">
+        <li><strong>Platform owner for Connector Studio</strong> - Backbase's iPaaS for banking connectors. Build, deploy, install, run and maintain, across the web app and the agentic AI MCP.</li>
+        <li>Launched the <strong>Connector Studio MCP in 6 weeks</strong> - banking clients and ~20 internal PMs and services engineers now build connectors with agents, off manual builds.</li>
+        <li>Connector build time cut from <strong>~12 days to ~2 (~80%)</strong>, mapping review and deployment included. Every build gated to pre-prod until mapping accuracy is safe for production banking traffic.</li>
+        <li>Driving LLM mapping accuracy - BIAN unified APIs to vendor JSON/XML specs - from <strong>~50-60% to 90%+</strong>, baselined against a golden dataset. Own the Q4 KPI: the first official connectors built and published.</li>
+        <li>Running the <strong>rent vs own the LLM</strong> call: self-hosted open-weight models vs OpenAI and Anthropic enterprise plans, and RAG vs LLM-native mapping, on accuracy, token cost, control and data isolation.</li>
+        <li>Shipped the <strong>API Playground</strong> and MCP token rotation (90-day expiry, auto re-provisioning, instant self-serve revoke). Redesigning the Connector Studio UI off user feedback.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">May 2024 - Aug 2026</p>
       <p class="xp-co">Zeta.</p>
     </div>
     <div class="xp-right">
       <p class="xp-role">Technical Product Manager <em>- Data Platform SaaS (US + EMEA)</em></p>
       <ul class="xp-pts">
-        <li><strong>Sole architectural decision-maker</strong> for a financial data platform serving enterprise banks across US + EMEA.</li>
-        <li>Eliminated MongoDB dependency - <strong>$50K/year infra savings</strong> unlocked through platform rearchitecture.</li>
-        <li>Data contracts across <strong>1200+ attributes</strong>, with lineage, GDPR, Sanctions RBAC, SLAs for regulated banking.</li>
-        <li>Integration roadmap for <strong>10+ third-party sources</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless.</li>
-        <li>Client onboarding reduced from engineering-led builds to <strong>30-day standardized deployments</strong>.</li>
+        <li><strong>Lead platform PM</strong> for a multi-tenant, config-driven data platform for US + EMEA banks - subscription onboarding, 0 code changes, onboarding + GTM cut by <strong>90 days</strong>.</li>
+        <li>Eliminated the MongoDB dependency - <strong>~$50K/year infra savings</strong>. Made data freshness a per-tenant config tied to its AWS cost.</li>
+        <li>Data contracts and a governed semantic layer across <strong>1,200+ attributes, 20+ schemas</strong> - lineage, PII/PCI DSS/GDPR, sanctions &amp; AML (OFAC, FinCEN).</li>
+        <li>Owned <strong>12+ connectors</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless, AWS Connect. One subscription provisions a DAG per tenant-vendor pair.</li>
+        <li><strong>0 P1/P2 defects, 4-week GTM</strong> with a team of 8 engineers at 90%+ on-time delivery. 70+ data quality gaps closed in 2 months, CSAT 2.5 → 4.0.</li>
         <li>Authored architecture docs across 600+ attributes, driving CardWorks' <strong>$3M+ credit card portfolio data migration</strong>.</li>
       </ul>
     </div>
   </div>
   <div class="xp-row">
     <div class="xp-left">
-      <p class="xp-date">Sep 2024 - Present</p>
+      <p class="xp-date">May 2024 - Aug 2026</p>
       <p class="xp-co">Zeta.</p>
     </div>
     <div class="xp-right">
       <p class="xp-role">Technical Product Manager <em>- Optum Virtual Card Platform</em></p>
       <ul class="xp-pts">
+        <li>Led the <strong>0 P1/P2 defect launch</strong> of a virtual card platform for UnitedHealthcare payers to disburse <strong>$2B+ a year</strong> to US healthcare providers - Optum Bank as sponsor, on Mastercard rails.</li>
         <li>Owned product strategy across <strong>9 functional areas</strong> for a Fortune 3 - discovery to clean regulatory sign-off for Mastercard integration.</li>
         <li>Designed API specs and led QA for the full card lifecycle - <strong>issue, cancel, reissue, reset</strong> - webhook triggers, idempotency, error handling, fallback.</li>
         <li>Architected a real-time <strong>FRM rules engine</strong> with configurable merchant, amount, and risk thresholds.</li>
@@ -2423,7 +2623,7 @@ footer span.neon{color:var(--neon)}
   </div>
   <div class="xp-row">
     <div class="xp-left">
-      <p class="xp-date">May 2022 - Aug 2024</p>
+      <p class="xp-date">May 2022 - May 2024</p>
       <p class="xp-co">Zeta.</p>
     </div>
     <div class="xp-right">
@@ -2564,9 +2764,222 @@ footer span.neon{color:var(--neon)}
   <div class="built-header">
     <span class="bh-left">04 · Shipped Solo · Off The Clock</span>
     <h2 class="bh-title">Built <em>because it</em> didn't exist
-      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>two arguments, made in code.</b></span>
+      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>four arguments, made in code.</b></span>
     </h2>
   </div>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Live · Installable · Ad-Free</span>
+      <h3 class="project-title">Track <em>trains &amp; flights</em></h3>
+      <div class="project-desc">
+        <p>Every train tracker I used fired <span class="pd-box">266 requests</span> and megabytes of ads to answer one question: <em>where is my train?</em> Flight apps swing the other way and bury you in telemetry you never asked for.</p>
+        <p>So I built Track around one idea: <span class="pd-mark">show what matters to the traveller right now</span>, and nothing else. The hero is <em>your stop</em>, not the train's raw position. Flights reshape themselves by phase - the gate leads before takeoff, the map in the air, the baggage belt after landing.</p>
+        <p>Under the hood it's a platform, not a page. One Cloudflare Worker normalises the running feed, NTES, IRCTC seats, AeroDataBox and live ADS-B into one shape, so <span class="pd-mark">the frontend never knows who answered</span>. A free-tier flight quota stretches across every user through shared caches and a daily budget. And stale data is <span class="pd-pink">labelled, never passed off as exact.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>Vanilla JS · ES Modules</span>
+        <span>Cloudflare Worker</span>
+        <span>5 Data Sources, 1 Contract</span>
+        <span>MapLibre GL</span>
+        <span>Live ADS-B</span>
+        <span>Add to Home Screen</span>
+        <span>No Build Step</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/track/" target="_blank" rel="noopener">Track a journey <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: live island opens, train halts its way to your stop, a flight crosses overhead -->
+      <div class="pr-art tk-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- live island -->
+          <rect class="tk-island" x="76" y="6" width="168" height="24" rx="12" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
+          <g class="tk-island-in">
+            <circle cx="92" cy="18" r="6" fill="none" stroke="#3a3731" stroke-width="2"/>
+            <circle class="tk-ring" cx="92" cy="18" r="6" fill="none" stroke="#00FF94" stroke-width="2" stroke-linecap="round" transform="rotate(-90 92 18)"/>
+            <text class="tk-eta" x="104" y="20.5" font-family="DM Mono, monospace" font-size="7" fill="#F3EFE4" letter-spacing="0.4">KCG · 04:14</text>
+            <text class="tk-arr" x="104" y="20.5" font-family="DM Mono, monospace" font-size="7" fill="#00FF94" letter-spacing="0.4">ARRIVED · KCG</text>
+            <text x="232" y="20.5" font-family="DM Mono, monospace" font-size="7" fill="#FF2D78" text-anchor="end">+14m</text>
+          </g>
+          <!-- a flight climbs across the sky -->
+          <g transform="translate(40 66) rotate(-6)">
+            <g class="tk-plane">
+              <line x1="-10" y1="0" x2="-44" y2="0" stroke="#7E7A70" stroke-width="1" stroke-dasharray="2 3"/>
+              <path d="M 7 0 L 2 -1.2 L -1 -6 L -3 -6 L -1 -1.2 L -5 -1.2 L -6.5 -3.5 L -7.5 -3.5 L -6.5 0 L -7.5 3.5 L -6.5 3.5 L -5 1.2 L -1 1.2 L -3 6 L -1 6 L 2 1.2 Z" fill="#A8A499"/>
+              <text x="10" y="-6" font-family="DM Mono, monospace" font-size="5" fill="#7E7A70" letter-spacing="0.3">36,000 FT</text>
+            </g>
+          </g>
+          <!-- the line, and progress drawn behind the train -->
+          <line x1="24" y1="100" x2="296" y2="100" stroke="#3a3731" stroke-width="3" stroke-linecap="round"/>
+          <line class="tk-fill" x1="24" y1="100" x2="296" y2="100" stroke="#00FF94" stroke-width="3" stroke-linecap="round"/>
+          <circle class="tk-ripple" cx="296" cy="100" r="6" fill="none" stroke="#FF2D78" stroke-width="1.5"/>
+          <g>
+            <circle class="tk-st s0" cx="24"  cy="100" r="4.5"/>
+            <circle class="tk-st s1" cx="92"  cy="100" r="4.5"/>
+            <circle class="tk-st s2" cx="160" cy="100" r="4.5"/>
+            <circle class="tk-st s3" cx="228" cy="100" r="4.5"/>
+            <circle class="tk-st s4" cx="296" cy="100" r="5.5"/>
+          </g>
+          <g font-family="DM Mono, monospace" font-size="6" fill="#A8A499" text-anchor="middle">
+            <text x="24" y="118">AP</text>
+            <text x="92" y="118">DMM</text>
+            <text x="160" y="118">GTL</text>
+            <text x="228" y="118">KRNT</text>
+            <text x="296" y="118" fill="#FF2D78">KCG</text>
+          </g>
+          <!-- your stop pin -->
+          <text x="296" y="58" font-family="DM Mono, monospace" font-size="5.5" fill="#FF2D78" text-anchor="middle" letter-spacing="0.5">YOUR STOP</text>
+          <g transform="translate(296 71)">
+            <g class="tk-pin">
+              <path d="M 0 8 C -2 4 -6 1 -6 -3 A 6 6 0 1 1 6 -3 C 6 1 2 4 0 8 Z" fill="#FF2D78"/>
+              <circle cx="0" cy="-3" r="2.2" fill="#15130F"/>
+            </g>
+          </g>
+          <!-- the train (centered over AP at rest) -->
+          <g class="tk-train">
+            <rect x="11" y="84" width="26" height="10" rx="3" fill="#00FF94"/>
+            <rect x="15" y="86.5" width="4" height="3" rx="0.8" fill="#15130F"/>
+            <rect x="21" y="86.5" width="4" height="3" rx="0.8" fill="#15130F"/>
+            <rect x="27" y="86.5" width="4" height="3" rx="0.8" fill="#15130F"/>
+            <circle cx="34.5" cy="91" r="1.2" fill="#E6B547"/>
+          </g>
+          <g transform="rotate(-4 214 142)">
+            <text class="tk-word" x="214" y="142" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">you're here.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">8,677<span class="sup"> STATIONS</span></div>
+        <div class="pr-stat-label">Searched on your device - by name, code or nickname</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">0<span class="sup"> ADS</span></div>
+        <div class="pr-stat-label">No sign-ups, no cookies, no analytics</div>
+      </div>
+      <p class="pr-note">your stop is the hero. not the train.</p>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-left">
+      <span class="project-tag">Live · Thumb-Driven · Offline-First</span>
+      <h3 class="project-title">Shelfie <em>reading arcade</em></h3>
+      <div class="project-desc">
+        <p>Every reading tracker I tried felt like <span class="pd-mark">filling in a spreadsheet</span>. Log a page, tap save, feel nothing. Meanwhile every game on the same phone makes a thumb-flick feel <em>incredible</em>.</p>
+        <p>So I built a reading tracker you drive with your thumbs. Books are arcade passes you flick through, <span class="pd-box">drag up to turn pages</span>, and drop onto shelves - every move is a spring that <span class="pd-mark">keeps your finger's speed</span>. Finish a book and a rubber stamp slams down, confetti flies, and the island counts up your XP.</p>
+        <p>Under the arcade: offline-first, optional accounts with passkeys and <em>end-to-end encrypted</em> sync, a two-minute Goodreads import, synthesised sound and haptics, and motion controls <span class="pd-mark">tuned on real iPhone recordings</span>. <span class="pd-pink">No ads, no build step.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>Vanilla JS · No Build</span>
+        <span>Spring Physics</span>
+        <span>Passkeys · E2E Sync</span>
+        <span>Cloudflare Worker · D1</span>
+        <span>Web Audio · Haptics</span>
+        <span>Device Motion</span>
+        <span>Goodreads Import</span>
+      </div>
+      <div class="project-links">
+        <a class="project-link primary" href="https://parth8.github.io/shelfie/" target="_blank" rel="noopener">Insert coin <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: drag up to read, lift the pass, magnet-drop on FINISHED, stamp + confetti + XP -->
+      <div class="pr-art sf-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="sfWindow"><rect x="38" y="34" width="64" height="54" rx="2"/></clipPath>
+            <pattern id="sfStripes" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+              <rect width="10" height="10" fill="#E6B547"/>
+              <rect width="5" height="10" fill="#FF2D78"/>
+            </pattern>
+          </defs>
+          <!-- the shelf it drops onto -->
+          <g class="sf-zone">
+            <rect x="187" y="8" width="96" height="124" rx="8" fill="rgba(0,255,148,0.05)" stroke="#00FF94" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <rect class="sf-flash" x="187" y="8" width="96" height="124" rx="8" fill="#00FF94"/>
+          </g>
+          <text class="sf-zone-label" x="235" y="145" font-family="DM Mono, monospace" font-size="6.5" fill="#00FF94" text-anchor="middle" letter-spacing="1">DROP · FINISHED</text>
+          <!-- the pile underneath -->
+          <rect x="30" y="16" width="80" height="108" rx="4" fill="#E6B547" transform="rotate(-6 70 70)"/>
+          <g transform="rotate(5 70 70)">
+            <rect x="30" y="16" width="80" height="108" rx="4" fill="#FF2D78"/>
+            <!-- up next: a pass with a generated striped cover -->
+            <rect x="36" y="22" width="68" height="96" rx="2" fill="#F3EFE4"/>
+            <rect x="36" y="22" width="68" height="96" rx="2" fill="none" stroke="#FF2D78" stroke-width="4" stroke-dasharray="0 6.5" stroke-linecap="round"/>
+            <rect x="42" y="32" width="56" height="50" rx="2" fill="url(#sfStripes)"/>
+            <text x="42" y="95" font-family="Bebas Neue, sans-serif" font-size="11" fill="#15130F">DUNE MESSIAH</text>
+            <text x="42" y="108" font-family="DM Mono, monospace" font-size="4.5" fill="#FF2D78" letter-spacing="0.6">▶ UP NEXT</text>
+          </g>
+          <!-- the top pass: perforated stamp, cover fills with liquid as pages turn -->
+          <g class="sf-pass">
+            <rect x="30" y="16" width="80" height="108" rx="2" fill="#F3EFE4"/>
+            <rect x="30" y="16" width="80" height="108" rx="2" fill="none" stroke="#15130F" stroke-width="4.5" stroke-dasharray="0 7" stroke-linecap="round"/>
+            <text x="70" y="28" font-family="DM Mono, monospace" font-size="5" fill="#15130F" text-anchor="middle" letter-spacing="0.6">★ ADMIT ONE ★</text>
+            <rect x="38" y="34" width="64" height="54" rx="2" fill="#2a2722"/>
+            <g clip-path="url(#sfWindow)">
+              <g transform="translate(38 92)">
+                <g class="sf-liquid">
+                  <path class="sf-wave" d="M -64 4 Q -56 -2 -48 4 T -32 4 T -16 4 T 0 4 T 16 4 T 32 4 T 48 4 T 64 4 T 80 4 T 96 4 V 70 H -64 Z" fill="#00FF94"/>
+                </g>
+              </g>
+            </g>
+            <text x="38" y="101" font-family="Bebas Neue, sans-serif" font-size="13" fill="#15130F">DUNE</text>
+            <text x="38" y="108" font-family="DM Mono, monospace" font-size="4.5" fill="#7E7A70" letter-spacing="0.4">FRANK HERBERT</text>
+            <rect x="38" y="113" width="64" height="3" rx="1.5" fill="#DCD5C2"/>
+            <rect class="sf-bar" x="38" y="113" width="64" height="3" rx="1.5" fill="#00CC75"/>
+          </g>
+          <!-- ghost finger -->
+          <g transform="translate(70 72)">
+            <g class="sf-finger">
+              <circle r="8" fill="#FF2D78" fill-opacity="0.25" stroke="#FF2D78" stroke-width="1.2"/>
+              <circle r="3" fill="#FF2D78"/>
+            </g>
+          </g>
+          <!-- READ stamp slams on -->
+          <g transform="translate(235 61) rotate(-14)">
+            <g class="sf-stamp">
+              <rect x="-31" y="-13" width="62" height="26" rx="3" fill="rgba(21,19,15,0.55)" stroke="#FF2D78" stroke-width="2.5"/>
+              <text x="-6" y="7" font-family="Bebas Neue, sans-serif" font-size="19" fill="#FF2D78" text-anchor="middle" letter-spacing="1">READ</text>
+              <path d="M 12 0 L 16 4 L 24 -6" fill="none" stroke="#FF2D78" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </g>
+          </g>
+          <!-- confetti -->
+          <g transform="translate(235 61)">
+            <rect class="sf-bit" style="--dx:-52px;--dy:-40px;--r:-200deg" x="-1.5" y="-2.5" width="3" height="5" fill="#00FF94"/>
+            <rect class="sf-bit" style="--dx:-30px;--dy:-52px;--r:160deg" x="-1.5" y="-2.5" width="3" height="5" fill="#E6B547"/>
+            <rect class="sf-bit" style="--dx:6px;--dy:-56px;--r:-120deg" x="-1.5" y="-2.5" width="3" height="5" fill="#FF2D78"/>
+            <rect class="sf-bit" style="--dx:36px;--dy:-46px;--r:220deg" x="-1.5" y="-2.5" width="3" height="5" fill="#F3EFE4"/>
+            <rect class="sf-bit" style="--dx:56px;--dy:-14px;--r:-180deg" x="-1.5" y="-2.5" width="3" height="5" fill="#00FF94"/>
+            <rect class="sf-bit" style="--dx:50px;--dy:30px;--r:140deg" x="-1.5" y="-2.5" width="3" height="5" fill="#E6B547"/>
+            <circle class="sf-bit" style="--dx:-56px;--dy:6px;--r:0deg" r="2" fill="#FF2D78"/>
+            <circle class="sf-bit" style="--dx:-40px;--dy:38px;--r:0deg" r="2" fill="#F3EFE4"/>
+          </g>
+          <!-- XP floats up between the pile and the shelf -->
+          <g transform="translate(148 74)">
+            <text class="sf-xp" x="0" y="0" font-family="Bebas Neue, sans-serif" font-size="18" fill="#E6B547" text-anchor="middle" letter-spacing="0.5">+100 XP</text>
+          </g>
+          <g transform="rotate(-2 14 146)">
+            <text x="14" y="146" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">drag up to read. drop to finish.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">20<span class="sup"> BADGES</span></div>
+        <div class="pr-stat-label">Die-cut stickers, Fresh Spine to Literary Final Boss</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">0<span class="sup"> AUDIO FILES</span></div>
+        <div class="pr-stat-label">Every click, coin and fanfare synthesised live</div>
+      </div>
+      <p class="pr-note">books are arcade passes. reading is the game.</p>
+    </div>
+  </article>
 
   <article class="project">
     <div class="project-left">
