@@ -1,7 +1,7 @@
 // Ask AI: connect in one step, watch one example, try one tool.
 // The console runs the server's own code (mcp-core.js) in the page, or the live Worker once js/config.js names it.
 
-import { handleMcp, callTool, TOOLS } from './mcp-core.js';
+import { handleMcp, callTool, TOOLS, SERVER_INFO } from './mcp-core.js';
 import { MCP_ENDPOINT } from './config.js';
 
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -192,7 +192,7 @@ renderForm();
 /* transport: the live Worker when configured, otherwise the same handler in this page */
 const META = 'io.modelcontextprotocol/';
 const CLIENT = { name: 'parth-portfolio-console', version: '2.0.0' };
-let proto = '2026-07-28', legacyReady = false, rid = 0;
+let proto = '2026-07-28', legacyReady = false, rid = 0, liveOutdated = false;
 async function exchange(method, params, { notify = false } = {}) {
   const modern = proto === '2026-07-28';
   const msg = { jsonrpc: '2.0', ...(notify ? {} : { id: ++rid }), method };
@@ -208,13 +208,17 @@ async function exchange(method, params, { notify = false } = {}) {
   const body = JSON.stringify(msg);
   const t0 = performance.now();
   let res = null, where = 'in this page';
-  if (LIVE) {
+  if (LIVE && !liveOutdated) {
     try {
       const r = await fetch(MCP_ENDPOINT, { method: 'POST', headers, body });
       res = { status: r.status, headers: Object.fromEntries(r.headers), body: await r.text() };
       where = 'live server';
+      // a server deployed from an older build would contradict the rest of the site: use the current code instead
+      const v = (() => { try { const j = JSON.parse(res.body); return (j.result?._meta?.[`${META}serverInfo`] || j.result?.serverInfo)?.version; } catch { return null; } })();
+      if (v && parseInt(v, 10) < parseInt(SERVER_INFO.version, 10)) { liveOutdated = v; res = null; }
     } catch { where = 'in this page (server unreachable)'; }
   }
+  if (LIVE && liveOutdated) where = `in this page (the live server runs older build ${liveOutdated})`;
   if (!res) res = handleMcp(data, { method: 'POST', headers, body });
   let json = null;
   try { json = res.body ? JSON.parse(res.body) : null; } catch { /* not JSON */ }

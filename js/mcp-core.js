@@ -11,7 +11,7 @@ export const LEGACY = ['2025-11-25', '2025-06-18', '2025-03-26'];
 export const SUPPORTED = [...MODERN, ...LEGACY];
 const META = 'io.modelcontextprotocol/';
 
-export const SERVER_INFO = { name: 'parth-aggarwal', title: 'Parth Aggarwal - career record', version: '1.0.0', websiteUrl: 'https://parth8.github.io/portfolio/mcp/' };
+export const SERVER_INFO = { name: 'parth-aggarwal', title: 'Parth Aggarwal - career record', version: '2.0.0', websiteUrl: 'https://parth8.github.io/portfolio/mcp/' };
 
 export const INSTRUCTIONS = [
   "This server is Parth Aggarwal's own professional record: Technical Platform Product Manager, currently Forward Deployed PM at Backbase (agentic AI connectors for banks); before that, card issuing and data platforms at Zeta.",
