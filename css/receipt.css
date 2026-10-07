@@ -2,7 +2,7 @@
    A card terminal docked bottom-left. Every highlight you scroll past prints a line;
    at "Say hi" the receipt totals and gets stamped. Tap it to read, tear it off as a PNG. */
 
-.receipt{display:none;position:fixed;left:1.5rem;bottom:1.5rem;z-index:98;--paper-c:#FBF8EF}
+.receipt{display:none;position:fixed;left:1.5rem;bottom:1.5rem;z-index:98;--paper-c:#FBF8EF;--pink:var(--rust);--gray:var(--muted);--gray-light:var(--faint);--eggshell:var(--bg);--neon:var(--green)}
 .js .receipt{display:block}
 
 /* ---------- the docked terminal ---------- */
@@ -20,7 +20,7 @@
   display:block;position:relative;margin:0 16px -2px;height:36px;overflow:hidden;
   background:var(--paper-c);
   padding:0.7rem 0.75rem 0;
-  font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.04em;color:var(--ink);
+  font-family:var(--f-mono);font-size:0.6rem;letter-spacing:0.04em;color:var(--ink);
   box-shadow:0 -2px 10px rgba(0,0,0,0.08);
   /* torn top edge */
   -webkit-mask:conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/10px 51% repeat-x,linear-gradient(#000 0 0) bottom/100% 51% no-repeat;
@@ -39,17 +39,17 @@
 }
 .rc-led{width:8px;height:8px;border-radius:50%;background:var(--neon);box-shadow:0 0 8px var(--neon);animation:pulse-dot 1.8s ease-in-out infinite}
 .rc-lcd{
-  font-family:'DM Mono',monospace;font-size:0.78rem;letter-spacing:0.12em;color:var(--neon);
+  font-family:var(--f-mono);font-size:0.78rem;letter-spacing:0.12em;color:var(--neon);
   background:#0c1a12;padding:0.18rem 0.5rem;border-radius:3px;
   text-shadow:0 0 6px rgba(0,255,148,0.55);
 }
-.rc-word{margin-left:auto;font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gray-light)}
+.rc-word{margin-left:auto;font-family:var(--f-mono);font-size:0.58rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--gray-light)}
 .rc-dock.printing .rc-lcd{animation:rcBlink 0.5s steps(2) 2}
 @keyframes rcBlink{50%{color:var(--eggshell);background:#173826}}
 
 .rc-stamp{
   position:absolute;right:8px;top:-14px;
-  font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:0.08em;line-height:1;
+  font-family:var(--f-sans);font-weight:600;font-size:1.25rem;letter-spacing:0.08em;line-height:1;
   color:var(--pink);border:2px solid var(--pink);padding:0.15rem 0.45rem 0.05rem;border-radius:3px;
   background:rgba(251,248,239,0.9);
   transform:rotate(-12deg) scale(0);opacity:0;
@@ -81,7 +81,7 @@
 .rc-scroll{
   overflow:auto;overscroll-behavior:contain;
   padding:1.6rem 1.4rem 1.5rem;
-  font-family:'DM Mono',monospace;font-size:0.7rem;line-height:1.6;letter-spacing:0.02em;
+  font-family:var(--f-mono);font-size:0.7rem;line-height:1.6;letter-spacing:0.02em;
   scrollbar-width:thin;
 }
 .rc-close{
@@ -94,7 +94,7 @@
 
 .rc-center{text-align:center}
 .rc-kicker{letter-spacing:0.3em;font-size:0.6rem;color:var(--gray)}
-.rc-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.05em;line-height:0.95;margin:0.35rem 0 0.15rem}
+.rc-title{font-family:var(--f-sans);font-weight:600;font-size:1.6rem;letter-spacing:-0.03em;line-height:0.95;margin:0.35rem 0 0.15rem}
 .rc-sub{text-transform:uppercase;letter-spacing:0.12em;font-size:0.6rem}
 .rc-hr{border:none;border-top:1px dashed #b5ae9b;margin:0.75rem 0}
 .rc-meta{display:flex;justify-content:space-between;gap:1rem;text-transform:uppercase;font-size:0.62rem;color:#4a463c}
@@ -112,11 +112,11 @@
 .rc-ahead{margin-top:0.8rem;color:var(--gray);font-style:italic}
 .rc-ahead b{color:var(--ink);font-style:normal;font-weight:500}
 
-.rc-total{display:flex;justify-content:space-between;align-items:baseline;font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:0.04em;line-height:1}
-.rc-total small{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--gray)}
+.rc-total{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-sans);font-weight:600;font-size:1.5rem;letter-spacing:0.04em;line-height:1}
+.rc-total small{font-family:var(--f-mono);font-size:0.6rem;letter-spacing:0.12em;color:var(--gray)}
 .rc-approved{
   display:block;width:max-content;margin:0.9rem auto 0.2rem;
-  font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:0.08em;line-height:1;
+  font-family:var(--f-sans);font-weight:600;font-size:2.2rem;letter-spacing:0.08em;line-height:1;
   color:var(--pink);border:3px solid var(--pink);border-radius:4px;padding:0.25rem 0.8rem 0.1rem;
   transform:rotate(-7deg) scale(1.6);opacity:0;
   transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1),opacity 0.25s;
@@ -126,7 +126,7 @@
 
 .rc-actions{display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.9rem}
 .rc-btn{
-  font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;
+  font-family:var(--f-mono);font-size:0.6rem;letter-spacing:0.12em;text-transform:uppercase;
   border:1.5px solid var(--ink);background:transparent;color:var(--ink);
   padding:0.55rem 0.75rem;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;
   transition:background 0.2s,color 0.2s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
@@ -137,20 +137,8 @@
 .rc-pay a{color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
 .rc-pay a:hover{color:var(--pink)}
 .rc-barcode{display:block;width:100%;height:40px;margin:1rem 0 0.3rem}
-.rc-thanks{font-family:'Caveat',cursive;font-weight:700;font-size:1.15rem;color:var(--pink);text-align:center;transform:rotate(-2deg)}
+.rc-thanks{font-family:var(--f-serif);font-style:italic;font-size:1.15rem;color:var(--pink);text-align:center;transform:rotate(-2deg)}
 
-/* ---------- "30 seconds?" shortcut in the index ---------- */
-.idx-tldr{
-  font-family:'DM Mono',monospace;font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;
-  background:var(--ink);color:var(--neon);border:none;cursor:pointer;
-  padding:0.75rem 1.05rem;display:inline-flex;align-items:center;gap:0.55rem;
-  transform:rotate(-1.5deg);box-shadow:4px 5px 0 var(--pink);
-  transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),background 0.25s,color 0.25s,box-shadow 0.3s;
-}
-.idx-tldr-k{font-family:'Caveat',cursive;font-size:1.15rem;letter-spacing:0;text-transform:none;color:var(--gold)}
-.idx-tldr:hover{transform:rotate(0deg) translateY(-3px);background:var(--pink);color:var(--ink);box-shadow:6px 8px 0 var(--ink)}
-.idx-tldr:hover .idx-tldr-k{color:var(--ink)}
-html:not(.js) .idx-tldr{display:none}
 
 @media(max-width:900px){
   .receipt{left:1rem;bottom:1rem}
@@ -161,5 +149,3 @@ html:not(.js) .idx-tldr{display:none}
   .rc-sheet{max-height:76vh}
 }
 
-/* the floating "say hi" steps aside while the receipt is open (the receipt has its own pay links) */
-body:has(.receipt.open) .float-cta{opacity:0;pointer-events:none}

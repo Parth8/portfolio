@@ -4,385 +4,341 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parth Aggarwal - Technical Platform Product Manager</title>
-<meta name="description" content="Parth Aggarwal - Technical Platform Product Manager. Forward Deployed PM at Backbase, owning the agentic AI connector platform for banks. Previously Zeta: a $2B+ virtual card platform for a Fortune 3 and a multi-tenant data platform for US & EMEA banks.">
+<meta name="description" content="Parth Aggarwal, technical platform PM: a $2B+/yr virtual card platform for a Fortune 3, a multi-tenant data platform for US and EMEA banks, and Backbase's agentic AI connector platform. Every claim carries its proof.">
 <meta name="theme-color" content="#F3EFE4">
 <link rel="canonical" href="https://parth8.github.io/portfolio/">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Parth Aggarwal">
-<meta property="og:title" content="Parth Aggarwal - Technical Platform Product Manager">
-<meta property="og:description" content="Agentic AI connectors at Backbase. $2B+ card platform for a Fortune 3. Data platforms for US &amp; EMEA banks. Seven side projects, all live.">
+<meta property="og:title" content="Parth Aggarwal - three ways to meet a platform PM">
+<meta property="og:description" content="Browse the work, check your fit against a job description, or let your AI interview the record. Every claim shows its proof.">
 <meta property="og:url" content="https://parth8.github.io/portfolio/">
 <meta property="og:image" content="https://parth8.github.io/portfolio/assets/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/sections.css">
-<link rel="stylesheet" href="css/projects.css">
+<link rel="stylesheet" href="css/portfolio.css">
+<link rel="stylesheet" href="css/art.css">
 <link rel="stylesheet" href="css/receipt.css">
-<!-- mark js early so collapsible content never flashes open then shut -->
-<script>document.documentElement.classList.add('js')</script>
-<script type="module" src="js/main.js"></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Parth Aggarwal", "jobTitle": "Forward Deployed Product Manager", "worksFor": {"@type": "Organization", "name": "Backbase"}, "address": {"@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN"}, "url": "https://parth8.github.io/portfolio/", "sameAs": ["https://linkedin.com/in/aggarwalparth", "https://parthaggarwal8.medium.com"], "knowsAbout": ["Platform product management", "Agentic AI", "MCP", "RAG", "Card issuing", "Payments", "Data platforms"]}</script>
+<script>
+  document.documentElement.classList.add('js');
+  // the door greets every visit: start at the top unless a link points somewhere specific
+  if (!location.hash && 'scrollRestoration' in history) history.scrollRestoration = 'manual';
+</script>
+<script type="module" src="js/portfolio.js"></script>
 </head>
-<body>
+<body class="page-home">
 
-<div id="cursor" aria-hidden="true"></div>
-<div id="cursor-ring" aria-hidden="true"></div>
-
-<div class="scroll-progress" aria-hidden="true">
-  <div class="scroll-progress-fill" id="scrollFill"></div>
-</div>
-
-<nav class="topnav" aria-label="Primary">
-  <a href="#" class="nav-logo">Parth Aggarwal <span class="nl-tail"><span>-</span> Technical Product ✦ Platform</span></a>
-  <div class="modes" role="navigation" aria-label="Ways to see Parth">
-    <a class="mode" href="./" aria-current="page"><span class="m-n">01</span> Portfolio</a>
-    <a class="mode" href="for/"><span class="m-n">02</span> For you</a>
-    <a class="mode" href="mcp/"><span class="m-n">03</span> MCP <span class="m-new" aria-hidden="true"></span></a>
+<header class="bar on-door" id="bar">
+  <div class="bar-in">
+    <a class="mark" href="#door" aria-label="Parth Aggarwal, back to the start"><i>PA</i><b>Parth Aggarwal</b><small>Platform PM</small></a>
+    <nav class="seg" aria-label="Ways to meet Parth">
+      <a href="./" aria-current="page">Portfolio</a>
+      <a href="for/">Fit check</a>
+      <a href="mcp/">Ask AI</a>
+    </nav>
+    <div class="bar-cta"><a class="btn sm primary" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20Parth"><span>Email<span class="long"> me</span></span></a></div>
   </div>
-  <div class="nav-right">
-    <a href="#sec-work" data-icon="✦">Work</a>
-    <a href="#sec-built" data-icon="⌘">Built</a>
-    <a href="#sec-experience" data-icon="◐">Journey</a>
-    <a href="#sec-writings" data-icon="✎">Writing</a>
-    <a href="#contact" data-icon="✉">Say Hi</a>
-  </div>
-</nav>
+</header>
 
-<nav class="side-nav" id="sideNav" aria-label="Sections">
-  <a class="side-dot" href="#sec-numbers" data-target="sec-numbers" data-label="Impact" aria-label="Impact"></a>
-  <a class="side-dot" href="#sec-work" data-target="sec-work" data-label="Work" aria-label="Work"></a>
-  <a class="side-dot" href="#sec-built" data-target="sec-built" data-label="Built" aria-label="Built"></a>
-  <a class="side-dot" href="#sec-experience" data-target="sec-experience" data-label="Journey" aria-label="Journey"></a>
-  <a class="side-dot" href="#sec-skills" data-target="sec-skills" data-label="Toolkit" aria-label="Toolkit"></a>
-  <a class="side-dot" href="#sec-recognition" data-target="sec-recognition" data-label="Recognition" aria-label="Recognition"></a>
-  <a class="side-dot" href="#sec-writings" data-target="sec-writings" data-label="Writing" aria-label="Writing"></a>
-  <a class="side-dot" href="#sec-manifesto" data-target="sec-manifesto" data-label="Manifesto" aria-label="Manifesto"></a>
-  <a class="side-dot" href="#contact" data-target="contact" data-label="Say hi" aria-label="Say hi"></a>
-</nav>
+<main>
+<!-- THE DOOR: every visit starts with a choice -->
+<section class="door" id="door" aria-labelledby="doorTitle">
+  <div class="door-in wrap">
+    <p class="door-who" data-reveal><span class="door-dot" aria-hidden="true"></span>Parth Aggarwal<span class="dw-more"> · Technical platform PM · Forward deployed at Backbase</span></p>
+    <h1 class="display door-title" id="doorTitle" data-reveal data-d="1">How would you like<br class="br-wide"> to <em>meet</em> me?</h1>
+    <p class="lead door-sub" data-reveal data-d="2">Three ways in, one record behind all of them. Every claim shows its proof.</p>
 
-<div class="receipt" id="receipt">
-  <section class="rc-sheet" id="rcSheet" aria-label="Proof-of-work receipt" tabindex="-1">
-    <div class="rc-scroll" id="rcScroll"></div>
-    <button type="button" class="rc-close" id="rcClose" aria-label="Close the receipt">×</button>
-  </section>
-  <button type="button" class="rc-dock" id="rcDock" aria-expanded="false" aria-controls="rcSheet">
-    <span class="rc-strip" aria-hidden="true"><span class="rc-last" id="rcLast">scroll to print your receipt</span></span>
-    <span class="rc-term"><span class="rc-led" aria-hidden="true"></span><span class="rc-lcd" id="rcCount">00/00</span><span class="rc-word">Proof</span></span>
-    <span class="rc-stamp" aria-hidden="true">Approved</span>
-  </button>
-</div>
-
-<a href="#contact" class="float-cta" id="floatCta">
-  <span class="dot"></span>
-  Say hi
-</a>
-
-<!-- HERO -->
-<section class="hero" id="sec-hero">
-  <div class="hero-top">
-    <span class="left-col">Now · <b>Forward Deployed PM @ Backbase</b></span>
-    <div class="right-col">
-      <div>Hyderabad, India</div>
-      <div><span class="key">Open to roles · B1/B2 Visa to Oct 2035</span></div>
+    <div class="doors">
+      <a class="door-card" href="#top" data-door="browse" data-reveal data-d="2">
+        <span class="dk" aria-hidden="true">1</span>
+        <span class="dv dv-browse" aria-hidden="true">
+          <span class="mini m1"><b>~80%</b><i>faster builds</i></span>
+          <span class="mini m2"><b>$2B+</b><i>a year</i></span>
+          <span class="mini m3"><b>150K+</b><i>cards</i></span>
+        </span>
+        <span class="dt">Browse the work</span>
+        <span class="dd">Four case studies, seven things I built, and the whole journey.</span>
+        <span class="dm">About 6 minutes <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+      <a class="door-card" href="for/" data-reveal data-d="3">
+        <span class="dk" aria-hidden="true">2</span>
+        <span class="dv dv-fit" aria-hidden="true">
+          <svg viewBox="0 0 120 66"><path class="g-track" d="M10 60 A50 50 0 0 1 110 60"/><path class="g-fill" d="M10 60 A50 50 0 0 1 110 60" pathLength="100"/></svg>
+          <span class="g-num">82</span>
+          <span class="g-rows"><i></i><i></i><i></i></span>
+        </span>
+        <span class="dt">Check your fit</span>
+        <span class="dd">Paste a job description. Get a fit score you can audit, line by line.</span>
+        <span class="dm">About 30 seconds <span class="arr" aria-hidden="true">→</span></span>
+      </a>
+      <a class="door-card" href="mcp/" data-reveal data-d="4">
+        <span class="dk" aria-hidden="true">3</span>
+        <span class="dv dv-ai" aria-hidden="true">
+          <span class="t-line l1">› prove_claim("150K cards")</span>
+          <span class="t-line l2">✓ supported · corroborated</span>
+          <span class="t-line l3">› fit_for(job_description)</span>
+          <span class="t-line l4">✓ 82/100 · 3 sources</span>
+        </span>
+        <span class="dt">Ask your AI</span>
+        <span class="dd">Connect Claude, ChatGPT or Cursor, and let it interview my record.</span>
+        <span class="dm">About a minute <span class="arr" aria-hidden="true">→</span></span>
+      </a>
     </div>
-  </div>
 
-  <div class="hero-main">
-    <h1 class="hero-type">
-      <span class="hero-line"><span class="hero-word d1">Technical</span> <span class="hero-word serif d2">Platform Product</span></span>
-      <span class="hero-line"><span class="hero-word with-mark d3">Manager/Architect</span></span>
-      <span class="hero-line"><span class="hero-word outline d4">BUILDING</span> <span class="hero-word serif d5">big, boring,</span></span>
-      <span class="hero-line"><span class="hero-word serif d5">beautiful</span> <span class="hero-word d6">THINGS.</span></span>
-    </h1>
-  </div>
-
-  <div class="hero-bottom">
-    <p class="hero-intro">
-      Shipped a <strong>$2B+</strong> virtual card platform for a Fortune 3. Architected a multi-tenant data platform for US &amp; EMEA banks. Now I own Backbase's <strong>agentic AI connector platform</strong>, where banks build integrations with agents. I'm Parth - I own systems end-to-end, and I build what <strong>banks bet their license on</strong>.
-    </p>
-    <div class="hero-scroll">Scroll</div>
+    <div class="door-foot" data-reveal data-d="4">
+      <div class="legend">
+        <span class="proof" data-tier="verified">Verified</span>
+        <span class="proof" data-tier="corroborated">Corroborated</span>
+        <span class="proof" data-tier="self">Self-reported</span>
+      </div>
+      <p class="muted">Every claim on this site carries one of these, with its sources.</p>
+    </div>
   </div>
 </section>
 
-<!-- STAMPS -->
-<div class="stamps" aria-hidden="true">
-  <span class="stamp hot">Agentic AI · MCP</span>
-  <span class="stamp">Mastercard Rails</span>
-  <span class="stamp gold">Fortune 3 Client</span>
-  <span class="stamp">Multi-tenant Data Platform</span>
-  <span class="stamp hot">90%+ LLM Mapping Accuracy</span>
-  <span class="stamp">Fraud &amp; Risk Management</span>
-  <span class="stamp gold">1200+ Data Contracts</span>
-  <span class="stamp">0 P1/P2 GTMs</span>
-  <span class="stamp hot">US + EMEA Banking</span>
-  <span class="stamp">7 Side Projects Shipped</span>
-</div>
-
-<!-- INDEX -->
-<nav class="index" aria-label="On this page">
-  <div class="idx-head">
-    <p class="idx-label">On this page · eight stops</p>
-    <button type="button" class="idx-tldr" id="tldr"><span class="idx-tldr-k">30 seconds?</span> Print the receipt <span aria-hidden="true">⤓</span></button>
+<!-- INTRO -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <p class="eyebrow" data-reveal>Now · Forward Deployed PM at Backbase · since Aug 2026</p>
+      <h2 class="display hero-title" data-reveal data-d="1">Technical platform PM, building <em>big, boring, beautiful</em> things.</h2>
+      <p class="lead" data-reveal data-d="2">I shipped a virtual card platform that disburses $2B+ a year for a Fortune 3, architected a multi-tenant data platform for US and EMEA banks, and now own Backbase's agentic AI connector platform. I own systems end to end, and I build what banks bet their licence on.</p>
+      <div class="hero-cta" data-reveal data-d="3">
+        <a class="btn primary" href="#work">See the work <span class="arr" aria-hidden="true">↓</span></a>
+        <button type="button" class="btn" id="tldr">30 seconds? Print the receipt</button>
+      </div>
+    </div>
+    <aside class="now card" data-reveal data-d="2" aria-label="At a glance">
+      <dl>
+        <div><dt>Based in</dt><dd>Hyderabad, India</dd></div>
+        <div><dt>Open to</dt><dd>Product and platform roles, India and global. Relocation, full-time.</dd></div>
+        <div><dt>Travel</dt><dd>US B1/B2 visa, valid to Oct 2035</dd></div>
+        <div><dt>Experience</dt><dd>5+ years in B2B SaaS, 4+ in fintech, 0-to-1 through enterprise scale</dd></div>
+      </dl>
+      <a class="btn sm" href="https://drive.google.com/file/d/1vTLOz_c9T_ioQVn5VPjvriIwr4d1j905/view?usp=drive_link" target="_blank" rel="noopener">Resume <span aria-hidden="true">↗</span></a>
+    </aside>
   </div>
-  <ol class="idx-list">
-    <li><a href="#sec-numbers"><span class="idx-n">01</span><span class="idx-t">Impact</span><span class="idx-c">4 numbers that moved</span></a></li>
-    <li><a href="#sec-work"><span class="idx-n">02</span><span class="idx-t">Work</span><span class="idx-c">4 case studies · 2022 → now</span></a></li>
-    <li><a href="#sec-built"><span class="idx-n">03</span><span class="idx-t">Built</span><span class="idx-c">7 side projects, all live</span></a></li>
-    <li><a href="#sec-experience"><span class="idx-n">04</span><span class="idx-t">Journey</span><span class="idx-c">5 roles · 3 companies</span></a></li>
-    <li><a href="#sec-skills"><span class="idx-n">05</span><span class="idx-t">Toolkit</span><span class="idx-c">4 stacks, end to end</span></a></li>
-    <li><a href="#sec-recognition"><span class="idx-n">06</span><span class="idx-t">Recognition</span><span class="idx-c">6 awards · 3 certifications</span></a></li>
-    <li><a href="#sec-writings"><span class="idx-n">07</span><span class="idx-t">Writing</span><span class="idx-c">5 essays · a 5-part series</span></a></li>
-    <li><a href="#contact"><span class="idx-n">08</span><span class="idx-t">Say hi</span><span class="idx-c">20 minutes, any timezone</span></a></li>
-  </ol>
-  <div class="idx-modes">
-    <p class="idx-or">Not here to scroll?</p>
-    <a class="idx-mode" href="for/"><span class="im-n">02</span><span class="im-t">Rebuild this page <em>for your role</em></span><span class="im-c">Paste a job description · fit score, evidence, honest gaps</span><span class="im-go" aria-hidden="true">→</span></a>
-    <a class="idx-mode dark" href="mcp/"><span class="im-n">03</span><span class="im-t">Have your AI <em>interview me</em></span><span class="im-c">An MCP server for Claude, ChatGPT and Cursor</span><span class="im-go" aria-hidden="true">→</span></a>
-  </div>
-</nav>
-
-<!-- BIG NUMBERS -->
-<section class="big-numbers" id="sec-numbers">
-  <p class="bn-label">01 · Impact · Measured</p>
-  <div class="bn-grid">
-    <div class="bn-cell reveal" data-r="IMPACT|Card disbursements / yr|$2B+">
-      <span class="sharpie-note">yes, with a B!</span>
-      <div class="bn-num"><span data-count="2" data-prefix="$">$0</span><span class="sup">B+</span></div>
-      <div class="bn-caption">
-        <div class="bn-desc">Annual virtual card disbursements on Mastercard rails for UnitedHealthcare payers (UnitedHealth Group - Fortune 3).</div>
-        <div class="bn-tag">Virtual Cards · Optum</div>
-      </div>
+  <div class="wrap stats" aria-label="Headline results"><!-- gen:stats -->
+    <div class="stat" data-reveal data-d="1" data-r="IMPACT|$2B+|Self-reported">
+      <p class="stat-v num" data-count="2" data-pre="$" data-post="B+">$2B+</p>
+      <p class="stat-l">a year in virtual card disbursements, Optum (UnitedHealth Group, Fortune 3)</p>
+      <a class="proof" data-tier="self" href="#case-2">Self-reported</a>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.1s" data-r="IMPACT|Connector build time|−80%">
-      <div class="bn-num"><span data-count="80">0</span><span class="sup">% FASTER</span></div>
-      <div class="bn-caption">
-        <div class="bn-desc">Connector build time at Backbase - ~12 days to ~2, since banks, PMs and services engineers started building with agents over MCP.</div>
-        <div class="bn-tag">Agentic AI · Backbase</div>
-      </div>
+    <div class="stat" data-reveal data-d="2" data-r="IMPACT|~80%|Corroborated">
+      <p class="stat-v num" data-count="80" data-pre="~" data-post="%">~80%</p>
+      <p class="stat-l">faster connector builds at Backbase (~12 days to ~2) with agents over MCP</p>
+      <a class="proof" data-tier="corroborated" href="#case-1">Corroborated</a>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.15s" data-r="IMPACT|Sparrow cards issued|150K+">
-      <div class="bn-num"><span data-count="150">0</span><span class="sup">K+</span></div>
-      <div class="bn-caption">
-        <div class="bn-desc">Card issuances for Sparrow Card, Zeta's first US credit card program - and 2x revenue projections.</div>
-        <div class="bn-tag">US Launch · Jul '24</div>
-      </div>
+    <div class="stat" data-reveal data-d="3" data-r="IMPACT|150K+|Corroborated">
+      <p class="stat-v num" data-count="150" data-pre="" data-post="K+">150K+</p>
+      <p class="stat-l">cards issued, Sparrow Card, Zeta's first US credit card program</p>
+      <a class="proof" data-tier="corroborated" href="#case-4">Corroborated</a>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.2s" data-r="IMPACT|Bank onboarding + GTM|−90 days">
-      <div class="bn-num"><span data-count="90">0</span><span class="sup">DAYS</span></div>
-      <div class="bn-caption">
-        <div class="bn-desc">Cut from bank onboarding and GTM - 4 months down to 1, config-driven, zero code changes.</div>
-        <div class="bn-tag">GTM Velocity · Zeta</div>
-      </div>
+    <div class="stat" data-reveal data-d="4" data-r="IMPACT|90 days|Self-reported">
+      <p class="stat-v num" data-count="90" data-pre="" data-post=" days">90 days</p>
+      <p class="stat-l">cut from bank onboarding and GTM (4 months to 1)</p>
+      <a class="proof" data-tier="self" href="#case-3">Self-reported</a>
     </div>
-  </div>
+    <!-- /gen --></div>
 </section>
 
 <!-- WORK -->
-<section id="sec-work">
-  <div class="work-header">
-    <span class="wh-left">02 · Selected Work · 2022 → now</span>
-    <h2 class="wh-title">Selected <em>work</em></h2>
-  </div>
-  <div class="case-reel" id="caseReel">
-  <div class="case-stage">
-  <div class="case-tabs" role="tablist" aria-label="Case studies">
-    <button class="case-tab" role="tab" id="tab-1" aria-controls="case-1" aria-selected="true">
-      <span class="ct-num">/001</span>
-      <span class="ct-co">Backbase · Agentic AI</span>
-      <span class="ct-name">Connector Studio MCP</span>
-      <span class="ct-metric">~80% <small>faster builds</small></span>
-    </button>
-    <button class="case-tab" role="tab" id="tab-2" aria-controls="case-2" aria-selected="false">
-      <span class="ct-num">/002</span>
-      <span class="ct-co">Optum · UnitedHealth</span>
-      <span class="ct-name">Virtual card platform</span>
-      <span class="ct-metric">$2B+ <small>a year</small></span>
-    </button>
-    <button class="case-tab" role="tab" id="tab-3" aria-controls="case-3" aria-selected="false">
-      <span class="ct-num">/003</span>
-      <span class="ct-co">US + EMEA banks</span>
-      <span class="ct-name">Multi-tenant data platform</span>
-      <span class="ct-metric">$50K <small>a year saved</small></span>
-    </button>
-    <button class="case-tab" role="tab" id="tab-4" aria-controls="case-4" aria-selected="false">
-      <span class="ct-num">/004</span>
-      <span class="ct-co">Evolve Bank · Zeta</span>
-      <span class="ct-name">Sparrow Card launch</span>
-      <span class="ct-metric">150K+ <small>cards issued</small></span>
-    </button>
-  </div>
-  <p class="reel-hint" aria-hidden="true"><span class="rh-pin">keep scrolling - the cases flip themselves ↓</span><span class="rh-swipe">swipe for the next case →</span></p>
-  <div class="case-panels">
+<section class="sec" id="work">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">01 · Work · 2022 → now</p>
+      <h2 class="h2">Four rooms where the <em>stakes were real</em>.</h2>
+    </header>
 
-  <article class="case" id="case-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0" data-r="CASES|/001 Connector Studio MCP|12d → 2d">
-    <div class="case-left">
-      <p class="case-num">Case <span>/001</span></p>
-      <p class="case-client">Backbase · Agentic Banking</p>
-      <h3 class="case-title">Connector Studio<br><em>agent-built connectors</em></h3>
-      <p class="case-sub">Shipped an MCP in six weeks. Banks and ~20 internal PMs and services engineers now build banking connectors with agents - gated to pre-prod until the mappings are safe for production traffic.</p>
-    </div>
-    <div class="case-right">
-      <div class="case-metric-hero"><span>~</span><span class="c-accent">80</span><span class="sup">%</span></div>
-      <p class="case-metric-caption">Faster connector builds · ~12 days → ~2, review and deploy included</p>
-      <p class="case-desc">
-        Own Connector Studio end-to-end - Backbase's iPaaS for banking connectors, in the web app and as an agentic AI MCP. Shipped the MCP in six weeks and moved PMs and services teams off manual builds. The hard part is trust: LLM mapping accuracy from <strong>BIAN unified APIs to vendor specs</strong> went from ~50-60% to 90%+ against a golden dataset, by cleaning the RAG store and tagging every API and attribute. Every build stays in pre-prod until accuracy is safe for production banking traffic. Next: the rent-vs-own call on the model itself - accuracy, token cost, control and data isolation.
-      </p>
-      <div class="case-stack">
-        <span>MCP</span>
-        <span>RAG · Vector DB</span>
-        <span>LLM Evals</span>
-        <span>Golden Dataset</span>
-        <span>BIAN Unified APIs</span>
-        <span>iPaaS</span>
-        <span>Token Rotation</span>
-        <span>API Playground</span>
+    <div class="cases" id="cases">
+      <div class="case-tabs" role="tablist" aria-label="Case studies">
+        <button class="case-tab" role="tab" id="tab-1" aria-controls="case-1" aria-selected="true"><span class="ct-o">Backbase · Agentic AI</span><span class="ct-n">Connector Studio MCP</span><span class="ct-m num">~80%</span></button>
+        <button class="case-tab" role="tab" id="tab-2" aria-controls="case-2" aria-selected="false" tabindex="-1"><span class="ct-o">Optum · UnitedHealth</span><span class="ct-n">Virtual card platform</span><span class="ct-m num">$2B+</span></button>
+        <button class="case-tab" role="tab" id="tab-3" aria-controls="case-3" aria-selected="false" tabindex="-1"><span class="ct-o">US + EMEA banks</span><span class="ct-n">Multi-tenant data platform</span><span class="ct-m num">90 days</span></button>
+        <button class="case-tab" role="tab" id="tab-4" aria-controls="case-4" aria-selected="false" tabindex="-1"><span class="ct-o">Evolve Bank · Zeta</span><span class="ct-n">Sparrow Card launch</span><span class="ct-m num">150K+</span></button>
+      </div>
+
+      <div class="case-panels">
+        <article class="case card" id="case-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0" data-r="CASES|Connector Studio MCP|12d → 2d">
+          <div class="case-main">
+            <p class="eyebrow">Backbase · Agentic banking · Aug 2026 – now</p>
+            <h3 class="case-title">Connector Studio: <em>agent-built banking connectors</em></h3>
+            <p class="case-sub">Shipped an MCP in six weeks. Banks and ~20 internal PMs and services engineers now build connectors with agents, gated to pre-prod until the mappings are safe for production traffic.</p>
+            <ul class="case-points">
+              <li>Own Connector Studio end to end: Backbase's iPaaS for banking connectors, in the web app and as an agentic AI MCP.</li>
+              <li>Raised LLM mapping accuracy from BIAN unified APIs to vendor specs from ~50-60% to 90%+ against a golden dataset, by cleaning the RAG store and tagging every API and attribute.</li>
+              <li>Every build stays in pre-prod until accuracy is safe for production banking traffic: safety over adoption speed.</li>
+              <li>Next: the rent-vs-own call on the model itself, on accuracy, token cost, control and data isolation.</li>
+            </ul>
+            <div class="chips"><span class="chip">MCP</span><span class="chip">RAG · vector DB</span><span class="chip">LLM evals</span><span class="chip">Golden dataset</span><span class="chip">BIAN unified APIs</span><span class="chip">iPaaS</span></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-metric"><span class="num">~80%</span><span>faster connector builds, ~12 days to ~2, review and deploy included</span></div><!-- gen:case-proof:connector-studio -->
+        <div class="cp">
+          <span class="proof" data-tier="corroborated">Corroborated</span>
+          <p class="cp-what">Public sources confirm the program as described. My role and the figures come from my resume.</p>
+          <details class="srcs"><summary>3 public sources, and what each proves</summary>
+            <ol>
+        <li>
+          <a href="https://www.backbase.com/grandcentral" target="_blank" rel="noopener">Grand Central <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Backbase (product page) · corroborates</span>
+          <blockquote>“the banking industry's first Integration Platform-as-a-Service (IPaaS) with out-of-the-box connectors”</blockquote>
+          <p><b>Proves</b> Backbase sells an iPaaS for banking connectors.</p>
+          <p><b>Doesn't prove</b> The internal name &quot;Connector Studio&quot;, Parth's role, or the ~80% build-time figure.</p>
+        </li>
+        <li>
+          <a href="https://www.retailbankerinternational.com/news/backbase-launches-grand-central-its-new-gen-integration-solution/" target="_blank" rel="noopener">Backbase launches Grand Central, its new-gen integration solution <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Retail Banker International · 12 Oct 2023 · corroborates</span>
+          <blockquote>“Grand Central utilises a BIAN based domain model and unified banking APIs.”</blockquote>
+          <p><b>Proves</b> Backbase's integration platform is built on BIAN-based unified banking APIs.</p>
+          <p><b>Doesn't prove</b> Parth's role or the mapping-accuracy figures.</p>
+        </li>
+        <li>
+          <a href="https://www.backbase.com/banking-os" target="_blank" rel="noopener">Banking OS <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Backbase (product page) · corroborates</span>
+          <blockquote>“Unify their capabilities as APIs and MCP tools that workflows and agents can consume.”</blockquote>
+          <p><b>Proves</b> Backbase exposes banking connectors as MCP tools for AI agents.</p>
+          <p><b>Doesn't prove</b> When the MCP shipped, who built it, or adoption figures.</p>
+        </li>
+            </ol>
+          </details>
+        </div>
+        <!-- /gen --></aside>
+        </article>
+
+        <article class="case card" id="case-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" hidden data-r="CASES|Optum virtual cards|$2B+ / yr">
+          <div class="case-main">
+            <p class="eyebrow">Zeta for Optum Financial · UnitedHealth Group · 2024 – 2026</p>
+            <h3 class="case-title">Virtual card <em>issuance platform</em></h3>
+            <p class="case-sub">0 P1/P2 defects into production. Nine functional areas. Clean regulatory sign-off from a Fortune 3, on Mastercard rails.</p>
+            <ul class="case-points">
+              <li>Owned product strategy end to end, from discovery through regulatory sign-off.</li>
+              <li>Architected a real-time FRM rules engine with configurable merchant, amount and risk thresholds; drove FeatureSpace ML integration for real-time fraud detection.</li>
+              <li>Authored API specs and enforced QA across the card lifecycle (issue, cancel, reissue, reset): webhooks, idempotency, error handling, fallback.</li>
+              <li>Built transaction traceability so UHC compliance teams can investigate fraud, resolve disputes and debug production in real time.</li>
+            </ul>
+            <div class="chips"><span class="chip">Mastercard rails</span><span class="chip">Virtual cards</span><span class="chip">FRM engine</span><span class="chip">ML fraud detection</span><span class="chip">Webhooks</span><span class="chip">Disputes</span></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-metric"><span class="num">$2B+</span><span>a year disbursed to US healthcare providers</span></div><!-- gen:case-proof:optum-virtual-cards -->
+        <div class="cp">
+          <span class="proof" data-tier="self">Self-reported</span>
+          <p class="cp-what">From my resume. Employer figures are confidential, so no public source confirms them. Ask me for a reference.</p>
+          <details class="srcs"><summary>2 public sources, and what each proves</summary>
+            <ol>
+        <li>
+          <a href="https://www.uhcprovider.com/en/claims-payments-billing/Electronic-Payment-Solutions.html" target="_blank" rel="noopener">Electronic payment solutions <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">UnitedHealthcare (provider site) · context</span>
+          <blockquote>“A virtual card is issued for each new claim payment”</blockquote>
+          <p><b>Proves</b> UnitedHealthcare pays providers by virtual card, processed on Mastercard, through Optum Financial and Optum Bank.</p>
+          <p><b>Doesn't prove</b> Zeta's involvement, Parth's role, or the $2B+ a year figure.</p>
+        </li>
+        <li>
+          <a href="https://techcrunch.com/2025/02/10/zeta-valued-at-2b-in-new-funding/" target="_blank" rel="noopener">Zeta valued at $2B in new funding <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">TechCrunch · 10 Feb 2025 · context</span>
+          <blockquote>“The new investment from American healthcare company Optum marks a 70% increase in the Bengaluru-based startup's valuation”</blockquote>
+          <p><b>Proves</b> Optum is a strategic investor in Zeta.</p>
+          <p><b>Doesn't prove</b> That Zeta runs Optum's virtual card disbursements, or any figures.</p>
+        </li>
+            </ol>
+          </details>
+        </div>
+        <!-- /gen --></aside>
+        </article>
+
+        <article class="case card" id="case-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" hidden data-r="CASES|Multi-tenant data platform|-90 days GTM">
+          <div class="case-main">
+            <p class="eyebrow">Zeta · US + EMEA banks · May 2024 – Aug 2026</p>
+            <h3 class="case-title">Multi-tenant <em>data platform</em></h3>
+            <p class="case-sub">From engineering-led one-off builds to a config-driven, subscription-based platform. New banks onboard with zero code changes.</p>
+            <ul class="case-points">
+              <li>Mandated a multi-tenant, config-driven architecture, optimised for platform reliability over short-term client demands; killed the MongoDB dependency (~$50K a year).</li>
+              <li>Codified platform guarantees: SLAs, ingress and egress, canonical ingestion and transformation patterns, medallion layers with enforced data contracts.</li>
+              <li>A governed semantic layer across 1,200+ attributes: lineage, GDPR and sanctions handling, RBAC and freshness SLAs.</li>
+              <li>Onboarding and GTM cut by 90 days, from four months to one, through standard playbooks. CSAT 2.5 → 4.0.</li>
+            </ul>
+            <div class="chips"><span class="chip">Data contracts</span><span class="chip">dbt · Airflow</span><span class="chip">Kafka · S3</span><span class="chip">Medallion</span><span class="chip">Semantic layer</span><span class="chip">Multi-tenant</span></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-metric"><span class="num">90 days</span><span>cut from bank onboarding and GTM, plus ~$50K a year in infra</span></div><!-- gen:case-proof:data-platform -->
+        <div class="cp">
+          <span class="proof" data-tier="self">Self-reported</span>
+          <p class="cp-what">From my resume. Employer figures are confidential, so no public source confirms them. Ask me for a reference.</p>
+          <details class="srcs"><summary>1 public source, and what each proves</summary>
+            <ol>
+        <li>
+          <a href="https://www.zeta.tech/us/platform/zeus-data-suite-for-analytics-and-reporting/" target="_blank" rel="noopener">Zeus data suite for analytics and reporting <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Zeta (product page) · context</span>
+          <blockquote>“Accesses 100% of the underlying data lake comprising every object, every state change and every attribute”</blockquote>
+          <p><b>Proves</b> Zeta sells a data and analytics platform to its banking clients.</p>
+          <p><b>Doesn't prove</b> The multi-tenant DPaaS described here, its US and EMEA clients, or Parth's role.</p>
+        </li>
+            </ol>
+          </details>
+        </div>
+        <!-- /gen --></aside>
+        </article>
+
+        <article class="case card" id="case-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" hidden data-r="CASES|Sparrow Card launch|150K+ cards">
+          <div class="case-main">
+            <p class="eyebrow">Zeta with Evolve Bank · US · May 2022 – May 2024</p>
+            <h3 class="case-title">Sparrow Card: <em>a US credit card launch</em></h3>
+            <p class="case-sub">Zeta's first US credit card program, from onboarding through BAU operations. I stood up the US support and ops function from zero.</p>
+            <ul class="case-points">
+              <li>Ran a multi-phase market launch: 150K+ issuances by July 2024 and 2× revenue against projections by Dec 2024.</li>
+              <li>Built the US support and ops function: first response time down 99%, CSAT 2.5 → 4.6 in three months.</li>
+              <li>Designed webhook and API-based support automation, onboarded vendors, hired and trained the team.</li>
+              <li>Managed 300+ releases at 89% SLO and 99% SLA adherence.</li>
+            </ul>
+            <div class="chips"><span class="chip">Credit card launch</span><span class="chip">US banking</span><span class="chip">Ops from zero</span><span class="chip">120+ SQL dashboards</span><span class="chip">300+ releases</span></div>
+          </div>
+          <aside class="case-side">
+            <div class="case-metric"><span class="num">150K+</span><span>cards issued; 2× revenue against projections</span></div><!-- gen:case-proof:sparrow-launch -->
+        <div class="cp">
+          <span class="proof" data-tier="corroborated">Corroborated</span>
+          <p class="cp-what">Public sources confirm the program as described. My role and the figures come from my resume.</p>
+          <details class="srcs"><summary>2 public sources, and what each proves</summary>
+            <ol>
+        <li>
+          <a href="https://www.zeta.tech/us/resources/newsroom/zeta-powers-sparrows-industry-leading-credit-card-for-the-underserved/" target="_blank" rel="noopener">Zeta powers Sparrow's industry-leading credit card for the underserved <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Zeta (newsroom) · 7 Mar 2024 · corroborates</span>
+          <blockquote>“The Sparrow credit card went live in October 2023, leveraging Zeta for card processing, mobile app, servicing, and advanced data &amp; analytics capabilities.”</blockquote>
+          <p><b>Proves</b> Zeta runs the Sparrow credit card (processing, app, servicing, data), live since October 2023.</p>
+          <p><b>Doesn't prove</b> Parth's role, the 150K+ cards figure, or that Sparrow was Zeta's first US client.</p>
+        </li>
+        <li>
+          <a href="https://sparrowcard.com/help_center_category/getting-to-know-sparrow/" target="_blank" rel="noopener">Getting to know Sparrow <span aria-hidden="true">↗</span></a>
+          <span class="src-meta">Sparrow (help center) · corroborates</span>
+          <blockquote>“Evolve Bank &amp; Trust is the issuing bank of the Sparrow credit card. ... Mastercard is the card network that is used by Sparrow.”</blockquote>
+          <p><b>Proves</b> Evolve Bank &amp; Trust issues the Sparrow card, on Mastercard.</p>
+          <p><b>Doesn't prove</b> Zeta, Parth, or issuance volumes.</p>
+        </li>
+            </ol>
+          </details>
+        </div>
+        <!-- /gen --></aside>
+        </article>
       </div>
     </div>
-  </article>
-
-  <article class="case" id="case-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" data-r="CASES|/002 Optum virtual cards|$2B+ / yr">
-    <div class="case-left">
-      <p class="case-num">Case <span>/002</span></p>
-      <p class="case-client">Optum Financial · UHG</p>
-      <h3 class="case-title">Virtual Card<br><em>issuance platform</em></h3>
-      <p class="case-sub">0 P1/P2 defects into production. 9 functional areas. Clean regulatory sign-off from a Fortune 3. Mastercard open loop rails.</p>
-    </div>
-    <div class="case-right">
-      <div class="case-metric-hero"><span>$</span><span class="c-accent">2</span><span class="sup">B+</span></div>
-      <p class="case-metric-caption">Annual disbursements enabled → US healthcare providers</p>
-      <p class="case-desc">
-        Owned product strategy end-to-end for a Fortune 3 enterprise - discovery through regulatory sign-off, 9 functional areas, zero defects. Architected a real-time <strong>FRM rules engine</strong> with configurable merchant/amount/risk thresholds. Authored API specs and enforced QA across the full card lifecycle - issue, cancel, reissue, reset - webhooks, idempotency, error handling, fallback. Drove FeatureSpace ML integration for real-time fraud detection. Built transaction traceability so UHC compliance could investigate, resolve disputes, and debug production in real-time.
-      </p>
-      <div class="case-stack">
-        <span>Mastercard Rails</span>
-        <span>Virtual Cards</span>
-        <span>FRM Engine</span>
-        <span>ML Fraud Detection</span>
-        <span>API Architecture</span>
-        <span>Webhooks</span>
-        <span>Dispute Resolution</span>
-      </div>
-    </div>
-  </article>
-
-  <article class="case" id="case-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" data-r="CASES|/003 Multi-tenant data platform|$50K / yr">
-    <div class="case-left">
-      <p class="case-num">Case <span>/003</span></p>
-      <p class="case-client">US + EMEA Banking</p>
-      <h3 class="case-title">Multi-tenant<br><em>data platform</em></h3>
-      <p class="case-sub">Config-driven architecture. 1200+ governed attributes. Medallion layers with enforced data contracts. Single point of architectural decision-making.</p>
-    </div>
-    <div class="case-right">
-      <div class="case-metric-hero"><span>$</span><span class="c-accent">50</span><span class="sup">K / YR</span></div>
-      <p class="case-metric-caption">YoY infrastructure savings. GTM cut 90 days. CSAT 2.5 → 4.0.</p>
-      <p class="case-desc">
-        Rearchitected from engineering-led one-off builds to a <strong>fully platformized, subscription-based system</strong>. Killed the MongoDB dependency. Mandated multi-tenant, config-driven architecture - optimized for platform reliability over short-term client demands. Codified platform guarantees, SLAs, ingress/egress strategy, canonical ingestion and transformation patterns. Enforced a governed semantic layer across 1200+ attributes with full lineage, GDPR & Sanctions handling, RBAC, and freshness SLAs. New banking clients now go live in 30 days via standardized playbooks - no code changes required.
-      </p>
-      <div class="case-stack">
-        <span>Medallion Architecture</span>
-        <span>Data Contracts</span>
-        <span>dbt · Airflow</span>
-        <span>Kafka · S3</span>
-        <span>GDPR & Sanctions Compliance</span>
-        <span>Multi-tenant</span>
-        <span>Semantic Layer</span>
-        <span>20+ Schemas</span>
-      </div>
-    </div>
-  </article>
-
-  <article class="case" id="case-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" data-r="CASES|/004 Sparrow Card US launch|150K+">
-    <div class="case-left">
-      <p class="case-num">Case <span>/004</span></p>
-      <p class="case-client">Evolve Bank · Zeta</p>
-      <h3 class="case-title">Sparrow Card<br><em>US market launch</em></h3>
-      <p class="case-sub">Zeta's first US credit card program. Stood up the ops and support function from zero.</p>
-    </div>
-    <div class="case-right">
-      <div class="case-metric-hero"><span class="c-accent">150</span><span class="sup">K+</span></div>
-      <p class="case-metric-caption">Onboardings &amp; issuances · 2× revenue vs projections by Dec '24</p>
-      <p class="case-desc">
-        Ran a multi-phase market launch from onboarding through BAU operations. Stood up the <strong>US support &amp; ops function from zero</strong> - first response time -99%, CSAT 2.5 → 4.6 in 3 months. Designed webhook/API-based support automation, owned vendor onboarding, hired the team, ran training, and closed client feedback loops. Managed 300+ releases with 89% SLO and 99% SLA adherence. Planted Zeta's flag in the US fintech market.
-      </p>
-      <div class="case-stack">
-        <span>Credit Card Launch</span>
-        <span>US Banking</span>
-        <span>Evolve Bank</span>
-        <span>Ops Infrastructure</span>
-        <span>120+ SQL Dashboards</span>
-        <span>300+ Releases</span>
-      </div>
-    </div>
-  </article>
-  </div>
-  </div>
-  </div>
-</section>
-
-<!-- PRINCIPLES -->
-<section class="quote-section">
-  <span class="quote-bg-mark">Parth.</span>
-  <div class="quote-inner">
-    <p class="quote-label">Working Principle · No. 01</p>
-    <p class="quote-text">
-      I architect platforms the way systems engineers build <em>critical infrastructure</em> - <span class="highlight">constraints are features</span>, simplicity is earned, and the most important line of code is the one we decided not to write.
-    </p>
-    <p class="quote-attr">From my desk · Hyderabad</p>
-  </div>
-
-  <div class="quote-inner tilt-right">
-    <p class="quote-label">Working Principle · No. 02</p>
-    <p class="quote-text">
-      Own it. <span class="highlight">Ship it.</span> <em>Defend it.</em>
-    </p>
-    <p class="quote-attr">What every person I've worked with<br>has heard from me</p>
   </div>
 </section>
 
 <!-- BUILT -->
-<section class="built" id="sec-built">
-  <div class="built-header">
-    <span class="bh-left">03 · Shipped Solo · Off The Clock</span>
-    <h2 class="bh-title">Built <em>because it</em> didn't exist
-      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>seven arguments, made in code.</b> Tap any one for the story.</span>
-    </h2>
-  </div>
-  <div class="built-grid">
-  <article class="project" id="p-track" data-project="track" data-r="BUILT|Track|trains &amp; flights">
-    <div class="project-left">
-      <span class="project-tag">Live · Installable · Ad-Free</span>
-      <h3 class="project-title">Track <em>trains &amp; flights</em></h3>
-      <p class="project-line">A calm, ad-free live tracker for Indian trains and flights. Your stop is the hero, not the train.</p>
-      <div class="project-more" id="more-track"><div>
-      <div class="project-desc">
-        <p>Every train tracker I used fired <span class="pd-box">266 requests</span> and megabytes of ads to answer one question: <em>where is my train?</em> Flight apps swing the other way and bury you in telemetry you never asked for.</p>
-        <p>So I built Track around one idea: <span class="pd-mark">show what matters to the traveller right now</span>, and nothing else. The hero is <em>your stop</em>, not the train's raw position. Flights reshape themselves by phase - the gate leads before takeoff, the map in the air, the baggage belt after landing.</p>
-        <p>Under the hood it's a platform, not a page. One Cloudflare Worker normalises the running feed, NTES, IRCTC seats, AeroDataBox and live ADS-B into one shape, so <span class="pd-mark">the frontend never knows who answered</span>. A free-tier flight quota stretches across every user through shared caches and a daily budget. And stale data is <span class="pd-pink">labelled, never passed off as exact.</span></p>
+<section class="sec" id="built">
+  <div class="wrap">
+    <header class="sec-head split" data-reveal>
+      <div>
+        <p class="eyebrow">02 · Built · nights and weekends</p>
+        <h2 class="h2">Seven things I built, <em>all live</em>.</h2>
       </div>
-      <div class="project-stack">
-        <span>Vanilla JS · ES Modules</span>
-        <span>Cloudflare Worker</span>
-        <span>5 Data Sources, 1 Contract</span>
-        <span>MapLibre GL</span>
-        <span>Live ADS-B</span>
-        <span>Add to Home Screen</span>
-        <span>No Build Step</span>
-      </div>
-      </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-track"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/track/" target="_blank" rel="noopener">Track a journey <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: live island opens, train halts its way to your stop, a flight crosses overhead -->
-      <div class="pr-art tk-art" aria-hidden="true">
+      <p class="muted sec-note">Every one is open source. Each card shows its commit history from GitHub, re-checked live in your browser.</p>
+    </header>
+
+    <div class="bento">
+      <article class="project card wide" id="p-track" data-r="BUILT|Track|trains & flights">
+        <div class="p-screen"><div class="pr-art tk-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- live island -->
           <rect class="tk-island" x="76" y="6" width="168" height="24" rx="12" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
@@ -439,50 +395,21 @@
             <text class="tk-word" x="214" y="142" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">you're here.</text>
           </g>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">8,677<span class="sup"> STATIONS</span></div>
-        <div class="pr-stat-label">Searched on your device - by name, code or nickname</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">0<span class="sup"> ADS</span></div>
-        <div class="pr-stat-label">No sign-ups, no cookies, no analytics</div>
-      </div>
-      <p class="pr-note">your stop is the hero. not the train.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-shelfie" data-project="shelfie" data-r="BUILT|Shelfie|reading arcade">
-    <div class="project-left">
-      <span class="project-tag">Live · Thumb-Driven · Offline-First</span>
-      <h3 class="project-title">Shelfie <em>reading arcade</em></h3>
-      <p class="project-line">A reading tracker you drive with your thumbs. Books are arcade passes; reading is the game.</p>
-      <div class="project-more" id="more-shelfie"><div>
-      <div class="project-desc">
-        <p>Every reading tracker I tried felt like <span class="pd-mark">filling in a spreadsheet</span>. Log a page, tap save, feel nothing. Meanwhile every game on the same phone makes a thumb-flick feel <em>incredible</em>.</p>
-        <p>So I built a reading tracker you drive with your thumbs. Books are arcade passes you flick through, <span class="pd-box">drag up to turn pages</span>, and drop onto shelves - every move is a spring that <span class="pd-mark">keeps your finger's speed</span>. Finish a book and a rubber stamp slams down, confetti flies, and the island counts up your XP.</p>
-        <p>Under the arcade: offline-first, optional accounts with passkeys and <em>end-to-end encrypted</em> sync, a two-minute Goodreads import, synthesised sound and haptics, and motion controls <span class="pd-mark">tuned on real iPhone recordings</span>. <span class="pd-pink">No ads, no build step.</span></p>
-      </div>
-      <div class="project-stack">
-        <span>Vanilla JS · No Build</span>
-        <span>Spring Physics</span>
-        <span>Passkeys · E2E Sync</span>
-        <span>Cloudflare Worker · D1</span>
-        <span>Web Audio · Haptics</span>
-        <span>Device Motion</span>
-        <span>Goodreads Import</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-shelfie"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/shelfie/" target="_blank" rel="noopener">Insert coin <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: drag up to read, lift the pass, magnet-drop on FINISHED, stamp + confetti + XP -->
-      <div class="pr-art sf-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Live · Installable · Ad-free</p>
+          <h3 class="h3">Track <em>trains &amp; flights</em></h3>
+          <p class="p-line">A calm, ad-free live tracker for Indian trains and flights. Your stop is the hero, not the train. One Cloudflare Worker turns five data sources into one shape.</p>
+          <div class="p-foot"><!-- gen:project-proof:track -->
+          <div class="p-proof" data-repo="Parth8/track">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/track">Verified</a>
+            <span class="p-git"><b data-live="commits">36</b> commits · 29 Sep 2026 → 2 Oct 2026</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/track/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card" id="p-shelfie" data-r="BUILT|Shelfie|reading arcade">
+        <div class="p-screen"><div class="pr-art sf-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <clipPath id="sfWindow"><rect x="38" y="34" width="64" height="54" rx="2"/></clipPath>
@@ -560,51 +487,22 @@
             <text x="14" y="146" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">drag up to read. drop to finish.</text>
           </g>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">20<span class="sup"> BADGES</span></div>
-        <div class="pr-stat-label">Die-cut stickers, Fresh Spine to Literary Final Boss</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">0<span class="sup"> AUDIO FILES</span></div>
-        <div class="pr-stat-label">Every click, coin and fanfare synthesised live</div>
-      </div>
-      <p class="pr-note">books are arcade passes. reading is the game.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-credit" data-project="credit" data-r="BUILT|Decoding Credit Cards|22 chapters">
-    <div class="project-left">
-      <span class="project-tag">Live · Open Source · Free Forever</span>
-      <h3 class="project-title">Decoding <em>Credit Cards</em></h3>
-      <p class="project-line">22 interactive chapters on how credit cards actually work. No ads, no pitches, no card recommendations.</p>
-      <div class="project-more" id="more-credit"><div>
-      <div class="project-desc">
-        <p>I wanted to understand how credit cards <span class="pd-mark">actually work</span> - not "best card for lounge access" content, the real mechanics. How a transaction clears. What the bank does when you swipe. Why the minimum payment is a <em>trap</em>.</p>
-        <p>There was no clean source for any of it. Just me with scattered tabs, RBI documents, and late-night YouTube rabbit holes. So I built the thing I wished existed: <span class="pd-box">22 interactive chapters</span> where you tap a card to watch a transaction settle, drag a slider to watch compound interest <em>destroy you</em> in real time.</p>
-        <p>Built end-to-end - design system, content, and code - in pure HTML, CSS, and JS. No build step, no frameworks, <span class="pd-mark">zero dependencies</span>. Free for everyone forever. No login, no ads, <span class="pd-pink">no card recommendations, ever.</span></p>
-        <p><i><strong>On a personal note:</strong><br>My goal for this project was simple - access to instutional knowledge made easy, simple, and free for everyone forever.</i></p>
-      </div>
-      <div class="project-stack">
-        <span>HTML · CSS · JS</span>
-        <span>Zero Dependencies</span>
-        <span>22 Interactive Chapters</span>
-        <span>Mobile-First</span>
-        <span>Design System</span>
-        <span>GitHub Pages</span>
-        <span>AI-Assisted Build</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-credit"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/credit/" target="_blank" rel="noopener">Visit the site <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: card taps, signal fires down the rail, approval lands -->
-      <div class="pr-art cc-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Live · Offline-first · Passkeys</p>
+          <h3 class="h3">Shelfie <em>reading arcade</em></h3>
+          <p class="p-line">A reading tracker you drive with your thumbs: books are arcade passes, sync is end-to-end encrypted.</p>
+          <div class="p-foot"><!-- gen:project-proof:shelfie -->
+          <div class="p-proof" data-repo="Parth8/shelfie">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/shelfie">Verified</a>
+            <span class="p-git"><b data-live="commits">21</b> commits · 2 Oct 2026 → 3 Oct 2026</span>
+            <span class="p-agent">20 of 21 commits by Claude, an AI coding agent</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/shelfie/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card" id="p-credit" data-r="BUILT|Decoding Credit Cards|22 chapters">
+        <div class="p-screen"><div class="pr-art cc-art" aria-hidden="true">
         <svg viewBox="0 0 320 130" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- rail the signal travels -->
           <line class="cc-track" x1="34" y1="66" x2="286" y2="66" stroke="#A8A499" stroke-width="1.5"/>
@@ -637,50 +535,21 @@
           </g>
           <text class="cc-stamp-word" x="182" y="114" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547" transform="rotate(-4 182 114)">approved.</text>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">22<span class="sup"> CHAPTERS</span></div>
-        <div class="pr-stat-label">Interactive chapters, issuance to interest math</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">0<span class="sup"> DEPS</span></div>
-        <div class="pr-stat-label">No frameworks, no build step, no tracking</div>
-      </div>
-      <p class="pr-note">no ads. no pitches. just the mechanics.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-ai" data-project="ai" data-r="BUILT|Zero to a Hundred|21 phases">
-    <div class="project-left">
-      <span class="project-tag">Open Curriculum · Free-First · Vendor-Neutral</span>
-      <h3 class="project-title">Zero <em>to a hundred</em></h3>
-      <p class="project-line">An open, vendor-neutral path to learning AI - 21 phases, from Python to inference economics.</p>
-      <div class="project-more" id="more-ai"><div>
-      <div class="project-desc">
-        <p>Every "learn AI" list is either a <span class="pd-mark">vendor's sales funnel</span> or a hundred YouTube tabs in no particular order. People end up able to <em>use</em> AI but unable to explain it.</p>
-        <p>So I wrote the path I wanted: <span class="pd-box">21 phases</span>, from Python and Git through classic ML, how LLMs actually work, RAG, agents and MCP, to evals, security and <em>inference economics</em>. Each phase says what you'll be able to do when it's done, and <span class="pd-mark">asks you to build something</span> before moving on.</p>
-        <p>It maps straight onto my day job: the RAG cleanup, golden-dataset evals and rent-vs-own model calls at Backbase are <span class="pd-mark">phases 09, 15 and 17</span>. <span class="pd-pink">No vendor worship. No "AI is like a brain" metaphors.</span></p>
-      </div>
-      <div class="project-stack">
-        <span>21 Phases</span>
-        <span>154 Concepts</span>
-        <span>105 Curated Resources</span>
-        <span>ML → LLMs → Agents</span>
-        <span>MCP · RAG · Evals</span>
-        <span>Inference Economics</span>
-        <span>One HTML File</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-ai"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/ai/" target="_blank" rel="noopener">Start at phase 00 <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: 21 phases light up along the path, the odometer rolls 0 -> 100 -->
-      <div class="pr-art ai-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Live · Free forever</p>
+          <h3 class="h3">Decoding <em>credit cards</em></h3>
+          <p class="p-line">22 interactive chapters on how credit cards actually work. No ads, no pitches.</p>
+          <div class="p-foot"><!-- gen:project-proof:credit -->
+          <div class="p-proof" data-repo="Parth8/credit">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/credit">Verified</a>
+            <span class="p-git"><b data-live="commits">43</b> commits · 8 May 2026 → 13 May 2026</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/credit/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card" id="p-ai" data-r="BUILT|Zero to a Hundred|21 phases">
+        <div class="p-screen"><div class="pr-art ai-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <clipPath id="aiWindow"><rect x="232" y="44" width="72" height="48"/></clipPath>
@@ -782,52 +651,21 @@
             <text x="24" y="141" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">every phase ends in something you build.</text>
           </g>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">21<span class="sup"> PHASES</span></div>
-        <div class="pr-stat-label">~9-12 months at a steady pace, pre-LLM ML included</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">90<span class="sup">% FREE</span></div>
-        <div class="pr-stat-label">Of the resources. Paid ones are marked and optional</div>
-      </div>
-      <p class="pr-note">watch less. build more.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-jira" data-project="jira" data-r="BUILT|Jira 2.0|AI layer">
-    <div class="project-left">
-      <span class="project-tag">Product Teardown · Working Prototype</span>
-      <h3 class="project-title">Jira <em>2.0</em></h3>
-      <p class="project-line">A teardown and working prototype of an AI-native layer on Jira, where every AI output is auditable.</p>
-      <div class="project-more" id="more-jira"><div>
-      <div class="project-desc">
-        <p>Jira is the most-used PM tool on the planet, and it still asks every user to <span class="pd-mark">low-key be a database admin</span>. Configure a filter, save it, build a dashboard, wire up a gadget - all to answer a question that took ten seconds to ask.</p>
-        <p>So I tore it down and rebuilt the interaction layer. Not a Jira clone. <span class="pd-box">An AI-native layer on top of the system of record</span> - same data, same workflows, same integrations. It just stops <b><em>taxing your attention</em></b> before delivering value.</p>
-        <p>Three surfaces: <br>• an action-first home that answers what blocks others, what blocks me, what's overdue.<br>• Conversational ticket creation, maker-checker preserved.<br>• And natural-language dashboards that write the JQL for you.</p>
-        <p>The differentiator is trust - <span class="pd-pink">every AI output is auditable</span>. Click any suggestion and a drawer opens: signals used, plain-English reasoning, a confidence number, and the cost of being wrong.</p>
-      </div>
-      <div class="project-stack">
-        <span>Product Strategy</span>
-        <span>AI-Native UX</span>
-        <span>Vanilla JS Prototype</span>
-        <span>Chart.js</span>
-        <span>3 Role Personas</span>
-        <span>AI Transparency Layer</span>
-        <span>13-Slide Teardown</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-jira"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/jira2/" target="_blank" rel="noopener">Try the prototype <span class="arr">↗</span></a>
-        <a class="project-link primary" href="https://docs.google.com/presentation/d/1BeDPLtkNR43jhxy6g7QtDaWu2xa0twQP5OvqAMm6CZc/edit?usp=sharing" target="_blank" rel="noopener">Check out the deck <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: a noisy feed sweeps out, one ranked action rises, audited -->
-      <div class="pr-art jr-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Open curriculum · Vendor-neutral</p>
+          <h3 class="h3">Zero <em>to a hundred</em></h3>
+          <p class="p-line">An open path to learning AI: 21 phases, from Python to inference economics.</p>
+          <div class="p-foot"><!-- gen:project-proof:ai -->
+          <div class="p-proof" data-repo="Parth8/ai">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/ai">Verified</a>
+            <span class="p-git"><b data-live="commits">6</b> commits · 7 Jul 2026 → 31 Jul 2026</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/ai/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card" id="p-jira" data-r="BUILT|Jira 2.0|teardown + prototype">
+        <div class="p-screen"><div class="pr-art jr-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- the noise: recommendation cards, upsells, feed clutter -->
           <g class="jr-noise">
@@ -854,50 +692,21 @@
           </g>
           <text x="16" y="138" font-family="Caveat, cursive" font-weight="700" font-size="13" fill="#E6B547" transform="rotate(-2 16 138)">noise out. one decision in.</text>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">3<span class="sup"> SURFACES</span></div>
-        <div class="pr-stat-label">Action-first home, conversational tickets, NL dashboards</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">100<span class="sup">%</span></div>
-        <div class="pr-stat-label">AI outputs auditable - signals, reasoning, confidence</div>
-      </div>
-      <p class="pr-note">not a rebuild. a layer.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-grid" data-project="grid" data-r="BUILT|GRID|F1 in 2026">
-    <div class="project-left">
-      <span class="project-tag">Live Data · Editorial Reference</span>
-      <h3 class="project-title">GRID <em>F1 in 2026</em></h3>
-      <p class="project-line">An editorial reference for Formula 1's 2026 reset, with live timing from OpenF1.</p>
-      <div class="project-more" id="more-grid"><div>
-      <div class="project-desc">
-        <p>2026 is the <span class="pd-mark">biggest technical reset</span> in Formula 1's history - new engines, active aero, smaller cars - and most explainers are either 40-minute videos or wikis that assume you've watched since 1998.</p>
-        <p>GRID is a primer that <em>respects your time</em>: five pages, compressed like a blueprint. Eleven teams, twenty-two drivers, twenty-two tracks drawn as abstract silhouettes, and a top-down technical drawing of the car where you can <span class="pd-box">flip the wings</span> between corner and straight-line mode.</p>
-        <p>Then it gets a heartbeat. The live page pulls positions, fastest laps, weather and race-control flags <span class="pd-mark">straight from OpenF1</span>, and any one feed can fail without taking the others down. There's a strategy simulator and a pit-stop reaction game too. <span class="pd-pink">Under 2.5 s is F1-grade.</span></p>
-      </div>
-      <div class="project-stack">
-        <span>Multi-Page · No Framework</span>
-        <span>OpenF1 Live API</span>
-        <span>SVG Technical Drawings</span>
-        <span>Strategy Simulator</span>
-        <span>Pit-Stop Game</span>
-        <span>~190 KB Total</span>
-        <span>Editorial Design</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-grid"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/grid/" target="_blank" rel="noopener">Lights out <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: five red lights, lights out, a lap of a blueprint circuit, sectors light, P3 takes P2 -->
-      <div class="pr-art gr-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Teardown · Working prototype</p>
+          <h3 class="h3">Jira <em>2.0</em></h3>
+          <p class="p-line">An AI-native layer on Jira, where every AI output is auditable.</p>
+          <div class="p-foot"><!-- gen:project-proof:jira -->
+          <div class="p-proof" data-repo="Parth8/jira2">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/jira2">Verified</a>
+            <span class="p-git"><b data-live="commits">38</b> commits · 4 May 2026 → 4 May 2026</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/jira2/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a><a class="btn sm" href="https://docs.google.com/presentation/d/1BeDPLtkNR43jhxy6g7QtDaWu2xa0twQP5OvqAMm6CZc/edit?usp=sharing" target="_blank" rel="noopener">Deck <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card" id="p-grid" data-r="BUILT|GRID|F1 2026">
+        <div class="p-screen"><div class="pr-art gr-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <!-- start lights -->
           <rect x="14" y="6" width="82" height="18" rx="4" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
@@ -965,50 +774,21 @@
             </g>
           </g>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">5<span class="sup"> PAGES</span></div>
-        <div class="pr-stat-label">Primer, the grid, the car, live timing, learn</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">~190<span class="sup"> KB</span></div>
-        <div class="pr-stat-label">All five pages, no framework, no build</div>
-      </div>
-      <p class="pr-note">lights out and away we go.</p>
-    </div>
-  </article>
-
-  <article class="project" id="p-cookbook" data-project="cookbook" data-r="BUILT|The Cookbook|216 dishes">
-    <div class="project-left">
-      <span class="project-tag">Live · 216 Dishes · Zero Build</span>
-      <h3 class="project-title">The Cookbook <em>by Parth</em></h3>
-      <p class="project-line">216 high-protein dishes that start from context: what's in the fridge, how long you've got, who's coming.</p>
-      <div class="project-more" id="more-cookbook"><div>
-      <div class="project-desc">
-        <p>Recipe sites are built for <span class="pd-mark">search engines, not hungry people</span>. A life story, three ads, and the ingredient list somewhere below the fold. None of them answer the real question: <em>what should I cook tonight?</em></p>
-        <p>So mine starts from context, not chapters. <span class="pd-box">I have 20 minutes.</span> I have chicken. Zero cleanup. Someone's coming over. Tap what's in the fridge and it ranks dishes with <span class="pd-mark">honest set math</span>; pick one and cook mode takes over the screen, timers running and the screen kept awake.</p>
-        <p>Underneath, it's a data product: 216 cards, an ingredient database, 421 aliases, and a graph of pairings and leftovers. A validator <span class="pd-mark">blocks the deploy</span> if any card's macros disagree with the database. <span class="pd-pink">Nothing is estimated.</span></p>
-      </div>
-      <div class="project-stack">
-        <span>ES Modules · Hash Routing</span>
-        <span>JSON as the Database</span>
-        <span>Faceted Filters</span>
-        <span>Fridge Matcher</span>
-        <span>Cook Mode · Wake Lock</span>
-        <span>⌘K Palette</span>
-        <span>Python Data QA</span>
-      </div>
       </div></div>
-      <div class="project-links">
-        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-cookbook"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
-        <a class="project-link primary" href="https://parth8.github.io/cookbook/" target="_blank" rel="noopener">What's for dinner? <span class="arr">↗</span></a>
-      </div>
-    </div>
-    <div class="project-right">
-      <!-- ANIMATED ART: tap what's in the fridge, match bars fill, the full match climbs to the top -->
-      <div class="pr-art ck-art" aria-hidden="true">
+        <div class="p-body">
+          <p class="eyebrow">Live data · Editorial reference</p>
+          <h3 class="h3">GRID <em>F1 in 2026</em></h3>
+          <p class="p-line">An editorial reference for Formula 1's 2026 reset, with live timing from OpenF1.</p>
+          <div class="p-foot"><!-- gen:project-proof:grid -->
+          <div class="p-proof" data-repo="Parth8/grid">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/grid">Verified</a>
+            <span class="p-git"><b data-live="commits">7</b> commits · 13 Jun 2026 → 2 Jul 2026</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/grid/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <article class="project card wide" id="p-cookbook" data-r="BUILT|The Cookbook|216 dishes">
+        <div class="p-screen"><div class="pr-art ck-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <g font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" letter-spacing="0.8">
             <text x="14" y="10">IN THE FRIDGE</text>
@@ -1057,724 +837,162 @@
             <text class="ck-word" x="224" y="144" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">dinner, sorted.</text>
           </g>
         </svg>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">216<span class="sup"> DISHES</span></div>
-        <div class="pr-stat-label">58 in rotation, café and bar included</div>
-      </div>
-      <div class="pr-divider"></div>
-      <div class="pr-stat">
-        <div class="pr-stat-num">0<span class="sup"> ESTIMATES</span></div>
-        <div class="pr-stat-label">Every macro computed from the ingredient database</div>
-      </div>
-      <p class="pr-note">the fridge decides. the data checks.</p>
+      </div></div>
+        <div class="p-body">
+          <p class="eyebrow">Live · 216 dishes · Zero build</p>
+          <h3 class="h3">The Cookbook <em>by Parth</em></h3>
+          <p class="p-line">216 high-protein dishes that start from context: what's in the fridge, how long you've got, who's coming.</p>
+          <div class="p-foot"><!-- gen:project-proof:cookbook -->
+          <div class="p-proof" data-repo="Parth8/cookbook">
+            <a class="proof" data-tier="verified" href="https://github.com/Parth8/cookbook">Verified</a>
+            <span class="p-git"><b data-live="commits">24</b> commits · 15 Jul 2026 → 16 Sep 2026</span>
+            <span class="p-agent">2 of 24 commits by Claude, an AI coding agent</span>
+          </div>
+          <!-- /gen --><div class="p-links"><a class="btn sm primary" href="https://parth8.github.io/cookbook/" target="_blank" rel="noopener">Open <span aria-hidden="true">↗</span></a></div></div>
+        </div>
+      </article>
+      <aside class="project card live-check" id="liveCheck" aria-live="polite">
+        <p class="eyebrow">Live check</p>
+        <p class="lc-big"><span class="num" id="lcCommits">-</span><span>commits across seven public repos</span></p>
+        <ol class="lc-log" id="lcLog"><li class="muted">Checking GitHub when this card comes into view…</li></ol>
+      </aside>
     </div>
-  </article>
-
-  <a class="project project-next" href="#contact">
-    <span class="pn-num">08</span>
-    <span class="project-tag">Slot open · Yours?</span>
-    <h3 class="project-title">Your <em>problem</em> here</h3>
-    <p class="project-line">Every build above started as a tool that didn't exist yet. Got one that should? I'm listening.</p>
-    <span class="project-link primary">Pitch me <span class="arr">↗</span></span>
-    <span class="pn-note">the next one could be yours.</span>
-  </a>
   </div>
 </section>
 
 <!-- JOURNEY -->
-<section class="xp-section" id="sec-experience">
-  <div class="xp-head">
-    <h2 class="xp-main-title"><em>the</em> journey</h2>
-    <p class="skills-sub" style="color:var(--gray)">04 · 2021 → now · 5 roles · 3 companies</p>
-  </div>
-  <div class="xp-row" data-r="JOURNEY|Backbase · Forward Deployed PM|2026 →">
-    <div class="xp-left">
-      <p class="xp-date">Aug 2026 - Present</p>
-      <p class="xp-co">Backbase.</p>
-      <span class="xp-now">Now · Hyderabad</span>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Forward Deployed Product Manager <em>- Connector Studio · Agentic Banking</em></p>
-      <ul class="xp-pts">
-        <li><strong>Platform owner for Connector Studio</strong> - Backbase's iPaaS for banking connectors. Build, deploy, install, run and maintain, across the web app and the agentic AI MCP.</li>
-        <li>Launched the <strong>Connector Studio MCP in 6 weeks</strong> - banking clients and ~20 internal PMs and services engineers now build connectors with agents, off manual builds.</li>
-        <li>Connector build time cut from <strong>~12 days to ~2 (~80%)</strong>, mapping review and deployment included. Every build gated to pre-prod until mapping accuracy is safe for production banking traffic.</li>
-        <li>Driving LLM mapping accuracy - BIAN unified APIs to vendor JSON/XML specs - from <strong>~50-60% to 90%+</strong>, baselined against a golden dataset. Own the Q4 KPI: the first official connectors built and published.</li>
-        <li>Running the <strong>rent vs own the LLM</strong> call: self-hosted open-weight models vs OpenAI and Anthropic enterprise plans, and RAG vs LLM-native mapping, on accuracy, token cost, control and data isolation.</li>
-        <li>Shipped the <strong>API Playground</strong> and MCP token rotation (90-day expiry, auto re-provisioning, instant self-serve revoke). Redesigning the Connector Studio UI off user feedback.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row" data-r="JOURNEY|Zeta · TPM, data platform|2024–26">
-    <div class="xp-left">
-      <p class="xp-date">May 2024 - Aug 2026</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Product Manager <em>- Data Platform SaaS (US + EMEA)</em></p>
-      <ul class="xp-pts">
-        <li><strong>Lead platform PM</strong> for a multi-tenant, config-driven data platform for US + EMEA banks - subscription onboarding, 0 code changes, onboarding + GTM cut by <strong>90 days</strong>.</li>
-        <li>Eliminated the MongoDB dependency - <strong>~$50K/year infra savings</strong>. Made data freshness a per-tenant config tied to its AWS cost.</li>
-        <li>Data contracts and a governed semantic layer across <strong>1,200+ attributes, 20+ schemas</strong> - lineage, PII/PCI DSS/GDPR, sanctions &amp; AML (OFAC, FinCEN).</li>
-        <li>Owned <strong>12+ connectors</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless, AWS Connect. One subscription provisions a DAG per tenant-vendor pair.</li>
-        <li><strong>0 P1/P2 defects, 4-week GTM</strong> with a team of 8 engineers at 90%+ on-time delivery. 70+ data quality gaps closed in 2 months, CSAT 2.5 → 4.0.</li>
-        <li>Authored architecture docs across 600+ attributes, driving CardWorks' <strong>$3M+ credit card portfolio data migration</strong>.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row" data-r="JOURNEY|Zeta · TPM, Optum cards|2024–26">
-    <div class="xp-left">
-      <p class="xp-date">May 2024 - Aug 2026</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Product Manager <em>- Optum Virtual Card Platform</em></p>
-      <ul class="xp-pts">
-        <li>Led the <strong>0 P1/P2 defect launch</strong> of a virtual card platform for UnitedHealthcare payers to disburse <strong>$2B+ a year</strong> to US healthcare providers - Optum Bank as sponsor, on Mastercard rails.</li>
-        <li>Owned product strategy across <strong>9 functional areas</strong> for a Fortune 3 - discovery to clean regulatory sign-off for Mastercard integration.</li>
-        <li>Designed API specs and led QA for the full card lifecycle - <strong>issue, cancel, reissue, reset</strong> - webhook triggers, idempotency, error handling, fallback.</li>
-        <li>Architected a real-time <strong>FRM rules engine</strong> with configurable merchant, amount, and risk thresholds.</li>
-        <li>Led <strong>FeatureSpace ML integration</strong> for real-time fraud detection; built event-based transaction traceability for UHC compliance teams.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row" data-r="JOURNEY|Zeta · TPgM, US + India|2022–24">
-    <div class="xp-left">
-      <p class="xp-date">May 2022 - May 2024</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Program Manager <em>- US &amp; India Banking Program Lead</em></p>
-      <ul class="xp-pts">
-        <li>Led Sparrow Card US launch with Evolve Bank - <strong>2x revenue &amp; 150K+ onboardings and issuances</strong> in first year vs projections by Dec '24.</li>
-        <li>Built US support &amp; ops from scratch - first response time <strong>-99%</strong>, CSAT 2.5 → 4.6 in 3 months.</li>
-        <li>120+ real-time SQL dashboards. 300+ releases managed. 89% SLO, 99% SLA adherence.</li>
-        <li>Led RBI-mandated wind-down of <strong>22 fintechs in 60 days</strong> across product, BI, engineering, bank partners.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row" data-r="JOURNEY|HackerEarth · PM|2021–22">
-    <div class="xp-left">
-      <p class="xp-date">Feb 2021 - Apr 2022</p>
-      <p class="xp-co">HackerEarth.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Project Manager <em>- Enterprise &amp; SMB Recruitment</em></p>
-      <ul class="xp-pts">
-        <li>60+ enterprise &amp; SMB programs delivered. <strong>NPS 9</strong>. Churn reduced by 25%.</li>
-        <li><strong>₹38L ($46K) revenue</strong> in 9 months - referrals and upsells.</li>
-        <li>7+ case studies with Google, Microsoft, Accenture, Walmart Global Tech, HCL Sweden, Husqvarna.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- TOOLKIT -->
-<section class="skills-wrap" id="sec-skills" data-r="EXTRAS|Toolkit|4 stacks + AI">
-  <span class="skills-bg" aria-hidden="true">CAPABILITIES</span>
-  <div class="skills-head">
-    <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
-    <p class="skills-sub">05 · The stack · End to end</p>
-  </div>
-  <div class="skills-cols">
-    <div class="skill-col">
-      <p class="sc-label">◦ Fintech, Payments &amp; Platform</p>
-      <ul class="sc-list">
-        <li>Card issuance · Mastercard &amp; Visa</li>
-        <li>Virtual &amp; credit cards · BIN mgmt</li>
-        <li>Sponsor bank programs</li>
-        <li>Fraud detection &amp; FRM</li>
-        <li>Disputes &amp; traceability</li>
-        <li>REST · GraphQL · SOAP APIs</li>
-        <li>Webhooks · idempotency</li>
-        <li>Event-driven systems</li>
-        <li>Multi-tenant SaaS design</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Data &amp; Infrastructure</p>
-      <ul class="sc-list">
-        <li>Data contracts · semantic layer</li>
-        <li>Medallion architecture</li>
-        <li>dbt · Apache Airflow</li>
-        <li>Kafka · S3 · batch · API ingestion</li>
-        <li>ETL · ELT · OLTP · OLAP</li>
-        <li>Cost vs freshness tradeoffs</li>
-        <li>PII · PCI DSS · GDPR · OFAC</li>
-        <li>Metabase · Superset · Grafana</li>
-        <li>SQL · Python</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ AI &amp; LLM</p>
-      <ul class="sc-list">
-        <li>MCP servers &amp; agent tooling</li>
-        <li>RAG · vector databases</li>
-        <li>LLM evals · golden datasets</li>
-        <li>Mapping accuracy benchmarks</li>
-        <li>Human-in-the-loop review</li>
-        <li>Open-weight vs managed LLMs</li>
-        <li>Inference cost tradeoffs</li>
-        <li>Token &amp; credential lifecycle</li>
-        <li>Claude · Cursor · Copilot · Ollama</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Product &amp; Leadership</p>
-      <ul class="sc-list">
-        <li>PRD · BRD · GTM</li>
-        <li>Roadmaps from 120+ requirements</li>
-        <li>Agile · Scrum · Kanban · RACI</li>
-        <li>CxO-level stakeholder mgmt</li>
-        <li>Forward-deployed with clients</li>
-        <li>0-to-1 platform builds</li>
-        <li>Teams of 8 engineers</li>
-        <li>Ops &amp; CSAT scaling</li>
-        <li>Figma · Notion · Jira</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SHIPPED WITH / CLIENTS & PARTNERS -->
-<section class="shipped-with" aria-label="Shipped with, banked by, integrated through">
-  <p class="sw-label">Shipped with · Banked by · Integrated through</p>
-  <div class="sw-marquee-wrap">
-    <div class="sw-marquee">
-      <span class="sw-item">Backbase</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Mastercard</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Visa</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Optum Financial</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">HDFC Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">IDFC Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Evolve Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Focus Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">CardWorks</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">BIAN</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">AWS</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">FeatureSpace</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">TransUnion</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Equifax</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">DigiFi</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Zeta</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">MoEngage</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Qualco</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Xero</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Decta</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">GoCardless</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Zendesk + Freshdesk</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Tabapay</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Lighthouse</span><span class="sw-dot" aria-hidden="true">✦</span>
-      <span class="sw-item">Office of Foreign Assets Control (OFAC)</span><span class="sw-dot" aria-hidden="true">✦</span>
-    </div>
-  </div>
-</section>
-
-<!-- RECOGNITION -->
-<section class="awards-section" id="sec-recognition" data-r="EXTRAS|Recognition|6 awards · 3 certs">
-  <div class="aw-head">
-    <h2 class="aw-title"><em>recognition</em></h2>
-    <p class="skills-sub" style="color:var(--gray)">06 · Six awards · three certifications · 2021-2024</p>
-  </div>
-  <div class="aw-grid">
-
-    <div class="aw-card tilt-a">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M5,38 C25,18 55,55 90,32 C125,12 160,48 195,28 C193,34 196,42 190,50 C160,65 125,42 90,58 C55,72 25,50 8,55 C4,50 3,44 5,38 Z" fill="#FFE7A0"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold1)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="38" r="16" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="18" fill="#8a6a1f">★</text>
-      </svg>
-      <p class="aw-year">Jul 2024 · Annual</p>
-      <p class="aw-name">Outstanding Award <em>Sparrow Card · US Ops · Platform Stability</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-b">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M10,40 C35,20 60,52 95,35 C130,18 155,50 190,30 C190,38 193,45 188,52 C155,66 130,46 95,60 C60,70 35,52 12,58 C6,52 6,46 10,40 Z" fill="#B6F0D3"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <circle cx="40" cy="40" r="28" fill="url(#gold2)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="40" r="18" fill="none" stroke="#8a6a1f" stroke-width="0.8"/>
-        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="20" fill="#8a6a1f">2</text>
-        <path d="M20 68 L40 78 L60 68 L56 72 L40 82 L24 72 Z" fill="#D4483B"/>
-      </svg>
-      <p class="aw-year">Mar 2024 · Quarterly</p>
-      <p class="aw-name">Mountain Mover <em>US Support Automation</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-c">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M8,38 C30,16 58,58 92,30 C128,10 165,50 192,32 C192,38 194,44 188,50 C165,66 128,46 92,60 C58,72 30,48 10,56 C5,50 4,44 8,38 Z" fill="#FFC9D7"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M20 6 L60 6 L68 22 L48 52 L32 52 L12 22 Z" fill="url(#gold3)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="30" r="13" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="36" text-anchor="middle" font-family="Bebas Neue" font-size="16" fill="#8a6a1f">★</text>
-        <rect x="28" y="52" width="24" height="14" fill="#3B82B4"/>
-        <path d="M28 66 L40 74 L52 66 L52 76 L40 82 L28 76 Z" fill="#3B82B4"/>
-      </svg>
-      <p class="aw-year">Dec 2023 · Quarterly</p>
-      <p class="aw-name">Mountain Mover <em>Platform Stability Initiative</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-d">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M6,40 C30,14 60,60 95,32 C130,12 160,50 194,30 C194,38 196,44 190,50 C160,66 130,46 95,60 C60,72 30,50 8,58 C3,52 2,46 6,40 Z" fill="#FFE7A0"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 6 L46 28 L68 28 L50 42 L56 64 L40 50 L24 64 L30 42 L12 28 L34 28 Z" fill="url(#gold4)" stroke="#8a6a1f" stroke-width="1"/>
-      </svg>
-      <p class="aw-year">Nov 2022 · Quarterly</p>
-      <p class="aw-name">Shining Star <em>Wind-down Program Execution</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-e">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M10,38 C35,16 60,56 95,30 C130,12 160,50 190,32 C190,38 194,45 188,52 C160,68 130,46 95,60 C60,72 35,50 12,56 C6,50 6,44 10,38 Z" fill="#B6F0D3"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <circle cx="40" cy="38" r="26" fill="url(#gold5)" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#8a6a1f">HE</text>
-      </svg>
-      <p class="aw-year">Jan 2022 · Quarterly</p>
-      <p class="aw-name">Spot Award <em>SMB Churn Reduction</em></p>
-      <p class="aw-co">● HackerEarth</p>
-    </div>
-
-    <div class="aw-card tilt-f">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M8,40 C32,16 58,58 94,32 C130,10 162,50 192,30 C192,38 195,44 189,52 C162,66 130,46 94,60 C58,72 32,50 10,56 C5,52 4,46 8,40 Z" fill="#FFC9D7"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold6)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="38" r="15" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#8a6a1f">PM</text>
-      </svg>
-      <p class="aw-year">Jun 2021 · Quarterly</p>
-      <p class="aw-name">Spot Award <em>Ownership Beyond Scope</em></p>
-      <p class="aw-co">● HackerEarth</p>
-    </div>
-
-  </div>
-  <p class="certs-sub">Certifications · Udemy &amp; Atlassian</p>
-  <div class="certs-grid">
-
-    <div class="cert-card tilt-a">
-      <div class="cert-issuer-row">
-        <div class="cert-logo udemy"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Udemy</p>
-          <p class="cert-date">Issued Jan 2024</p>
+<section class="sec" id="journey">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">03 · Journey · 2021 → now</p>
+      <h2 class="h2">Five roles, three companies, <em>one through-line</em>: platforms.</h2>
+    </header>
+    <ol class="journey"><!-- gen:journey -->
+      <li class="jr" data-reveal data-r="JOURNEY|Backbase|Aug 2026">
+        <span class="jr-when">Aug 2026 – now</span>
+        <div class="jr-what">
+          <p class="jr-role">Forward Deployed Product Manager</p>
+          <p class="jr-co">Backbase · Hyderabad</p>
+          <p class="jr-scope">Platform owner for Connector Studio (Agentic Banking / Grand Central): build, deploy, install, run and maintain banking connectors across the web app and the agentic AI MCP. Users: banking clients and internal product, engineering and services teams.</p>
         </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">API &amp; Web Service <em>Introduction</em></h3>
-        <div class="cert-skills">
-          <span>REST APIs</span>
-          <span>Web Services</span>
-          <span>+2 skills</span>
+        <span class="proof" data-tier="corroborated">Corroborated</span>
+      </li>
+      <li class="jr" data-reveal data-r="JOURNEY|Zeta|May 2024">
+        <span class="jr-when">May 2024 – Aug 2026</span>
+        <div class="jr-what">
+          <p class="jr-role">Technical Product Manager <span>Data Platform SaaS (US + EMEA)</span></p>
+          <p class="jr-co">Zeta · Bengaluru</p>
+          <p class="jr-scope">Lead technical platform PM for a multi-tenant data platform serving enterprise banking clients in the US and EMEA.</p>
         </div>
-      </div>
-      <div class="cert-foot">
-        <span class="cert-verified">Verified</span>
-        <span class="cert-credential">Jan '24</span>
-      </div>
-    </div>
-
-    <div class="cert-card tilt-b">
-      <div class="cert-issuer-row">
-        <div class="cert-logo atlassian"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Atlassian</p>
-          <p class="cert-date">Issued May 2023</p>
+        <span class="proof" data-tier="self">Self-reported</span>
+      </li>
+      <li class="jr" data-reveal data-r="JOURNEY|Zeta|May 2024">
+        <span class="jr-when">May 2024 – Aug 2026</span>
+        <div class="jr-what">
+          <p class="jr-role">Technical Product Manager <span>Optum virtual card platform</span></p>
+          <p class="jr-co">Zeta · Bengaluru</p>
+          <p class="jr-scope">Client-facing product lead for virtual card issuance infrastructure for Optum (UnitedHealth Group).</p>
         </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">Agile with <em>Atlassian Jira</em></h3>
-        <div class="cert-skills">
-          <span>JQL</span>
-          <span>Scrum</span>
-          <span>+2 skills</span>
+        <span class="proof" data-tier="self">Self-reported</span>
+      </li>
+      <li class="jr" data-reveal data-r="JOURNEY|Zeta|May 2022">
+        <span class="jr-when">May 2022 – May 2024</span>
+        <div class="jr-what">
+          <p class="jr-role">Technical Program Manager <span>US &amp; India banking program lead</span></p>
+          <p class="jr-co">Zeta · Bengaluru</p>
+          <p class="jr-scope">US: led Zeta's first US credit card client launch through BAU. India: led an RBI-mandated regulatory wind-down across 20+ fintech partners.</p>
         </div>
-      </div>
-      <div class="cert-foot">
-        <span class="cert-verified">Verified</span>
-        <span class="cert-credential">ID · RMEBHDSY2E48</span>
-      </div>
-    </div>
-
-    <div class="cert-card tilt-c">
-      <div class="cert-issuer-row">
-        <div class="cert-logo atlassian"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Atlassian</p>
-          <p class="cert-date">Issued May 2023</p>
+        <span class="proof" data-tier="corroborated">Corroborated</span>
+      </li>
+      <li class="jr" data-reveal data-r="JOURNEY|HackerEarth|Feb 2021">
+        <span class="jr-when">Feb 2021 – Apr 2022</span>
+        <div class="jr-what">
+          <p class="jr-role">Project Manager <span>Enterprise &amp; SMB</span></p>
+          <p class="jr-co">HackerEarth · Bengaluru</p>
+          <p class="jr-scope">Delivered hiring solutions for enterprise and SMB clients.</p>
         </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">Confluence <em>Fundamentals Badge</em></h3>
-        <div class="cert-skills">
-          <span>Confluence</span>
-          <span>Jira</span>
-        </div>
-      </div>
-      <div class="cert-foot">
-        <span class="cert-verified">Verified</span>
-        <span class="cert-credential">May '23</span>
-      </div>
-    </div>
-
+        <span class="proof" data-tier="self">Self-reported</span>
+      </li>
+    <!-- /gen --></ol>
   </div>
 </section>
 
-<!-- WRITING -->
-<section class="writings" id="sec-writings" data-r="EXTRAS|Writing|5 essays + series">
-  <div class="writings-head">
-    <div class="writings-masthead">
-      <h2 class="writings-title"><span class="bracket">[</span>thoughts, <em>absurd, aloud.</em><span class="bracket right">]</span></h2>
-      <span class="writings-edition">07 · Vol. 001 · Essays · Medium</span>
-    </div>
-    <p class="writings-sub">On fintech, credit cards, tech culture, and the occasional metaphysical detour.</p>
-  </div>
-
-  <a class="feature-essay" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank" rel="noopener">
-    <div class="feat-left">
-      <span class="feat-badge">Feature · Fintech Strategy</span>
-      <h3 class="feat-title">OLX is a crime scene. Is the cure a <em>pivot into becoming a fintech?</em></h3>
-      <div class="feat-meta">
-        <span>Medium</span>
-        <span>~8 min read</span>
-        <span>Analysis</span>
-      </div>
-    </div>
-    <div class="feat-right">
-      <p class="feat-pullquote">
-        A marketplace drowning in fraud, user trust collapsing in real time. The unlock is <em>not a safer listing flow</em> - it's a completely different business model.
-      </p>
-    </div>
-  </a>
-
-  <div class="essay-grid">
-    <a class="essay e-a" href="https://parthaggarwal8.medium.com/the-metro-housing-crisis-is-not-a-you-problem-265c167aa122" target="_blank" rel="noopener">
-      <div>
-        <p class="essay-kicker">Essay · Culture</p>
-        <h4 class="essay-title">The metro housing crisis is <em>not a "you problem"</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~7 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-b" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank" rel="noopener">
-      <div>
-        <p class="essay-kicker">Essay · Product · Hot Take</p>
-        <h4 class="essay-title">Why are PM interviews still obsessed with <em>guesstimates like it's 2009?</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~6 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-c" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank" rel="noopener">
-      <div>
-        <p class="essay-kicker">Essay · Tech Culture</p>
-        <h4 class="essay-title">The <em>mental debt</em> of being in tech</h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium · ~5 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-d" href="https://parthaggarwal8.medium.com/metacognition-as-quantum-superposition-rethinking-how-we-think-c75be6777444" target="_blank" rel="noopener">
-      <div>
-        <p class="essay-kicker">Essay · Philosophy</p>
-        <h4 class="essay-title">Metacognition as quantum superposition: <em>rethinking how we think</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~9 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-e" href="https://parthaggarwal8.medium.com/" target="_blank" rel="noopener">
-      <div>
-        <p class="essay-kicker">More writing</p>
-        <h4 class="essay-title">Read every piece on <em>Medium</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Archive · All essays</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="series-band">
-    <div class="series-head">
-      <p class="series-name">Series - <strong>Decoding Credit Cards</strong></p>
-      <p class="series-desc">A five-part deep dive · Everything there is to know, from issuance to interest calc.</p>
-    </div>
-    <div class="series-chapters">
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank" rel="noopener">
-        <div class="chapter-num">I</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Introduction</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-issuance-part-2-5b0ac72f638d" target="_blank" rel="noopener">
-        <div class="chapter-num">II</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Issuance</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-types-part-3-040304533272" target="_blank" rel="noopener">
-        <div class="chapter-num">III</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Types</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-transactions-part-4-37d25633fc97" target="_blank" rel="noopener">
-        <div class="chapter-num">IV</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Transactions</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-payments-interest-calculations-part-5-bb95accaf804" target="_blank" rel="noopener">
-        <div class="chapter-num">V</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Payments &amp; Interest</em></p>
-      </a>
-    </div>
-  </div>
-
-</section>
-
-<!-- MANIFESTO -->
-<section class="philosophy" id="sec-manifesto" data-r="EXTRAS|Manifesto|earned simplicity">
-  <div class="ph-left">
-    <p class="ph-label">Manifesto | No. 00</p>
-    <figure class="ph-figure" aria-hidden="true">
-      <svg viewBox="0 0 360 460" xmlns="http://www.w3.org/2000/svg" class="ph-illustration">
-        <defs>
-          <!-- Wobble filter - makes strokes look hand-drawn -->
-          <filter id="wobble">
-            <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="3"/>
-            <feDisplacementMap in="SourceGraphic" scale="1.5"/>
-          </filter>
-          <filter id="wobbleHeavy">
-            <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="7"/>
-            <feDisplacementMap in="SourceGraphic" scale="2.5"/>
-          </filter>
-          <!-- Paper texture (dot grid like a notebook) -->
-          <pattern id="dotgrid" width="14" height="14" patternUnits="userSpaceOnUse">
-            <circle cx="7" cy="7" r="0.6" fill="rgba(21,19,15,0.13)"/>
-          </pattern>
-          <marker id="arrHand" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto">
-            <path d="M 0 0 L 10 6 L 0 12 L 3 6 Z" fill="#15130F"/>
-          </marker>
-          <marker id="arrPink" markerWidth="10" markerHeight="10" refX="7" refY="5" orient="auto">
-            <path d="M 0 0 L 9 5 L 0 10 Z" fill="#FF2D78"/>
-          </marker>
-        </defs>
-
-        <!-- Notebook dot-grid paper -->
-        <rect width="360" height="460" fill="url(#dotgrid)"/>
-
-        <!-- Coffee stain (bottom right) -->
-        <g opacity="0.18">
-          <ellipse cx="310" cy="420" rx="32" ry="28" fill="#8B6F47"/>
-          <ellipse cx="316" cy="418" rx="24" ry="20" fill="none" stroke="#5C4A2E" stroke-width="1.2"/>
-          <ellipse cx="318" cy="422" rx="16" ry="12" fill="#6B5637" opacity="0.5"/>
-        </g>
-        <text x="276" y="448" font-family="Caveat, cursive" font-size="10" fill="#8B6F47" opacity="0.7" transform="rotate(-8 276 448)">☕ 5th one</text>
-
-        <!-- Title scribble, hand-written -->
-        <g font-family="Caveat, cursive" font-weight="700">
-          <text x="18" y="32" font-size="22" fill="#15130F" transform="rotate(-1.5 18 32)">data pipeline</text>
-          <text x="180" y="32" font-size="14" fill="#15130F" opacity="0.55" transform="rotate(-1 180 32)">(how I actually build it)</text>
-        </g>
-        <!-- Underline scribble -->
-        <path d="M 20 38 Q 55 42 92 37 Q 130 33 165 39" stroke="#15130F" stroke-width="1.5" fill="none" filter="url(#wobble)" stroke-linecap="round"/>
-
-        <!-- ============ SOURCES ============ -->
-        <text x="20" y="70" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F" transform="rotate(-1 20 70)">sources</text>
-        <path d="M 20 74 L 72 74" stroke="#15130F" stroke-width="1" fill="none" filter="url(#wobble)"/>
-
-        <g filter="url(#wobble)">
-          <rect x="20" y="82" width="66" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="92" y="84" width="66" height="28" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="164" y="80" width="66" height="32" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="236" y="83" width="78" height="29" fill="none" stroke="#15130F" stroke-width="1.3"/>
-        </g>
-        <g font-family="DM Mono, monospace" font-size="9" fill="#15130F" text-anchor="middle">
-          <text x="53" y="101">Kafka</text>
-          <text x="125" y="101">S3</text>
-          <text x="197" y="101">APIs/MongoDB</text>
-          <text x="275" y="101">Batch</text>
-        </g>
-
-        <!-- Hand-drawn arrows converging down -->
-        <g stroke="#15130F" stroke-width="1.3" fill="none" filter="url(#wobble)" stroke-linecap="round">
-          <path d="M 53 114 Q 100 125 167 138" marker-end="url(#arrHand)"/>
-          <path d="M 125 114 Q 145 125 172 138" marker-end="url(#arrHand)"/>
-          <path d="M 197 114 Q 190 126 182 138" marker-end="url(#arrHand)"/>
-          <path d="M 275 114 Q 240 128 195 140" marker-end="url(#arrHand)"/>
-        </g>
-
-        <!-- Margin scribble about sources -->
-        <g font-family="Caveat, cursive" font-size="11" fill="#15130F" opacity="0.6">
-          <text x="326" y="98" transform="rotate(12 326 98)">← all kinds</text>
-        </g>
-
-        <!-- ============ INGEST ============ -->
-        <text x="20" y="168" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">ingest (dbt + airflow)</text>
-        <g filter="url(#wobbleHeavy)">
-          <rect x="20" y="178" width="294" height="42" fill="rgba(0,255,148,0.18)" stroke="#15130F" stroke-width="1.6"/>
-        </g>
-        <text x="167" y="206" font-family="DM Serif Display, serif" font-style="italic" font-size="16" fill="#15130F" text-anchor="middle">contracts enforced here</text>
-
-        <!-- Pink scribble annotation -->
-        <g font-family="Caveat, cursive" font-size="13" font-weight="700" fill="#FF2D78">
-          <text x="328" y="194" text-anchor="end" transform="rotate(-4 328 194)">NO BROKEN PIPES!!!</text>
-        </g>
-        <path d="M 328 200 Q 324 210 320 218" stroke="#FF2D78" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrPink)" stroke-linecap="round"/>
-
-        <!-- Arrow down -->
-        <path d="M 167 222 L 167 252" stroke="#15130F" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrHand)" stroke-linecap="round"/>
-
-        <!-- ============ MEDALLION ============ -->
-        <text x="20" y="270" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">medallion</text>
-        <text x="88" y="270" font-family="Caveat, cursive" font-size="11" fill="#15130F" opacity="0.55">bronze → silver → gold</text>
-
-        <g filter="url(#wobble)">
-          <rect x="20" y="278" width="92" height="48" fill="rgba(205,127,50,0.12)" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="120" y="278" width="92" height="48" fill="rgba(192,192,192,0.12)" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="220" y="278" width="94" height="48" fill="#15130F" stroke="#15130F" stroke-width="1.3"/>
-        </g>
-        <g font-family="DM Mono, monospace" font-size="9" fill="#15130F">
-          <text x="66" y="297" text-anchor="middle" opacity="0.7">BRONZE</text>
-          <text x="166" y="297" text-anchor="middle" opacity="0.7">SILVER</text>
-        </g>
-        <text x="267" y="297" font-family="DM Mono, monospace" font-size="9" fill="#00FF94" text-anchor="middle">GOLD</text>
-        <g font-family="DM Serif Display, serif" font-style="italic" font-size="12">
-          <text x="66" y="316" text-anchor="middle" fill="#15130F">raw</text>
-          <text x="166" y="316" text-anchor="middle" fill="#15130F">cleaned</text>
-          <text x="267" y="316" text-anchor="middle" fill="#F3EFE4">served</text>
-        </g>
-        <!-- Tiny arrows between layers, hand drawn -->
-        <g stroke="#15130F" stroke-width="1.2" fill="none" filter="url(#wobble)" stroke-linecap="round">
-          <path d="M 112 302 L 120 302" marker-end="url(#arrHand)"/>
-          <path d="M 212 302 L 220 302" marker-end="url(#arrHand)"/>
-        </g>
-
-        <!-- "trust lives here" pointing at gold -->
-        <path d="M 260 264 Q 268 256 273 274" stroke="#FF2D78" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrPink)" stroke-linecap="round"/>
-        <text x="256" y="258" font-family="Caveat, cursive" font-size="13" font-weight="700" fill="#FF2D78" text-anchor="end" transform="rotate(-3 256 258)">trust lives here</text>
-
-        <!-- Crossed-out "just bronze" - an old idea -->
-        <g opacity="0.35">
-          <text x="26" y="344" font-family="Caveat, cursive" font-size="11" fill="#15130F" transform="rotate(-2 26 344)">just bronze was enough</text>
-          <path d="M 22 340 L 152 342" stroke="#FF2D78" stroke-width="2" filter="url(#wobble)" stroke-linecap="round"/>
-        </g>
-
-        <!-- Arrow down to consumers -->
-        <path d="M 167 328 L 167 362" stroke="#15130F" stroke-width="1.4" fill="none" filter="url(#wobble)" marker-end="url(#arrHand)" stroke-linecap="round"/>
-
-        <!-- ============ CONSUMERS ============ -->
-        <text x="20" y="378" font-family="Caveat, cursive" font-size="14" font-weight="700" fill="#15130F">consumers</text>
-        <g filter="url(#wobble)">
-          <rect x="20" y="386" width="92" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="118" y="386" width="108" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
-          <rect x="232" y="386" width="82" height="30" fill="none" stroke="#15130F" stroke-width="1.3"/>
-        </g>
-        <g font-family="DM Mono, monospace" font-size="7.5" fill="#15130F" text-anchor="middle">
-          <text x="66" y="405">DASHBOARDS</text>
-          <text x="172" y="405">REG. REPORTS</text>
-          <text x="273" y="405">PARTNER APIs</text>
-        </g>
-
-        <!-- Corner scribble -->
-        <g font-family="Caveat, cursive" font-size="10" fill="#15130F" opacity="0.5">
-          <text x="20" y="438" transform="rotate(-1.5 20 438)">1,200+ attrs · 20+ schemas</text>
-          <text x="20" y="452" transform="rotate(-1 20 452)">GDPR · RBAC · lineage???</text>
-        </g>
-
-        <!-- Little doodle star bottom-left, like where you absent-mindedly scribble -->
-        <g fill="#FF2D78" opacity="0.6" transform="rotate(18 340 60)">
-          <path d="M 340 52 L 343 60 L 350 60 L 345 65 L 347 73 L 340 68 L 333 73 L 335 65 L 330 60 L 337 60 Z"/>
-        </g>
-      </svg>
-      <figcaption class="ph-figcaption">
-        <span class="ph-fignum">Fig. 05 | v3</span>
-        <span class="ph-figtext">the pipeline I owned. end-to-end.</span>
-      </figcaption>
-    </figure>
-  </div>
-  <div class="ph-text">
-    <p>
-      I believe fintech infrastructure should ship with <span class="marked">zero critical defects</span> and read cleanly end-to-end. The best product people think like customer-first <em>architects</em>. The best architects think like <em>systems engineers</em>. The best systems engineers sweat the edge cases before shipping.
-    </p>
-    <p>
-      I don't over-engineer. I don't underthink. I <span class="boxed">enforce earned simplicity</span> - the kind you only get after mapping every edge case and deliberately, strategically deciding what not to build. Customer needs at the front. Platform reliability at the core.
-    </p>
-    <p>
-      Now? I'm teaching agents to build banking integrations - and making sure they're <em>right</em> before they're fast. <span class="postit">yes, I'm that guy<br>no, I'll not slow down</span>
-    </p>
+<!-- HOW I DECIDE -->
+<section class="sec" id="principles">
+  <div class="wrap">
+    <header class="sec-head" data-reveal>
+      <p class="eyebrow">04 · How I decide</p>
+      <h2 class="h2">Four rules I <em>actually</em> use.</h2>
+    </header>
+    <ol class="principles"><!-- gen:principles -->
+      <li data-reveal data-d="1"><span class="pr-n">01</span><p><b>Configuration over customisation.</b> say no to client-specific builds so the platform stays reliable.</p></li>
+      <li data-reveal data-d="2"><span class="pr-n">02</span><p><b>Safety before adoption speed.</b> gate AI output until it's accurate enough for production banking traffic.</p></li>
+      <li data-reveal data-d="3"><span class="pr-n">03</span><p><b>Earned simplicity.</b> map every edge case, then deliberately decide what not to build.</p></li>
+      <li data-reveal data-d="4"><span class="pr-n">04</span><p><b>Own it. Ship it. Defend it.</b></p></li>
+    <!-- /gen --></ol>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="contact">
-  <div class="cta-bg">HELLO · HELLO · HELLO · HELLO · HELLO ·&nbsp;</div>
-
-  <!-- Michael Scott polaroid sticker -->
-  <div class="boss-sticker" aria-hidden="true">
-    <div class="boss-polaroid">
-      <img src="assets/worlds-best-boss.webp" alt="" width="140" height="112" loading="lazy" decoding="async">
+<!-- RECOGNITION + WRITING -->
+<section class="sec" id="more">
+  <div class="wrap more-grid">
+    <div data-reveal>
+      <p class="eyebrow">05 · Recognition</p>
+      <h2 class="h3 more-h">Six awards <span class="proof" data-tier="self">Self-reported</span></h2>
+      <ul class="list"><!-- gen:awards -->
+        <li><span class="li-t">Outstanding Award</span><span class="li-m">Zeta · Jul 2024</span><span class="li-d">Sparrow Card, US ops, platform stability</span></li>
+        <li><span class="li-t">Mountain Mover</span><span class="li-m">Zeta · Mar 2024</span><span class="li-d">US support automation</span></li>
+        <li><span class="li-t">Mountain Mover</span><span class="li-m">Zeta · Dec 2023</span><span class="li-d">Platform stability initiative</span></li>
+        <li><span class="li-t">Shining Star</span><span class="li-m">Zeta · Nov 2022</span><span class="li-d">Wind-down program execution</span></li>
+        <li><span class="li-t">Spot Award</span><span class="li-m">HackerEarth · Jan 2022</span><span class="li-d">SMB churn reduction</span></li>
+        <li><span class="li-t">Spot Award</span><span class="li-m">HackerEarth · Jun 2021</span><span class="li-d">Ownership beyond scope</span></li>
+      <!-- /gen --></ul>
     </div>
-    <div class="boss-caption">hire your next one →</div>
-  </div>
-
-  <div class="cta-content">
-    <p class="cta-eyebrow">Let's talk</p>
-    <h2 class="cta-headline">
-      <span class="cta-line"><span class="cta-word d1">GOT</span> <span class="cta-word d2">SOMETHING</span></span>
-      <span class="cta-line"><em><span class="cta-word d3">Brewing?</span></em></span>
-    </h2>
-    <p class="cta-sub">
-      Open to Product &amp; Platform roles - India and global.<br>
-      Fintech, data infra, AI platforms, big tech, early-stage. <br>If you're building something ambitious and need someone who can own it end-to-end, let's find 20 minutes.
-    </p>
-    <div class="cta-buttons">
-      <a href="mailto:8parthaggarwal1999@gmail.com?subject=Let's%20talk" class="cta-btn primary"><span>Send an Email</span></a>
-      <a href="https://linkedin.com/in/aggarwalparth" target="_blank" rel="noopener" class="cta-btn"><span>LinkedIn →</span></a>
-      <a href="tel:+917406910425" class="cta-btn"><span>+91 74069 10425</span></a>
-      <a href="https://parthaggarwal8.medium.com" target="_blank" rel="noopener" class="cta-btn"><span>Medium →</span></a>
-      <a href="https://drive.google.com/file/d/1vTLOz_c9T_ioQVn5VPjvriIwr4d1j905/view?usp=drive_link" class="cta-btn primary"><span>Resume →</span></a>
-    </div>
-    <div class="cta-meta">
-      <span>Hyderabad, IN</span>
-      <span>Open to relocation</span>
-      <span>B1/B2 Visa · Oct 2025 - Oct 2035</span>
-      <span>Full-time</span>
+    <div data-reveal data-d="1">
+      <p class="eyebrow">06 · Writing</p>
+      <h2 class="h3 more-h">On Medium <span class="proof" data-tier="verified">Verified</span></h2>
+      <ul class="list"><!-- gen:writing -->
+        <li><a class="li-t" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank" rel="noopener">OLX is a crime scene. Is the clue a pivot into becoming a fintech? <span aria-hidden="true">↗</span></a><span class="li-m">Medium · 21 Jan 2026</span></li>
+        <li><a class="li-t" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank" rel="noopener">Decoding Credit Cards (5-part series) <span aria-hidden="true">↗</span></a><span class="li-m">Medium · 19 Jan 2025</span></li>
+        <li><a class="li-t" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank" rel="noopener">Why are PM interviews still obsessed with guesstimates like it's 2009? <span aria-hidden="true">↗</span></a><span class="li-m">Medium · 31 Oct 2025</span></li>
+        <li><a class="li-t" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank" rel="noopener">The mental debt of being in tech <span aria-hidden="true">↗</span></a><span class="li-m">Medium · 29 Oct 2025</span></li>
+      <!-- /gen --></ul>
     </div>
   </div>
 </section>
 
-<footer>
-  <span>© 2026 Parth Aggarwal · All rights reserved</span>
-  <span class="neon">● Available for opportunities</span>
-  <span>Crafted with love+coffee (&amp; Claude) in Hyderabad</span>
+<!-- CONTACT -->
+<section class="sec contact" id="contact" data-r="EXTRAS|Say hi|approved">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>07 · Say hi</p>
+    <h2 class="display contact-title" data-reveal data-d="1">A line about the role <em>is plenty</em>.</h2>
+    <div class="contact-cta" data-reveal data-d="2">
+      <a class="btn primary" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20Parth">8parthaggarwal1999@gmail.com</a>
+      <a class="btn" href="https://linkedin.com/in/aggarwalparth" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+      <a class="btn" href="https://drive.google.com/file/d/1vTLOz_c9T_ioQVn5VPjvriIwr4d1j905/view?usp=drive_link" target="_blank" rel="noopener">Resume <span aria-hidden="true">↗</span></a>
+    </div>
+    <p class="contact-or muted" data-reveal data-d="3">Or <a class="link" href="for/">check your fit</a>, or <a class="link" href="mcp/">let your AI interview me</a>.</p>
+  </div>
+</section>
+</main>
+
+<div class="receipt" id="receipt">
+  <section class="rc-sheet" id="rcSheet" aria-label="Proof-of-work receipt" tabindex="-1">
+    <div class="rc-scroll" id="rcScroll"></div>
+    <button type="button" class="rc-close" id="rcClose" aria-label="Close the receipt">×</button>
+  </section>
+  <button type="button" class="rc-dock" id="rcDock" aria-expanded="false" aria-controls="rcSheet">
+    <span class="rc-strip" aria-hidden="true"><span class="rc-last" id="rcLast">scroll to print your receipt</span></span>
+    <span class="rc-term"><span class="rc-led" aria-hidden="true"></span><span class="rc-lcd" id="rcCount">00/00</span><span class="rc-word">Proof</span></span>
+    <span class="rc-stamp" aria-hidden="true">Approved</span>
+  </button>
+</div>
+
+<footer class="foot">
+  <div class="foot-in">
+    <span>© 2026 Parth Aggarwal</span>
+    <nav aria-label="Footer"><a href="for/">Fit check</a><a href="mcp/">Ask AI</a><a href="data/career.json">The record (JSON)</a><a href="https://github.com/Parth8/portfolio" target="_blank" rel="noopener">Source</a></nav>
+  </div>
 </footer>
-
 </body>
 </html>

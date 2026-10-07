@@ -2,82 +2,72 @@
 
 Parth Aggarwal's portfolio - **https://parth8.github.io/portfolio/**
 
-Three ways to read one career, all from one file (`data/career.json`):
+Every visit opens on a door: **how would you like to meet me?** Three ways in, one record behind all of them.
 
 | Mode | URL | What it is |
 | --- | --- | --- |
-| 01 Portfolio | `/` | The site, for people who scroll: case reel, Built tiles, proof-of-work receipt. |
-| 02 For you | `/for/` | Pick a reader (recruiter, hiring manager, engineer, founder) or paste a job description. The page rebuilds around matching evidence, with a 300-850 fit dial, a requirement → evidence ledger, honest gaps and questions to ask. Runs in the browser; a pasted JD never leaves it. Share links carry requirement ids, not JD text. |
-| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page has a live demo, an in-browser console running the server's own code, and connect guides for Claude, Claude Code, Cursor and ChatGPT. Deploy notes: [server/README.md](server/README.md). |
+| Portfolio | `/` | The door, then the work: four case studies, seven built-and-live projects, the journey, principles, recognition and writing. The proof-of-work receipt lives here. |
+| Fit check | `/for/` | Paste a job description (or pick a lens). Every requirement gets a confidence score with its reasons, evidence, proof level and maths; the overall fit comes with an uncertainty range; public sources are re-checked live in the visitor's browser. Nothing is sent anywhere. |
+| Ask AI | `/mcp/` | The same record as an MCP server, so a recruiter's AI can interview it. One-step connect guides, one live example, and a console running the server's own code. Deploy notes: [server/README.md](server/README.md). |
 
-Plain HTML, CSS and native ES modules. No framework and no build step for the site: GitHub Pages serves the files as they are.
+Plain HTML, CSS and native ES modules. No framework. GitHub Pages serves the files as they are; a small Node script regenerates the parts that must match the data.
+
+## Proof, not adjectives
+
+Every record in `data/career.json` carries a proof tier, shown everywhere as a shape:
+
+- ● **Verified**: a public artifact you can open (a live app with its public repo and commit history, a published article).
+- ◐ **Corroborated**: public sources (company newsroom, product pages, press) confirm the program as described; the role and figures come from the resume.
+- ○ **Self-reported**: resume only. Employer figures are confidential, so the site says so and suggests asking for a reference.
+
+`data.sources` lists every public source with the exact quote, what it proves and what it doesn't. Each was opened and checked on the date in `sources_note`.
+
+**How confidence is scored** (`js/career-engine.js`, under 500 lines, deterministic):
+
+- Evidence weight = proof (0.95 / 0.70 / 0.60) × recency × specificity × relevance to the reader's words.
+- Witnesses combine like independent checks: `1 - Π(1 - w)`. Each public artifact is its own witness; everything whose claims come from the resume is **one** witness, capped at 0.72 (0.82 when public sources corroborate the programs). So "High" (0.85+) always needs something checkable.
+- Parth's own self-assessment can only lower a score (gap 0.15, adjacent 0.45, working 0.70), never raise it.
+- Fit = weighted mean × 100, with a range (resume weighted 0.4 → 0.9). A must-have asked for repeatedly with no evidence caps the fit at 44.
 
 ## Layout
 
 ```
-index.html            mode 01: every section, in reading order
-for/index.html        mode 02: "Tailored to you"
-mcp/index.html        mode 03: "Parth, as an MCP server"
-data/career.json      the single source of truth: profile, cases, roles, projects, 27 competencies with
-                      evidence refs and honest notes (gaps included). Edit this, then run the build below.
+index.html            the door + portfolio (blocks between <!-- gen:x --> markers are generated)
+for/index.html        fit check
+mcp/index.html        ask AI
+data/career.json      the single source of truth: profile, cases, roles, projects, competencies, sources
 llms.txt              a plain summary for AI readers (generated)
 
-css/base.css          tokens, reset, grain, cursor, top nav + mode switch, side-nav, focus, footer, reduced motion
-css/sections.css      portfolio sections: hero, stamps, index (+ the two other ways in), impact, case tabs,
-                      principles, journey, toolkit, marquee, recognition, writing, manifesto, contact
-css/projects.css      the Built tiles and every project's looping SVG animation
-css/receipt.css       the proof-of-work receipt and the "30 seconds?" button (portfolio only)
-css/for.css           mode 02: personas, JD sheet, fit dial, ledger, gaps, CTA
-css/mcp.css           mode 03: the dark page, demo chat, console, connect tabs
+css/base.css          the design system: tokens, type (Inter, Instrument Serif, DM Mono), bar, buttons, proof chips
+css/portfolio.css     the door and the portfolio sections
+css/art.css           the seven looping project animations
+css/receipt.css       the proof-of-work receipt
+css/for.css           fit check
+css/mcp.css           ask AI
 
-js/main.js            portfolio: scroll loop, observers, number scramble, case reel, tiles, journey, marquee
-js/receipt.js         portfolio: the receipt
-js/cursor.js          the custom cursor, shared by all three pages (mouse/trackpad only)
-js/career-engine.js   pure functions over career.json: profile, search, claim checking, fit scoring
-js/mcp-core.js        the MCP protocol (both eras), tools, resources and prompts; used by the console and the Worker
-js/for.js             mode 02 page logic
-js/mcp-page.js        mode 03 page logic
+js/career-engine.js   pure functions over career.json: profile, search, claims, confidence and fit
+js/mcp-core.js        the MCP protocol (both eras), tools, resources, prompts
+js/live-audit.js      live checks from the visitor's browser (GitHub API, reachability)
+js/portfolio.js       the door, case tabs, reveal, receipt wiring, live repo check
+js/receipt.js         the receipt
+js/for.js             fit check page
+js/mcp-page.js        ask AI page
 js/config.js          MCP_ENDPOINT: empty until the Worker is deployed
 
 server/worker.js      the Cloudflare Worker (generated; see server/README.md)
-tools/build-worker.mjs   builds server/worker.js and llms.txt from the sources
-tools/worker-shell.js    the Worker's HTTP wrapper: routing, CORS, Origin, rate limit, data loading
-tests/                node --test tests/*.test.mjs (protocol, engine, and a stale-build check)
-assets/               favicon, share image (og.png), the polaroid
+tools/build.mjs       regenerates server/worker.js, llms.txt and the generated blocks in index.html
+tools/worker-shell.js the Worker's HTTP wrapper: routing, CORS, Origin, rate limit, data loading
+tests/                node --test tests/*.test.mjs
 ```
 
 ## Updating the record
 
-1. Edit `data/career.json`. Every competency's `evidence` must point at a real `case:`, `role:` or `project:`
-   id, and a weak area should say so in `note` (the tests check the refs).
-2. `node tools/build-worker.mjs` to regenerate `server/worker.js` and `llms.txt`.
-3. `node --test tests/*.test.mjs`.
-4. Push. The live Worker picks up the new record within 10 minutes; redeploy it only if engine or protocol code changed.
+1. Edit `data/career.json`. Give every new record a `proof` (tier + source ids); a corroborated tier needs a source with `role: "corroborates"`, a verified one needs a public artifact. Add new public sources to `sources` with the exact quote and what it does and doesn't prove.
+2. `node tools/build.mjs` (worker, llms.txt, portfolio proof blocks, stats, journey, awards, writing).
+3. `node --test tests/*.test.mjs` (protocol, scoring rules, source integrity, and a stale-build check).
+4. Push.
 
-## Portfolio page order
-
-Hero → stamps → **on this page** index (+ links to modes 02 and 03) → 01 Impact → 02 Work (case tabs) → principles → 03 Built (tiles) →
-04 Journey → 05 Toolkit → partners marquee → 06 Recognition → 07 Writing → manifesto → 08 Say hi.
-
-## Two ideas that keep people from missing things
-
-- **Case reel - scroll is the click.** On desktop the case studies pin and scrolling flips through all four;
-  each tab's underline fills as a progress rail. Phones get a swipe carousel. If a case is too tall for the
-  screen, the reel falls back to showing every case stacked. Tabs still work as shortcuts in every mode.
-- **Proof-of-work receipt.** Any element with `data-r="GROUP|label|value"` is a receipt line. A card terminal
-  docked bottom-left prints the line when the element scrolls into view; at "Say hi" the receipt is stamped
-  APPROVED. Open it to read or jump, "Print the rest" for the TL;DR, "Tear it off" for a PNG. Progress is
-  remembered per browser (localStorage). Groups: IMPACT, CASES, BUILT, JOURNEY, EXTRAS.
-
-## Adding a project to Built
-
-1. Copy an `<article class="project" id="p-NAME" data-project="NAME">` block in `index.html`.
-   Keep the parts the tile relies on: `.project-line` (the one-liner shown on the tile),
-   `.project-more` wrapping the story and stack, and the `.project-toggle` button with `aria-controls="more-NAME"`.
-2. Draw its art as an inline SVG in `.pr-art` (viewBox `0 0 320 150`, ~6.5 s loop) and add its keyframes to
-   `css/projects.css`, plus a still frame in the `prefers-reduced-motion` block.
-3. Give it a receipt line: `data-r="BUILT|Name|short value"` on the article.
-4. Update the counts in the index (`03 Built`), the Built subtitle and the stamps if they mention it.
+Repo snapshots (commits, dates, authors) in `sources` come from the project repos' git history; the portfolio and fit check re-check them live against the GitHub API in each visitor's browser.
 
 ## Run locally
 

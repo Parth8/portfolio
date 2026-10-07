@@ -5,7 +5,7 @@ Cloudflare Worker, read-only, no keys. It's **generated**, so don't edit it by h
 `js/career-engine.js`, `js/mcp-core.js`, `data/career.json` and `tools/worker-shell.js` by:
 
 ```
-node tools/build-worker.mjs           # also regenerates llms.txt
+node tools/build.mjs           # also regenerates llms.txt and the portfolio's generated blocks
 ```
 
 ## Deploy (about five minutes, free tier)
@@ -46,6 +46,15 @@ Under the Worker's **Settings → Variables and Secrets**:
 
 Because the Worker fetches `career.json` from the site, **editing the record and pushing is enough**. Redeploy the
 Worker only when `js/career-engine.js`, `js/mcp-core.js` or `tools/worker-shell.js` change.
+
+## Cost and abuse
+
+- **Cost:** the server calls no AI model; the visitor's own assistant does the thinking on their account. On Cloudflare's free plan
+  (100,000 requests a day, 10 ms CPU each) a worst-case `fit_for` takes ~6.5 ms. Over the limit, requests fail until the daily reset;
+  the free plan never bills overages.
+- **Abuse:** everything is read-only and public, there are no secrets, bodies over 64 KB are refused. The built-in 120 requests/minute
+  limit is per Worker instance, so treat it as a speed bump. For a real limit, add a rule under **Security → WAF → Rate limiting rules**
+  (free plan includes one), e.g. 60 requests a minute per IP on `/mcp`.
 
 ## What it speaks
 

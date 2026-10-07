@@ -17,6 +17,7 @@ export const INSTRUCTIONS = [
   "This server is Parth Aggarwal's own professional record: Technical Platform Product Manager, currently Forward Deployed PM at Backbase (agentic AI connectors for banks); before that, card issuing and data platforms at Zeta.",
   'Every tool is read-only and returns first-party facts with links to their source on his portfolio. Cite those links.',
   'Use fit_for for a job description, prove_claim before repeating any number, search_evidence for "has he done X?", get_work for depth on one item.',
+  "Every record carries a proof tier: verified (public artifact), corroborated (public sources confirm the program; role and figures from his resume) or self-reported (resume only). Pass the tier on; don't upgrade it.",
   "If the evidence doesn't cover something, say so plainly rather than inferring it.",
 ].join(' ');
 
@@ -91,16 +92,23 @@ const RENDER = {
     `## ${w.title}`, `${w.org}${w.period ? ` · ${w.period}` : ''} · ${w.url}`,
     w.metric ? `**${w.metric.value}** ${w.metric.label}` : '', '', w.summary, '',
     ...w.evidence.map(e => `- ${e}`), '', w.stack ? `Stack: ${w.stack.join(', ')}` : '',
+    '', w.proof_note, ...w.sources.filter(x => x.id !== 'resume').map(x => `- ${x.title} (${x.publisher || x.kind}${x.date ? `, ${x.date}` : ''}): ${x.url}\n  Proves: ${x.proves}${x.doesnt ? `\n  Does not prove: ${x.doesnt}` : ''}${x.note ? `\n  Note: ${x.note}` : ''}`),
   ].filter(x => x !== undefined).join('\n'),
-  search_evidence: res => res.length ? res.map(r => `- "${r.quote}" - ${link(r)}`).join('\n') : 'No matching evidence in the record.',
-  prove_claim: p => [`**${p.verdict.toUpperCase()}** - ${p.explanation}`, ...p.evidence.map(e => `- "${e.quote}" - ${link(e)}`)].join('\n'),
+  search_evidence: res => res.length ? res.map(r => `- "${r.quote}" - ${link(r)} [${r.proof}]`).join('\n') : 'No matching evidence in the record.',
+  prove_claim: p => [`**${p.verdict.toUpperCase()}** - ${p.explanation}`, ...p.evidence.map(e => `- "${e.quote}" - ${link(e)} [${e.proof}]`),
+    ...(p.sources || []).filter(x => x.id !== 'resume').map(x => `- Public source: ${x.title} (${x.publisher || x.kind}): ${x.url} - proves: ${x.proves}${x.doesnt ? ` Does not prove: ${x.doesnt}` : ''}`)].join('\n'),
   fit_for: f => f.score == null ? f.message : [
-    `**Fit: ${f.score}/100 (${f.band})**${f.title ? ` for ${f.title}` : ''}`, '',
-    'Matched requirements:', ...f.matches.map(m => `- ${m.label} (${m.strength_label}): "${m.evidence[0]?.quote || m.note || ''}" ${m.evidence[0] ? link(m.evidence[0]) : ''}`),
-    ...(f.gaps.length ? ['', 'Gaps:', ...f.gaps.map(g => `- ${g.label} (${g.strength_label}): ${g.note || ''}`)] : []),
+    `**Fit: ${f.score}/100 (${f.band})**${f.title ? ` for ${f.title}` : ''} · range ${f.range.low}-${f.range.high} depending on how much you trust his resume`,
+    `Evidence behind it: ${f.evidence_mix.verified} verified, ${f.evidence_mix.corroborated} corroborated, ${f.evidence_mix.self} self-reported records.`, '',
+    'Requirements, with confidence (0-1) and why:',
+    ...[...f.matches, ...f.gaps].map(m => [
+      `- **${m.label}**: ${m.confidence} (${m.band})${m.evidence[0] ? ` - "${m.evidence[0].quote}" ${link(m.evidence[0])} [${m.evidence[0].proof}]` : ''}`,
+      ...m.reasons.map(x => `  - ${x}`), `  - Math: ${m.math}`, ...(m.note && m.confidence < 0.4 ? [`  - On record: ${m.note}`] : []),
+    ].join('\n')),
     ...(f.notes.length ? ['', ...f.notes.map(n => `Note: ${n}`)] : []),
-    '', 'Read first:', ...f.read_first.map(r => `- ${link(r)}${r.metric ? ` - ${r.metric}` : ''}`),
+    '', 'Read first:', ...f.read_first.map(r => `- ${link(r)}${r.metric ? ` - ${r.metric}` : ''} [${r.proof}]`),
     '', 'Questions to ask him:', ...f.questions.map(q => `- ${q}`),
+    '', `Method: ${f.method}`,
   ].join('\n'),
   contact: c => [`Email: ${c.email}`, `LinkedIn: ${c.linkedin}`, `Portfolio: ${c.portfolio}`, `Resume: ${c.resume}`, `Open to: ${c.open_to}`, `Based in: ${c.location}`, c.preferred].join('\n'),
 };
