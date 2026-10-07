@@ -461,7 +461,6 @@
 .case.in-view .case-stack span:nth-child(8){transition-delay:0.7s}
 .case-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
 .case{background:var(--eggshell)}
-.case[hidden]{display:none}
 
 /* CASE TABS - every tab carries its headline number, so skimmers get all four */
 .case-tabs{
@@ -1834,3 +1833,56 @@ html:not(.js) .idx-list li,.index.in-view .idx-list li{opacity:1;transform:none}
   .certs-sub{margin-top:2.5rem}
   .skills-cols{grid-template-columns:1fr}
 }
+
+/* CASE REEL - scroll is the click.
+   pinned (desktop): the stage sticks and scrolling flips the cases, tabs fill like a progress rail
+   carousel (phones): swipe between cases, the next one peeks in
+   stacked (fallback / no js): every case visible, tabs jump */
+.case-stage{background:var(--eggshell)}
+.reel-hint{
+  display:none;
+  font-family:'Caveat',cursive;font-weight:700;font-size:1.2rem;color:var(--pink);
+  padding:0.4rem 2.5rem 0;transform:rotate(-1deg);transform-origin:left;
+}
+.reel-hint span{display:none}
+.case-reel.is-pinned .reel-hint,.case-reel.is-carousel .reel-hint{display:block}
+.case-reel.is-pinned .rh-pin,.case-reel.is-carousel .rh-swipe{display:inline}
+
+.case-reel.is-pinned{height:var(--reel-h,auto)}
+.case-reel.is-pinned .case-stage{position:sticky;top:var(--nav-h,57px)}
+.case-reel.is-pinned .case-tabs{padding-top:1.25rem}
+.case-reel.is-pinned .case-panels{display:grid}
+.case-reel.is-pinned .case{
+  grid-area:1/1;
+  padding:1.75rem 2.5rem 2.25rem;border-bottom:none;
+  opacity:0;visibility:hidden;transform:translateY(26px);
+  transition:opacity 0.4s ease,transform 0.6s cubic-bezier(0.22,1,0.36,1),visibility 0s linear 0.4s;
+}
+.case-reel.is-pinned .case.is-active{
+  opacity:1;visibility:visible;transform:none;
+  transition:opacity 0.45s ease 0.05s,transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.05s,visibility 0s;
+}
+.case-reel.is-pinned .case-left{position:static}
+.case-reel.is-pinned .case-title{font-size:clamp(2.2rem,4vw,3.8rem);margin-bottom:1rem}
+.case-reel.is-pinned .case-sub{margin-bottom:0}
+.case-reel.is-pinned .case-metric-hero{font-size:clamp(4.2rem,7vw,7rem)}
+.case-reel.is-pinned .case-metric-caption{margin-bottom:1.25rem;padding-bottom:1rem}
+.case-reel.is-pinned .case-desc{line-height:1.7;margin-bottom:1.25rem}
+/* the tab underline becomes the progress rail for its case */
+.case-reel.is-pinned .case-tab::after{transform:scaleX(var(--p,0));transition:none}
+
+.case-reel.is-carousel .case-panels{
+  display:flex;gap:0.9rem;align-items:flex-start;
+  overflow-x:auto;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+  padding:0.75rem 1.5rem 2rem;scroll-padding:0 1.5rem;
+  scrollbar-width:none;
+}
+.case-reel.is-carousel .case-panels::-webkit-scrollbar{display:none}
+.case-reel.is-carousel .case{
+  flex:0 0 86%;scroll-snap-align:start;
+  border:1.5px solid var(--ink);box-shadow:4px 5px 0 var(--eggshell-deep);
+  padding:1.5rem 1.25rem 1.75rem;background:var(--paper);
+  opacity:1;transform:none;
+}
+.case-reel.is-carousel .case-metric-hero{font-size:clamp(4rem,18vw,6rem)}
+.case-reel.is-carousel .case.is-active{box-shadow:6px 8px 0 var(--neon)}

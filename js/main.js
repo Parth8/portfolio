@@ -1,6 +1,8 @@
 // Portfolio interactions. No build step: loaded as a native ES module.
 // Everything here is progressive enhancement - the page reads fine without it.
 
+import { initReceipt } from './receipt.js';
+
 const root = document.documentElement;
 root.classList.add('js');
 
@@ -54,13 +56,26 @@ function watch(selector, { threshold = 0.15, once = false, cls = 'in-view', onEn
   els.forEach(el => io.observe(el));
 }
 
+let jumpHook = () => false;
+const receipt = initReceipt({ reduceMotion, onJump: id => jumpHook(id) });
+
 watch('.reveal', { threshold: 0.05, once: true, cls: 'visible' });
 watch('.aw-card', { threshold: 0.1, once: true, cls: 'visible' });
 watch('.index', { threshold: 0.2, once: true });
-watch('#contact', { threshold: 0.25 });
+watch('#contact', { threshold: 0.25, onEnter: () => receipt?.approve() });
 watch('.writings, .skills-wrap, .quote-section', { threshold: 0.2 });
 watch('.case, .project', { threshold: 0.15 });
 watch('.bn-cell', { threshold: 0.4, cls: 'counted', onEnter: el => countUp(el.querySelector('[data-count]')) });
+
+// every highlight prints a receipt line once its top passes ~70% of the viewport
+// (cases print when the reel shows them - see below)
+if (receipt) {
+  const printer = new IntersectionObserver(entries => {
+    for (const e of entries) if (e.isIntersecting) { receipt.print(e.target); printer.unobserve(e.target); }
+  }, { rootMargin: '0px 0px -30% 0px' });
+  document.querySelectorAll('[data-r]:not(.case)').forEach(el => printer.observe(el));
+  document.getElementById('tldr')?.addEventListener('click', () => { receipt.printAll(); receipt.open(); });
+}
 
 /* ---------- number scramble (re-runs each time a cell enters) ---------- */
 function countUp(el) {
@@ -94,6 +109,7 @@ const sideDots = [...document.querySelectorAll('.side-dot')];
 const navSections = sideDots.map(d => document.getElementById(d.dataset.target)).filter(Boolean);
 const phFig = document.querySelector('.ph-figure');
 
+let reelUpdate = () => {};
 let ticking = false;
 function onScroll() {
   const y = scrollY, vh = innerHeight;
@@ -102,6 +118,8 @@ function onScroll() {
   if (scrollFill) scrollFill.style.height = (max > 0 ? (y / max) * 100 : 0) + '%';
 
   if (floatCta) floatCta.classList.toggle('visible', y > vh * 0.6 && y + vh < root.scrollHeight - vh);
+  receipt?.setVisible(y > vh * 0.6);
+  reelUpdate();
 
   if (sideNav) {
     sideNav.classList.toggle('visible', y > vh * 0.4);
@@ -129,45 +147,132 @@ addEventListener('scroll', requestScroll, { passive: true });
 addEventListener('resize', requestScroll, { passive: true });
 onScroll();
 
-/* ---------- case study tabs ---------- */
-const tablist = document.querySelector('.case-tabs');
-if (tablist) {
-  const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+/* ---------- case reel: scroll is the click ----------
+   pinned   (desktop, when a case fits the screen): the stage sticks, scrolling flips the cases
+   carousel (phones): swipe between cases, the next one peeks in
+   stacked  (anything else): every case visible; tabs jump to them */
+const reel = document.getElementById('caseReel');
+if (reel) {
+  const stage = reel.querySelector('.case-stage');
+  const strip = reel.querySelector('.case-panels');
+  const tabs = [...reel.querySelectorAll('[role="tab"]')];
   const panels = tabs.map(t => document.getElementById(t.getAttribute('aria-controls')));
-  const select = (i, focus) => {
-    tabs.forEach((t, j) => {
-      const on = i === j;
-      t.setAttribute('aria-selected', on);
-      t.tabIndex = on ? 0 : -1;
-      panels[j].hidden = !on;
-      if (on) {
-        // replay the panel's entrance so switching feels like turning a page
-        panels[j].classList.remove('in-view');
-        requestAnimationFrame(() => requestAnimationFrame(() => panels[j].classList.add('in-view')));
+  const topnav = document.querySelector('.topnav');
+  const navH = () => topnav?.offsetHeight || 0;
+  let mode = 'stacked', active = -1, seg = 0;
+
+  const onScreen = () => { const r = reel.getBoundingClientRect(); return r.top < innerHeight * 0.7 && r.bottom > innerHeight * 0.3; };
+
+  const activate = (i, focus = false) => {
+    if (i !== active) {
+      active = i;
+      tabs.forEach((t, j) => { t.setAttribute('aria-selected', i === j); t.tabIndex = i === j ? 0 : -1; });
+      panels.forEach((p, j) => { p.classList.toggle('is-active', i === j); p.inert = mode === 'pinned' && i !== j; });
+      if (mode !== 'stacked') {
+        // replay the chips' entrance so each flip feels like turning a page
+        const p = panels[i];
+        p.classList.remove('in-view');
+        requestAnimationFrame(() => requestAnimationFrame(() => p.classList.add('in-view')));
       }
-    });
-    if (focus) tabs[i].focus();
+    }
+    if (onScreen()) receipt?.print(panels[i]);
+    if (focus) tabs[i].focus({ preventScroll: true });
   };
+
+  const goTo = (i, focus = false) => {
+    const behavior = reduceMotion ? 'auto' : 'smooth';
+    if (mode === 'pinned') {
+      scrollTo({ top: reel.getBoundingClientRect().top + scrollY - navH() + i * seg + 2, behavior });
+    } else if (mode === 'carousel') {
+      strip.scrollTo({ left: panels[i].offsetLeft - parseFloat(getComputedStyle(strip).paddingLeft), behavior });
+    } else {
+      scrollTo({ top: panels[i].getBoundingClientRect().top + scrollY - navH() - 8, behavior });
+    }
+    activate(i, focus);
+  };
+
+  const layout = () => {
+    reel.classList.remove('is-pinned', 'is-carousel');
+    reel.style.removeProperty('--reel-h');
+    panels.forEach(p => { p.inert = false; });
+    if (innerWidth <= 900) {
+      mode = 'carousel';
+    } else {
+      reel.classList.add('is-pinned');                      // measure the stage as it would be pinned
+      mode = stage.offsetHeight <= innerHeight - navH() ? 'pinned' : 'stacked';
+      if (mode !== 'pinned') reel.classList.remove('is-pinned');
+    }
+    if (mode === 'carousel') reel.classList.add('is-carousel');
+    if (mode === 'pinned') {
+      seg = Math.round(innerHeight * 0.6);
+      reel.style.setProperty('--nav-h', navH() + 'px');
+      reel.style.setProperty('--reel-h', stage.offsetHeight + seg * tabs.length + 'px');
+    }
+    const keep = Math.max(active, 0);
+    active = -1;
+    activate(keep);
+    reelUpdate();
+  };
+
+  reelUpdate = () => {
+    if (mode === 'pinned') {
+      const y = navH() - reel.getBoundingClientRect().top;
+      const p = Math.max(0, Math.min(tabs.length - 0.001, y / seg));
+      const i = Math.floor(p);
+      tabs.forEach((t, j) => t.style.setProperty('--p', j < i ? 1 : j === i ? (p - i).toFixed(3) : 0));
+      activate(i);
+    } else if (mode === 'stacked') {
+      let i = 0;
+      panels.forEach((p, j) => { if (p.getBoundingClientRect().top < innerHeight * 0.5) i = j; });
+      activate(i);
+    } else if (onScreen()) {
+      receipt?.print(panels[active]);
+    }
+  };
+
+  strip.addEventListener('scroll', () => {
+    if (mode !== 'carousel') return;
+    const step = panels[1].offsetLeft - panels[0].offsetLeft;
+    activate(Math.max(0, Math.min(tabs.length - 1, Math.round(strip.scrollLeft / step))));
+  }, { passive: true });
+
   tabs.forEach((t, i) => {
-    t.addEventListener('click', () => select(i));
+    t.addEventListener('click', () => goTo(i));
     t.addEventListener('keydown', e => {
       const k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
-      if (k) { e.preventDefault(); select((i + k + tabs.length) % tabs.length, true); }
-      if (e.key === 'Home') { e.preventDefault(); select(0, true); }
-      if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+      if (k) { e.preventDefault(); goTo((i + k + tabs.length) % tabs.length, true); }
+      if (e.key === 'Home') { e.preventDefault(); goTo(0, true); }
+      if (e.key === 'End') { e.preventDefault(); goTo(tabs.length - 1, true); }
     });
   });
-  select(0);
+
+  jumpHook = id => {
+    const i = panels.findIndex(p => p.id === id);
+    if (i < 0) return false;
+    goTo(i);
+    return true;
+  };
+
+  let resizeTimer;
+  addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(layout, 150); });
+  document.fonts?.ready.then(layout);
+  layout();
 }
 
 /* ---------- built: tiles open into the full story, one at a time ---------- */
 const tiles = [...document.querySelectorAll('.project[data-project]')];
+// tell people what the click costs: "Read the story · 1 min"
+const readLabel = tile => {
+  const words = tile.querySelector('.project-desc')?.textContent.trim().split(/\s+/).length || 0;
+  return `Read the story · ${Math.max(1, Math.round(words / 200))} min`;
+};
 const setOpen = (tile, on) => {
   tile.classList.toggle('open', on);
   const btn = tile.querySelector('.project-toggle');
   btn.setAttribute('aria-expanded', on);
-  btn.querySelector('.pt-label').textContent = on ? 'Close the story' : 'Read the story';
+  btn.querySelector('.pt-label').textContent = on ? 'Close the story' : readLabel(tile);
 };
+tiles.forEach(tile => { const l = tile.querySelector('.pt-label'); if (l) l.textContent = readLabel(tile); });
 tiles.forEach(tile => {
   tile.querySelector('.project-toggle')?.addEventListener('click', () => {
     const opening = !tile.classList.contains('open');

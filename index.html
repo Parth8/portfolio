@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/projects.css">
+<link rel="stylesheet" href="css/receipt.css">
 <!-- mark js early so collapsible content never flashes open then shut -->
 <script>document.documentElement.classList.add('js')</script>
 <script type="module" src="js/main.js"></script>
@@ -59,6 +60,18 @@
   <a class="side-dot" href="#sec-manifesto" data-target="sec-manifesto" data-label="Manifesto" aria-label="Manifesto"></a>
   <a class="side-dot" href="#contact" data-target="contact" data-label="Say hi" aria-label="Say hi"></a>
 </nav>
+
+<div class="receipt" id="receipt">
+  <section class="rc-sheet" id="rcSheet" aria-label="Proof-of-work receipt" tabindex="-1">
+    <div class="rc-scroll" id="rcScroll"></div>
+    <button type="button" class="rc-close" id="rcClose" aria-label="Close the receipt">×</button>
+  </section>
+  <button type="button" class="rc-dock" id="rcDock" aria-expanded="false" aria-controls="rcSheet">
+    <span class="rc-strip" aria-hidden="true"><span class="rc-last" id="rcLast">scroll to print your receipt</span></span>
+    <span class="rc-term"><span class="rc-led" aria-hidden="true"></span><span class="rc-lcd" id="rcCount">00/00</span><span class="rc-word">Proof</span></span>
+    <span class="rc-stamp" aria-hidden="true">Approved</span>
+  </button>
+</div>
 
 <a href="#contact" class="float-cta" id="floatCta">
   <span class="dot"></span>
@@ -110,7 +123,7 @@
 <nav class="index" aria-label="On this page">
   <div class="idx-head">
     <p class="idx-label">On this page · eight stops</p>
-    <p class="idx-note">skim it in two minutes, or go deep.</p>
+    <button type="button" class="idx-tldr" id="tldr"><span class="idx-tldr-k">30 seconds?</span> Print the receipt <span aria-hidden="true">⤓</span></button>
   </div>
   <ol class="idx-list">
     <li><a href="#sec-numbers"><span class="idx-n">01</span><span class="idx-t">Impact</span><span class="idx-c">4 numbers that moved</span></a></li>
@@ -128,7 +141,7 @@
 <section class="big-numbers" id="sec-numbers">
   <p class="bn-label">01 · Impact · Measured</p>
   <div class="bn-grid">
-    <div class="bn-cell reveal">
+    <div class="bn-cell reveal" data-r="IMPACT|Card disbursements / yr|$2B+">
       <span class="sharpie-note">yes, with a B!</span>
       <div class="bn-num"><span data-count="2" data-prefix="$">$0</span><span class="sup">B+</span></div>
       <div class="bn-caption">
@@ -136,21 +149,21 @@
         <div class="bn-tag">Virtual Cards · Optum</div>
       </div>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.1s">
+    <div class="bn-cell reveal" style="transition-delay:0.1s" data-r="IMPACT|Connector build time|−80%">
       <div class="bn-num"><span data-count="80">0</span><span class="sup">% FASTER</span></div>
       <div class="bn-caption">
         <div class="bn-desc">Connector build time at Backbase - ~12 days to ~2, since banks, PMs and services engineers started building with agents over MCP.</div>
         <div class="bn-tag">Agentic AI · Backbase</div>
       </div>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.15s">
+    <div class="bn-cell reveal" style="transition-delay:0.15s" data-r="IMPACT|Sparrow cards issued|150K+">
       <div class="bn-num"><span data-count="150">0</span><span class="sup">K+</span></div>
       <div class="bn-caption">
         <div class="bn-desc">Card issuances for Sparrow Card, Zeta's first US credit card program - and 2x revenue projections.</div>
         <div class="bn-tag">US Launch · Jul '24</div>
       </div>
     </div>
-    <div class="bn-cell reveal" style="transition-delay:0.2s">
+    <div class="bn-cell reveal" style="transition-delay:0.2s" data-r="IMPACT|Bank onboarding + GTM|−90 days">
       <div class="bn-num"><span data-count="90">0</span><span class="sup">DAYS</span></div>
       <div class="bn-caption">
         <div class="bn-desc">Cut from bank onboarding and GTM - 4 months down to 1, config-driven, zero code changes.</div>
@@ -166,6 +179,8 @@
     <span class="wh-left">02 · Selected Work · 2022 → now</span>
     <h2 class="wh-title">Selected <em>work</em></h2>
   </div>
+  <div class="case-reel" id="caseReel">
+  <div class="case-stage">
   <div class="case-tabs" role="tablist" aria-label="Case studies">
     <button class="case-tab" role="tab" id="tab-1" aria-controls="case-1" aria-selected="true">
       <span class="ct-num">/001</span>
@@ -192,8 +207,10 @@
       <span class="ct-metric">150K+ <small>cards issued</small></span>
     </button>
   </div>
+  <p class="reel-hint" aria-hidden="true"><span class="rh-pin">keep scrolling - the cases flip themselves ↓</span><span class="rh-swipe">swipe for the next case →</span></p>
+  <div class="case-panels">
 
-  <article class="case" id="case-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
+  <article class="case" id="case-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0" data-r="CASES|/001 Connector Studio MCP|12d → 2d">
     <div class="case-left">
       <p class="case-num">Case <span>/001</span></p>
       <p class="case-client">Backbase · Agentic Banking</p>
@@ -204,7 +221,7 @@
       <div class="case-metric-hero"><span>~</span><span class="c-accent">80</span><span class="sup">%</span></div>
       <p class="case-metric-caption">Faster connector builds · ~12 days → ~2, review and deploy included</p>
       <p class="case-desc">
-        Own Connector Studio end-to-end - Backbase's iPaaS for banking connectors, across the web app and the agentic AI MCP: build, deploy, install, run, maintain. Launched the MCP in six weeks and moved PMs and services teams off manual builds. The hard part is trust: LLM mapping accuracy from <strong>BIAN unified APIs to vendor JSON/XML specs</strong> went from ~50-60% to 90%+ against a golden dataset - by cleaning the RAG vector store, rewriting unified API definitions and tagging every API and attribute. Every MCP and UI build stays gated to pre-prod until accuracy is safe for production banking traffic: safety over adoption speed. Now running the rent-vs-own call on the model itself - self-hosted open-weight vs OpenAI and Anthropic enterprise, RAG vs LLM-native - on accuracy, token cost, control and data isolation. Also shipped an API Playground and MCP token rotation with instant self-serve revoke.
+        Own Connector Studio end-to-end - Backbase's iPaaS for banking connectors, in the web app and as an agentic AI MCP. Shipped the MCP in six weeks and moved PMs and services teams off manual builds. The hard part is trust: LLM mapping accuracy from <strong>BIAN unified APIs to vendor specs</strong> went from ~50-60% to 90%+ against a golden dataset, by cleaning the RAG store and tagging every API and attribute. Every build stays in pre-prod until accuracy is safe for production banking traffic. Next: the rent-vs-own call on the model itself - accuracy, token cost, control and data isolation.
       </p>
       <div class="case-stack">
         <span>MCP</span>
@@ -219,7 +236,7 @@
     </div>
   </article>
 
-  <article class="case" id="case-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+  <article class="case" id="case-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0" data-r="CASES|/002 Optum virtual cards|$2B+ / yr">
     <div class="case-left">
       <p class="case-num">Case <span>/002</span></p>
       <p class="case-client">Optum Financial · UHG</p>
@@ -244,7 +261,7 @@
     </div>
   </article>
 
-  <article class="case" id="case-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
+  <article class="case" id="case-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0" data-r="CASES|/003 Multi-tenant data platform|$50K / yr">
     <div class="case-left">
       <p class="case-num">Case <span>/003</span></p>
       <p class="case-client">US + EMEA Banking</p>
@@ -270,7 +287,7 @@
     </div>
   </article>
 
-  <article class="case" id="case-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
+  <article class="case" id="case-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0" data-r="CASES|/004 Sparrow Card US launch|150K+">
     <div class="case-left">
       <p class="case-num">Case <span>/004</span></p>
       <p class="case-client">Evolve Bank · Zeta</p>
@@ -293,6 +310,9 @@
       </div>
     </div>
   </article>
+  </div>
+  </div>
+  </div>
 </section>
 
 <!-- PRINCIPLES -->
@@ -324,7 +344,7 @@
     </h2>
   </div>
   <div class="built-grid">
-  <article class="project" id="p-track" data-project="track">
+  <article class="project" id="p-track" data-project="track" data-r="BUILT|Track|trains &amp; flights">
     <div class="project-left">
       <span class="project-tag">Live · Installable · Ad-Free</span>
       <h3 class="project-title">Track <em>trains &amp; flights</em></h3>
@@ -424,7 +444,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-shelfie" data-project="shelfie">
+  <article class="project" id="p-shelfie" data-project="shelfie" data-r="BUILT|Shelfie|reading arcade">
     <div class="project-left">
       <span class="project-tag">Live · Thumb-Driven · Offline-First</span>
       <h3 class="project-title">Shelfie <em>reading arcade</em></h3>
@@ -545,7 +565,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-credit" data-project="credit">
+  <article class="project" id="p-credit" data-project="credit" data-r="BUILT|Decoding Credit Cards|22 chapters">
     <div class="project-left">
       <span class="project-tag">Live · Open Source · Free Forever</span>
       <h3 class="project-title">Decoding <em>Credit Cards</em></h3>
@@ -622,7 +642,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-ai" data-project="ai">
+  <article class="project" id="p-ai" data-project="ai" data-r="BUILT|Zero to a Hundred|21 phases">
     <div class="project-left">
       <span class="project-tag">Open Curriculum · Free-First · Vendor-Neutral</span>
       <h3 class="project-title">Zero <em>to a hundred</em></h3>
@@ -767,7 +787,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-jira" data-project="jira">
+  <article class="project" id="p-jira" data-project="jira" data-r="BUILT|Jira 2.0|AI layer">
     <div class="project-left">
       <span class="project-tag">Product Teardown · Working Prototype</span>
       <h3 class="project-title">Jira <em>2.0</em></h3>
@@ -839,7 +859,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-grid" data-project="grid">
+  <article class="project" id="p-grid" data-project="grid" data-r="BUILT|GRID|F1 in 2026">
     <div class="project-left">
       <span class="project-tag">Live Data · Editorial Reference</span>
       <h3 class="project-title">GRID <em>F1 in 2026</em></h3>
@@ -950,7 +970,7 @@
     </div>
   </article>
 
-  <article class="project" id="p-cookbook" data-project="cookbook">
+  <article class="project" id="p-cookbook" data-project="cookbook" data-r="BUILT|The Cookbook|216 dishes">
     <div class="project-left">
       <span class="project-tag">Live · 216 Dishes · Zero Build</span>
       <h3 class="project-title">The Cookbook <em>by Parth</em></h3>
@@ -1059,7 +1079,7 @@
     <h2 class="xp-main-title"><em>the</em> journey</h2>
     <p class="skills-sub" style="color:var(--gray)">04 · 2021 → now · 5 roles · 3 companies</p>
   </div>
-  <div class="xp-row">
+  <div class="xp-row" data-r="JOURNEY|Backbase · Forward Deployed PM|2026 →">
     <div class="xp-left">
       <p class="xp-date">Aug 2026 - Present</p>
       <p class="xp-co">Backbase.</p>
@@ -1077,7 +1097,7 @@
       </ul>
     </div>
   </div>
-  <div class="xp-row">
+  <div class="xp-row" data-r="JOURNEY|Zeta · TPM, data platform|2024–26">
     <div class="xp-left">
       <p class="xp-date">May 2024 - Aug 2026</p>
       <p class="xp-co">Zeta.</p>
@@ -1094,7 +1114,7 @@
       </ul>
     </div>
   </div>
-  <div class="xp-row">
+  <div class="xp-row" data-r="JOURNEY|Zeta · TPM, Optum cards|2024–26">
     <div class="xp-left">
       <p class="xp-date">May 2024 - Aug 2026</p>
       <p class="xp-co">Zeta.</p>
@@ -1110,7 +1130,7 @@
       </ul>
     </div>
   </div>
-  <div class="xp-row">
+  <div class="xp-row" data-r="JOURNEY|Zeta · TPgM, US + India|2022–24">
     <div class="xp-left">
       <p class="xp-date">May 2022 - May 2024</p>
       <p class="xp-co">Zeta.</p>
@@ -1125,7 +1145,7 @@
       </ul>
     </div>
   </div>
-  <div class="xp-row">
+  <div class="xp-row" data-r="JOURNEY|HackerEarth · PM|2021–22">
     <div class="xp-left">
       <p class="xp-date">Feb 2021 - Apr 2022</p>
       <p class="xp-co">HackerEarth.</p>
@@ -1142,7 +1162,7 @@
 </section>
 
 <!-- TOOLKIT -->
-<section class="skills-wrap" id="sec-skills">
+<section class="skills-wrap" id="sec-skills" data-r="EXTRAS|Toolkit|4 stacks + AI">
   <span class="skills-bg" aria-hidden="true">CAPABILITIES</span>
   <div class="skills-head">
     <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
@@ -1244,7 +1264,7 @@
 </section>
 
 <!-- RECOGNITION -->
-<section class="awards-section" id="sec-recognition">
+<section class="awards-section" id="sec-recognition" data-r="EXTRAS|Recognition|6 awards · 3 certs">
   <div class="aw-head">
     <h2 class="aw-title"><em>recognition</em></h2>
     <p class="skills-sub" style="color:var(--gray)">06 · Six awards · three certifications · 2021-2024</p>
@@ -1414,7 +1434,7 @@
 </section>
 
 <!-- WRITING -->
-<section class="writings" id="sec-writings">
+<section class="writings" id="sec-writings" data-r="EXTRAS|Writing|5 essays + series">
   <div class="writings-head">
     <div class="writings-masthead">
       <h2 class="writings-title"><span class="bracket">[</span>thoughts, <em>absurd, aloud.</em><span class="bracket right">]</span></h2>
@@ -1529,7 +1549,7 @@
 </section>
 
 <!-- MANIFESTO -->
-<section class="philosophy" id="sec-manifesto">
+<section class="philosophy" id="sec-manifesto" data-r="EXTRAS|Manifesto|earned simplicity">
   <div class="ph-left">
     <p class="ph-label">Manifesto | No. 00</p>
     <figure class="ph-figure" aria-hidden="true">
