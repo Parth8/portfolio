@@ -160,10 +160,10 @@ export function initReceipt({ reduceMotion = false, onJump } = {}) {
     for (let i = W - 20; i >= 20; i -= 12) x.lineTo(i, H - (i % 24 ? 26 : 18));
     x.closePath(); x.fill();
     const mono = s => `${s}px "DM Mono", ui-monospace, monospace`;
-    const ink = '#15130F', gray = '#7E7A70', pink = '#B4441A';
+    const ink = '#15130F', gray = '#7E7A70', pink = '#FF2D78';
     let y = 70;
     x.textAlign = 'center'; x.fillStyle = gray; x.font = mono(13); x.fillText('✦  P R O O F   O F   W O R K  ✦', W / 2, y);
-    y += 50; x.fillStyle = ink; x.font = '600 40px Inter, system-ui, sans-serif'; x.fillText('PARTH AGGARWAL', W / 2, y);
+    y += 50; x.fillStyle = ink; x.font = '48px "Bebas Neue", Impact, sans-serif'; x.fillText('PARTH AGGARWAL', W / 2, y);
     y += 28; x.font = mono(13); x.fillText('TECHNICAL PLATFORM PM · HYDERABAD', W / 2, y);
     const rule = () => { y += 22; x.save(); x.strokeStyle = '#b5ae9b'; x.setLineDash([5, 4]); x.beginPath(); x.moveTo(P, y); x.lineTo(W - P, y); x.stroke(); x.restore(); y += 26; };
     rule();
@@ -184,14 +184,14 @@ export function initReceipt({ reduceMotion = false, onJump } = {}) {
       y += LH;
     }
     rule();
-    const tot = (a, b, f = '600 26px Inter, system-ui, sans-serif') => { x.font = f; x.fillStyle = ink; x.textAlign = 'left'; x.fillText(a, P, y); x.textAlign = 'right'; x.fillText(b, W - P, y); y += 36; };
+    const tot = (a, b, f = '30px "Bebas Neue", Impact, sans-serif') => { x.font = f; x.fillStyle = ink; x.textAlign = 'left'; x.fillText(a, P, y); x.textAlign = 'right'; x.fillText(b, W - P, y); y += 36; };
     tot('ITEMS', `${pad(printed.size)}/${pad(total)}`);
     tot('TOTAL', '1 × PLATFORM PM');
     tot('CHANGE DUE', '0 P1/P2 DEFECTS', mono(13));
     // the stamp
     x.save(); x.translate(W / 2, y + 34); x.rotate(-0.12);
     x.strokeStyle = pink; x.lineWidth = 4; x.strokeRect(-130, -34, 260, 64);
-    x.fillStyle = pink; x.textAlign = 'center'; x.font = '600 42px Inter, system-ui, sans-serif'; x.fillText('APPROVED ✓', 0, 16);
+    x.fillStyle = pink; x.textAlign = 'center'; x.font = '50px "Bebas Neue", Impact, sans-serif'; x.fillText('APPROVED ✓', 0, 16);
     x.restore();
     y += 100;
     // barcode
@@ -199,7 +199,7 @@ export function initReceipt({ reduceMotion = false, onJump } = {}) {
     const seed = [...(state.txn + 'PARTH')].map(ch => ch.charCodeAt(0));
     for (let i = 0, bx = P; bx < W - P; i++) { const w = 1 + (seed[i % seed.length] * (i + 3)) % 4; if (i % 2 === 0) x.fillRect(bx, y, w * 1.6, 54); bx += (w + 1) * 1.6; }
     y += 84; x.textAlign = 'center'; x.font = mono(14); x.fillStyle = ink; x.fillText('parth8.github.io/portfolio', W / 2, y);
-    y += 28; x.fillStyle = pink; x.font = 'italic 26px "Instrument Serif", Georgia, serif'; x.fillText('thank you for scrolling', W / 2, y);
+    y += 28; x.fillStyle = pink; x.font = '24px Caveat, cursive'; x.fillText('thank you for scrolling', W / 2, y);
 
     const blob = await new Promise(res => c.toBlob(res, 'image/png'));
     if (!blob) return;

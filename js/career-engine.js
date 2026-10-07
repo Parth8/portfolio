@@ -6,19 +6,16 @@
 export const STRENGTH = { core: 1, strong: 0.85, working: 0.6, adjacent: 0.3, gap: 0 };
 const STRENGTH_LABEL = { core: 'Core strength', strong: 'Strong', working: 'Working knowledge', adjacent: 'Adjacent', gap: 'Gap' };
 
-/* How much one piece of evidence is worth depends first on who can check it. */
-export const PROOF = {
-  verified: { w: 0.95, label: 'Verified', what: 'A public artifact: open it and check it yourself.' },
-  corroborated: { w: 0.7, label: 'Corroborated', what: 'Public sources confirm the program exists as described; his role and figures come from his resume.' },
-  self: { w: 0.6, label: 'Self-reported', what: 'From his resume. Employer figures are confidential, so ask for a reference.' },
-};
-const RESUME_LIFT = 0.12;   // several resume lines agreeing add a little, never more than this
-const CORROBORATION_LIFT = 0.1; // public sources confirming the program raise the resume's ceiling, not past it
+/* Confidence: how strongly his own record evidences a requirement.
+   Nothing is checked against the web: much of the work is internal to employers. Instead every score
+   cites the exact lines it rests on, and says how it got from those lines to the number. */
+const K = 0.75;          // one strong, direct piece of evidence alone reaches 0.75: "Strong" needs a second place
 const CAP = { gap: 0.15, adjacent: 0.45, working: 0.7 };
-export const BANDS = [[0.85, 'High'], [0.65, 'Good'], [0.4, 'Moderate'], [0.01, 'Low'], [0, 'None']];
-const CEILING = 0.98; // nothing on a portfolio is certain
+const CEILING = 0.97;    // nothing on a portfolio is certain
+export const BANDS = [[0.85, 'Strong'], [0.65, 'Good'], [0.4, 'Some'], [0.01, 'Thin'], [0, 'None']];
 export const bandOf = c => BANDS.find(([min]) => c >= min)[1];
-export const FIT_BANDS = [[80, 'Strong fit'], [65, 'Good fit'], [45, 'Partial fit'], [0, 'Stretch']];
+export const FIT_BANDS = [[85, 'Excellent'], [72, 'Strong'], [58, 'Fair'], [0, 'Stretch']];
+const OWNED = /^(owned|own|led|lead|architected|rearchitected|built|drove|driving|designed|shipped|launched|delivered|ran|stood up|mandated|defined|established|eliminated|cut|raised|authored|created|codified|enforced|killed|turned|moved|gated|wrote|planted)\b/i;
 const r2 = x => Math.round(x * 100) / 100;
 
 export const PERSONAS = {
@@ -76,22 +73,20 @@ export function index(data) {
   const base = data.base_url;
   const records = new Map();
   const add = (ref, r) => records.set(ref, { ref, ...r });
-  const srcs = new Map((data.sources || []).map(x => [x.id, x]));
-  const proofOf = x => ({ tier: x.proof?.tier || 'self', sources: (x.proof?.sources || ['resume']).map(id => srcs.get(id)).filter(Boolean) });
+  // where it happened: a case belongs to the role that ran it, so one job is never counted twice
+  const roleOf = id => data.roles.find(r => r.cases.includes(id))?.id;
   for (const c of data.cases) {
-    add(`case:${c.id}`, { kind: 'case', id: c.id, title: c.title, org: c.org, period: c.period, end: endOf(c.period, data.updated), url: base + c.anchor, summary: c.summary, metric: c.metric, evidence: c.evidence, stack: c.stack, ...proofOf(c) });
+    add(`case:${c.id}`, { kind: 'case', id: c.id, title: c.title, org: c.org, period: c.period, end: endOf(c.period, data.updated), url: base + c.anchor, summary: c.summary, metric: c.metric, evidence: c.evidence, stack: c.stack, place: `role:${roleOf(c.id) || c.id}` });
   }
   for (const r of data.roles) {
     const linked = r.cases.map(id => data.cases.find(c => c.id === id)).filter(Boolean);
     add(`role:${r.id}`, {
       kind: 'role', id: r.id, title: `${r.title}, ${r.company}`, org: r.company, period: r.period, end: endOf(r.period, data.updated), url: base + '#sec-experience',
-      summary: r.scope, evidence: [...r.evidence, ...linked.flatMap(c => c.evidence)], cases: r.cases, ...proofOf(r),
+      summary: r.scope, evidence: [...r.evidence, ...linked.flatMap(c => c.evidence)], cases: r.cases, place: `role:${r.id}`,
     });
   }
   for (const p of data.projects) {
-    const pf = proofOf(p);
-    const last = pf.sources.find(x => x.snapshot)?.snapshot.last;
-    add(`project:${p.id}`, { kind: 'project', id: p.id, title: p.name, org: 'Side project', url: p.url, portfolio: base + p.anchor, summary: p.tagline, evidence: p.evidence, stack: p.built_with, end: last ? last.slice(0, 7) : data.updated.slice(0, 7), ...pf });
+    add(`project:${p.id}`, { kind: 'project', id: p.id, title: p.name, org: 'Side project', url: p.url, portfolio: base + p.anchor, summary: p.tagline, evidence: p.evidence, stack: p.built_with, end: data.updated.slice(0, 7), place: `project:${p.id}` });
   }
   // the searchable corpus: one document per evidence line (role lines that duplicate a case are skipped)
   const docs = [];
@@ -108,8 +103,7 @@ export function index(data) {
   return out;
 }
 
-const brief = r => ({ ref: r.ref, kind: r.kind, id: r.id, title: r.title, url: r.url, proof: r.tier });
-const sourceBrief = x => ({ id: x.id, kind: x.kind, title: x.title, url: x.url, proves: x.proves, ...(x.doesnt ? { doesnt: x.doesnt } : {}), ...(x.note ? { note: x.note } : {}), ...(x.live ? { live: x.live, repo: x.repo } : {}), ...(x.snapshot ? { snapshot: x.snapshot } : {}), ...(x.quote ? { quote: x.quote, publisher: x.publisher, date: x.date } : {}) });
+const brief = r => ({ ref: r.ref, kind: r.kind, id: r.id, title: r.title, url: r.url });
 
 // "May 2022 - May 2024" -> "2024-05"; "Aug 2026 - present" -> the record's updated month
 const MONTHS = 'jan feb mar apr may jun jul aug sep oct nov dec'.split(' ');
@@ -158,8 +152,7 @@ export function getWork(data, idOrName) {
   }
   if (!r) return null;
   const { kind, id, title, org, period, url, summary, metric, evidence, stack, portfolio, cases } = r;
-  const pn = proofNote(r);
-  return { ref: r.ref, kind, id, title, org, period, url, portfolio, summary, metric, evidence, stack, cases, proof: pn.tier, proof_note: pn.text, sources: pn.sources };
+  return { ref: r.ref, kind, id, title, org, period, url, portfolio, summary, metric, evidence, stack, cases };
 }
 
 export function contact(data) {
@@ -228,30 +221,13 @@ export function proveClaim(data, claim) {
   else if (onTopic.length && cn.length) { verdict = 'differs'; evidence = onTopic.slice(0, 3).map(quote); }
   else if (rows[0] && rows[0].ov >= 0.34 && rows[0].hits >= 2) { verdict = 'partial'; evidence = rows.filter(r => r.ov >= 0.34 && r.hits >= 2).slice(0, 3).map(quote); }
   else { verdict = 'not_found'; evidence = []; }
-  const audit = evidence.length ? proofNote(records.get(evidence[0].ref)) : null;
   const explanation = {
     supported: 'Supported: the record states this, quoted below.',
     partial: 'Partly supported: related evidence exists, but not this exact claim. Quote the evidence rather than the claim.',
     differs: 'Not as stated: the record covers this with different numbers. Use the quoted figures instead.',
     not_found: 'No evidence for this claim in the record. Do not repeat it as fact; ask Parth.',
   }[verdict];
-  return { claim, verdict, explanation: audit ? `${explanation} ${audit.text}` : explanation, evidence, ...(audit ? { proof: audit.tier, sources: audit.sources } : {}) };
-}
-
-// who vouches for a record, in one sentence
-function proofNote(r) {
-  const pub = r.sources.filter(x => x.role !== 'claims');
-  const strong = pub.filter(x => x.role === 'verifies' || x.role === 'corroborates');
-  const text = r.tier === 'verified'
-    ? `Proof: verified - ${pub.map(x => x.title).join(', ')} is public; open it and check.`
-    : r.tier === 'corroborated'
-      ? `Proof: corroborated - ${[...new Set(strong.map(x => x.publisher || x.title))].join('; ')} confirm${strong.length === 1 ? 's' : ''} the program; his role and figures are from his resume.`
-      : `Proof: self-reported - from his resume${pub.length ? ` (public context only: ${[...new Set(pub.map(x => x.publisher || x.title))].join('; ')})` : ''}. No public source confirms the figures; ask him for a reference.`;
-  return { tier: r.tier, text, sources: r.sources.map(sourceBrief) };
-}
-export function proofOfRecord(data, ref) {
-  const r = index(data).records.get(ref);
-  return r ? proofNote(r) : null;
+  return { claim, verdict, explanation, evidence };
 }
 
 /* ---------- fit for a job description ---------- */
@@ -305,18 +281,22 @@ export function fitFromIds(data, items, title = null) {
   return build(data, found, { title, text: '', persona: 'link' });
 }
 
-/* ---------- confidence: how sure can a reader be that he has this? ----------
-   Each piece of evidence e = proof x recency x specificity x relevance.
-   Evidence is grouped by who can vouch for it: every public source is its own group; everything
-   that rests on his resume is ONE group (it is one witness, however many lines agree), capped at
-   the resume's weight + RESUME_LIFT. Groups combine as independent witnesses:
-       confidence = 1 - (1 - g1)(1 - g2)...
-   Finally his own self-assessment can cap it (gap 0.15, adjacent 0.45, working 0.7), never lift it. */
+/* ---------- confidence: how strongly does his record evidence this requirement? ----------
+   Each line of evidence is weighed on five things you can see in the line itself:
+     relevance    it uses your words (1.0) or is linked to the skill by his record only (0.7)
+     ownership    he owned or led it: the line opens with owned, led, built, shipped... (1.0) or not (0.85)
+     specificity  it carries a number (1.0) or doesn't (0.85)
+     recency      within a year (1.0), within three (0.9), older (0.75)
+     setting      day job (1.0) or side project (0.85)
+   Lines from the same place (a role and its case studies, or one project) count once: the strongest.
+   Places combine like independent examples:  confidence = 1 - Π(1 - 0.75 × place)
+   so one strong place reaches 0.75 and "Strong" (0.85+) needs evidence from two places or more.
+   His own self-assessment can cap it (gap 0.15, adjacent 0.45, working 0.70), never raise it. */
 function hitsIn(line, kws) {
   const t = ' ' + norm(line) + ' ';
   return kws.filter(k => { const re = kwRegex(k); return re.test(t); });
 }
-function assess(data, f, records, quoted, selfW = PROOF.self.w) {
+function assess(data, f, records, quoted) {
   const now = data.updated.slice(0, 7);
   const items = f.c.evidence.map(ref => records.get(ref)).filter(Boolean).map((r, i) => {
     const quote = bestQuote(r, f.kws, quoted);
@@ -324,100 +304,83 @@ function assess(data, f, records, quoted, selfW = PROOF.self.w) {
     const words = hitsIn(quote, f.kws).filter(k => !k.startsWith('re:'));
     const months = monthsBetween(r.end || now, now);
     const factors = {
-      proof: r.tier === 'self' ? selfW : PROOF[r.tier].w,
-      recency: months <= 12 ? 1 : months <= 36 ? 0.9 : 0.75,
-      specificity: /\d/.test(quote) ? 1 : 0.85,
       relevance: words.length ? 1 : 0.7,
+      ownership: OWNED.test(quote.trim()) ? 1 : 0.85,
+      specificity: /\d/.test(quote) ? 1 : 0.85,
+      recency: months <= 12 ? 1 : months <= 36 ? 0.9 : 0.75,
+      setting: r.kind === 'project' ? 0.85 : 1,
     };
-    const e = r2(factors.proof * factors.recency * factors.specificity * factors.relevance);
-    return { ...brief(r), period: r.period, quote, matched: words, months, factors, e,
-      // only a public artifact is its own witness; anything whose claims come from the resume shares the resume's voice
-      group: r.tier === 'verified' ? (r.sources.find(x => x.role === 'verifies')?.id || r.ref) : 'resume',
-      sources: r.sources.map(sourceBrief) };
+    const e = r2(Object.values(factors).reduce((x, y) => x * y, 1));
+    return { ...brief(r), org: r.org, period: r.period, place: r.place, quote, matched: words, months, factors, e };
   });
-  const groups = new Map();
-  for (const it of items) (groups.get(it.group) || groups.set(it.group, []).get(it.group)).push(it);
-  const parts = [...groups.entries()].map(([g, list]) => {
-    const top = Math.max(...list.map(x => x.e));
-    const ceiling = selfW + RESUME_LIFT + (list.some(x => x.proof === 'corroborated') ? CORROBORATION_LIFT : 0);
-    const v = g === 'resume' ? Math.min(ceiling, r2(top + 0.06 * (list.length - 1))) : top;
-    return { group: g, value: r2(v), n: list.length };
-  }).sort((a, b) => b.value - a.value);
-  const raw = parts.length ? 1 - parts.reduce((acc, x) => acc * (1 - x.value), 1) : 0;
+  const places = new Map();
+  for (const it of items) if (!places.has(it.place) || places.get(it.place).e < it.e) places.set(it.place, it);
+  const parts = [...places.values()].sort((x, y) => y.e - x.e).map(it => ({ place: it.place, title: it.title, value: it.e }));
+  const raw = parts.length ? 1 - parts.reduce((acc, x) => acc * (1 - K * x.value), 1) : 0;
   const cap = CAP[f.c.strength];
   const confidence = r2(Math.min(raw, cap ?? 1, CEILING));
   return { items, parts, raw: r2(raw), cap: cap != null && raw > cap ? cap : null, confidence };
 }
 
+const placeName = it => (it.kind === 'project' ? `${it.title} (side project)` : `${it.org}${it.period ? `, ${it.period.replace(/\s*-\s*present/i, ' to now').replace(/\s+-\s+/, ' to ')}` : ''}`);
 function reasonsFor(a, f) {
   const out = [];
-  const tiers = { verified: 0, corroborated: 0, self: 0 };
-  for (const it of a.items) tiers[it.proof]++;
-  const n = a.items.length;
-  if (!n) out.push('No evidence on record.');
-  else {
-    out.push(`${n} record${n > 1 ? 's' : ''}: ${[tiers.verified && `${tiers.verified} verified`, tiers.corroborated && `${tiers.corroborated} corroborated`, tiers.self && `${tiers.self} self-reported`].filter(Boolean).join(', ')}.`);
-    const fresh = Math.min(...a.items.map(x => x.months));
-    out.push(fresh <= 1 ? 'Most recent evidence is current work.' : `Most recent evidence is ${fresh} months old.`);
-    const words = [...new Set(a.items.flatMap(x => x.matched))];
-    out.push(words.length ? `Matched your words: ${words.slice(0, 5).map(w => `"${w}"`).join(', ')}.` : 'Linked by his record, not by your wording (relevance 0.7).');
-    if (a.parts.length === 1 && a.parts[0].group === 'resume') {
-      const corr = tiers.corroborated > 0;
-      out.push(corr
-        ? `Public sources confirm the programs, but the claims themselves are from his resume, so it can't go above ${(PROOF.self.w + RESUME_LIFT + CORROBORATION_LIFT).toFixed(2)}. "High" needs something you can open and check.`
-        : `Rests on his resume alone, so it can't go above ${(PROOF.self.w + RESUME_LIFT).toFixed(2)} until a reference or public source backs it.`);
-    }
-  }
-  if (a.cap != null) out.push(`Capped at ${a.cap} by his own assessment ("${STRENGTH_LABEL[f.c.strength]}"): self-assessment can lower a score, never raise it.`);
+  if (!a.items.length) return ['Nothing in his record evidences this.', ...(f.c.note ? [`On record: ${f.c.note}`] : [])];
+  const tops = [...new Map(a.items.map(it => [it.place, it])).values()];
+  out.push(`Evidenced in ${tops.length} place${tops.length > 1 ? 's' : ''}: ${[...new Set(tops.map(placeName))].join('; ')}.`);
+  const words = [...new Set(a.items.flatMap(x => x.matched))];
+  out.push(words.length ? `Your words appear in his record: ${words.slice(0, 5).map(w => `"${w}"`).join(', ')}.` : 'Linked to this skill by his record rather than your exact wording.');
+  const owned = a.items.filter(x => x.factors.ownership === 1).length;
+  if (owned) out.push(`He owned or led it in ${owned} of ${a.items.length} quoted lines.`);
+  const nums = a.items.filter(x => x.factors.specificity === 1).length;
+  if (nums) out.push(`${nums} of ${a.items.length} lines carry a measured result.`);
+  const newest = a.items.reduce((x, y) => (y.months < x.months ? y : x));
+  out.push(`Most recent evidence: ${placeName(newest)}${newest.months <= 1 ? ' (current)' : `, ${newest.months} months ago`}.`);
+  if (a.parts.length === 1 && a.cap == null) out.push('One place only, so it stops short of "Strong", which needs a second role or project.');
+  if (a.cap != null) out.push(`Capped at ${a.cap} by his own assessment ("${STRENGTH_LABEL[f.c.strength]}"): self-assessment can lower a score, never raise it.${f.c.note ? ` ${f.c.note}` : ''}`);
   return out;
 }
 const mathOf = a => {
   if (!a.parts.length) return 'no evidence = 0';
   const raw = a.raw >= 0.995 ? '0.99+' : a.raw.toFixed(2);
   const tail = a.cap != null ? `, capped at ${a.cap} by his own assessment` : a.raw > CEILING ? `, held at ${CEILING} (nothing is certain)` : '';
-  return `1 - ${a.parts.map(x => `(1 - ${x.value.toFixed(2)})`).join(' × ')} = ${raw}${tail}`;
+  return `1 - ${a.parts.map(x => `(1 - 0.75 × ${x.value.toFixed(2)})`).join(' × ')} = ${raw}${tail}`;
 };
 
 function build(data, found, { title, text, persona }) {
   const { records, comps } = index(data);
   if (!found.length) {
-    return { title, score: null, band: 'Not enough to go on', matches: [], gaps: [], also: [], read_first: [], notes: [], questions: [], summary: [],
+    return { title, score: null, band: 'Not enough to go on', credit: null, matches: [], gaps: [], also: [], read_first: [], notes: [], questions: [], summary: [],
       message: 'No recognisable requirements found. Paste the full job description (responsibilities and requirements).' };
   }
   const quoted = new Set();
   const rows = found.map(f => ({ f, a: assess(data, f, records, quoted) }))
     .sort((x, y) => y.f.w * y.a.confidence - x.f.w * x.a.confidence);
   const den = found.reduce((s, f) => s + f.w, 0);
-  const fitAt = selfW => Math.round(100 * found.reduce((s, f) => s + f.w * assess(data, f, records, new Set(), selfW).confidence, 0) / den);
-  // a must-have asked for more than once with (almost) no evidence caps the whole fit: averages shouldn't hide it
+  // a must-have asked for more than once with (almost) no evidence caps the whole fit: an average shouldn't hide it
   const hard = rows.filter(x => x.f.w >= 1.5 && x.a.confidence <= 0.15).map(x => x.f.c.label);
   const HARD_CAP = 44;
-  const capFit = v => (hard.length ? Math.min(v, HARD_CAP) : v);
-  const score = capFit(Math.round(100 * rows.reduce((s, x) => s + x.f.w * x.a.confidence, 0) / den));
+  let score = Math.round(100 * rows.reduce((s, x) => s + x.f.w * x.a.confidence, 0) / den);
+  if (hard.length) score = Math.min(score, HARD_CAP);
   const band = FIT_BANDS.find(([min]) => score >= min)[1];
-  const range = { low: capFit(fitAt(0.4)), high: capFit(fitAt(0.9)) };
 
   const toRow = ({ f, a }) => ({
     id: f.c.id, label: f.c.label, weight: f.w, matched: f.kws,
-    confidence: a.confidence, band: bandOf(a.confidence),
-    self_assessment: STRENGTH_LABEL[f.c.strength], strength: f.c.strength, strength_label: STRENGTH_LABEL[f.c.strength],
+    confidence: a.confidence, confidence_band: bandOf(a.confidence),
+    strength: f.c.strength, strength_label: STRENGTH_LABEL[f.c.strength],
     reasons: reasonsFor(a, f), math: mathOf(a), note: f.c.note,
-    evidence: a.items.map(({ group, ...it }) => it),
+    evidence: a.items.map(({ place, ...it }) => it),
   });
-  const matches = rows.filter(x => x.a.confidence >= 0.4).map(toRow);
-  const gaps = rows.filter(x => x.a.confidence < 0.4).map(toRow);
-
-  // the evidence mix behind the score, by proof tier (each record counted once)
-  const used = new Map();
-  for (const { a } of rows) for (const it of a.items) used.set(it.ref, it.proof);
-  const mix = { verified: 0, corroborated: 0, self: 0 };
-  for (const t of used.values()) mix[t]++;
+  const isGap = x => x.a.confidence < 0.4 || ['gap', 'adjacent'].includes(x.f.c.strength);
+  const matches = rows.filter(x => !isGap(x)).map(toRow);
+  const gaps = rows.filter(isGap).map(toRow);
+  const coverage = { evidenced: rows.filter(x => x.a.confidence >= 0.65).length, total: rows.length };
 
   const foundIds = new Set(found.map(f => f.c.id));
   const also = comps.filter(c => c.strength === 'core' && !foundIds.has(c.id)).slice(0, 3)
     .map(c => ({ id: c.id, label: c.label, evidence: c.evidence.map(ref => records.get(ref)).filter(Boolean).slice(0, 1).map(r => ({ ...brief(r), quote: r.evidence[0] })) }));
 
-  // which cases/projects to read first: weighted by how much confidence they contribute
+  // which cases/projects to read first: the ones carrying most of this score
   const weight = new Map();
   for (const { f, a } of rows) for (const it of a.items) {
     if (it.kind === 'role') continue;
@@ -429,7 +392,7 @@ function build(data, found, { title, text, persona }) {
   });
 
   const notes = [];
-  if (hard.length) notes.push(`Hard gap: ${hard.join(', ')} is asked for repeatedly and has no evidence on record, so the fit is capped at ${HARD_CAP}.`);
+  if (hard.length) notes.push(`Hard gap: ${hard.join(', ')} is asked for repeatedly and nothing in his record evidences it, so the fit is capped at ${HARD_CAP}.`);
   const yrs = String(text).match(/(\d{1,2})\s*\+?\s*(?:-\s*\d{1,2}\s*)?(?:years|yrs)/i);
   if (yrs && !persona) {
     const need = parseInt(yrs[1], 10);
@@ -441,21 +404,18 @@ function build(data, found, { title, text, persona }) {
   if (/\b(director|head of|vp|vice president|group product manager)\b/i.test(text) && !persona) notes.push('Level: this reads as a people-leadership role; see the "Managing PMs" gap.');
   if (/\b(remote)\b/i.test(text)) notes.push('Location: based in Hyderabad, India; open to relocation.');
 
-  // questions that would actually move the score: references for self-reported strengths, plans for gaps
   const questions = [];
   for (const g of gaps.slice(0, 2)) questions.push(`${g.label}: ask how he'd close this gap in his first 90 days.${g.note ? ` On record: ${g.note}` : ''}`);
-  const selfOnly = matches.filter(m => m.evidence.length && m.evidence.every(e => e.proof === 'self'));
-  for (const m of selfOnly.slice(0, 2)) questions.push(`${m.label}: rests on his resume alone. Ask for a reference who saw "${m.evidence[0].title}" first-hand.`);
-  for (const m of matches.slice(0, 2)) {
+  for (const m of matches.slice(0, 3)) {
     const e = m.evidence[0];
-    if (e && !selfOnly.includes(m)) questions.push(`${m.label}: ask him to walk through "${e.title}" - ${e.quote.replace(/\.$/, '')}.`);
+    if (e) questions.push(`${m.label}: ask him to walk through "${e.title}" - ${e.quote.replace(/\.$/, '')}.`);
   }
 
   const summary = matches.slice(0, 3).map(m => `${m.label}: ${m.evidence[0]?.quote || m.note || ''}`);
   const detected = found.map(f => ({ id: f.c.id, w: f.w }));
   return {
-    title, score, band, range, evidence_mix: mix,
-    method: 'Each requirement: confidence = 1 - Π(1 - g) over independent witnesses g. A witness is a public artifact (verified) or his resume: everything whose claims come from the resume is one witness, capped at 0.72, or 0.82 when public sources corroborate the programs. Evidence weight = proof × recency × specificity × relevance. Self-assessment can only cap. Fit = weighted mean of confidence × 100. Range = the same with resume claims weighted 0.4 (sceptical) and 0.9 (references confirm).',
+    title, score, band, credit: Math.round(300 + (score / 100) * 550), coverage,
+    method: 'Each requirement: every line of evidence is weighed on relevance (your words 1.0, linked 0.7) × ownership (owned or led 1.0, else 0.85) × specificity (a number 1.0, else 0.85) × recency (1 year 1.0, 3 years 0.9, older 0.75) × setting (day job 1.0, side project 0.85). Lines from the same role or project count once. Places combine as confidence = 1 - Π(1 - 0.75 × place), so one strong place reaches 0.75 and 0.85+ needs two. His self-assessment can only cap it. Fit = the average of confidence across your requirements, weighted by how often you ask for each, × 100; a must-have with no evidence caps it at 44. Everything is from his own record: much of it is internal to employers, so nothing is checked against the web.',
     matches, gaps, also, read_first, notes, questions, summary, detected,
   };
 }

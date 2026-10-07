@@ -5,7 +5,7 @@ Cloudflare Worker, read-only, no keys. It's **generated**, so don't edit it by h
 `js/career-engine.js`, `js/mcp-core.js`, `data/career.json` and `tools/worker-shell.js` by:
 
 ```
-node tools/build.mjs           # also regenerates llms.txt and the portfolio's generated blocks
+node tools/build-worker.mjs           # also regenerates llms.txt
 ```
 
 ## Deploy (about five minutes, free tier)

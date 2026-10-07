@@ -2,7 +2,7 @@
  "schema": "parth-career/2",
  "updated": "2026-10-07",
  "base_url": "https://parth8.github.io/portfolio/",
- "sources_note": "Every source was opened and its quote checked on 2026-10-07. \"corroborates\": a public source confirms the program as described. \"context\": it confirms related facts only. \"verifies\": a public artifact you can inspect.",
+ "evidence_note": "Everything here comes from Parth's own record: his resume, profile and portfolio. Much of the work is internal to employers, so it is not checked against the web; every score and answer instead cites the exact lines it rests on.",
  "profile": {
   "name": "Parth Aggarwal",
   "headline": "Technical Platform Product Manager",
@@ -89,16 +89,7 @@
     "iPaaS",
     "Token rotation",
     "API Playground"
-   ],
-   "proof": {
-    "tier": "corroborated",
-    "sources": [
-     "resume",
-     "web:backbase-grand-central",
-     "news:rbi-grand-central",
-     "web:backbase-banking-os"
-    ]
-   }
+   ]
   },
   {
    "id": "optum-virtual-cards",
@@ -131,15 +122,7 @@
     "Webhooks",
     "Idempotency",
     "Dispute resolution"
-   ],
-   "proof": {
-    "tier": "self",
-    "sources": [
-     "resume",
-     "web:uhc-vcard",
-     "news:techcrunch-optum-zeta"
-    ]
-   }
+   ]
   },
   {
    "id": "data-platform",
@@ -182,14 +165,7 @@
     "Multi-tenant",
     "Semantic layer",
     "GDPR/PCI/AML"
-   ],
-   "proof": {
-    "tier": "self",
-    "sources": [
-     "resume",
-     "web:zeta-data-suite"
-    ]
-   }
+   ]
   },
   {
    "id": "sparrow-launch",
@@ -218,15 +194,7 @@
     "Ops infrastructure",
     "SQL dashboards",
     "Release management"
-   ],
-   "proof": {
-    "tier": "corroborated",
-    "sources": [
-     "resume",
-     "press:zeta-sparrow",
-     "web:sparrow-help"
-    ]
-   }
+   ]
   }
  ],
  "roles": [
@@ -242,15 +210,7 @@
    ],
    "evidence": [
     "Forward deployed: works directly with banking clients and internal services teams on connector builds."
-   ],
-   "proof": {
-    "tier": "corroborated",
-    "sources": [
-     "resume",
-     "web:backbase-grand-central",
-     "web:backbase-banking-os"
-    ]
-   }
+   ]
   },
   {
    "id": "zeta-tpm-data",
@@ -264,14 +224,7 @@
    ],
    "evidence": [
     "Drove the roadmap through requirement discussions with banks and issuing partners; decided build, implementation, capacity and budget tradeoffs."
-   ],
-   "proof": {
-    "tier": "self",
-    "sources": [
-     "resume",
-     "web:zeta-data-suite"
-    ]
-   }
+   ]
   },
   {
    "id": "zeta-tpm-optum",
@@ -283,15 +236,7 @@
    "cases": [
     "optum-virtual-cards"
    ],
-   "evidence": [],
-   "proof": {
-    "tier": "self",
-    "sources": [
-     "resume",
-     "web:uhc-vcard",
-     "news:techcrunch-optum-zeta"
-    ]
-   }
+   "evidence": []
   },
   {
    "id": "zeta-tpgm",
@@ -308,16 +253,7 @@
     "Led a team of 3 CSMs through complex multi-party negotiations and timeline commitments.",
     "Automated banking reports with SQL and Python; ran technical knowledge transfer for a 5-member ops team.",
     "Tested 40+ APIs in the MVP phase; ran competitive analysis against key BaaS providers to inform product strategy."
-   ],
-   "proof": {
-    "tier": "corroborated",
-    "sources": [
-     "resume",
-     "news:entrackr-zeta-fusion",
-     "news:entrackr-rbi-ppi",
-     "press:zeta-sparrow"
-    ]
-   }
+   ]
   },
   {
    "id": "hackerearth-pm",
@@ -331,14 +267,7 @@
     "Delivered solutions for 60+ enterprises with an NPS of 9, reducing churn 25%.",
     "Generated ₹38 lakh ($46K) in revenue in 9 months and acquired 8+ new clients.",
     "Published 7+ case studies with Fortune 500 clients including Google, Accenture, Walmart Global Tech India, Microsoft, HCL Sweden, Husqvarna and HealthifyMe."
-   ],
-   "proof": {
-    "tier": "self",
-    "sources": [
-     "resume",
-     "web:hackerearth"
-    ]
-   }
+   ]
   }
  ],
  "projects": [
@@ -362,13 +291,7 @@
     "MapLibre GL",
     "ADS-B",
     "PWA"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:track"
-    ]
-   }
+   ]
   },
   {
    "id": "shelfie",
@@ -389,13 +312,7 @@
     "Cloudflare Worker",
     "D1",
     "Web Audio"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:shelfie"
-    ]
-   }
+   ]
   },
   {
    "id": "credit",
@@ -413,13 +330,7 @@
     "JS",
     "Zero dependencies",
     "Design system"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:credit"
-    ]
-   }
+   ]
   },
   {
    "id": "ai",
@@ -435,13 +346,7 @@
    "built_with": [
     "Single HTML file",
     "Curriculum design"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:ai"
-    ]
-   }
+   ]
   },
   {
    "id": "jira",
@@ -461,13 +366,7 @@
     "AI-native UX",
     "Vanilla JS prototype",
     "Chart.js"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:jira2"
-    ]
-   }
+   ]
   },
   {
    "id": "grid",
@@ -484,13 +383,7 @@
     "Multi-page",
     "OpenF1 API",
     "SVG technical drawings"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:grid"
-    ]
-   }
+   ]
   },
   {
    "id": "cookbook",
@@ -507,13 +400,7 @@
     "ES modules",
     "JSON data model",
     "Python data QA"
-   ],
-   "proof": {
-    "tier": "verified",
-    "sources": [
-     "repo:cookbook"
-    ]
-   }
+   ]
   }
  ],
  "awards": [
@@ -575,26 +462,22 @@
   {
    "title": "OLX is a crime scene. Is the clue a pivot into becoming a fintech?",
    "url": "https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4",
-   "date": "2026-01-21",
-   "proof": "verified"
+   "date": "2026-01-21"
   },
   {
    "title": "Decoding Credit Cards (5-part series)",
    "url": "https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d",
-   "date": "2025-01-19",
-   "proof": "verified"
+   "date": "2025-01-19"
   },
   {
    "title": "Why are PM interviews still obsessed with guesstimates like it's 2009?",
    "url": "https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1",
-   "date": "2025-10-31",
-   "proof": "verified"
+   "date": "2025-10-31"
   },
   {
    "title": "The mental debt of being in tech",
    "url": "https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17",
-   "date": "2025-10-29",
-   "proof": "verified"
+   "date": "2025-10-29"
   }
  ],
  "principles": [
@@ -1257,307 +1140,6 @@
    "evidence": [
     "case:optum-virtual-cards"
    ]
-  }
- ],
- "sources": [
-  {
-   "id": "resume",
-   "kind": "self",
-   "role": "claims",
-   "title": "Parth's resume",
-   "url": "https://drive.google.com/file/d/1vTLOz_c9T_ioQVn5VPjvriIwr4d1j905/view?usp=drive_link",
-   "proves": "What Parth says he did, with dates and figures.",
-   "doesnt": "Employer figures are confidential, so none of them can be checked publicly. Ask him for a reference."
-  },
-  {
-   "id": "repo:track",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/track on GitHub",
-   "url": "https://github.com/Parth8/track",
-   "repo": "Parth8/track",
-   "live": "https://parth8.github.io/track/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 36,
-    "first": "2026-09-29",
-    "last": "2026-10-02",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 36
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 36 commits, 2026-09-29 to 2026-10-02. Commit authors: Parth Aggarwal 36."
-  },
-  {
-   "id": "repo:shelfie",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/shelfie on GitHub",
-   "url": "https://github.com/Parth8/shelfie",
-   "repo": "Parth8/shelfie",
-   "live": "https://parth8.github.io/shelfie/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 21,
-    "first": "2026-10-02",
-    "last": "2026-10-03",
-    "authors": [
-     {
-      "name": "Claude",
-      "commits": 20
-     },
-     {
-      "name": "Parth Aggarwal",
-      "commits": 1
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 21 commits, 2026-10-02 to 2026-10-03. Commit authors: Claude 20, Parth Aggarwal 1.",
-   "note": "20 of 21 commits are authored by Claude (an AI coding agent) in Parth's repository."
-  },
-  {
-   "id": "repo:credit",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/credit on GitHub",
-   "url": "https://github.com/Parth8/credit",
-   "repo": "Parth8/credit",
-   "live": "https://parth8.github.io/credit/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 43,
-    "first": "2026-05-08",
-    "last": "2026-05-13",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 43
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 43 commits, 2026-05-08 to 2026-05-13. Commit authors: Parth Aggarwal 43."
-  },
-  {
-   "id": "repo:ai",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/ai on GitHub",
-   "url": "https://github.com/Parth8/ai",
-   "repo": "Parth8/ai",
-   "live": "https://parth8.github.io/ai/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 6,
-    "first": "2026-07-07",
-    "last": "2026-07-31",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 6
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 6 commits, 2026-07-07 to 2026-07-31. Commit authors: Parth Aggarwal 6."
-  },
-  {
-   "id": "repo:jira2",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/jira2 on GitHub",
-   "url": "https://github.com/Parth8/jira2",
-   "repo": "Parth8/jira2",
-   "live": "https://parth8.github.io/jira2/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 38,
-    "first": "2026-05-04",
-    "last": "2026-05-04",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 38
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 38 commits, 2026-05-04 to 2026-05-04. Commit authors: Parth Aggarwal 38."
-  },
-  {
-   "id": "repo:grid",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/grid on GitHub",
-   "url": "https://github.com/Parth8/grid",
-   "repo": "Parth8/grid",
-   "live": "https://parth8.github.io/grid/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 7,
-    "first": "2026-06-13",
-    "last": "2026-07-02",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 7
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 7 commits, 2026-06-13 to 2026-07-02. Commit authors: Parth Aggarwal 7."
-  },
-  {
-   "id": "repo:cookbook",
-   "kind": "code",
-   "role": "verifies",
-   "title": "Parth8/cookbook on GitHub",
-   "url": "https://github.com/Parth8/cookbook",
-   "repo": "Parth8/cookbook",
-   "live": "https://parth8.github.io/cookbook/",
-   "snapshot": {
-    "checked": "2026-10-07",
-    "commits": 24,
-    "first": "2026-07-15",
-    "last": "2026-09-16",
-    "authors": [
-     {
-      "name": "Parth Aggarwal",
-      "commits": 22
-     },
-     {
-      "name": "Claude",
-      "commits": 2
-     }
-    ]
-   },
-   "proves": "The app is live, and its whole build history is public: 24 commits, 2026-07-15 to 2026-09-16. Commit authors: Parth Aggarwal 22, Claude 2.",
-   "note": "2 of 24 commits are authored by Claude (an AI coding agent) in Parth's repository."
-  },
-  {
-   "id": "press:zeta-sparrow",
-   "kind": "press",
-   "role": "corroborates",
-   "publisher": "Zeta (newsroom)",
-   "date": "2024-03-07",
-   "title": "Zeta powers Sparrow's industry-leading credit card for the underserved",
-   "url": "https://www.zeta.tech/us/resources/newsroom/zeta-powers-sparrows-industry-leading-credit-card-for-the-underserved/",
-   "quote": "The Sparrow credit card went live in October 2023, leveraging Zeta for card processing, mobile app, servicing, and advanced data & analytics capabilities.",
-   "proves": "Zeta runs the Sparrow credit card (processing, app, servicing, data), live since October 2023.",
-   "doesnt": "Parth's role, the 150K+ cards figure, or that Sparrow was Zeta's first US client."
-  },
-  {
-   "id": "web:sparrow-help",
-   "kind": "web",
-   "role": "corroborates",
-   "publisher": "Sparrow (help center)",
-   "title": "Getting to know Sparrow",
-   "url": "https://sparrowcard.com/help_center_category/getting-to-know-sparrow/",
-   "quote": "Evolve Bank & Trust is the issuing bank of the Sparrow credit card. ... Mastercard is the card network that is used by Sparrow.",
-   "proves": "Evolve Bank & Trust issues the Sparrow card, on Mastercard.",
-   "doesnt": "Zeta, Parth, or issuance volumes."
-  },
-  {
-   "id": "web:uhc-vcard",
-   "kind": "web",
-   "role": "context",
-   "publisher": "UnitedHealthcare (provider site)",
-   "title": "Electronic payment solutions",
-   "url": "https://www.uhcprovider.com/en/claims-payments-billing/Electronic-Payment-Solutions.html",
-   "quote": "A virtual card is issued for each new claim payment",
-   "proves": "UnitedHealthcare pays providers by virtual card, processed on Mastercard, through Optum Financial and Optum Bank.",
-   "doesnt": "Zeta's involvement, Parth's role, or the $2B+ a year figure."
-  },
-  {
-   "id": "news:techcrunch-optum-zeta",
-   "kind": "news",
-   "role": "context",
-   "publisher": "TechCrunch",
-   "date": "2025-02-10",
-   "title": "Zeta valued at $2B in new funding",
-   "url": "https://techcrunch.com/2025/02/10/zeta-valued-at-2b-in-new-funding/",
-   "quote": "The new investment from American healthcare company Optum marks a 70% increase in the Bengaluru-based startup's valuation",
-   "proves": "Optum is a strategic investor in Zeta.",
-   "doesnt": "That Zeta runs Optum's virtual card disbursements, or any figures."
-  },
-  {
-   "id": "web:zeta-data-suite",
-   "kind": "web",
-   "role": "context",
-   "publisher": "Zeta (product page)",
-   "title": "Zeus data suite for analytics and reporting",
-   "url": "https://www.zeta.tech/us/platform/zeus-data-suite-for-analytics-and-reporting/",
-   "quote": "Accesses 100% of the underlying data lake comprising every object, every state change and every attribute",
-   "proves": "Zeta sells a data and analytics platform to its banking clients.",
-   "doesnt": "The multi-tenant DPaaS described here, its US and EMEA clients, or Parth's role."
-  },
-  {
-   "id": "web:backbase-grand-central",
-   "kind": "web",
-   "role": "corroborates",
-   "publisher": "Backbase (product page)",
-   "title": "Grand Central",
-   "url": "https://www.backbase.com/grandcentral",
-   "quote": "the banking industry's first Integration Platform-as-a-Service (IPaaS) with out-of-the-box connectors",
-   "proves": "Backbase sells an iPaaS for banking connectors.",
-   "doesnt": "The internal name \"Connector Studio\", Parth's role, or the ~80% build-time figure."
-  },
-  {
-   "id": "news:rbi-grand-central",
-   "kind": "news",
-   "role": "corroborates",
-   "publisher": "Retail Banker International",
-   "date": "2023-10-12",
-   "title": "Backbase launches Grand Central, its new-gen integration solution",
-   "url": "https://www.retailbankerinternational.com/news/backbase-launches-grand-central-its-new-gen-integration-solution/",
-   "quote": "Grand Central utilises a BIAN based domain model and unified banking APIs.",
-   "proves": "Backbase's integration platform is built on BIAN-based unified banking APIs.",
-   "doesnt": "Parth's role or the mapping-accuracy figures."
-  },
-  {
-   "id": "web:backbase-banking-os",
-   "kind": "web",
-   "role": "corroborates",
-   "publisher": "Backbase (product page)",
-   "title": "Banking OS",
-   "url": "https://www.backbase.com/banking-os",
-   "quote": "Unify their capabilities as APIs and MCP tools that workflows and agents can consume.",
-   "proves": "Backbase exposes banking connectors as MCP tools for AI agents.",
-   "doesnt": "When the MCP shipped, who built it, or adoption figures."
-  },
-  {
-   "id": "news:entrackr-rbi-ppi",
-   "kind": "news",
-   "role": "context",
-   "publisher": "Entrackr",
-   "date": "2022-06-20",
-   "title": "RBI restricts non-bank fintechs from extending credit lines on e-wallets",
-   "url": "https://entrackr.com/2022/06/rbi-restricts-non-bank-fintechs-from-extending-credit-lines-on-e-wallets/",
-   "quote": "[Master Directions on Prepaid Payment Instruments] do not permit loading of PPIs from credit lines. Such practice, if followed, should be stopped immediately.",
-   "proves": "The June 2022 RBI ruling that forced prepaid-card credit programs to stop.",
-   "doesnt": "Anything about Zeta or Parth."
-  },
-  {
-   "id": "news:entrackr-zeta-fusion",
-   "kind": "news",
-   "role": "corroborates",
-   "publisher": "Entrackr",
-   "date": "2023-02-14",
-   "title": "Exclusive: Zeta halts Fusion program for fintechs",
-   "url": "https://entrackr.com/2023/02/exclusive-zeta-halts-fusion-program-for-fintechs/",
-   "quote": "Zeta had communicated to all partners about closure of the Fusion Program with RBL at the end of 2022",
-   "proves": "Zeta wound down its fintech prepaid program after the RBI ruling (anonymous sources; Zeta didn't confirm on record).",
-   "doesnt": "The 22-fintech, 60-day figures, or Parth's role."
-  },
-  {
-   "id": "web:hackerearth",
-   "kind": "web",
-   "role": "context",
-   "publisher": "HackerEarth",
-   "title": "HackerEarth",
-   "url": "https://www.hackerearth.com/",
-   "quote": "Every HackerEarth product runs on the same platform",
-   "proves": "HackerEarth sells enterprise assessment products.",
-   "doesnt": "Anything about Parth's work there."
   }
  ]
 }

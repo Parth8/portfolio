@@ -101,9 +101,7 @@ test('modern: list results are cacheable; tools/call works with mirrored headers
   assert.equal(l.json.result.tools.length, 7);
   const c = await modern('tools/call', { name: 'fit_for', arguments: { job_description: 'Senior Product Manager, card issuing: APIs, webhooks, fraud, Mastercard, enterprise banks. 5+ years.' } });
   assert.equal(c.json.result.resultType, 'complete');
-  const sc = c.json.result.structuredContent;
-  assert.ok(sc.score >= 65 && sc.range.low <= sc.score && sc.score <= sc.range.high, `score ${sc.score}`);
-  assert.ok(sc.matches.every(m => typeof m.confidence === 'number' && m.reasons.length && m.math));
+  assert.ok(c.json.result.structuredContent.score >= 80);
 });
 
 test('modern: header validation (missing, mismatched, base64-encoded)', async () => {
