@@ -1,11 +1,12 @@
 // "MCP": the career as a Model Context Protocol server.
-// The console runs the server's own code (mcp-core.js) in the page, or the live Worker once js/config.js names it.
+// One interview room: a real session replays until you ask something, then your questions go through the
+// server's own code (mcp-core.js) in the page, or the live Worker once js/config.js names it.
 
 import { handleMcp, callTool, TOOLS, RESOURCES, PROMPTS, SERVER_INFO } from './mcp-core.js';
 import { MCP_ENDPOINT } from './config.js';
 import { initCursor } from './cursor.js';
 
-initCursor('a,button,select,input,textarea');
+initCursor('a,button,select,input,textarea,.cart');
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const $ = (s, r = document) => r.querySelector(s);
@@ -14,6 +15,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 const LIVE = !!MCP_ENDPOINT;
 const SITE = 'https://parth8.github.io/portfolio/';
+const chat = $('#chat');
 
 let data;
 try {
@@ -21,177 +23,50 @@ try {
   if (!res.ok) throw new Error(res.status);
   data = await res.json();
 } catch {
-  $('#ansBody').textContent = 'The career record did not load, so the console cannot run. Reload, or read data/career.json directly.';
+  chat.innerHTML = '<li class="msg sys">The career record did not load, so the room cannot run. Reload, or read data/career.json directly.</li>';
   throw new Error('career.json failed to load');
 }
 
 let toastT;
 function toast(msg) {
-  $('.copied')?.remove();
-  document.body.insertAdjacentHTML('beforeend', `<div class="copied" role="status">${esc(msg)}</div>`);
+  $('.toast-x')?.remove();
+  document.body.insertAdjacentHTML('beforeend', `<div class="toast-x" role="status">${esc(msg)}</div>`);
   clearTimeout(toastT);
-  toastT = setTimeout(() => $('.copied')?.remove(), 2000);
+  toastT = setTimeout(() => $('.toast-x')?.remove(), 2000);
 }
 async function copy(text, what = 'Copied') {
   try { await navigator.clipboard.writeText(text); toast(what); } catch { prompt('Copy this:', text); }
 }
 
-/* ---------- endpoint ---------- */
-if (LIVE) {
-  $('#plug').classList.add('live');
-  $('#epState').textContent = 'Live';
-  $('#epUrl').textContent = MCP_ENDPOINT;
-  $('#epCopy').hidden = false;
-  $('#epCopy').addEventListener('click', () => copy(MCP_ENDPOINT, 'URL copied'));
-}
-
-/* ---------- the demo chat: real tool results, replies stitched from them ---------- */
-const clip = (s, n = 150) => (s.length > n ? s.slice(0, n).replace(/\s+\S*$/, '') + '…' : s);
-const tone = v => (/^(supported|excellent|strong)/i.test(v) ? 'ok' : /^(partial|differs|fair)/i.test(v) ? 'mid' : 'no');
-const SCRIPTS = [
-  () => {
-    const jd = 'Senior Product Manager, Card Issuing. Own our card issuing platform and APIs for enterprise clients: card programs, processors, Visa and Mastercard, fraud and disputes, PCI and KYC compliance, and go-to-market with sales. 5+ years in fintech or payments.';
-    const fit = callTool(data, 'fit_for', { job_description: jd }).structuredContent;
-    const claim = callTool(data, 'prove_claim', { claim: '$2B+ a year in virtual card disbursements' }).structuredContent;
-    const [a, b] = fit.matches;
-    return [
-      { you: 'Is Parth a fit for our Senior PM, Card Issuing role? Be honest about gaps.' },
-      { tool: 'fit_for', args: 'job_description: "Senior Product Manager, Card Issuing…"', res: `${fit.band} · ${fit.score}/100 · ${fit.matches.length} matched · ${fit.gaps.length} gaps`, tone: tone(fit.band) },
-      { tool: 'prove_claim', args: `claim: "${claim.claim}"`, res: claim.verdict, tone: tone(claim.verdict) },
-      { ai: `${fit.band} fit, ${fit.score}/100, ${fit.gaps.length ? `with ${fit.gaps.length} gap${fit.gaps.length > 1 ? 's' : ''} to ask about` : 'with no gaps against this description'}. ${esc(a.label)}: “${esc(clip(a.evidence[0].quote))}”<sup>1</sup> ${esc(b.label)}: “${esc(clip(b.evidence[0].quote, 110))}”<sup>2</sup>`,
-        cite: `1 ${a.evidence[0].title} · 2 ${b.evidence[0].title}` },
-    ];
-  },
-  () => {
-    const c = callTool(data, 'prove_claim', { claim: 'managed a team of 20 PMs' }).structuredContent;
-    return [
-      { you: 'His LinkedIn friend says he managed a team of 20 PMs. True?' },
-      { tool: 'prove_claim', args: `claim: "${c.claim}"`, res: c.verdict, tone: tone(c.verdict) },
-      { ai: `No. ${esc(c.explanation.replace(/^Not supported\.\s*/, ''))}`, cite: 'the record keeps its gaps on purpose' },
-    ];
-  },
-  () => {
-    const s = callTool(data, 'search_evidence', { query: 'Kafka', limit: 3 }).structuredContent.results;
-    const g = callTool(data, 'get_work', { id: s[0].id }).structuredContent;
-    return [
-      { you: 'Has he actually worked with Kafka, or is it a buzzword?' },
-      { tool: 'search_evidence', args: 'query: "Kafka"', res: `${s.length} quote${s.length === 1 ? '' : 's'} · top: ${s[0].title}`, tone: 'ok' },
-      { tool: 'get_work', args: `id: "${s[0].id}"`, res: `${g.metric ? `${g.metric.value} ${g.metric.label}` : g.title}`, tone: 'ok' },
-      { ai: `Yes, as the product owner of the pipeline. “${esc(clip(s[0].quote, 190))}”<sup>1</sup>`, cite: `1 ${s[0].title}` },
-    ];
-  },
-];
-
-const log = $('#demoLog');
-let demoVisible = false;
-new IntersectionObserver(([e]) => { demoVisible = e.isIntersecting; }, { threshold: 0.25 }).observe($('.demo'));
-async function whenVisible() { while (!demoVisible || document.hidden) await sleep(300); }
-
-function step(s) {
-  const li = document.createElement('li');
-  if (s.you) { li.className = 'dm dm-you'; li.textContent = s.you; }
-  else if (s.tool) { li.className = 'dm dm-tool'; li.innerHTML = `→ <b>${esc(s.tool)}</b>(${esc(s.args)})<span class="dm-res">← <span class="${s.tone}">${esc(s.res)}</span></span>`; }
-  else { li.className = 'dm dm-ai'; li.innerHTML = `${s.ai}<span class="cite">${esc(s.cite)}</span>`; }
-  return li;
-}
-async function playDemo() {
-  if (reduceMotion) { SCRIPTS[0]().forEach(s => log.append(step(s))); return; }
-  for (let i = 0; ; i++) {
-    const steps = SCRIPTS[i % SCRIPTS.length]();
-    log.innerHTML = '';
-    for (const s of steps) {
-      await whenVisible();
-      if (!s.you) {
-        const dots = document.createElement('li');
-        dots.className = 'dm-typing';
-        dots.innerHTML = '<i></i><i></i><i></i>';
-        log.append(dots);
-        await sleep(s.tool ? 700 : 1100);
-        dots.remove();
-      }
-      log.append(step(s));
-      await sleep(s.you ? 600 : 900);
-    }
-    await sleep(6500);
-  }
-}
-playDemo();
-
-/* ---------- connect: one URL, one client at a time ---------- */
-const EP = MCP_ENDPOINT || 'https://<endpoint going live soon>/mcp';
-const ANY_PROMPT = `I'm considering Parth Aggarwal for a role. Read his career record:
-${SITE}data/career.json
-(a short summary for AI readers: ${SITE}llms.txt)
-
-Answer only from that record. Quote the line behind every claim, link to it on his portfolio, and say plainly when something isn't covered - the record lists his gaps on purpose.
-
-The role:
-[paste the job description]`;
-const CLIENTS = [
-  { id: 'claude', label: 'Claude', step: 'In Claude, open <b>Settings → Connectors → Add custom connector</b>, name it <b>Parth Aggarwal</b> and paste the URL. (Team or Enterprise: an owner adds it under <b>Admin settings → Connectors</b>.)', code: EP },
-  { id: 'chatgpt', label: 'ChatGPT', step: 'In <b>Settings → Apps &amp; Connectors → Advanced settings</b>, turn on Developer mode, then <b>Create</b>: paste the URL and pick <b>No authentication</b>. Plan-dependent.', code: EP },
-  { id: 'cursor', label: 'Cursor', step: 'Add this to <code>~/.cursor/mcp.json</code> (or <b>Cursor Settings → MCP</b>) and ask in the agent chat.', code: JSON.stringify({ mcpServers: { parth: { url: EP } } }, null, 2) },
-  { id: 'code', label: 'Claude Code', step: 'Run this once, then ask in plain words. <code>/mcp</code> shows it connected.', code: `claude mcp add --transport http parth ${EP}` },
-  { id: 'any', label: 'Any AI', small: 'no setup', step: 'No connector? Paste this into any assistant that can open links, with the job description at the end.', code: ANY_PROMPT },
-];
-const plugTabs = $('#plugTabs'), plugStep = $('#plugStep');
-plugTabs.innerHTML = CLIENTS.map(c => `<button type="button" role="tab" aria-selected="false" data-client="${c.id}">${esc(c.label)}${c.small ? `<small>${esc(c.small)}</small>` : ''}</button>`).join('');
-function showClient(id) {
-  const c = CLIENTS.find(x => x.id === id);
-  for (const b of $$('button', plugTabs)) b.setAttribute('aria-selected', String(b.dataset.client === id));
-  plugStep.innerHTML = `<p>${c.step}</p><div class="snip"><pre>${esc(c.code)}</pre><button type="button" class="cp-btn" data-copy>Copy</button></div>
-    ${c.id !== 'any' && !LIVE ? '<p class="plug-note">endpoint going live soon: until then, "Any AI" works today</p>' : ''}`;
-  plugStep.style.animation = 'none'; void plugStep.offsetWidth; plugStep.style.animation = '';
-}
-plugTabs.addEventListener('click', e => { const b = e.target.closest('[data-client]'); if (b) showClient(b.dataset.client); });
-plugStep.addEventListener('click', e => { if (e.target.closest('[data-copy]')) copy($('pre', plugStep).textContent); });
-showClient(LIVE ? 'claude' : 'any');
-
-/* ---------- try it: four questions, one answer ---------- */
+/* ---------- job posts the room and the demo use ---------- */
 const JD = {
   card: 'Senior Product Manager, Card Issuing. Own our card issuing platform: virtual and physical cards, processor integrations and the APIs our enterprise clients build on. Work with compliance and risk to launch card programs in the US and Europe. 5+ years in fintech or payments; card networks (Visa, Mastercard), chargebacks and disputes, fraud controls, KYC and PCI DSS; webhooks; go-to-market with sales; SQL and dashboards.',
   ai: 'Product Manager, AI Platform (Forward Deployed). Own the platform that lets enterprise customers build agents on our APIs: tools over MCP, retrieval (RAG) and evaluation pipelines, and the call between open-weight and hosted models on cost, latency and accuracy. 4+ years on developer or platform products; hands-on with LLMs, prompt engineering, evals and guardrails; technical enough to prototype; regulated industries a plus.',
   growth: 'Director of Product, Consumer Growth. Lead and manage a team of 6 product managers across activation, retention and monetisation for our consumer app on iOS and Android. Own experimentation: A/B testing, funnels, growth loops. 10+ years of product experience, including 4+ years managing product managers.',
 };
-const ASKS = [
-  { tool: 'prove_claim', n: 'A', title: 'Is this true?', field: 'claim', label: 'The claim, in plain words', def: 'managed a team of 20 PMs',
-    presets: ['managed a team of 20 PMs', '150K+ cards issued', '$3B a year in disbursements', 'built an MCP in 6 weeks'] },
-  { tool: 'fit_for', n: 'B', title: 'Is he a fit?', field: 'job_description', label: 'The job description', def: JD.ai, long: true,
-    presets: [['AI platform PM', JD.ai], ['Card-issuing PM', JD.card], ['Growth director', JD.growth]] },
-  { tool: 'search_evidence', n: 'C', title: 'Has he done…?', field: 'query', label: 'Words to look for', def: 'Kafka',
-    presets: ['Kafka', 'idempotency', 'golden dataset', 'passkeys'] },
-  { tool: 'get_work', n: 'D', title: 'Tell me about…', field: 'id', label: 'A case, role or project', def: 'sparrow-launch',
-    presets: ['sparrow-launch', 'connector-studio', 'Optum', 'shelfie'] },
-];
-const values = Object.fromEntries(ASKS.map(a => [a.tool, a.def]));
-let ask = ASKS[0];
-const asksEl = $('#asks'), form = $('#askForm');
-asksEl.innerHTML = ASKS.map(a => `<button type="button" class="ask" role="tab" aria-selected="false" data-tool="${a.tool}">
-  <span class="ask-n">${a.n}</span><span class="ask-t">${esc(a.title)}</span><span class="ask-l">${a.tool}</span></button>`).join('');
-function pick(tool) {
-  if ($('#q')) values[ask.tool] = $('#q').value;
-  ask = ASKS.find(a => a.tool === tool);
-  for (const b of $$('.ask', asksEl)) b.setAttribute('aria-selected', String(b.dataset.tool === tool));
-  form.innerHTML = `<label for="q">${esc(ask.label)}</label>
-    ${ask.long ? `<textarea id="q" spellcheck="false">${esc(values[tool])}</textarea>` : `<input id="q" value="${esc(values[tool])}">`}
-    <div class="ask-row">
-      <div class="presets"><span>try</span>${ask.presets.map((x, i) => `<button type="button" data-preset="${i}">${esc(Array.isArray(x) ? x[0] : x)}</button>`).join('')}</div>
-      <button class="ask-go" type="submit">Ask <code>${ask.tool}</code> <span aria-hidden="true">↵</span></button>
-    </div>`;
-}
-asksEl.addEventListener('click', e => { const b = e.target.closest('.ask'); if (b) pick(b.dataset.tool); });
-form.addEventListener('click', e => {
-  const b = e.target.closest('[data-preset]');
-  if (!b) return;
-  const x = ask.presets[+b.dataset.preset];
-  $('#q').value = Array.isArray(x) ? x[1] : x;
-  send();
-});
-form.addEventListener('submit', e => { e.preventDefault(); send(); });
-form.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } });
-pick('prove_claim');
 
-/* transport: the live Worker when configured, otherwise the same handler in this page */
+/* ---------- plain words -> the right tool ---------- */
+function route(text) {
+  const raw = text.trim();
+  const q = raw.replace(/\s+/g, ' ').replace(/[?.!]+$/, '').trim();
+  if (raw.length >= 220 || raw.split('\n').length >= 4) return { tool: 'fit_for', args: { job_description: raw } };
+  if (/\b(fit|match|good hire|right (?:person|hire)|suit(?:ed|able))\b/i.test(q) && /\b(for|as|role|job|position)\b/i.test(q)) return { tool: 'fit_for', args: { job_description: q } };
+  if (/\b(contact|reach him|email him|get in touch|hire him|is he (?:open|available)|availability)\b/i.test(q)) return { tool: 'contact', args: {} };
+  if (/^(?:who(?: is|'s) (?:he|parth)|about (?:him|parth)|tl;?dr|intro(?:duce him)?|summari[sz]e (?:him|parth))$/i.test(q)) return { tool: 'get_profile', args: {} };
+  if (/^(?:what (?:has|did) he (?:build|built|ship|shipped|do|done|work(?:ed)? on)|list (?:his )?(?:work|projects|cases)|(?:his )?(?:projects|work|cases))$/i.test(q)) return { tool: 'list_work', args: {} };
+  let m = q.match(/^(?:has|does|did|can|could|is)\s+(?:he|parth)\s+(?:ever\s+|actually\s+|really\s+)*(?:worked? (?:with|on|in)|used?|knows?|done|do|built|build|shipped|handled?|touched|(?:good|strong|experienced|hands-on) (?:at|with|in)|have (?:any )?experience (?:with|in))\s+(.+)$/i)
+    || q.match(/^(?:any |what(?:'s| is) his )?experience (?:with|in)\s+(.+)$/i)
+    || q.match(/^(?:search(?: for)?|find|look (?:up|for))\s+(.+)$/i);
+  if (m) return { tool: 'search_evidence', args: { query: m[1].replace(/^(?:a|an|the|any)\s+/i, '') } };
+  m = q.match(/^(?:tell me (?:more )?about|what (?:is|was)|walk me through|describe|explain|more on|show me|open)\s+(?:the\s+|his\s+)?(.+)$/i);
+  if (m) return { tool: 'get_work', args: { id: m[1] }, fallback: m[1] };
+  m = q.match(/^(?:is it true(?: that)?|true or false:?|did he (?:really )?|was he|is he|has he(?: ever)?|can you (?:verify|check|confirm)(?: that)?|verify(?: that)?|check(?: that)?|confirm(?: that)?|claim:?|fact.?check:?)\s*(.+)$/i);
+  if (m) return { tool: 'prove_claim', args: { claim: m[1] } };
+  if (/[\d$%]/.test(q) && q.split(' ').length >= 2) return { tool: 'prove_claim', args: { claim: q } };
+  return { tool: 'search_evidence', args: { query: q } };
+}
+
+/* ---------- transport: the live Worker when configured, otherwise the same handler in this page ---------- */
 const META = 'io.modelcontextprotocol/';
 const CLIENT = { name: 'parth-portfolio-console', version: '2.0.0' };
 let proto = '2026-07-28', legacyReady = false, rid = 0, liveOutdated = false;
@@ -220,31 +95,43 @@ async function exchange(method, params, { notify = false } = {}) {
       if (v && parseInt(v, 10) < parseInt(SERVER_INFO.version, 10)) { liveOutdated = v; res = null; }
     } catch { where = 'in this page (server unreachable)'; }
   }
-  if (LIVE && liveOutdated) where = `in this page (the live server runs older build ${liveOutdated})`;
+  if (LIVE && liveOutdated) where = `in this page · live server is on older build ${liveOutdated}`;
   if (!res) res = handleMcp(data, { method: 'POST', headers, body });
   let json = null;
   try { json = res.body ? JSON.parse(res.body) : null; } catch { /* not JSON */ }
   return { request: { headers, msg }, response: { status: res.status, headers: res.headers, json }, ms: performance.now() - t0, where };
 }
+async function call(tool, args) {
+  const wires = [];
+  if (proto !== '2026-07-28' && !legacyReady) {
+    wires.push(await exchange('initialize', { protocolVersion: proto, capabilities: {}, clientInfo: CLIENT }));
+    wires.push(await exchange('notifications/initialized', null, { notify: true }));
+    legacyReady = true;
+  }
+  const x = await exchange('tools/call', { name: tool, arguments: args });
+  wires.push(x);
+  return { x, wires };
+}
 
-const wires = [];
-async function send() {
-  const v = $('#q').value.trim();
-  if (!v) { $('#q').focus(); return; }
-  values[ask.tool] = v;
-  const go = $('.ask-go', form);
-  go.disabled = true;
-  try {
-    wires.length = 0;
-    if (proto !== '2026-07-28' && !legacyReady) {
-      wires.push(await exchange('initialize', { protocolVersion: proto, capabilities: {}, clientInfo: CLIENT }));
-      wires.push(await exchange('notifications/initialized', null, { notify: true }));
-      legacyReady = true;
+/* ---------- reading what came back ---------- */
+const tone = v => (/^(supported|excellent|strong)/i.test(v) ? 'ok' : /^(partial|differs|fair|good)/i.test(v) ? 'mid' : 'no');
+function verdictOf(tool, r) {
+  const sc = r?.structuredContent;
+  if (!r || r.isError || !sc) return { res: 'nothing on record', tone: 'no' };
+  switch (tool) {
+    case 'prove_claim': return { res: sc.verdict.replace(/_/g, ' '), tone: tone(sc.verdict), stamp: sc.verdict.replace(/_/g, ' ') };
+    case 'fit_for': return sc.score == null ? { res: 'no requirements found', tone: 'no' }
+      : { res: `${sc.band} · ${sc.score}/100`, tone: tone(sc.band), stamp: `${sc.band} · ${sc.score}` };
+    case 'search_evidence': {
+      const n = sc.results.length;
+      return n ? { res: `${n} quote${n > 1 ? 's' : ''}`, tone: 'ok', stamp: `${n} quote${n > 1 ? 's' : ''}` } : { res: 'nothing found', tone: 'no', stamp: 'No match' };
     }
-    const x = await exchange('tools/call', { name: ask.tool, arguments: { [ask.field]: v } });
-    wires.push(x);
-    show(x);
-  } finally { go.disabled = false; }
+    case 'get_work': return { res: sc.title, tone: 'ok', stamp: 'On record' };
+    case 'list_work': return { res: `${sc.results.length} items`, tone: 'ok' };
+    case 'get_profile': return { res: sc.headline || sc.name, tone: 'ok' };
+    case 'contact': return { res: sc.email, tone: 'ok' };
+    default: return { res: 'ok', tone: 'ok' };
+  }
 }
 
 // the text an AI reads, lightly set for people: **bold**, [links](url), "- " lists, "quotes"
@@ -272,43 +159,348 @@ function md(text) {
   return html;
 }
 const STATUS = { 200: 'OK', 202: 'Accepted', 400: 'Bad Request', 404: 'Not Found', 429: 'Too Many Requests' };
-function show(x) {
-  const j = x.response.json, r = j?.result;
-  const bad = x.response.status >= 400 || j?.error || r?.isError;
-  $('#ansStatus').innerHTML = `<b class="${bad ? 'err' : ''}">${x.response.status} ${STATUS[x.response.status] || ''}</b> · ${x.ms < 1 ? '<1' : Math.round(x.ms)} ms · ${esc(x.where)}`;
-  const body = $('#ansBody');
-  body.innerHTML = j?.error ? `<p><b>Error ${j.error.code}</b>: ${esc(j.error.message)}</p>` : md(r.content.map(c => c.text).join('\n\n'));
-  body.scrollTop = 0;
-  if (!reduceMotion) { body.classList.remove('flash'); void body.offsetWidth; body.classList.add('flash'); }
-  // a rubber stamp for the two tools with a verdict
-  const sc = r?.structuredContent, st = $('#ansStamp');
-  st.className = 'ans-stamp';
-  if (sc && ask.tool === 'prove_claim') stamp(sc.verdict.replace(/_/g, ' '), `v-${sc.verdict}`);
-  else if (sc && ask.tool === 'fit_for' && sc.score != null) stamp(`${sc.band} · ${sc.score}`, `v-${sc.band.toLowerCase()}`);
-  renderWire();
-}
-function stamp(text, cls) {
-  const st = $('#ansStamp');
-  st.textContent = text;
-  st.classList.add(cls);
-  requestAnimationFrame(() => requestAnimationFrame(() => st.classList.add('show')));
-}
-
 const hl = s => esc(s).replace(/(&quot;(?:\\.|[^&\\]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b/g,
   (m, str, colon, kw) => (str ? (colon ? `<span class="j-k">${str}</span>${colon}` : `<span class="j-s">${str}</span>`) : kw ? `<span class="j-b">${m}</span>` : `<span class="j-n">${m}</span>`));
 const cut = (s, n = 6000) => (s.length > n ? `${s.slice(0, n)}\n… ${(s.length - n).toLocaleString()} more characters` : s);
-function renderWire() {
-  $('#wire').innerHTML = wires.map(x => {
+function wireText(wires) {
+  return wires.map(x => {
     const reqH = Object.entries(x.request.headers).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
     const resH = Object.entries(x.response.headers || {}).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
     const st = x.response.status;
     return `<span class="w-l">POST /mcp HTTP/1.1</span>\n${reqH}\n\n${hl(JSON.stringify(x.request.msg, null, 2))}\n\n<span class="${st >= 400 ? 'w-e' : 'w-l'}">HTTP/1.1 ${st} ${STATUS[st] || ''}</span>\n${resH}${x.response.json ? `\n\n${hl(cut(JSON.stringify(x.response.json, null, 2)))}` : ''}`;
-  }).join('\n\n<span class="w-h">──────────</span>\n\n') || 'Ask something first.';
+  }).join('\n\n<span class="w-h">──────────</span>\n\n');
 }
-for (const b of $$('.proto button')) b.addEventListener('click', () => {
+
+/* ---------- the chat ---------- */
+const clip = (s, n = 150) => (s.length > n ? s.slice(0, n).replace(/\s+\S*$/, '') + '…' : s);
+const argText = args => Object.entries(args).map(([k, v]) => `${k}: "${clip(String(v), 46)}"`).join(', ');
+function li(cls, html) {
+  const el = document.createElement('li');
+  el.className = `msg ${cls}`;
+  el.innerHTML = html;
+  chat.append(el);
+  return el;
+}
+const toBottom = () => chat.scrollTo({ top: chat.scrollHeight, behavior: reduceMotion ? 'auto' : 'smooth' });
+function you(text, attach) {
+  return li('you', `<span class="you-t">${esc(text)}</span>${attach ? `<span class="attach">+ ${esc(attach)}</span>` : ''}`);
+}
+function toolChip(tool, args) {
+  return li('tool', `<span class="t-call">→ <b>${esc(tool)}</b>(${esc(argText(args))})</span><span class="t-res">← <span class="spin">calling</span></span>`);
+}
+function settle(chip, v) {
+  $('.t-res', chip).innerHTML = `← <span class="${v.tone}">${esc(v.res)}</span>`;
+}
+async function dots(ms) {
+  const d = li('typing', '<i></i><i></i><i></i>');
+  toBottom();
+  await sleep(reduceMotion ? 0 : ms);
+  d.remove();
+}
+
+const wiresById = new Map();
+let aid = 0;
+function answer(tool, x, wires, v) {
+  const j = x.response.json, r = j?.result;
+  const bad = x.response.status >= 400 || j?.error;
+  const id = `a${++aid}`;
+  wiresById.set(id, wires);
+  const body = j?.error ? `<p><b>Error ${j.error.code}</b>: ${esc(j.error.message)}</p>` : md(r.content.map(c => c.text).join('\n\n'));
+  const stampCls = v.tone === 'ok' ? 'good' : v.tone === 'mid' ? 'mid' : '';
+  const el = li('ans', `<div class="card">
+      <div class="card-h"><span>What your AI reads</span><code>← ${esc(tool)}</code></div>
+      ${v.stamp && !bad ? `<span class="stamp-x ${stampCls}" aria-hidden="true">${esc(v.stamp)}</span>` : ''}
+      <div class="card-b">${body}</div>
+      <button type="button" class="more" hidden>Read all <span aria-hidden="true">↓</span></button>
+      <div class="card-f">
+        <span><b class="${bad ? 'err' : ''}">${x.response.status} ${STATUS[x.response.status] || ''}</b> · ${x.ms < 1 ? '<1' : Math.round(x.ms)} ms · ${esc(x.where)}</span>
+        <button type="button" class="raw-t" aria-expanded="false" data-wire="${id}">&lt;/&gt; JSON-RPC</button>
+      </div>
+      <pre class="wire" hidden></pre>
+    </div>`);
+  const b = $('.card-b', el);
+  if (b.scrollHeight > 380) { b.classList.add('clip'); $('.more', el).hidden = false; }
+  const st = $('.stamp-x', el);
+  if (st) setTimeout(() => { st.classList.add('show'); if (!reduceMotion) $('.card', el).classList.add('thunk'); }, reduceMotion ? 0 : 380);
+  return el;
+}
+chat.addEventListener('click', e => {
+  const more = e.target.closest('.more');
+  if (more) { $('.card-b', more.parentElement).classList.remove('clip'); more.hidden = true; return; }
+  const raw = e.target.closest('.raw-t');
+  if (raw) {
+    const pre = raw.closest('.card').querySelector('.wire');
+    const open = raw.getAttribute('aria-expanded') !== 'true';
+    if (open && !pre.innerHTML) pre.innerHTML = wireText(wiresById.get(raw.dataset.wire) || []);
+    pre.hidden = !open;
+    raw.setAttribute('aria-expanded', String(open));
+  }
+});
+
+/* ---------- the demo: real tool results, replies stitched from them ---------- */
+const SCRIPTS = [
+  () => {
+    const fit = callTool(data, 'fit_for', { job_description: JD.card }).structuredContent;
+    const claim = callTool(data, 'prove_claim', { claim: '$2B+ a year in virtual card disbursements' }).structuredContent;
+    const [a, b] = fit.matches;
+    return [
+      { you: 'Is Parth a fit for our Senior PM, Card Issuing role? Be honest about gaps.' },
+      { tool: 'fit_for', args: { job_description: JD.card }, res: `${fit.band} · ${fit.score}/100 · ${fit.gaps.length} gaps`, tone: tone(fit.band) },
+      { tool: 'prove_claim', args: { claim: claim.claim }, res: claim.verdict.replace(/_/g, ' '), tone: tone(claim.verdict) },
+      { ai: `${fit.band} fit, ${fit.score}/100, ${fit.gaps.length ? `with ${fit.gaps.length} gap${fit.gaps.length > 1 ? 's' : ''} to ask about` : 'with no gaps against this description'}. ${esc(a.label)}: “${esc(clip(a.evidence[0].quote))}”<sup>1</sup> ${esc(b.label)}: “${esc(clip(b.evidence[0].quote, 110))}”<sup>2</sup>`,
+        cite: `1 ${a.evidence[0].title} · 2 ${b.evidence[0].title}` },
+    ];
+  },
+  () => {
+    const c = callTool(data, 'prove_claim', { claim: 'managed a team of 20 PMs' }).structuredContent;
+    return [
+      { you: 'His LinkedIn friend says he managed a team of 20 PMs. True?' },
+      { tool: 'prove_claim', args: { claim: c.claim }, res: c.verdict.replace(/_/g, ' '), tone: tone(c.verdict) },
+      { ai: `No. ${esc(c.explanation.replace(/^Not supported\.\s*/, ''))}`, cite: 'the record keeps its gaps on purpose' },
+    ];
+  },
+  () => {
+    const s = callTool(data, 'search_evidence', { query: 'Kafka', limit: 3 }).structuredContent.results;
+    const g = callTool(data, 'get_work', { id: s[0].id }).structuredContent;
+    return [
+      { you: 'Has he actually worked with Kafka, or is it a buzzword?' },
+      { tool: 'search_evidence', args: { query: 'Kafka' }, res: `${s.length} quote${s.length === 1 ? '' : 's'}`, tone: 'ok' },
+      { tool: 'get_work', args: { id: s[0].id }, res: g.metric ? `${g.metric.value} ${g.metric.label}` : g.title, tone: 'ok' },
+      { ai: `Yes, as the product owner of the pipeline. “${esc(clip(s[0].quote, 190))}”<sup>1</sup>`, cite: `1 ${s[0].title}` },
+    ];
+  },
+];
+function demoStep(s) {
+  if (s.you) return you(s.you);
+  if (s.tool) { const c = toolChip(s.tool, s.args); settle(c, s); return c; }
+  return li('ai', `<span class="ai-k">your assistant</span>${s.ai}<span class="cite">${esc(s.cite)}</span>`);
+}
+
+let demoOn = true, cleared = false, roomVisible = false;
+new IntersectionObserver(([e]) => { roomVisible = e.isIntersecting; }, { threshold: 0.2 }).observe($('#try'));
+async function whenVisible() { while (demoOn && (!roomVisible || document.hidden)) await sleep(300); }
+function setRoom(state, where = '') {
+  $('#roomLed').classList.toggle('off', state !== 'live');
+  $('#roomState').textContent = state === 'demo' ? 'Demo · replaying' : state === 'paused' ? 'Demo paused · your turn'
+    : `Your turn · ${where.startsWith('live') ? 'live server' : 'running in this page'}`;
+}
+async function playDemo() {
+  setRoom('demo');
+  if (reduceMotion) { SCRIPTS[0]().forEach(demoStep); return; }
+  for (let i = 0; demoOn; i++) {
+    const k = i % SCRIPTS.length;
+    if (k === 0 && i) { await sleep(6000); if (!demoOn) return; chat.innerHTML = ''; }
+    else if (k) li('sys', 'next question');
+    for (const s of SCRIPTS[k]()) {
+      await whenVisible();
+      if (!demoOn) return;
+      if (!s.you) { await dots(s.tool ? 650 : 1000); if (!demoOn) return; }
+      demoStep(s);
+      toBottom();
+      await sleep(s.you ? 650 : 900);
+    }
+    await sleep(2400);
+  }
+}
+function stopDemo() {
+  if (!demoOn) return;
+  demoOn = false;
+  $$('.typing', chat).forEach(d => d.remove());
+  setRoom('paused');
+  $('.mx-point')?.classList.add('gone');
+}
+function takeOver() {
+  stopDemo();
+  if (cleared) return;
+  cleared = true;
+  chat.innerHTML = '';
+  li('sys', 'your turn · same code as the server');
+  setRoom('live');
+}
+
+/* ---------- asking ---------- */
+let busy = false;
+async function ask({ text, tool, args, attach }) {
+  if (busy) return;
+  busy = true;
+  $('#go').disabled = true;
+  takeOver();
+  try {
+    const r = tool ? { tool, args } : route(text);
+    const long = !tool && r.tool === 'fit_for' && text.length > 160;
+    const qEl = you(long ? clip(text.replace(/\s+/g, ' '), 140) : text, attach || (long ? `job post, ${text.length.toLocaleString()} characters` : ''));
+    toBottom();
+    let chip = toolChip(r.tool, r.args);
+    toBottom();
+    let { x, wires } = await call(r.tool, r.args);
+    if (!reduceMotion) await sleep(320);
+    let v = verdictOf(r.tool, x.response.json?.result);
+    settle(chip, v);
+    let used = r.tool;
+    // nothing by that name: look for the words instead, the way an assistant would
+    if (r.fallback && x.response.json?.result?.isError) {
+      chip = toolChip('search_evidence', { query: r.fallback });
+      toBottom();
+      ({ x, wires } = await call('search_evidence', { query: r.fallback }));
+      if (!reduceMotion) await sleep(260);
+      v = verdictOf('search_evidence', x.response.json?.result);
+      settle(chip, v);
+      used = 'search_evidence';
+    }
+    answer(used, x, wires, v);
+    setRoom('live', x.where);
+    chat.scrollTo({ top: qEl.offsetTop - chat.offsetTop - 14, behavior: reduceMotion ? 'auto' : 'smooth' });
+  } finally {
+    busy = false;
+    $('#go').disabled = false;
+  }
+}
+
+/* suggestions: four at a time, the used ones make room for new ones */
+const SUGG = [
+  { label: 'Did he manage a team of 20 PMs?', tool: 'prove_claim', args: { claim: 'managed a team of 20 PMs' } },
+  { label: 'Is he a fit for an AI platform PM?', text: 'Is he a fit for this AI platform PM role?', attach: 'job post: AI Platform PM', tool: 'fit_for', args: { job_description: JD.ai } },
+  { label: 'Has he worked with Kafka?', tool: 'search_evidence', args: { query: 'Kafka' } },
+  { label: 'Tell me about the Sparrow launch', tool: 'get_work', args: { id: 'sparrow-launch' } },
+  { label: '$3B a year in disbursements?', tool: 'prove_claim', args: { claim: '$3B a year in disbursements' } },
+  { label: 'Fit for a growth director?', text: 'Would he fit our Director of Product, Consumer Growth role?', attach: 'job post: Growth director', tool: 'fit_for', args: { job_description: JD.growth } },
+  { label: 'Has he done idempotency?', tool: 'search_evidence', args: { query: 'idempotency' } },
+  { label: 'Who is he, right now?', tool: 'get_profile', args: {} },
+  { label: 'How do I reach him?', tool: 'contact', args: {} },
+];
+const usedSugg = new Set();
+function renderSugg() {
+  let open = SUGG.filter(s => !usedSugg.has(s.label));
+  if (open.length < 4) { usedSugg.clear(); open = SUGG; }
+  $('#sugg').innerHTML = open.slice(0, 4).map(s => `<button type="button" class="chip" data-sugg="${esc(s.label)}">${esc(s.label)}</button>`).join('');
+  $('#sugg').scrollLeft = 0;
+}
+$('#sugg').addEventListener('click', e => {
+  const b = e.target.closest('[data-sugg]');
+  if (!b || busy) return;
+  const s = SUGG.find(x => x.label === b.dataset.sugg);
+  usedSugg.add(s.label);
+  renderSugg();
+  ask({ text: s.text || s.label, tool: s.tool, args: s.args, attach: s.attach });
+});
+renderSugg();
+
+const q = $('#q');
+const grow = () => { q.style.height = 'auto'; q.style.height = `${Math.min(q.scrollHeight, 160)}px`; };
+q.addEventListener('input', grow);
+q.addEventListener('focus', stopDemo);
+q.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); $('#askForm').requestSubmit(); }
+});
+$('#askForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const text = q.value.trim();
+  if (!text) { q.focus(); return; }
+  if (busy) return;
+  q.value = '';
+  grow();
+  ask({ text });
+});
+$('#goAsk').addEventListener('click', e => {
+  e.preventDefault();
+  $('#try').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  q.focus({ preventScroll: true });
+});
+
+for (const b of $$('.room-proto button')) b.addEventListener('click', () => {
   proto = b.dataset.proto;
   legacyReady = false;
-  for (const x of $$('.proto button')) x.setAttribute('aria-checked', String(x === b));
-  toast(proto === '2026-07-28' ? 'Stateless: no handshake' : 'Classic: the next ask does initialize first');
+  for (const x of $$('.room-proto button')) x.setAttribute('aria-checked', String(x === b));
+  toast(proto === '2026-07-28' ? 'Spec 2026: stateless, no handshake' : 'Spec 2025: the next ask shakes hands first');
 });
+
+playDemo();
+
+/* ---------- plug it in ---------- */
+const EP = MCP_ENDPOINT || 'https://<endpoint going live soon>/mcp';
+if (LIVE) {
+  $('#epLed').classList.remove('off');
+  $('#epState').textContent = 'Live';
+  $('#epUrl').textContent = MCP_ENDPOINT;
+  $('#epCopy').disabled = false;
+} else {
+  $('#epNote').textContent = 'going live soon. "Any AI" in step 2 works today.';
+}
+$('#epCopy').addEventListener('click', () => copy(MCP_ENDPOINT, 'URL copied'));
+
+const ANY_PROMPT = `I'm considering Parth Aggarwal for a role. Read his career record:
+${SITE}data/career.json
+(a short summary for AI readers: ${SITE}llms.txt)
+
+Answer only from that record. Quote the line behind every claim, link to it on his portfolio, and say plainly when something isn't covered - the record lists his gaps on purpose.
+
+The role:
+[paste the job description]`;
+const APPS = [
+  { id: 'claude', label: 'Claude', path: ['Settings', 'Connectors', 'Add custom connector'], line: 'Name it <b>Parth Aggarwal</b> and paste the URL. On Team or Enterprise, an owner adds it under <b>Admin settings → Connectors</b>.' },
+  { id: 'chatgpt', label: 'ChatGPT', path: ['Settings', 'Apps & Connectors', 'Advanced', 'Developer mode', 'Create'], line: 'Paste the URL and pick <b>No authentication</b>. Depends on your plan.' },
+  { id: 'cursor', label: 'Cursor', line: 'Add this to <code>~/.cursor/mcp.json</code>, or <b>Cursor Settings → MCP</b>.', code: JSON.stringify({ mcpServers: { parth: { url: EP } } }, null, 2) },
+  { id: 'code', label: 'Claude Code', line: 'Run it once, then ask in plain words. <code>/mcp</code> shows it connected.', code: `claude mcp add --transport http parth ${EP}` },
+  { id: 'any', label: 'Any AI', line: 'No connector? Paste this into any AI that can open links, with the job post at the end.', code: ANY_PROMPT },
+];
+const apps = $('#apps'), appStep = $('#appStep');
+apps.innerHTML = APPS.map(a => `<button type="button" class="chip" role="tab" aria-selected="false" data-app="${a.id}">${esc(a.label)}</button>`).join('');
+function showApp(id) {
+  const a = APPS.find(x => x.id === id);
+  for (const b of $$('[data-app]', apps)) b.setAttribute('aria-selected', String(b.dataset.app === id));
+  appStep.innerHTML = `${a.path ? `<ol class="path">${a.path.map(p => `<li>${esc(p)}</li>`).join('')}</ol>` : ''}
+    <p>${a.line}</p>
+    ${a.code ? `<div class="snip"><pre>${esc(a.code)}</pre><button type="button" class="btn sm ink" data-copy>Copy</button></div>` : ''}
+    ${a.id !== 'any' && !LIVE ? '<p class="note">endpoint going live soon: "Any AI" works today</p>' : ''}`;
+  if (!reduceMotion) { appStep.classList.remove('pop'); void appStep.offsetWidth; appStep.classList.add('pop'); }
+}
+apps.addEventListener('click', e => { const b = e.target.closest('[data-app]'); if (b) showApp(b.dataset.app); });
+apps.addEventListener('keydown', e => {
+  if (!['ArrowRight', 'ArrowLeft'].includes(e.key)) return;
+  const bs = $$('[data-app]', apps), i = bs.indexOf(document.activeElement);
+  if (i < 0) return;
+  const n = bs[(i + (e.key === 'ArrowRight' ? 1 : bs.length - 1)) % bs.length];
+  n.focus();
+  showApp(n.dataset.app);
+});
+appStep.addEventListener('click', e => { if (e.target.closest('[data-copy]')) copy($('pre', appStep).textContent); });
+showApp(LIVE ? 'claude' : 'any');
+
+const PROMPTS_TO_TRY = [
+  'Is Parth a fit for this role? Be honest about the gaps. [paste the job post]',
+  'What is the strongest evidence he can run an API platform for enterprise clients?',
+  'Check this claim against his record: he cut bank onboarding from 4 months to 1.',
+  'Interview him for a senior PM role in payments. Three questions, with what his record says.',
+];
+$('#prompts').innerHTML = PROMPTS_TO_TRY.map((p, i) => `<li><button type="button" data-prompt="${i}"><span>${esc(p)}</span><i aria-hidden="true">copy</i></button></li>`).join('');
+$('#prompts').addEventListener('click', e => { const b = e.target.closest('[data-prompt]'); if (b) copy(PROMPTS_TO_TRY[+b.dataset.prompt], 'Prompt copied'); });
+
+/* ---------- what's in the box: the seven tools, as cartridges ---------- */
+const CARTS = {
+  get_profile: { line: 'Who he is right now: role, location, what he is open to.', try: { label: 'Who is he, right now?' } },
+  list_work: { line: 'Every case, role and project, one line each.', try: { label: 'What has he built?' } },
+  get_work: { line: 'One case in full: what he did, the numbers, the stack.', try: { label: 'Tell me about Connector Studio', args: { id: 'connector-studio' } } },
+  search_evidence: { line: 'Every line of the record that mentions a topic.', try: { label: 'Has he done idempotency?', args: { query: 'idempotency' } } },
+  prove_claim: { line: 'True, partly, or not on record, with the quote.', try: { label: '150K+ cards issued?', args: { claim: '150K+ cards issued' } } },
+  fit_for: { line: 'Scores a job post, line by line, gaps included.', try: { label: 'Is he a fit for this card-issuing PM role?', attach: 'job post: Card-issuing PM', args: { job_description: JD.card } } },
+  contact: { line: 'How to reach him and what he is open to.', try: { label: 'How do I reach him?' } },
+};
+$('#carts').innerHTML = TOOLS.map((t, i) => {
+  const c = CARTS[t.name] || { line: t.description, try: { label: t.title } };
+  return `<button type="button" class="cart" data-tool="${t.name}" style="--i:${i}">
+    <span class="cart-grip" aria-hidden="true"></span>
+    <span class="cart-n">${String(i + 1).padStart(2, '0')}</span>
+    <code class="cart-t">${esc(t.name)}</code>
+    <span class="cart-l">${esc(c.line)}</span>
+    <span class="cart-go">▶ try “${esc(clip(c.try.label, 34))}”</span>
+  </button>`;
+}).join('');
+$('#carts').addEventListener('click', e => {
+  const b = e.target.closest('.cart');
+  if (!b || busy) return;
+  const t = b.dataset.tool, c = CARTS[t];
+  $('#try').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  ask({ text: c.try.label, tool: t, args: c.try.args || {}, attach: c.try.attach });
+});
+
 console.info(`parth-aggarwal MCP: ${TOOLS.length} tools, ${RESOURCES.length} resources, ${PROMPTS.length} prompts, running ${LIVE ? `against ${MCP_ENDPOINT}` : 'in this page'}`);

@@ -18,11 +18,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/arcade.css">
 <link rel="stylesheet" href="../css/mcp.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="module" src="../js/mcp-page.js"></script>
 </head>
-<body class="page-mcp">
+<body class="page-mcp arcade on-dark">
 
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
@@ -35,92 +36,109 @@
     <a class="mode" href="./" aria-current="page"><span class="m-n">03</span> MCP <span class="m-new" aria-hidden="true"></span></a>
   </div>
   <div class="nav-right">
-    <a href="#plug" data-icon="⌁">Connect</a>
-    <a href="#try" data-icon="▸">Try it</a>
+    <a href="#try" data-icon="▸">Ask it</a>
+    <a href="#plug" data-icon="⌁">Plug in</a>
     <a href="../#contact" data-icon="✉">Say Hi</a>
   </div>
 </nav>
 
-<main>
-<section class="mcp-hero">
-  <div class="mh-left">
-    <p class="mh-eyebrow">Mode 03 · Parth, as an MCP server</p>
-    <h1 class="mh-title"><span class="mh-l">Have your AI</span> <em class="mh-l">interview</em> <span class="mh-l">me.</span></h1>
-    <p class="mh-sub">Point Claude, ChatGPT or Cursor at my career record and ask anything. Every answer quotes the line it rests on, and says so when there isn't one.</p>
-
-    <div class="plug" id="plug">
-      <div class="plug-url">
-        <span class="ep-dot" aria-hidden="true"></span>
-        <span class="ep-state" id="epState">Preview</span>
-        <code class="ep-url" id="epUrl">runs in this page · endpoint soon</code>
-        <button type="button" class="ep-copy" id="epCopy" hidden>Copy URL</button>
+<main class="mx">
+  <section class="mx-hero">
+    <div class="mx-intro">
+      <p class="ax-kicker">Mode 03 · Parth, as an MCP server</p>
+      <h1 class="ax-title mx-title">Have your AI <em>interview</em> <span class="hl">me.</span></h1>
+      <p class="mx-sub">My career record, served to Claude, ChatGPT or Cursor. Ask in plain words: every answer quotes the line it rests on, and says no when there isn't one.</p>
+      <div class="mx-go">
+        <a class="btn" href="#try" id="goAsk">Ask it here <span aria-hidden="true">↘</span></a>
+        <a class="btn paper" href="#plug">Plug it into your AI <span aria-hidden="true">↓</span></a>
       </div>
-      <div class="plug-pick">
-        <span class="plug-k">Add it to</span>
-        <div class="plug-tabs" role="tablist" aria-label="Where you use AI" id="plugTabs"></div>
+      <div class="mx-stickers" aria-label="About the server">
+        <span class="sticker">read-only</span>
+        <span class="sticker pink">quotes every answer</span>
+        <span class="sticker neon">no signup</span>
       </div>
-      <div class="plug-step" id="plugStep" role="tabpanel"></div>
+      <p class="note mx-point">a real session, replayed. take over any time <span aria-hidden="true">→</span></p>
     </div>
-  </div>
 
-  <aside class="demo" aria-label="Example: an assistant using this server">
-    <div class="demo-bar"><i></i><i></i><i></i><p>your assistant · <b>parth-aggarwal</b> connected</p></div>
-    <ol class="demo-log" id="demoLog"></ol>
-    <p class="demo-note">The tool calls and results are real, computed in this page. The replies are stitched from them, word for word.</p>
-  </aside>
-</section>
-<noscript><p class="mcp-nojs">The demo and console need JavaScript. Without it, hand any AI <a href="../llms.txt">llms.txt</a> and <a href="../data/career.json">career.json</a>: everything the server knows is in there.</p></noscript>
-
-<section class="mcp-sec" id="try">
-  <header class="sec-head">
-    <p class="sec-k"><span>01</span> Try it</p>
-    <h2 class="sec-t">Ask it <em>yourself</em></h2>
-    <p class="sec-s">Same code as the server, running in your browser. Pick a question, then read exactly what your AI would read.</p>
-  </header>
-
-  <div class="asks" role="tablist" aria-label="Questions" id="asks"></div>
-  <form class="ask-form" id="askForm" autocomplete="off"></form>
-
-  <div class="answer" id="answer" aria-live="polite">
-    <div class="ans-bar"><span class="ans-k">What your AI reads</span><span class="ans-status" id="ansStatus">nothing asked yet</span></div>
-    <div class="ans-stamp" id="ansStamp" aria-hidden="true"></div>
-    <div class="ans-body" id="ansBody"><p class="ans-hint">Pick a question above. Try <b>Is this true?</b> with "managed a team of 20 PMs".</p></div>
-  </div>
-
-  <details class="raw" id="raw">
-    <summary>For engineers: the raw JSON-RPC</summary>
-    <div class="raw-in">
-      <div class="proto" role="radiogroup" aria-label="Protocol version">
-        <span>Protocol</span>
-        <button type="button" role="radio" aria-checked="true" data-proto="2026-07-28">2026-07-28 · stateless</button>
-        <button type="button" role="radio" aria-checked="false" data-proto="2025-06-18">2025-06-18 · handshake</button>
+    <section class="panel mx-room" id="try" aria-label="Ask the server">
+      <div class="panel-bar">
+        <span class="led off" id="roomLed"></span>
+        <span class="room-state" id="roomState">Demo · replaying</span>
+        <span class="room-proto" role="radiogroup" aria-label="MCP protocol version">
+          <span class="rp-k">spec</span>
+          <button type="button" role="radio" aria-checked="true" data-proto="2026-07-28" title="2026-07-28: stateless, no handshake">2026</button>
+          <button type="button" role="radio" aria-checked="false" data-proto="2025-06-18" title="2025-06-18: the classic initialize handshake">2025</button>
+        </span>
       </div>
-      <pre class="wire" id="wire">Ask something first.</pre>
+      <ol class="chat" id="chat" aria-live="polite" aria-label="Conversation"></ol>
+      <div class="dock">
+        <div class="sugg" id="sugg" aria-label="Questions to try"></div>
+        <form class="ask" id="askForm" autocomplete="off">
+          <label class="sr" for="q">Ask about Parth</label>
+          <textarea id="q" rows="1" spellcheck="false" placeholder="Ask, or paste a job post"></textarea>
+          <button class="btn" type="submit" id="go">Ask <span aria-hidden="true">↵</span></button>
+        </form>
+        <p class="legend">it picks the tool: a claim <i>→</i> <code>prove_claim</code> · a job post <i>→</i> <code>fit_for</code> · a topic <i>→</i> <code>search_evidence</code> · "tell me about…" <i>→</i> <code>get_work</code></p>
+      </div>
+    </section>
+  </section>
+  <noscript><p class="mx-nojs">The interview room needs JavaScript. Without it, hand any AI <a href="../llms.txt">llms.txt</a> and <a href="../data/career.json">career.json</a>: everything the server knows is in there.</p></noscript>
+
+  <section class="mx-sec" id="plug">
+    <header class="mx-head">
+      <p class="ax-kicker">Plug it in · about a minute</p>
+      <h2 class="ax-title mx-h2">Three steps. <em>Then just ask.</em></h2>
+    </header>
+    <div class="mx-steps">
+      <article class="panel mx-step s1">
+        <div class="step"><span class="step-n">1</span><h3 class="step-t">Copy the address</h3></div>
+        <div class="addr"><span class="led off" id="epLed"></span><span class="addr-k" id="epState">Preview</span><code id="epUrl">endpoint going live soon</code></div>
+        <button type="button" class="btn sm" id="epCopy" disabled>Copy URL</button>
+        <p class="note" id="epNote">no keys, no login. it only reads.</p>
+      </article>
+      <article class="panel mx-step s2">
+        <div class="step"><span class="step-n">2</span><h3 class="step-t">Add it to your app</h3></div>
+        <div class="apps" role="tablist" aria-label="Where you use AI" id="apps"></div>
+        <div class="app-step" id="appStep" role="tabpanel"></div>
+      </article>
+      <article class="panel mx-step s3">
+        <div class="step"><span class="step-n">3</span><h3 class="step-t">Ask away</h3></div>
+        <p class="s3-p">Your AI picks the tools. Tap one to copy it:</p>
+        <ul class="prompts" id="prompts"></ul>
+      </article>
     </div>
-  </details>
-</section>
+  </section>
 
-<div class="stamps" aria-label="About the server">
-  <span class="stamp hot">Read-only</span>
-  <span class="stamp">7 tools · 3 documents · 3 prompts</span>
-  <span class="stamp gold">Quotes every answer</span>
-  <span class="stamp">Says no when it can't back it</span>
-  <span class="stamp hot">MCP 2026-07-28</span>
-  <span class="stamp">+ the 2025 handshake</span>
-  <span class="stamp gold">Stores nothing you send</span>
-  <span class="stamp">One Cloudflare Worker</span>
-  <span class="stamp">Same record as the portfolio</span>
-</div>
+  <section class="mx-sec" id="inside">
+    <header class="mx-head">
+      <p class="ax-kicker">What's in the box</p>
+      <h2 class="ax-title mx-h2">Seven tools. <em>All read-only.</em></h2>
+      <p class="mx-head-s">Your AI sees these. Tap one to try it in the room above.</p>
+    </header>
+    <div class="carts" id="carts"></div>
+    <p class="note mx-extra">plus 3 documents (resume, profile, the full record) and 3 prompts: assess_fit, interview, tldr</p>
+  </section>
 
-<section class="mcp-cta">
-  <p>Or skip the robots. <em>A line about the role is plenty.</em></p>
-  <div class="mh-ctas">
-    <a class="mh-btn primary" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20from%20your%20MCP%20page">Email Parth <span aria-hidden="true">↗</span></a>
-    <a class="mh-btn" href="../for/">See the page tailored to you</a>
-    <a class="mh-btn" href="../#sec-hero">The full portfolio</a>
+  <div class="stamps" aria-label="About the server">
+    <span class="stamp hot">Read-only</span>
+    <span class="stamp">7 tools · 3 documents · 3 prompts</span>
+    <span class="stamp gold">Quotes every answer</span>
+    <span class="stamp">Says no when it can't back it</span>
+    <span class="stamp hot">MCP 2026-07-28</span>
+    <span class="stamp">+ the 2025 handshake</span>
+    <span class="stamp gold">Stores nothing you send</span>
+    <span class="stamp">One Cloudflare Worker</span>
+    <span class="stamp">Same record as the portfolio</span>
   </div>
-</section>
 
+  <section class="panel neon mx-cta">
+    <p class="ax-title">Or skip the robots. <em>A line about the role is plenty.</em></p>
+    <div class="mx-cta-btns">
+      <a class="btn ink" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20from%20your%20MCP%20page">Email Parth <span aria-hidden="true">↗</span></a>
+      <a class="btn paper" href="../for/">Score him against your job</a>
+      <a class="btn paper" href="../#sec-hero">The full portfolio</a>
+    </div>
+  </section>
 </main>
 
 <footer>

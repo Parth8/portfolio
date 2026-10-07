@@ -18,11 +18,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/arcade.css">
 <link rel="stylesheet" href="../css/for.css">
 <script>document.documentElement.classList.add('js')</script>
 <script type="module" src="../js/for.js"></script>
 </head>
-<body class="page-for">
+<body class="page-for arcade">
 
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
@@ -41,63 +42,93 @@
   </div>
 </nav>
 
-<main>
-<section class="for-hero">
-  <div class="fh-left">
-    <p class="fh-eyebrow">Mode 02 · Tailored to you</p>
-    <h1 class="fh-title"><span class="fh-w">Who's</span> <em class="fh-w">reading?</em></h1>
-    <p class="fh-sub">Pick who you are, or paste the job description. The page rebuilds itself around the evidence that matters to you, <b>gaps included</b>.</p>
+<main class="fx">
+  <header class="fx-head">
+    <p class="ax-kicker">Mode 02 · Tailored to you</p>
+    <h1 class="ax-title fx-title">Is Parth a <em>fit</em> <span class="hl">for you?</span></h1>
+    <p class="fx-sub">Pick who you are, or paste the job. You get a score you can open up and check, line by line.</p>
+    <span class="sticker fx-time" aria-hidden="true">takes ~30 sec</span>
+  </header>
 
-    <div class="personas" role="group" aria-label="Who are you?">
-      <button type="button" class="persona" data-persona="recruiter" aria-pressed="false"><span class="pz-n">A</span><span class="pz-t">Recruiter</span><span class="pz-l">The 30-second scan</span></button>
-      <button type="button" class="persona" data-persona="hiring-manager" aria-pressed="false"><span class="pz-n">B</span><span class="pz-t">Hiring manager</span><span class="pz-l">How he thinks and decides</span></button>
-      <button type="button" class="persona" data-persona="engineer" aria-pressed="false"><span class="pz-n">C</span><span class="pz-t">Engineer</span><span class="pz-l">The technical evidence</span></button>
-      <button type="button" class="persona" data-persona="founder" aria-pressed="false"><span class="pz-n">D</span><span class="pz-t">Founder</span><span class="pz-l">Range, speed, judgement</span></button>
-    </div>
-
-    <div class="jd">
-      <label for="jdText" class="jd-label"><span>or</span> paste a job description</label>
-      <textarea id="jdText" rows="6" spellcheck="false" placeholder="Paste the whole thing - responsibilities and requirements. It is read in your browser and never sent anywhere."></textarea>
-      <div class="jd-row">
-        <p class="jd-samples"><span>Try one:</span>
-          <button type="button" data-sample="card">Card-issuing PM</button>
-          <button type="button" data-sample="ai">AI platform PM</button>
-          <button type="button" data-sample="data">Data platform PM</button>
-          <button type="button" data-sample="growth">Growth director <i>(a stretch)</i></button>
-        </p>
+  <div class="fx-grid">
+   <div class="fx-left">
+    <section class="panel fx-in" aria-label="Tell it about you">
+      <div class="step"><span class="step-n">1</span><h2 class="step-t">Who's asking?</h2></div>
+      <div class="lenses" role="group" aria-label="Who are you?">
+        <button type="button" class="lens" data-persona="recruiter" aria-pressed="false"><span class="ln-i" aria-hidden="true">⚡</span><b>Recruiter</b><small>the 30-second scan</small></button>
+        <button type="button" class="lens" data-persona="hiring-manager" aria-pressed="false"><span class="ln-i" aria-hidden="true">◎</span><b>Hiring manager</b><small>how he decides</small></button>
+        <button type="button" class="lens" data-persona="engineer" aria-pressed="false"><span class="ln-i" aria-hidden="true">⌘</span><b>Engineer</b><small>the technical proof</small></button>
+        <button type="button" class="lens" data-persona="founder" aria-pressed="false"><span class="ln-i" aria-hidden="true">✦</span><b>Founder</b><small>range and speed</small></button>
       </div>
-      <ul class="jd-live" id="jdLive" aria-label="Requirements detected so far"></ul>
-    </div>
+
+      <div class="or" aria-hidden="true"><span>or, better</span></div>
+
+      <div class="step"><span class="step-n">2</span><h2 class="step-t"><label for="jdText">Paste the job</label></h2></div>
+      <div class="jd">
+        <textarea id="jdText" rows="6" spellcheck="false" placeholder="Paste the whole job description: what they'll do, what they need. It stays in your browser."></textarea>
+        <ul class="coins" id="coins" aria-label="Requirements spotted so far"></ul>
+        <div class="jd-row">
+          <div class="samples"><span class="note">no JD handy? try →</span>
+            <button type="button" class="chip" data-sample="card">Card-issuing PM</button>
+            <button type="button" class="chip" data-sample="ai">AI platform PM</button>
+            <button type="button" class="chip" data-sample="data">Data platform PM</button>
+            <button type="button" class="chip" data-sample="growth">Growth director</button>
+          </div>
+          <button type="button" class="btn" id="run" disabled>Score it <kbd>↵</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="fx-results" id="results" hidden>
+      <div class="tabs" role="tablist" aria-label="The details" id="tabs"></div>
+      <div class="panel fx-panel" id="tabpanel" role="tabpanel" tabindex="-1"></div>
+    </section>
+   </div>
+
+    <aside class="panel ink fx-board" id="board" aria-label="Fit score">
+      <div class="panel-bar"><span class="led off" id="boardLed"></span><span id="boardFor">Fit score</span><span class="board-r">/100</span></div>
+      <div class="board-body">
+        <div class="board-score"><span class="flaps" id="flaps"><span class="flap">-</span><span class="flap">-</span></span><span class="stamp-x board-stamp" id="boardStamp" aria-hidden="true"></span></div>
+        <p class="board-band" id="boardBand"><span class="blink">insert a job</span></p>
+        <div class="board-dial">
+          <svg class="dial" id="dial" viewBox="0 0 300 172" role="img" aria-labelledby="dialText">
+            <title id="dialText">Credit-style score: waiting for input</title>
+            <g id="dialArcs"></g>
+            <g id="dialTicks" font-family="DM Mono, monospace" font-size="10" fill="#A8A499" text-anchor="middle"></g>
+            <g id="needle" class="needle idle">
+              <line x1="150" y1="150" x2="150" y2="50" stroke="#F3EFE4" stroke-width="3.5" stroke-linecap="round"/>
+              <circle cx="150" cy="150" r="10" fill="#F3EFE4"/>
+              <circle cx="150" cy="150" r="4" fill="#00FF94"/>
+            </g>
+          </svg>
+          <p class="board-credit"><span id="dialCredit">---</span><small>/850</small></p>
+          <p class="note board-note">a credit check, but on me.</p>
+        </div>
+        <ul class="board-stats" id="boardStats"></ul>
+        <div class="board-actions" id="boardActions" hidden>
+          <a class="btn" id="mailBtn" href="mailto:8parthaggarwal1999@gmail.com">Email Parth ↗</a>
+          <button type="button" class="btn paper sm" id="shareBtn">Copy link</button>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <aside class="dial-card" aria-label="Fit score">
-    <p class="dc-label">Fit score <span>300-850</span></p>
-    <svg class="dial" id="dial" viewBox="0 0 300 172" role="img" aria-labelledby="dialText">
-      <title id="dialText">Fit score: waiting for input</title>
-      <g id="dialArcs"></g>
-      <g id="dialTicks" font-family="DM Mono, monospace" font-size="9" fill="#7E7A70" text-anchor="middle"></g>
-      <g id="needle" class="needle">
-        <line x1="150" y1="150" x2="150" y2="48" stroke="#15130F" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="150" cy="150" r="9" fill="#15130F"/>
-        <circle cx="150" cy="150" r="3.5" fill="#00FF94"/>
-      </g>
-    </svg>
-    <p class="dc-credit" id="dialCredit">- - -</p>
-    <p class="dc-band" id="dialBand">waiting for you</p>
-    <p class="dc-fit" id="dialFit">pick a reader or paste a JD</p>
-    <p class="dc-note">a credit check, but on me.</p>
-  </aside>
-</section>
+  <section class="panel ink fx-cta">
+    <p class="ax-title">Seen enough? <em>A line about the role is plenty.</em></p>
+    <div class="fx-cta-btns">
+      <a class="btn" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20from%20your%20fit%20check">Email Parth ↗</a>
+      <a class="btn paper" href="../mcp/">Let your AI interview him</a>
+      <a class="btn paper" href="../#sec-hero">The full portfolio</a>
+    </div>
+  </section>
 
-<section class="for-results" id="results" aria-live="polite" hidden></section>
-
-<noscript><p class="for-nojs">This page tailors itself with JavaScript. The <a href="../">full portfolio</a> works without it.</p></noscript>
+  <noscript><p class="fx-nojs">The fit check runs in your browser and needs JavaScript. The <a href="../#sec-hero">portfolio</a> has the same evidence.</p></noscript>
 </main>
 
 <footer>
   <span>© 2026 Parth Aggarwal</span>
   <span class="neon">● Nothing you paste leaves this page</span>
-  <span><a href="../">Portfolio</a> · <a href="../mcp/">MCP</a></span>
+  <span><a href="../#sec-hero">Portfolio</a> · <a href="../mcp/">MCP</a></span>
 </footer>
 </body>
 </html>

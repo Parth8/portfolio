@@ -7,8 +7,8 @@ Three ways to read one career, all from one file (`data/career.json`):
 | Mode | URL | What it is |
 | --- | --- | --- |
 | 01 Portfolio | `/` | Every visit opens on **the door**: "How do you want to meet me?" with three tilted cards (portfolio, tailored to you, ask your AI). Picking the portfolio lifts the door like a shutter and the hero animates in. Keys 1/2/3, Escape or a scroll also work; any link with a `#hash` (and the mode switch on the other pages) skips it. Then the site for people who scroll: case reel, Built tiles, proof-of-work receipt. |
-| 02 For you | `/for/` | Pick a reader (recruiter, hiring manager, engineer, founder) or paste a job description. The page rebuilds around matching evidence, with a 300-850 fit dial, a requirement → evidence ledger, honest gaps and questions to ask. Runs in the browser; a pasted JD never leaves it. Share links carry requirement ids, not JD text. |
-| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page keeps it to three things: one connect box (the URL plus a client picker for Claude, ChatGPT, Cursor, Claude Code or any AI), a live demo chat, and four question tickets (Is this true? Is he a fit? Has he done...? Tell me about...) that run the server's own code and show the answer your AI would read, with a rubber-stamp verdict. The raw JSON-RPC is folded away for engineers. Deploy notes: [server/README.md](server/README.md). |
+| 02 For you | `/for/` | A fit machine. Pick who's asking (recruiter, hiring manager, engineer, founder) or paste a job description, and a scoreboard answers: split-flap fit score, a rubber-stamp verdict, the 300-850 dial, and folder tabs for the evidence (each requirement a 10-block meter you open to see the quoted lines and the maths), the gaps, questions to ask him, and how it's scored. Runs in the browser; a pasted JD never leaves it. Share links carry requirement ids, not JD text. |
+| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page is one interview room: a real session replays until you ask something, then plain words are routed to the right tool (a claim goes to `prove_claim`, a job post to `fit_for`, a topic to `search_evidence`) and the answer your AI would read comes back on paper with a stamp, plus the raw JSON-RPC behind a `</>` toggle. Below it: plug it in (copy the URL, pick your app, ask away) and the seven tools as cartridges you can try. Deploy notes: [server/README.md](server/README.md). |
 
 Plain HTML, CSS and native ES modules. No framework and no build step for the site: GitHub Pages serves the files as they are.
 
@@ -48,8 +48,10 @@ css/sections.css      portfolio sections: hero, stamps, index (+ the two other w
 css/projects.css      the Built tiles and every project's looping SVG animation
 css/receipt.css       the proof-of-work receipt and the "30 seconds?" button (portfolio only)
 css/door.css          the door: the choice every visit opens on
-css/for.css           mode 02: personas, JD sheet, fit dial, ledger, gaps, CTA
-css/mcp.css           mode 03: the dark page, connect box, demo chat, question tickets, answer card, stamps
+css/arcade.css        the language modes 02 and 03 share: ink-bordered panels with hard shadows, buttons that press
+                      in, chips, stickers, stamps, split-flap digits, block meters, folder tabs, confetti (light + dark)
+css/for.css           mode 02: who's asking, the JD sheet, the scoreboard and dial, the evidence tabs
+css/mcp.css           mode 03: the interview room, plug-it-in steps, tool cartridges, stamps
 
 js/main.js            portfolio: scroll loop, observers, number scramble, case reel, tiles, journey, marquee
 js/receipt.js         portfolio: the receipt

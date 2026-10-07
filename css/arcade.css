@@ -1,0 +1,150 @@
+/* ARCADE - the interactive modes' design language (For you, MCP).
+   Same palette and type as the portfolio, built like a machine you play: flat panels with thick ink
+   borders and hard shadows, buttons that press in, split-flap digits, health-bar meters, rubber stamps,
+   taped stickers. One primary action at a time. Light on For you, dark (.on-dark) on MCP. */
+
+.arcade{--edge:var(--ink);--shade:var(--ink);--face:var(--paper);--text:var(--ink);--sub:#5c584e}
+.arcade.on-dark{--edge:var(--eggshell);--shade:var(--neon);--face:#1D1A15;--text:var(--eggshell);--sub:#A8A499}
+
+/* hidden means hidden, whatever display a component sets */
+.arcade [hidden]{display:none !important}
+
+/* screen-reader only */
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- panels ---------- */
+.panel{position:relative;background:var(--face);color:var(--text);border:2px solid var(--edge);box-shadow:6px 6px 0 var(--shade)}
+.panel.ink{--face:var(--ink);--text:var(--eggshell);--sub:#A8A499;background:var(--ink);color:var(--eggshell)}
+.panel.neon{background:var(--neon);color:var(--ink);--sub:#1b3b2d}
+.panel.paper{--face:var(--paper);--text:var(--ink);--sub:#5c584e;background:var(--paper);color:var(--ink);border-color:var(--ink)}
+.panel-bar{
+  display:flex;align-items:center;gap:0.6rem;padding:0.55rem 0.9rem;border-bottom:2px solid var(--edge);
+  font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.16em;text-transform:uppercase;
+}
+.panel.paper .panel-bar{border-color:var(--ink)}
+.led{width:9px;height:9px;border-radius:50%;background:var(--neon);box-shadow:0 0 0 2px var(--ink),0 0 10px var(--neon);animation:pulse-dot 1.8s ease-in-out infinite;flex:none}
+.led.off{background:var(--gold);box-shadow:0 0 0 2px var(--ink),0 0 10px var(--gold)}
+
+/* ---------- headings ---------- */
+.ax-kicker{display:inline-flex;align-items:center;gap:0.6rem;font-family:'DM Mono',monospace;font-size:0.66rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--sub)}
+.ax-kicker::before{content:'';width:8px;height:8px;background:var(--neon);box-shadow:0 0 0 2px var(--edge)}
+.ax-title{font-family:'Bebas Neue',sans-serif;font-weight:400;line-height:0.86;letter-spacing:-0.005em}
+.ax-title em{font-family:'DM Serif Display',serif;font-style:italic;letter-spacing:-0.02em;color:var(--neon-dark)}
+.arcade.on-dark .ax-title em{color:var(--neon)}
+.arcade.on-dark .ax-title .hl::after{background:var(--pink)}
+.ax-title .hl{position:relative;display:inline-block;z-index:0}
+.ax-title .hl::after{content:'';position:absolute;left:-3%;right:-3%;bottom:10%;height:26%;background:var(--neon);z-index:-1;transform:scaleX(0);transform-origin:left;animation:hl-in 0.8s cubic-bezier(0.76,0,0.24,1) 0.5s forwards}
+@keyframes hl-in{to{transform:scaleX(1)}}
+.step{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.9rem}
+.step-n{
+  display:grid;place-items:center;width:2rem;height:2rem;flex:none;
+  font-family:'Bebas Neue',sans-serif;font-size:1.35rem;line-height:1;background:var(--ink);color:var(--neon);
+  box-shadow:3px 3px 0 var(--pink);
+}
+.arcade.on-dark .step-n{background:var(--neon);color:var(--ink);box-shadow:3px 3px 0 var(--pink)}
+.step-t{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.9rem;line-height:0.9;letter-spacing:0.01em}
+
+/* ---------- buttons: they press in ---------- */
+.btn{
+  --b-bg:var(--neon);--b-fg:var(--ink);--b-sh:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;gap:0.55rem;
+  font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;
+  color:var(--b-fg);background:var(--b-bg);border:2px solid var(--ink);padding:0.85rem 1.2rem;cursor:pointer;
+  box-shadow:4px 4px 0 var(--b-sh);transition:transform 0.12s,box-shadow 0.12s,background 0.2s,color 0.2s;
+}
+.btn:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--b-sh)}
+.btn:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--b-sh)}
+.btn.paper{--b-bg:var(--paper)}
+.btn.ink{--b-bg:var(--ink);--b-fg:var(--eggshell)}
+.btn.pink{--b-bg:var(--pink);--b-fg:var(--ink)}
+.btn.sm{font-size:0.62rem;padding:0.55rem 0.8rem;box-shadow:3px 3px 0 var(--b-sh)}
+.btn[disabled]{opacity:0.45;pointer-events:none;box-shadow:2px 2px 0 var(--b-sh)}
+/* on dark, an ink shadow disappears: buttons cast pink, except inside light panels */
+.arcade.on-dark .btn,.panel.ink .btn{--b-sh:var(--pink)}
+.arcade.on-dark .panel.neon .btn,.arcade.on-dark .panel.paper .btn{--b-sh:var(--ink)}
+.btn kbd{font-family:inherit;font-size:0.9em;opacity:0.65}
+
+/* ---------- chips ---------- */
+.chip{
+  display:inline-flex;align-items:center;gap:0.4rem;cursor:pointer;
+  font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.04em;color:var(--text);
+  background:var(--face);border:2px solid var(--edge);padding:0.42rem 0.7rem;box-shadow:2px 2px 0 var(--edge);
+  transition:transform 0.12s,box-shadow 0.12s,background 0.2s,color 0.2s;
+}
+.chip:hover{background:var(--neon);color:var(--ink);transform:translate(-1px,-1px);box-shadow:3px 3px 0 var(--edge)}
+.chip:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--edge)}
+.chip[aria-pressed="true"],.chip[aria-selected="true"]{background:var(--ink);color:var(--neon);border-color:var(--ink)}
+.arcade.on-dark .chip[aria-pressed="true"],.arcade.on-dark .chip[aria-selected="true"]{background:var(--neon);color:var(--ink);border-color:var(--neon)}
+
+/* ---------- stickers, tape and stamps ---------- */
+.sticker{
+  position:relative;display:inline-block;font-family:'Caveat',cursive;font-weight:700;font-size:1.25rem;line-height:1;
+  color:var(--ink);background:var(--gold);padding:0.35rem 0.7rem 0.3rem;transform:rotate(-3deg);box-shadow:2px 2px 0 var(--ink);
+}
+.sticker::before{content:'';position:absolute;top:-8px;left:50%;width:42px;height:14px;transform:translateX(-50%) rotate(2deg);background:rgba(243,239,228,0.7);border:1px solid rgba(21,19,15,0.15)}
+.sticker.pink{background:var(--pink)}
+.sticker.neon{background:var(--neon)}
+.note{font-family:'Caveat',cursive;font-weight:700;font-size:1.2rem;line-height:1.1;color:var(--pink)}
+.stamp-x{
+  display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:1.9rem;letter-spacing:0.08em;line-height:1;
+  color:var(--pink);border:3px solid currentColor;padding:0.2rem 0.7rem 0.05rem;transform:rotate(-8deg);
+  background:rgba(251,248,239,0.9);opacity:0;pointer-events:none;
+}
+.stamp-x.show{animation:stampIn 0.45s cubic-bezier(0.34,1.56,0.64,1) forwards}
+@keyframes stampIn{from{opacity:0;transform:rotate(-8deg) scale(1.8)}to{opacity:0.95;transform:rotate(-8deg) scale(1)}}
+.stamp-x.good{color:var(--neon-dark)}
+.stamp-x.mid{color:var(--gold-deep)}
+
+/* ---------- split-flap digits ---------- */
+.flaps{display:inline-flex;gap:6px}
+.flap{
+  position:relative;display:grid;place-items:center;width:0.68em;height:1em;
+  font-family:'Bebas Neue',sans-serif;line-height:1;color:var(--eggshell);background:#0E0C09;border:2px solid #2a2722;
+  box-shadow:inset 0 -0.06em 0 rgba(0,0,0,0.5);overflow:hidden;
+}
+.flap::after{content:'';position:absolute;left:0;right:0;top:50%;height:2px;background:rgba(0,0,0,0.75)}
+.flap.flip{animation:flip 0.09s linear}
+@keyframes flip{0%{transform:scaleY(1)}50%{transform:scaleY(0.1)}100%{transform:scaleY(1)}}
+
+/* ---------- health-bar meter: ten blocks ---------- */
+.meter{display:inline-grid;grid-template-columns:repeat(10,1fr);gap:2px;width:100%;max-width:150px;height:14px;padding:2px;border:2px solid var(--edge);background:var(--face)}
+.meter i{background:rgba(127,127,127,0.18)}
+.meter i.on{background:var(--m,var(--neon-dark));animation:block 0.25s ease-out both}
+@keyframes block{from{transform:scaleY(0)}}
+.m-strong{--m:var(--neon-dark)}
+.m-good{--m:#7ED9A8}
+.m-some{--m:var(--gold)}
+.m-thin,.m-none{--m:var(--pink)}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:0.58rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:0.22rem 0.5rem;border:2px solid var(--ink);color:var(--ink);white-space:nowrap}
+.tag.t-strong{background:var(--neon)}
+.tag.t-good{background:#B6F0D3}
+.tag.t-some{background:#FFE7A0}
+.tag.t-thin,.tag.t-none{background:#FFC9D7}
+
+/* ---------- folder tabs ---------- */
+.tabs{display:flex;gap:0.35rem;flex-wrap:wrap;position:relative;z-index:1;margin-bottom:-2px;padding-left:0.4rem}
+.tab{
+  font-family:'DM Mono',monospace;font-size:0.68rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;
+  color:var(--text);background:var(--eggshell-deep);border:2px solid var(--edge);border-bottom-color:var(--edge);
+  padding:0.65rem 0.95rem 0.6rem;display:inline-flex;align-items:center;gap:0.45rem;transition:background 0.2s,transform 0.2s;
+}
+.tab:hover{background:var(--neon)}
+.tab[aria-selected="true"]{background:var(--face);border-bottom-color:var(--face);transform:translateY(0)}
+.tab:not([aria-selected="true"]){transform:translateY(3px)}
+.tab b{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:1.05rem;letter-spacing:0.02em;line-height:1;background:var(--ink);color:var(--neon);padding:0.08rem 0.35rem 0}
+.tab.warn b{background:var(--pink);color:var(--ink)}
+
+/* ---------- confetti ---------- */
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:300;overflow:hidden}
+.confetti i{position:absolute;top:-12px;width:9px;height:14px;animation:fall var(--d,1.8s) cubic-bezier(0.3,0.6,0.5,1) forwards}
+@keyframes fall{to{transform:translate(var(--x,0),105vh) rotate(var(--r,540deg))}}
+
+/* ---------- toast ---------- */
+.toast-x{position:fixed;left:50%;bottom:1.6rem;transform:translateX(-50%);z-index:400;background:var(--neon);color:var(--ink);border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.7rem 1rem;animation:toastIn 0.3s cubic-bezier(0.34,1.56,0.64,1) both}
+@keyframes toastIn{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+
+@media (prefers-reduced-motion:reduce){
+  .flap.flip,.meter i.on,.stamp-x.show{animation:none}
+  .stamp-x.show{opacity:0.95}
+  .ax-title .hl::after{animation:none;transform:none}
+}
