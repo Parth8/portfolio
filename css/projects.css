@@ -1,0 +1,693 @@
+/* BUILT / PROJECTS */
+.built{
+  background:var(--eggshell);
+  border-bottom:1px solid var(--border);
+}
+.built-header{
+  padding:6rem 2.5rem 2rem;
+  display:flex;justify-content:space-between;align-items:baseline;
+  gap:2rem;flex-wrap:wrap;
+}
+.bh-left{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gray);
+}
+.bh-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:0.9;
+  letter-spacing:-0.005em;
+  display:inline-block;
+  transform:rotate(-1deg);
+  transform-origin:left center;
+}
+.bh-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
+
+/* tiles: art on top, a line of story below; a tile opens into the full card */
+.built-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-auto-flow:row dense;
+  gap:2.5rem 2rem;
+  padding:1.5rem 2.5rem 6rem;
+  align-items:start;
+}
+.project{
+  margin:0;
+  border:1.5px solid var(--ink);
+  background:var(--paper);
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  grid-template-areas:"art" "body";
+  position:relative;
+  opacity:0;transform:translateY(40px);
+  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
+  box-shadow:6px 8px 0 var(--eggshell-deep);
+}
+.project.in-view{opacity:1;transform:translateY(0)}
+.project:hover{box-shadow:10px 14px 0 var(--neon)}
+.project-left{
+  grid-area:body;
+  padding:1.75rem 2rem 2rem;
+}
+.project-tag{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--ink);
+  background:var(--neon);
+  display:inline-block;
+  padding:0.35rem 0.8rem;
+  transform:rotate(-1.5deg);
+  margin-bottom:1.5rem;
+}
+.project-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2rem,3vw,2.8rem);
+  line-height:0.92;
+  letter-spacing:-0.005em;
+  margin-bottom:1rem;
+}
+.project-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
+.project-line{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  font-size:1.12rem;line-height:1.45;color:#3d3b34;
+  margin-bottom:1.4rem;max-width:46ch;
+}
+/* the story folds away until asked for (only when js can unfold it) */
+.project-more{display:grid;grid-template-rows:1fr}
+.project-more > div{min-height:0;overflow:hidden}
+.js .project-more{grid-template-rows:0fr;transition:grid-template-rows 0.55s cubic-bezier(0.22,1,0.36,1)}
+.js .project.open .project-more{grid-template-rows:1fr}
+.project-toggle{
+  font:inherit;background:transparent;cursor:pointer;
+}
+.project-toggle .pt-icon{display:inline-block;transition:transform 0.35s cubic-bezier(0.22,1,0.36,1)}
+.project.open .project-toggle .pt-icon{transform:rotate(45deg)}
+.project-desc{
+  font-size:0.95rem;line-height:1.75;color:#3d3b34;
+  margin-bottom:1.5rem;
+}
+.project-desc p{margin-bottom:1.1rem}
+.project-desc p:last-child{margin-bottom:0}
+/* restrained emphasis vocabulary, borrowed from the manifesto.
+   one marked phrase + one boxed claim per paragraph, not a green carpet */
+.project-desc em{
+  font-family:'DM Serif Display',serif;font-style:italic;
+  color:var(--neon-dark);font-weight:400;
+}
+.project-desc .pd-mark{position:relative;display:inline-block;color:var(--ink);font-weight:600;z-index:0}
+.project-desc .pd-mark::before{
+  content:'';position:absolute;left:-3%;right:-3%;bottom:0.08em;
+  height:0.55em;background:var(--neon);z-index:-1;
+  transform:scaleX(0);transform-origin:left;
+}
+.project.open.in-view .project-desc .pd-mark::before{
+  animation:pdMark 0.55s cubic-bezier(0.22,1,0.36,1) 0.25s forwards;
+}
+.project.open.in-view .project-left .project-desc p:nth-of-type(2) .pd-mark::before{animation-delay:0.37s}
+.project.open.in-view .project-left .project-desc p:nth-of-type(3) .pd-mark::before{animation-delay:0.49s}
+html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
+@keyframes pdMark{to{transform:scaleX(1)}}
+.project-desc .pd-box{
+  font-family:'Inter',sans-serif;font-weight:600;font-size:0.92em;
+  background:var(--ink);color:var(--eggshell);
+  padding:0.08em 0.38em;display:inline-block;
+  letter-spacing:-0.005em;transform:rotate(-1.5deg);
+  box-shadow:2px 3px 0 rgba(0,0,0,0.10);
+  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),background 0.3s;
+}
+.project-desc .pd-box:hover{transform:rotate(0deg) scale(1.04);background:var(--pink)}
+.project-desc .pd-pink{color:var(--pink);font-weight:700}
+.project-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.75rem}
+.project-stack span{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.06em;
+  padding:0.35rem 0.7rem;
+  border:1px solid var(--border);
+  color:var(--gray);
+  background:var(--eggshell);
+  transition:border-color 0.2s,color 0.2s,transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.2s;
+}
+.project-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
+.project-links{display:flex;gap:1rem;flex-wrap:wrap}
+.project-link{
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;
+  text-decoration:none;
+  color:var(--ink);
+  border:1.5px solid var(--ink);
+  padding:0.7rem 1.1rem;
+  display:inline-flex;align-items:center;gap:0.5rem;
+  transition:background 0.25s,color 0.25s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+.project-link.primary{background:var(--ink);color:var(--eggshell)}
+.project-link:hover{background:var(--pink);border-color:var(--pink);color:var(--eggshell);transform:translateY(-3px)}
+.project-link .arr{transition:transform 0.25s}
+.project-link:hover .arr{transform:translate(3px,-3px)}
+
+.project-right{
+  grid-area:art;
+  padding:1.75rem 2rem 1.5rem;
+  display:grid;grid-template-columns:1fr 1fr;gap:1rem 1.5rem;align-content:start;
+  background:var(--ink);
+  color:var(--eggshell);
+}
+.project-right .pr-art,.project-right .pr-note{grid-column:1/-1}
+.project-right .pr-divider{display:none}
+.pr-stat{display:flex;flex-direction:column;gap:0.25rem}
+.pr-stat-num{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(1.9rem,2.6vw,2.4rem);
+  line-height:0.9;
+  color:var(--neon);
+}
+.pr-stat-num .sup{font-size:0.4em;color:var(--gray-light)}
+.pr-stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--gray-light);
+}
+.pr-divider{height:1px;background:#2a2722}
+.pr-note{
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.15rem;
+  color:var(--gold);
+  transform:rotate(-1.5deg);
+}
+
+/* ===== BUILT SECTION - upgraded header ===== */
+.bh-sub{
+  font-family:'Caveat',cursive;
+  font-weight:600;
+  font-size:1.25rem;
+  color:var(--gray);
+  transform:rotate(-1deg);
+  display:block;
+  margin-top:0.65rem;
+  max-width:34ch;
+}
+.bh-sub b{color:var(--pink);font-weight:700}
+
+/* ---- open: the tile spans the row and becomes the full side-by-side card ---- */
+.project.open{
+  animation:tileOpen 0.6s cubic-bezier(0.22,1,0.36,1);
+  grid-column:1/-1;
+  grid-template-columns:1.15fr 1fr;
+  grid-template-areas:"body art";
+}
+.project.open .project-left{padding:3rem;border-right:1.5px solid var(--ink)}
+.project.open .project-right{display:flex;flex-direction:column;justify-content:center;gap:1.5rem;padding:3rem}
+.project.open .project-right .pr-divider{display:block}
+.project.open .pr-stat-num{font-size:clamp(2.5rem,5vw,3.6rem)}
+.project.open .project-title{font-size:clamp(2.4rem,4vw,3.6rem)}
+.project.open .project-line{display:none}
+.project-more .project-desc{padding-top:0.25rem}
+
+@keyframes tileOpen{from{opacity:0.35;transform:translateY(14px) scale(0.985)}to{opacity:1;transform:none}}
+
+/* ---- slot 08: the open tile, marching ants ---- */
+.project-next{
+  align-self:stretch;
+  border:none;
+  display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
+  padding:2.5rem;
+  text-decoration:none;color:var(--ink);
+  background:
+    linear-gradient(90deg,var(--ink) 50%,transparent 0) 0 0/16px 2px repeat-x,
+    linear-gradient(90deg,var(--ink) 50%,transparent 0) 0 100%/16px 2px repeat-x,
+    linear-gradient(0deg,var(--ink) 50%,transparent 0) 0 0/2px 16px repeat-y,
+    linear-gradient(0deg,var(--ink) 50%,transparent 0) 100% 0/2px 16px repeat-y,
+    var(--eggshell-warm);
+  animation:ants 1.1s linear infinite;
+  box-shadow:none;
+  min-height:320px;
+}
+@keyframes ants{to{background-position:16px 0,-16px 100%,0 -16px,100% 16px,0 0}}
+.project-next:hover{box-shadow:10px 14px 0 var(--neon);background-color:var(--paper)}
+.pn-num{
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,9vw,8rem);line-height:0.8;
+  color:transparent;-webkit-text-stroke:1.5px var(--ink);
+  transition:color 0.35s,-webkit-text-stroke-color 0.35s,transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  display:inline-block;transform:rotate(-4deg);margin-bottom:1rem;
+}
+.project-next:hover .pn-num{color:var(--neon);transform:rotate(2deg) scale(1.06)}
+.pn-note{
+  font-family:'Caveat',cursive;font-weight:700;font-size:1.35rem;color:var(--pink);
+  transform:rotate(-2deg);display:inline-block;margin-top:1rem;
+}
+
+/* ===== ANIMATED ART - shared scaffold ===== */
+.pr-art{
+  position:relative;
+  width:100%;
+  margin-bottom:0.5rem;
+  overflow:visible;
+}
+/* fixed-height band; preserveAspectRatio in the SVG keeps art centered and uncropped */
+.pr-art svg{display:block;width:100%;overflow:visible}
+.cc-art svg{height:160px}
+.jr-art svg{height:172px}
+
+/* --- Credit Cards: card swipes in, travels the network, approval lands --- */
+.cc-card{
+  transform-box:fill-box;transform-origin:center;
+  animation:ccTravel 6s cubic-bezier(0.45,0,0.55,1) infinite;
+}
+@keyframes ccTravel{
+  0%   {opacity:0;transform:translate(-80px,0) rotate(-10deg)}
+  6%   {opacity:1;transform:translate(0,0) rotate(0deg)}        /* arrive at SWIPE */
+  9%   {transform:translate(0,7px) rotate(0deg)}                /* tap down */
+  12%  {transform:translate(0,0) rotate(0deg)}                  /* tap up */
+  26%  {transform:translate(84px,0) rotate(0deg)}               /* over ACQUIRER */
+  40%  {transform:translate(168px,0) rotate(0deg)}              /* over NETWORK */
+  54%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* over ISSUER */
+  76%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* hold for approval */
+  86%  {opacity:0;transform:translate(335px,0) rotate(8deg)}    /* slide out right */
+  100% {opacity:0;transform:translate(-80px,0) rotate(-10deg)}  /* reset off-left */
+}
+.cc-track{stroke-dasharray:3 5;opacity:0.4}
+.cc-hop{transform-origin:center;transform-box:fill-box;opacity:0.3}
+.cc-hop.h1{animation:ccPing 6s ease-out infinite;animation-delay:0.45s}
+.cc-hop.h2{animation:ccPing 6s ease-out infinite;animation-delay:1.55s}
+.cc-hop.h3{animation:ccPing 6s ease-out infinite;animation-delay:2.4s}
+.cc-hop.h4{animation:ccPing 6s ease-out infinite;animation-delay:3.25s}
+@keyframes ccPing{
+  0%{opacity:0.3;transform:scale(1);fill:#3a3731}
+  6%{opacity:1;transform:scale(1.7);fill:#00FF94}
+  18%,100%{opacity:0.5;transform:scale(1);fill:#00FF94}
+}
+/* signal pulse draws along the rail as the card travels */
+.cc-pulse{
+  stroke-dasharray:252;stroke-dashoffset:252;opacity:0;
+  animation:ccPulse 6s ease-in-out infinite;
+}
+@keyframes ccPulse{
+  0%,12%{stroke-dashoffset:252;opacity:0}
+  15%{opacity:1}
+  54%{stroke-dashoffset:0;opacity:1}
+  64%,100%{stroke-dashoffset:0;opacity:0}
+}
+/* approval stamp slams in when the card reaches the issuer */
+.cc-approve{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:ccApprove 6s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes ccApprove{
+  0%,54%{opacity:0;transform:scale(0.2) rotate(-12deg)}
+  60%{opacity:1;transform:scale(1.15) rotate(-6deg)}
+  64%{transform:scale(1) rotate(-6deg)}
+  82%,100%{opacity:0;transform:scale(1) rotate(-6deg)}
+}
+.cc-stamp-word{opacity:0;animation:ccWord 6s ease-out infinite}
+@keyframes ccWord{
+  0%,57%{opacity:0;transform:translateX(-6px)}
+  64%{opacity:1;transform:translateX(0)}
+  82%,100%{opacity:0}
+}
+
+/* --- Jira: noise sweeps out -> one ranked action rises -> audited --- */
+.jr-noise rect{transform-origin:center;transform-box:fill-box}
+.jr-noise .n1{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0s}
+.jr-noise .n2{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.12s}
+.jr-noise .n3{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.24s}
+.jr-noise .n4{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.36s}
+.jr-noise .n5{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.48s}
+.jr-noise .n6{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.60s}
+@keyframes jrFade{
+  0%,8%{opacity:0.85;transform:translateX(0)}
+  30%{opacity:0;transform:translateX(-22px)}
+  86%,100%{opacity:0;transform:translateX(-22px)}
+}
+/* the surfaced action card rises */
+.jr-action{opacity:0;transform-origin:160px 70px;
+  animation:jrRise 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes jrRise{
+  0%,26%{opacity:0;transform:translateY(20px) scale(0.95)}
+  40%{opacity:1;transform:translateY(0) scale(1)}
+  88%,100%{opacity:0;transform:translateY(-10px) scale(0.98)}
+}
+/* pink priority bar draws down */
+.jr-prio{transform-origin:top;transform-box:fill-box;
+  animation:jrPrio 6.5s ease-out infinite}
+@keyframes jrPrio{
+  0%,30%{transform:scaleY(0)}
+  44%{transform:scaleY(1)}
+  88%,100%{transform:scaleY(1)}
+}
+/* confidence bar fills */
+.jr-conf{transform-origin:left center;transform-box:fill-box;
+  animation:jrConf 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes jrConf{
+  0%,40%{transform:scaleX(0)}
+  62%{transform:scaleX(1)}
+  88%,100%{transform:scaleX(1)}
+}
+/* cursor moves to the "why?" audit link and clicks */
+.jr-cursor{opacity:0;animation:jrCursor 6.5s ease-in-out infinite}
+@keyframes jrCursor{
+  0%,52%{opacity:0;transform:translate(0,0)}
+  58%{opacity:1;transform:translate(0,0)}
+  68%{opacity:1;transform:translate(0,0) scale(1)}
+  72%{opacity:1;transform:translate(0,0) scale(0.82)}  /* click */
+  76%{opacity:1;transform:translate(0,0) scale(1)}
+  86%,100%{opacity:0}
+}
+/* audit cue flashes on click */
+.jr-audit{opacity:0.5;animation:jrAudit 6.5s ease-in-out infinite}
+@keyframes jrAudit{
+  0%,70%{opacity:0.5;fill:#A8A499}
+  74%{opacity:1;fill:#00FF94}
+  86%,100%{opacity:0.5;fill:#A8A499}
+}
+
+/* --- Track: live island opens, train halts its way to your stop, a flight crosses overhead --- */
+.tk-art svg{height:170px}
+.tk-island{transform-box:fill-box;transform-origin:center;
+  animation:tkIsland 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes tkIsland{
+  0%{opacity:0;transform:scaleX(0.2)}
+  8%,88%{opacity:1;transform:scaleX(1)}
+  96%,100%{opacity:0;transform:scaleX(0.2)}
+}
+.tk-island-in{opacity:0;animation:tkIslandIn 6.5s ease infinite}
+@keyframes tkIslandIn{0%,7%{opacity:0}12%,86%{opacity:1}92%,100%{opacity:0}}
+/* progress ring in the island fills as the journey does */
+.tk-ring{stroke-dasharray:37.7;stroke-dashoffset:37.7;animation:tkRing 6.5s ease-in-out infinite}
+@keyframes tkRing{0%,8%{stroke-dashoffset:37.7}55.5%,100%{stroke-dashoffset:0}}
+.tk-eta{animation:tkEta 6.5s ease infinite}
+@keyframes tkEta{0%,55%{opacity:1}59%,100%{opacity:0}}
+.tk-arr{opacity:0;animation:tkArr 6.5s ease infinite}
+@keyframes tkArr{0%,57%{opacity:0}61%,100%{opacity:1}}
+/* train: eases out of each station, halts, eases into the next */
+.tk-train{animation:tkTrain 6.5s ease-in-out infinite}
+@keyframes tkTrain{
+  0%{opacity:0;transform:translateX(-24px)}
+  6%{opacity:1;transform:translateX(0)}
+  8%{transform:translateX(0)}
+  18%,20.5%{transform:translateX(68px)}     /* halt */
+  30.5%,33%{transform:translateX(136px)}    /* halt */
+  43%,45.5%{transform:translateX(204px)}    /* halt */
+  55.5%{transform:translateX(272px)}        /* your stop */
+  84%{opacity:1;transform:translateX(272px)}
+  92%,100%{opacity:0;transform:translateX(272px)}
+}
+/* journey progress draws behind the train, same beats */
+.tk-fill{stroke-dasharray:272 400;stroke-dashoffset:272;animation:tkFill 6.5s ease-in-out infinite}
+@keyframes tkFill{
+  0%,8%{stroke-dashoffset:272;opacity:1}
+  18%,20.5%{stroke-dashoffset:204}
+  30.5%,33%{stroke-dashoffset:136}
+  43%,45.5%{stroke-dashoffset:68}
+  55.5%,84%{stroke-dashoffset:0;opacity:1}
+  92%{stroke-dashoffset:0;opacity:0}
+  100%{stroke-dashoffset:272;opacity:0}
+}
+.tk-st{fill:#3a3731;stroke:#15130F;stroke-width:2;transform-box:fill-box;transform-origin:center}
+.tk-st.s0{animation:tkS0 6.5s ease-out infinite}
+.tk-st.s1{animation:tkS1 6.5s ease-out infinite}
+.tk-st.s2{animation:tkS2 6.5s ease-out infinite}
+.tk-st.s3{animation:tkS3 6.5s ease-out infinite}
+.tk-st.s4{fill:#FF2D78;animation:tkS4 6.5s ease-out infinite}
+@keyframes tkS0{0%,4%{fill:#3a3731}8%,86%{fill:#00FF94}94%,100%{fill:#3a3731}}
+@keyframes tkS1{0%,17.5%{fill:#3a3731;transform:scale(1)}19.5%{fill:#00FF94;transform:scale(1.6)}24%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS2{0%,30%{fill:#3a3731;transform:scale(1)}32%{fill:#00FF94;transform:scale(1.6)}36.5%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS3{0%,42.5%{fill:#3a3731;transform:scale(1)}44.5%{fill:#00FF94;transform:scale(1.6)}49%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
+@keyframes tkS4{0%,55%{fill:#FF2D78;transform:scale(1)}57.5%{fill:#00FF94;transform:scale(1.7)}62%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#FF2D78;transform:scale(1)}}
+/* arrival ripple at your stop */
+.tk-ripple{opacity:0;transform-box:fill-box;transform-origin:center;animation:tkRipple 6.5s ease-out infinite}
+@keyframes tkRipple{0%,55%{opacity:0;transform:scale(1)}57%{opacity:1;transform:scale(1)}72%,100%{opacity:0;transform:scale(3.4)}}
+.tk-pin{animation:tkPin 1.3s ease-in-out infinite}
+@keyframes tkPin{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+/* a flight climbs across the sky - same app, other mode */
+.tk-plane{opacity:0;animation:tkPlane 6.5s linear infinite}
+@keyframes tkPlane{
+  0%,16%{opacity:0;transform:translateX(0)}
+  24%,74%{opacity:0.9}
+  84%,100%{opacity:0;transform:translateX(220px)}
+}
+.tk-word{opacity:0;animation:tkWord 6.5s ease-out infinite}
+@keyframes tkWord{0%,58%{opacity:0;transform:translateY(4px)}64%,84%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+
+/* --- Shelfie: drag up to read (liquid rises), lift the pass, magnet-drop it on FINISHED, stamp + confetti + XP --- */
+.sf-art svg{height:172px}
+.sf-pass{transform-box:view-box;transform-origin:70px 70px;
+  animation:sfPass 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfPass{
+  0%{opacity:0;transform:translate(0,10px) scale(0.92) rotate(-4deg)}
+  6%,42%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
+  46%{transform:translate(0,-6px) scale(1.07) rotate(3deg)}          /* lifted */
+  56%{transform:translate(171px,-2px) scale(1.04) rotate(-3deg)}     /* overshoots into the magnet */
+  60%,86%{opacity:1;transform:translate(165px,0) scale(1) rotate(-2deg)}
+  93%,100%{opacity:0;transform:translate(165px,6px) scale(0.96) rotate(-2deg)}
+}
+/* liquid rises in three page-flick bursts */
+.sf-liquid{animation:sfFill 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfFill{
+  0%,9%{transform:translateY(0)}
+  15%,21%{transform:translateY(-19px)}
+  27%,33%{transform:translateY(-38px)}
+  39%,100%{transform:translateY(-56px)}
+}
+.sf-wave{animation:sfWave 1.1s linear infinite}
+@keyframes sfWave{from{transform:translateX(0)}to{transform:translateX(32px)}}
+.sf-bar{transform-box:fill-box;transform-origin:left center;animation:sfBar 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfBar{
+  0%,9%{transform:scaleX(0)}
+  15%,21%{transform:scaleX(0.34)}
+  27%,33%{transform:scaleX(0.67)}
+  39%,100%{transform:scaleX(1)}
+}
+/* ghost finger: three drags up, then press-and-hold and carry */
+.sf-finger{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfFinger 6.5s ease-in-out infinite}
+@keyframes sfFinger{
+  0%,7%{opacity:0;transform:translate(0,14px)}
+  9%{opacity:1;transform:translate(0,14px)}
+  15%{opacity:1;transform:translate(0,-16px)}
+  17%{opacity:0;transform:translate(0,-16px)}
+  19%{opacity:0;transform:translate(0,14px)}
+  21%{opacity:1;transform:translate(0,14px)}
+  27%{opacity:1;transform:translate(0,-16px)}
+  29%{opacity:0;transform:translate(0,-16px)}
+  31%{opacity:0;transform:translate(0,14px)}
+  33%{opacity:1;transform:translate(0,14px)}
+  39%{opacity:1;transform:translate(0,-16px)}
+  40.5%{opacity:0;transform:translate(0,-16px)}
+  41.5%{opacity:0;transform:translate(0,0) scale(1)}
+  43%{opacity:1;transform:translate(0,0) scale(1)}
+  45%{opacity:1;transform:translate(0,0) scale(0.8)}               /* hold */
+  48%{opacity:1;transform:translate(0,-6px) scale(0.8)}
+  58%{opacity:1;transform:translate(165px,0) scale(0.8)}
+  61%,100%{opacity:0;transform:translate(165px,0) scale(1.2)}
+}
+.sf-zone,.sf-zone-label{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfZone 6.5s ease-out infinite}
+@keyframes sfZone{
+  0%,40%{opacity:0;transform:scale(0.94)}
+  46%{opacity:1;transform:scale(1)}
+  52%{opacity:1;transform:scale(1.04)}                                 /* magnet pull */
+  58%,86%{opacity:1;transform:scale(1)}
+  94%,100%{opacity:0;transform:scale(0.94)}
+}
+.sf-flash{opacity:0;animation:sfFlash 6.5s ease-out infinite}
+@keyframes sfFlash{0%,58%{opacity:0}61%{opacity:0.28}74%,100%{opacity:0}}
+/* READ stamp slams onto the cover */
+.sf-stamp{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:sfStamp 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes sfStamp{
+  0%,60%{opacity:0;transform:scale(2.4)}
+  64%{opacity:1;transform:scale(0.92)}
+  67%,86%{opacity:1;transform:scale(1)}
+  93%,100%{opacity:0;transform:scale(1)}
+}
+.sf-bit{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:sfBit 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfBit{
+  0%,62%{opacity:0;transform:translate(0,0) rotate(0deg)}
+  64%{opacity:1;transform:translate(0,0) rotate(0deg)}
+  78%{opacity:1}
+  86%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}
+}
+.sf-xp{opacity:0;animation:sfXp 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes sfXp{
+  0%,63%{opacity:0;transform:translateY(8px)}
+  68%{opacity:1;transform:translateY(0)}
+  82%{opacity:1;transform:translateY(-12px)}
+  88%,100%{opacity:0;transform:translateY(-18px)}
+}
+
+/* --- Cookbook: tap what's in the fridge, match bars fill, the best dish rises to the top --- */
+.ck-art svg{height:168px}
+.ck-chip rect{fill:#1d1b16;stroke:#4a463c;stroke-width:1}
+.ck-chip text{fill:#A8A499}
+.ck-on{opacity:0;transform-box:fill-box;transform-origin:center}
+.ck-on rect{fill:#00FF94}
+.ck-on text{fill:#15130F}
+.ck-on.c1{animation:ckOn1 6.5s ease-out infinite}
+.ck-on.c2{animation:ckOn2 6.5s ease-out infinite}
+.ck-on.c3{animation:ckOn3 6.5s ease-out infinite}
+.ck-on.c4{animation:ckOn4 6.5s ease-out infinite}
+@keyframes ckOn1{0%,5%{opacity:0;transform:scale(1)}7%{opacity:1;transform:scale(1.1)}10%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn2{0%,11%{opacity:0;transform:scale(1)}13%{opacity:1;transform:scale(1.1)}16%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn3{0%,17%{opacity:0;transform:scale(1)}19%{opacity:1;transform:scale(1.1)}22%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+@keyframes ckOn4{0%,23%{opacity:0;transform:scale(1)}25%{opacity:1;transform:scale(1.1)}28%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
+/* each dish's bar = how many of your picks it uses */
+.ck-bar{transform-box:fill-box;transform-origin:left center;transform:scaleX(0)}
+.ck-bar.b1{animation:ckB1 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+.ck-bar.b2{animation:ckB2 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+.ck-bar.b3{animation:ckB3 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
+@keyframes ckB1{0%,17%{transform:scaleX(0)}20%,23%{transform:scaleX(0.25)}26%,86%{transform:scaleX(0.5)}93%,100%{transform:scaleX(0)}}
+@keyframes ckB2{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,86%{transform:scaleX(0.75)}93%,100%{transform:scaleX(0)}}
+@keyframes ckB3{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,23%{transform:scaleX(0.75)}26%,86%{transform:scaleX(1)}93%,100%{transform:scaleX(0)}}
+.ck-frac{opacity:0;animation:ckFrac 6.5s ease infinite}
+@keyframes ckFrac{0%,27%{opacity:0}31%,86%{opacity:1}92%,100%{opacity:0}}
+/* re-rank: the full match climbs over the partial ones */
+.ck-up{animation:ckUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+.ck-down{animation:ckDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+@keyframes ckUp{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(-68px)}97%,100%{transform:translateY(0)}}
+@keyframes ckDown{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(68px)}97%,100%{transform:translateY(0)}}
+.ck-best{opacity:0;animation:ckBest 6.5s ease infinite}
+@keyframes ckBest{0%,44%{opacity:0}48%,86%{opacity:1}92%,100%{opacity:0}}
+.ck-macros{opacity:0;animation:ckMacros 6.5s ease-out infinite}
+@keyframes ckMacros{0%,48%{opacity:0;transform:translateY(4px)}54%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+.ck-word{opacity:0;animation:ckWord 6.5s ease-out infinite}
+@keyframes ckWord{0%,56%{opacity:0;transform:translateY(4px)}62%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
+
+/* --- GRID: five red lights, lights out, a lap of a blueprint circuit, sectors go green/gold/purple --- */
+.gr-art svg{height:170px}
+.gr-l{opacity:0}
+.gr-l.l1{animation:grL1 6.5s steps(1,end) infinite}
+.gr-l.l2{animation:grL2 6.5s steps(1,end) infinite}
+.gr-l.l3{animation:grL3 6.5s steps(1,end) infinite}
+.gr-l.l4{animation:grL4 6.5s steps(1,end) infinite}
+.gr-l.l5{animation:grL5 6.5s steps(1,end) infinite}
+@keyframes grL1{0%{opacity:0}4%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL2{0%{opacity:0}8%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL3{0%{opacity:0}12%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL4{0%{opacity:0}16%{opacity:1}26%,100%{opacity:0}}
+@keyframes grL5{0%{opacity:0}20%{opacity:1}26%,100%{opacity:0}}
+.gr-out{opacity:0;animation:grOut 6.5s ease-out infinite}
+@keyframes grOut{0%,26%{opacity:0;transform:translateX(-4px)}30%,48%{opacity:1;transform:translateX(0)}56%,100%{opacity:0;transform:translateX(0)}}
+/* the circuit draws itself like a technical plate */
+.gr-track{stroke-dasharray:100;stroke-dashoffset:100;animation:grTrack 6.5s ease-in-out infinite}
+@keyframes grTrack{0%{stroke-dashoffset:100;opacity:1}22%,88%{stroke-dashoffset:0;opacity:1}96%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+/* the car is a short dash travelling the same path */
+.gr-car{stroke-dasharray:2 98;stroke-dashoffset:0;opacity:0;animation:grCar 6.5s linear infinite}
+@keyframes grCar{
+  0%,20%{opacity:0;stroke-dashoffset:0}
+  23%{opacity:1;stroke-dashoffset:0}
+  27%{stroke-dashoffset:0;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
+  72%,88%{opacity:1;stroke-dashoffset:-100}
+  94%,100%{opacity:0;stroke-dashoffset:-100}
+}
+.gr-trail{stroke-dasharray:10 90;stroke-dashoffset:8;opacity:0;animation:grTrail 6.5s linear infinite}
+@keyframes grTrail{
+  0%,27%{opacity:0;stroke-dashoffset:8;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
+  30%,68%{opacity:0.4}
+  72%{opacity:0;stroke-dashoffset:-92}
+  100%{opacity:0;stroke-dashoffset:-92}
+}
+.gr-s{fill:#2a2722}
+.gr-s.s1{animation:grS1 6.5s ease-out infinite}
+.gr-s.s2{animation:grS2 6.5s ease-out infinite}
+.gr-s.s3{animation:grS3 6.5s ease-out infinite}
+@keyframes grS1{0%,41%{fill:#2a2722}43%,88%{fill:#00FF94}94%,100%{fill:#2a2722}}
+@keyframes grS2{0%,56%{fill:#2a2722}58%,88%{fill:#E6B547}94%,100%{fill:#2a2722}}
+@keyframes grS3{0%,71%{fill:#2a2722}73%,88%{fill:#FF2D78}94%,100%{fill:#2a2722}}
+/* timing tower: NOR goes P3 -> P2 */
+.gr-up{animation:grUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+.gr-down{animation:grDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
+@keyframes grUp{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(-16px)}96%,100%{transform:translateY(0)}}
+@keyframes grDown{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(16px)}96%,100%{transform:translateY(0)}}
+.gr-gain{opacity:0;animation:grGain 6.5s ease infinite}
+@keyframes grGain{0%,60%{opacity:0}64%,84%{opacity:1}90%,100%{opacity:0}}
+.gr-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
+.gr-fl{opacity:0;transform-box:fill-box;transform-origin:center;
+  animation:grFl 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
+@keyframes grFl{0%,71%{opacity:0;transform:scale(0.6)}76%,88%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(1)}}
+
+/* --- Zero to a Hundred: 21 phases light up along the path, the odometer rolls 0 -> 100 --- */
+.ai-art svg{height:170px}
+.ai-fill{stroke-dasharray:100;stroke-dashoffset:100;animation:aiFill 6.5s linear infinite}
+@keyframes aiFill{0%,6%{stroke-dashoffset:100;opacity:1}72%,86%{stroke-dashoffset:0;opacity:1}92%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
+.ai-odo{animation:aiOdo 6.5s infinite}
+@keyframes aiOdo{
+  0%,6%{transform:translateY(0);animation-timing-function:steps(20,end)}
+  72%,88%{transform:translateY(-960px);animation-timing-function:cubic-bezier(0.65,0,0.35,1)}
+  97%,100%{transform:translateY(0)}
+}
+.ai-t{opacity:0}
+.ai-t.t0{opacity:1;animation:aiT0 6.5s ease infinite}
+.ai-t.t1{animation:aiT1 6.5s ease infinite}
+.ai-t.t2{animation:aiT2 6.5s ease infinite}
+.ai-t.t3{animation:aiT3 6.5s ease infinite}
+.ai-t.t4{animation:aiT4 6.5s ease infinite}
+.ai-t.t5{animation:aiT5 6.5s ease infinite}
+@keyframes aiT0{0%,20%{opacity:1}22%,93%{opacity:0}97%,100%{opacity:1}}
+@keyframes aiT1{0%,20%{opacity:0}22%,34.7%{opacity:1}36.7%,100%{opacity:0}}
+@keyframes aiT2{0%,34.7%{opacity:0}36.7%,41%{opacity:1}43%,100%{opacity:0}}
+@keyframes aiT3{0%,41%{opacity:0}43%,61.8%{opacity:1}63.8%,100%{opacity:0}}
+@keyframes aiT4{0%,61.8%{opacity:0}63.8%,71%{opacity:1}73%,100%{opacity:0}}
+@keyframes aiT5{0%,71%{opacity:0}73%,88%{opacity:1}93%,100%{opacity:0}}
+.ai-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
+.ai-word{opacity:0;animation:aiWord 6.5s ease-out infinite}
+@keyframes aiWord{0%,72%{opacity:0;transform:translateY(4px)}77%,88%{opacity:1;transform:translateY(0)}93%,100%{opacity:0;transform:translateY(0)}}
+
+/* seven loops on one page: only run the ones on screen */
+.project:not(.in-view) .pr-art *{animation-play-state:paused}
+
+@media (prefers-reduced-motion:reduce){
+  .cc-card,.cc-hop,.cc-pulse,.cc-approve,.cc-stamp-word,
+  .jr-noise rect,.jr-action,.jr-prio,.jr-conf,.jr-cursor,.jr-audit,
+  .tk-island,.tk-island-in,.tk-ring,.tk-eta,.tk-arr,.tk-train,.tk-fill,.tk-st,.tk-ripple,.tk-pin,.tk-plane,.tk-word,
+  .sf-pass,.sf-liquid,.sf-wave,.sf-bar,.sf-finger,.sf-zone,.sf-zone-label,.sf-flash,.sf-stamp,.sf-bit,.sf-xp,
+  .ck-on,.ck-bar,.ck-frac,.ck-up,.ck-down,.ck-best,.ck-macros,.ck-word,
+  .gr-l,.gr-out,.gr-track,.gr-car,.gr-trail,.gr-s,.gr-up,.gr-down,.gr-gain,.gr-live,.gr-fl,
+  .ai-fill,.ai-odo,.ai-t,.ai-live,.ai-word,
+  .project-desc .pd-mark::before{animation:none}
+  .tk-island,.tk-island-in,.tk-arr,.tk-word{opacity:1;transform:none}
+  .tk-eta{opacity:0}
+  .tk-ring,.tk-fill{stroke-dashoffset:0}
+  .tk-train{opacity:1;transform:translateX(272px)}
+  .tk-st,.tk-st.s4{fill:#00FF94}
+  .tk-plane{opacity:0.9;transform:translateX(110px)}
+  .sf-pass{opacity:1;transform:translate(165px,0) rotate(-2deg)}
+  .sf-liquid{transform:translateY(-56px)}
+  .sf-bar{transform:none}
+  .sf-zone,.sf-zone-label,.sf-stamp,.sf-xp{opacity:1;transform:none}
+  .ck-on,.ck-frac,.ck-best,.ck-macros,.ck-word{opacity:1;transform:none}
+  .ck-bar.b1{transform:scaleX(0.5)}.ck-bar.b2{transform:scaleX(0.75)}.ck-bar.b3{transform:none}
+  .ck-up{transform:translateY(-68px)}.ck-down{transform:translateY(68px)}
+  .gr-track{stroke-dashoffset:0}
+  .gr-car,.gr-out,.gr-gain,.gr-fl{opacity:1;transform:none}
+  .gr-s.s1{fill:#00FF94}.gr-s.s2{fill:#E6B547}.gr-s.s3{fill:#FF2D78}
+  .gr-up{transform:translateY(-16px)}.gr-down{transform:translateY(16px)}
+  .ai-fill{stroke-dashoffset:0}
+  .ai-odo{transform:translateY(-960px)}
+  .ai-t.t0{opacity:0}.ai-t.t5,.ai-word{opacity:1;transform:none}
+  .cc-card{opacity:1;transform:translate(252px,0)}
+  .cc-hop{opacity:1;fill:#00FF94}
+  .cc-pulse{stroke-dashoffset:0;opacity:1}
+  .cc-approve,.cc-stamp-word{opacity:1;transform:none}
+  .jr-noise rect{opacity:0}
+  .jr-action{opacity:1;transform:none}
+  .jr-prio,.jr-conf{transform:none}
+  .project-desc .pd-mark::before{transform:scaleX(1)}
+}
+
+
+@media(max-width:900px){
+  .built-grid{grid-template-columns:minmax(0,1fr);padding:1rem 1.5rem 4rem;gap:2rem}
+  .built-header{padding-left:1.5rem;padding-right:1.5rem}
+  .project.open{grid-template-columns:minmax(0,1fr);grid-template-areas:"art" "body"}
+  .project.open .project-left{border-right:none;padding:1.75rem 1.5rem 2rem}
+  .project.open .project-right{padding:1.75rem 1.5rem}
+  .project-left{padding:1.5rem 1.5rem 1.75rem}
+  .project-right{padding:1.5rem}
+  .project-next{min-height:auto;padding:2rem 1.5rem}
+  .cc-art svg{height:128px}
+  .jr-art svg{height:140px}
+  .tk-art svg{height:140px}
+  .sf-art svg{height:142px}
+  .ck-art svg{height:140px}
+  .gr-art svg{height:140px}
+  .ai-art svg{height:140px}
+}

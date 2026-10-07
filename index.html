@@ -3,2512 +3,61 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parth Aggarwal - Technical Platform Product</title>
+<title>Parth Aggarwal - Technical Platform Product Manager</title>
+<meta name="description" content="Parth Aggarwal - Technical Platform Product Manager. Forward Deployed PM at Backbase, owning the agentic AI connector platform for banks. Previously Zeta: a $2B+ virtual card platform for a Fortune 3 and a multi-tenant data platform for US & EMEA banks.">
+<meta name="theme-color" content="#F3EFE4">
+<link rel="canonical" href="https://parth8.github.io/portfolio/">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Parth Aggarwal">
+<meta property="og:title" content="Parth Aggarwal - Technical Platform Product Manager">
+<meta property="og:description" content="Agentic AI connectors at Backbase. $2B+ card platform for a Fortune 3. Data platforms for US &amp; EMEA banks. Seven side projects, all live.">
+<meta property="og:url" content="https://parth8.github.io/portfolio/">
+<meta property="og:image" content="https://parth8.github.io/portfolio/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body,a,button,input,textarea,select,*{cursor:none !important}
-:root{
-  --neon:#00FF94;
-  --neon-dark:#00CC75;
-  --pink:#FF2D78;
-  --gold:#E6B547;
-  --gold-deep:#A8822A;
-  --black:#0A0A0A;
-  --eggshell:#F3EFE4;
-  --eggshell-warm:#EEE8D8;
-  --eggshell-deep:#E6DFC9;
-  --paper:#F7F3E8;
-  --gray:#7E7A70;
-  --gray-light:#A8A499;
-  --border:#DCD5C2;
-  --ink:#15130F;
-}
-html{scroll-behavior:smooth}
-body{
-  background:var(--eggshell);
-  color:var(--ink);
-  font-family:'Inter',sans-serif;
-  font-weight:400;
-  overflow-x:hidden;
-  cursor:none;
-}
-
-body::after{
-  content:'';
-  position:fixed;inset:0;
-  z-index:9000;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat:repeat;
-  background-size:180px 180px;
-  mix-blend-mode:multiply;
-  opacity:1;
-}
-
-#cursor{
-  width:10px;height:10px;
-  background:var(--neon);
-  border-radius:50%;
-  position:fixed;top:0;left:0;
-  pointer-events:none;z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:transform 0.12s ease,width 0.45s cubic-bezier(0.22,1,0.36,1),height 0.45s cubic-bezier(0.22,1,0.36,1),background 0.45s cubic-bezier(0.22,1,0.36,1),opacity 0.4s cubic-bezier(0.22,1,0.36,1);
-  mix-blend-mode:difference;
-  will-change:width,height,transform;
-}
-#cursor-ring{
-  width:38px;height:38px;
-  border:1px solid #fff;
-  border-radius:50%;
-  position:fixed;top:0;left:0;
-  pointer-events:none;z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:width 0.55s cubic-bezier(0.22,1,0.36,1),height 0.55s cubic-bezier(0.22,1,0.36,1),border-color 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.4s cubic-bezier(0.22,1,0.36,1);
-  mix-blend-mode:difference;
-  opacity:1;
-  will-change:width,height,opacity,transform;
-}
-#cursor.hover{width:50px;height:50px}
-#cursor-ring.hover{width:12px;height:12px;border-color:transparent;opacity:0}
-
-nav{
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:1.3rem 2.5rem;
-  mix-blend-mode:difference;
-}
-.nav-logo{
-  font-family:'DM Mono',monospace;
-  font-size:0.72rem;font-weight:500;
-  letter-spacing:0.18em;text-transform:uppercase;
-  color:#F3EFE4;
-  text-decoration:none;
-}
-.nav-logo span{color:var(--neon)}
-.nav-right{display:flex;gap:2rem;align-items:center}
-.nav-right a{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;font-weight:500;
-  letter-spacing:0.14em;text-transform:uppercase;
-  color:#F3EFE4;
-  text-decoration:none;
-  transition:color 0.2s;
-  position:relative;
-}
-.nav-right a:nth-child(1)::before{content:'✦';margin-right:0.4rem;opacity:0.5}
-.nav-right a:nth-child(2)::before{content:'✉';margin-right:0.4rem;opacity:0.5}
-.nav-right a:nth-child(3)::before{content:'⌘';margin-right:0.4rem;opacity:0.5}
-.nav-right a:hover{color:var(--neon)}
-
-.float-cta{
-  position:fixed;
-  bottom:2rem;right:2rem;
-  z-index:99;
-  display:flex;align-items:center;gap:0.7rem;
-  background:var(--ink);
-  color:#F3EFE4;
-  padding:0.9rem 1.4rem 0.9rem 1rem;
-  text-decoration:none;
-  border-radius:100px;
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;font-weight:500;
-  letter-spacing:0.1em;text-transform:uppercase;
-  opacity:0;
-  transform:translateY(20px) scale(0.9) rotate(-2deg);
-  transition:opacity 0.4s ease,transform 0.4s ease,background 0.2s;
-  box-shadow:0 6px 24px rgba(0,0,0,0.18);
-}
-.float-cta.visible{opacity:1;transform:translateY(0) scale(1) rotate(-2deg)}
-.float-cta:hover{background:var(--neon);color:var(--ink);transform:translateY(0) scale(1.04) rotate(0deg)}
-.float-cta .dot{
-  width:10px;height:10px;border-radius:50%;
-  background:var(--neon);
-  animation:pulse-dot 1.8s ease-in-out infinite;
-}
-.float-cta:hover .dot{background:var(--ink)}
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.3)}}
-
-/* SCROLL PROGRESS - vertical bar on left edge */
-.scroll-progress{
-  position:fixed;
-  top:0;bottom:0;left:0;
-  width:2px;
-  background:transparent;
-  z-index:200;
-  pointer-events:none;
-}
-.scroll-progress-fill{
-  width:100%;
-  height:0%;
-  background:linear-gradient(180deg,var(--neon) 0%,var(--neon) 40%,var(--pink) 100%);
-  transition:height 0.08s linear;
-  box-shadow:0 0 10px rgba(0,255,148,0.5);
-}
-
-/* SIDE SECTION DOTS - progress indicator */
-.side-nav{
-  position:fixed;
-  top:50%;right:1.5rem;
-  transform:translateY(-50%);
-  z-index:80;
-  display:flex;flex-direction:column;gap:0.85rem;
-  opacity:0;
-  transition:opacity 0.4s;
-  pointer-events:none;
-}
-.side-nav.visible{opacity:1;pointer-events:auto}
-.side-dot{
-  width:10px;height:10px;
-  border-radius:50%;
-  border:1px solid var(--ink);
-  background:transparent;
-  position:relative;
-  transition:all 0.3s cubic-bezier(0.22,1,0.36,1);
-  text-decoration:none;
-  display:block;
-}
-.side-dot::before{
-  content:attr(data-label);
-  position:absolute;
-  right:calc(100% + 0.85rem);
-  top:50%;transform:translateY(-50%) translateX(6px);
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--ink);
-  white-space:nowrap;
-  opacity:0;
-  transition:opacity 0.25s,transform 0.25s;
-  pointer-events:none;
-  background:rgba(243,239,228,0.9);
-  padding:0.25rem 0.5rem;
-  border-radius:3px;
-}
-.side-dot:hover::before,.side-dot.active::before{opacity:1;transform:translateY(-50%) translateX(0)}
-.side-dot.active{background:var(--neon);border-color:var(--neon);transform:scale(1.3)}
-.side-dot:hover{transform:scale(1.3)}
-.side-dot.active:hover{transform:scale(1.4)}
-
-/* SHIPPED-WITH STRIP */
-.shipped-with{
-  padding:3rem 0;
-  background:var(--eggshell-warm);
-  border-bottom:1px solid var(--border);
-  overflow:hidden;
-  position:relative;
-}
-.sw-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:1.75rem;
-  padding:0 2.5rem;
-  display:flex;align-items:center;gap:1rem;
-}
-.sw-label::before,.sw-label::after{
-  content:'';
-  flex:1;
-  height:1px;
-  background:var(--border);
-}
-.sw-marquee-wrap{overflow:hidden;white-space:nowrap}
-.sw-marquee{
-  display:inline-flex;align-items:center;gap:0;
-  animation:sw-scroll 48s linear infinite;
-  will-change:transform;
-}
-.sw-marquee:hover{animation-play-state:paused}
-.sw-item{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2rem;
-  letter-spacing:0.02em;
-  color:var(--ink);
-  padding:0 1.5rem;
-  flex-shrink:0;
-  transition:color 0.3s,transform 0.3s;
-}
-.sw-item:hover{color:var(--pink);transform:translateY(-3px)}
-.sw-dot{
-  color:var(--neon-dark);
-  font-size:0.75rem;
-  padding:0 0.5rem;
-  flex-shrink:0;
-}
-@keyframes sw-scroll{
-  from{transform:translateX(0)}
-  to{transform:translateX(-50%)}
-}
-
-/* BUILT / PROJECTS */
-.built{
-  background:var(--eggshell);
-  border-bottom:1px solid var(--border);
-}
-.built-header{
-  padding:6rem 2.5rem 2rem;
-  display:flex;justify-content:space-between;align-items:baseline;
-  gap:2rem;flex-wrap:wrap;
-}
-.bh-left{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gray);
-}
-.bh-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;
-  letter-spacing:-0.005em;
-  display:inline-block;
-  transform:rotate(-1deg);
-  transform-origin:left center;
-}
-.bh-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-
-.project{
-  margin:0 2.5rem 6rem;
-  border:1.5px solid var(--ink);
-  background:var(--paper);
-  display:grid;
-  grid-template-columns:1.15fr 1fr;
-  position:relative;
-  opacity:0;transform:translateY(40px);
-  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
-  box-shadow:6px 8px 0 var(--eggshell-deep);
-}
-.project.in-view{opacity:1;transform:translateY(0)}
-.project:hover{box-shadow:10px 14px 0 var(--neon)}
-.project-left{
-  padding:3rem;
-  border-right:1.5px solid var(--ink);
-}
-.project-tag{
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--ink);
-  background:var(--neon);
-  display:inline-block;
-  padding:0.35rem 0.8rem;
-  transform:rotate(-1.5deg);
-  margin-bottom:1.5rem;
-}
-.project-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.4rem,4vw,3.6rem);
-  line-height:0.92;
-  letter-spacing:-0.005em;
-  margin-bottom:1rem;
-}
-.project-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-.project-desc{
-  font-size:0.95rem;line-height:1.75;color:#3d3b34;
-  margin-bottom:1.5rem;
-}
-.project-desc p{margin-bottom:1.1rem}
-.project-desc p:last-child{margin-bottom:0}
-/* restrained emphasis vocabulary, borrowed from the manifesto.
-   one marked phrase + one boxed claim per paragraph, not a green carpet */
-.project-desc em{
-  font-family:'DM Serif Display',serif;font-style:italic;
-  color:var(--neon-dark);font-weight:400;
-}
-.project-desc .pd-mark{position:relative;display:inline-block;color:var(--ink);font-weight:600;z-index:0}
-.project-desc .pd-mark::before{
-  content:'';position:absolute;left:-3%;right:-3%;bottom:0.08em;
-  height:0.55em;background:var(--neon);z-index:-1;
-  transform:scaleX(0);transform-origin:left;
-}
-.project.in-view .project-desc .pd-mark::before{
-  animation:pdMark 0.55s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.project.in-view .project-left .project-desc p:nth-of-type(2) .pd-mark::before{animation-delay:0.12s}
-.project.in-view .project-left .project-desc p:nth-of-type(3) .pd-mark::before{animation-delay:0.24s}
-@keyframes pdMark{to{transform:scaleX(1)}}
-.project-desc .pd-box{
-  font-family:'Inter',sans-serif;font-weight:600;font-size:0.92em;
-  background:var(--ink);color:var(--eggshell);
-  padding:0.08em 0.38em;display:inline-block;
-  letter-spacing:-0.005em;transform:rotate(-1.5deg);
-  box-shadow:2px 3px 0 rgba(0,0,0,0.10);
-  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),background 0.3s;
-}
-.project-desc .pd-box:hover{transform:rotate(0deg) scale(1.04);background:var(--pink)}
-.project-desc .pd-pink{color:var(--pink);font-weight:700}
-.project-stack{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.75rem}
-.project-stack span{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.06em;
-  padding:0.35rem 0.7rem;
-  border:1px solid var(--border);
-  color:var(--gray);
-  background:var(--eggshell);
-  transition:border-color 0.2s,color 0.2s,transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.2s;
-}
-.project-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
-.project-links{display:flex;gap:1rem;flex-wrap:wrap}
-.project-link{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;
-  text-decoration:none;
-  color:var(--ink);
-  border:1.5px solid var(--ink);
-  padding:0.7rem 1.1rem;
-  display:inline-flex;align-items:center;gap:0.5rem;
-  transition:background 0.25s,color 0.25s,transform 0.3s cubic-bezier(0.22,1,0.36,1);
-}
-.project-link.primary{background:var(--ink);color:var(--eggshell)}
-.project-link:hover{background:var(--pink);border-color:var(--pink);color:var(--eggshell);transform:translateY(-3px)}
-.project-link .arr{transition:transform 0.25s}
-.project-link:hover .arr{transform:translate(3px,-3px)}
-
-.project-right{
-  padding:3rem;
-  display:flex;flex-direction:column;justify-content:center;gap:1.5rem;
-  background:var(--ink);
-  color:var(--eggshell);
-}
-.pr-stat{display:flex;flex-direction:column;gap:0.25rem}
-.pr-stat-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.5rem,5vw,3.6rem);
-  line-height:0.9;
-  color:var(--neon);
-}
-.pr-stat-num .sup{font-size:0.4em;color:var(--gray-light)}
-.pr-stat-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--gray-light);
-}
-.pr-divider{height:1px;background:#2a2722}
-.pr-note{
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.15rem;
-  color:var(--gold);
-  transform:rotate(-1.5deg);
-}
-
-/* ===== BUILT SECTION - upgraded header ===== */
-.bh-sub{
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.25rem;
-  color:var(--gray);
-  transform:rotate(-1deg);
-  display:block;
-  margin-top:0.65rem;
-  max-width:34ch;
-}
-.bh-sub b{color:var(--pink);font-weight:700}
-
-/* second project sits closer; first keeps its margin */
-.project + .project{margin-top:-2.5rem}
-
-/* ===== ANIMATED ART - shared scaffold ===== */
-.pr-art{
-  position:relative;
-  width:100%;
-  margin-bottom:0.5rem;
-  overflow:visible;
-}
-/* fixed-height band; preserveAspectRatio in the SVG keeps art centered and uncropped */
-.pr-art svg{display:block;width:100%;overflow:visible}
-.cc-art svg{height:160px}
-.jr-art svg{height:172px}
-
-/* --- Credit Cards: card swipes in, travels the network, approval lands --- */
-.cc-card{
-  transform-box:fill-box;transform-origin:center;
-  animation:ccTravel 6s cubic-bezier(0.45,0,0.55,1) infinite;
-}
-@keyframes ccTravel{
-  0%   {opacity:0;transform:translate(-80px,0) rotate(-10deg)}
-  6%   {opacity:1;transform:translate(0,0) rotate(0deg)}        /* arrive at SWIPE */
-  9%   {transform:translate(0,7px) rotate(0deg)}                /* tap down */
-  12%  {transform:translate(0,0) rotate(0deg)}                  /* tap up */
-  26%  {transform:translate(84px,0) rotate(0deg)}               /* over ACQUIRER */
-  40%  {transform:translate(168px,0) rotate(0deg)}              /* over NETWORK */
-  54%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* over ISSUER */
-  76%  {opacity:1;transform:translate(252px,0) rotate(0deg)}    /* hold for approval */
-  86%  {opacity:0;transform:translate(335px,0) rotate(8deg)}    /* slide out right */
-  100% {opacity:0;transform:translate(-80px,0) rotate(-10deg)}  /* reset off-left */
-}
-.cc-track{stroke-dasharray:3 5;opacity:0.4}
-.cc-hop{transform-origin:center;transform-box:fill-box;opacity:0.3}
-.cc-hop.h1{animation:ccPing 6s ease-out infinite;animation-delay:0.45s}
-.cc-hop.h2{animation:ccPing 6s ease-out infinite;animation-delay:1.55s}
-.cc-hop.h3{animation:ccPing 6s ease-out infinite;animation-delay:2.4s}
-.cc-hop.h4{animation:ccPing 6s ease-out infinite;animation-delay:3.25s}
-@keyframes ccPing{
-  0%{opacity:0.3;transform:scale(1);fill:#3a3731}
-  6%{opacity:1;transform:scale(1.7);fill:#00FF94}
-  18%,100%{opacity:0.5;transform:scale(1);fill:#00FF94}
-}
-/* signal pulse draws along the rail as the card travels */
-.cc-pulse{
-  stroke-dasharray:252;stroke-dashoffset:252;opacity:0;
-  animation:ccPulse 6s ease-in-out infinite;
-}
-@keyframes ccPulse{
-  0%,12%{stroke-dashoffset:252;opacity:0}
-  15%{opacity:1}
-  54%{stroke-dashoffset:0;opacity:1}
-  64%,100%{stroke-dashoffset:0;opacity:0}
-}
-/* approval stamp slams in when the card reaches the issuer */
-.cc-approve{opacity:0;transform-box:fill-box;transform-origin:center;
-  animation:ccApprove 6s cubic-bezier(0.34,1.56,0.64,1) infinite}
-@keyframes ccApprove{
-  0%,54%{opacity:0;transform:scale(0.2) rotate(-12deg)}
-  60%{opacity:1;transform:scale(1.15) rotate(-6deg)}
-  64%{transform:scale(1) rotate(-6deg)}
-  82%,100%{opacity:0;transform:scale(1) rotate(-6deg)}
-}
-.cc-stamp-word{opacity:0;animation:ccWord 6s ease-out infinite}
-@keyframes ccWord{
-  0%,57%{opacity:0;transform:translateX(-6px)}
-  64%{opacity:1;transform:translateX(0)}
-  82%,100%{opacity:0}
-}
-
-/* --- Jira: noise sweeps out -> one ranked action rises -> audited --- */
-.jr-noise rect{transform-origin:center;transform-box:fill-box}
-.jr-noise .n1{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0s}
-.jr-noise .n2{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.12s}
-.jr-noise .n3{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.24s}
-.jr-noise .n4{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.36s}
-.jr-noise .n5{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.48s}
-.jr-noise .n6{animation:jrFade 6.5s ease-in-out infinite;animation-delay:0.60s}
-@keyframes jrFade{
-  0%,8%{opacity:0.85;transform:translateX(0)}
-  30%{opacity:0;transform:translateX(-22px)}
-  86%,100%{opacity:0;transform:translateX(-22px)}
-}
-/* the surfaced action card rises */
-.jr-action{opacity:0;transform-origin:160px 70px;
-  animation:jrRise 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes jrRise{
-  0%,26%{opacity:0;transform:translateY(20px) scale(0.95)}
-  40%{opacity:1;transform:translateY(0) scale(1)}
-  88%,100%{opacity:0;transform:translateY(-10px) scale(0.98)}
-}
-/* pink priority bar draws down */
-.jr-prio{transform-origin:top;transform-box:fill-box;
-  animation:jrPrio 6.5s ease-out infinite}
-@keyframes jrPrio{
-  0%,30%{transform:scaleY(0)}
-  44%{transform:scaleY(1)}
-  88%,100%{transform:scaleY(1)}
-}
-/* confidence bar fills */
-.jr-conf{transform-origin:left center;transform-box:fill-box;
-  animation:jrConf 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes jrConf{
-  0%,40%{transform:scaleX(0)}
-  62%{transform:scaleX(1)}
-  88%,100%{transform:scaleX(1)}
-}
-/* cursor moves to the "why?" audit link and clicks */
-.jr-cursor{opacity:0;animation:jrCursor 6.5s ease-in-out infinite}
-@keyframes jrCursor{
-  0%,52%{opacity:0;transform:translate(0,0)}
-  58%{opacity:1;transform:translate(0,0)}
-  68%{opacity:1;transform:translate(0,0) scale(1)}
-  72%{opacity:1;transform:translate(0,0) scale(0.82)}  /* click */
-  76%{opacity:1;transform:translate(0,0) scale(1)}
-  86%,100%{opacity:0}
-}
-/* audit cue flashes on click */
-.jr-audit{opacity:0.5;animation:jrAudit 6.5s ease-in-out infinite}
-@keyframes jrAudit{
-  0%,70%{opacity:0.5;fill:#A8A499}
-  74%{opacity:1;fill:#00FF94}
-  86%,100%{opacity:0.5;fill:#A8A499}
-}
-
-/* --- Track: live island opens, train halts its way to your stop, a flight crosses overhead --- */
-.tk-art svg{height:170px}
-.tk-island{transform-box:fill-box;transform-origin:center;
-  animation:tkIsland 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
-@keyframes tkIsland{
-  0%{opacity:0;transform:scaleX(0.2)}
-  8%,88%{opacity:1;transform:scaleX(1)}
-  96%,100%{opacity:0;transform:scaleX(0.2)}
-}
-.tk-island-in{opacity:0;animation:tkIslandIn 6.5s ease infinite}
-@keyframes tkIslandIn{0%,7%{opacity:0}12%,86%{opacity:1}92%,100%{opacity:0}}
-/* progress ring in the island fills as the journey does */
-.tk-ring{stroke-dasharray:37.7;stroke-dashoffset:37.7;animation:tkRing 6.5s ease-in-out infinite}
-@keyframes tkRing{0%,8%{stroke-dashoffset:37.7}55.5%,100%{stroke-dashoffset:0}}
-.tk-eta{animation:tkEta 6.5s ease infinite}
-@keyframes tkEta{0%,55%{opacity:1}59%,100%{opacity:0}}
-.tk-arr{opacity:0;animation:tkArr 6.5s ease infinite}
-@keyframes tkArr{0%,57%{opacity:0}61%,100%{opacity:1}}
-/* train: eases out of each station, halts, eases into the next */
-.tk-train{animation:tkTrain 6.5s ease-in-out infinite}
-@keyframes tkTrain{
-  0%{opacity:0;transform:translateX(-24px)}
-  6%{opacity:1;transform:translateX(0)}
-  8%{transform:translateX(0)}
-  18%,20.5%{transform:translateX(68px)}     /* halt */
-  30.5%,33%{transform:translateX(136px)}    /* halt */
-  43%,45.5%{transform:translateX(204px)}    /* halt */
-  55.5%{transform:translateX(272px)}        /* your stop */
-  84%{opacity:1;transform:translateX(272px)}
-  92%,100%{opacity:0;transform:translateX(272px)}
-}
-/* journey progress draws behind the train, same beats */
-.tk-fill{stroke-dasharray:272 400;stroke-dashoffset:272;animation:tkFill 6.5s ease-in-out infinite}
-@keyframes tkFill{
-  0%,8%{stroke-dashoffset:272;opacity:1}
-  18%,20.5%{stroke-dashoffset:204}
-  30.5%,33%{stroke-dashoffset:136}
-  43%,45.5%{stroke-dashoffset:68}
-  55.5%,84%{stroke-dashoffset:0;opacity:1}
-  92%{stroke-dashoffset:0;opacity:0}
-  100%{stroke-dashoffset:272;opacity:0}
-}
-.tk-st{fill:#3a3731;stroke:#15130F;stroke-width:2;transform-box:fill-box;transform-origin:center}
-.tk-st.s0{animation:tkS0 6.5s ease-out infinite}
-.tk-st.s1{animation:tkS1 6.5s ease-out infinite}
-.tk-st.s2{animation:tkS2 6.5s ease-out infinite}
-.tk-st.s3{animation:tkS3 6.5s ease-out infinite}
-.tk-st.s4{fill:#FF2D78;animation:tkS4 6.5s ease-out infinite}
-@keyframes tkS0{0%,4%{fill:#3a3731}8%,86%{fill:#00FF94}94%,100%{fill:#3a3731}}
-@keyframes tkS1{0%,17.5%{fill:#3a3731;transform:scale(1)}19.5%{fill:#00FF94;transform:scale(1.6)}24%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
-@keyframes tkS2{0%,30%{fill:#3a3731;transform:scale(1)}32%{fill:#00FF94;transform:scale(1.6)}36.5%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
-@keyframes tkS3{0%,42.5%{fill:#3a3731;transform:scale(1)}44.5%{fill:#00FF94;transform:scale(1.6)}49%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#3a3731;transform:scale(1)}}
-@keyframes tkS4{0%,55%{fill:#FF2D78;transform:scale(1)}57.5%{fill:#00FF94;transform:scale(1.7)}62%,86%{fill:#00FF94;transform:scale(1)}94%,100%{fill:#FF2D78;transform:scale(1)}}
-/* arrival ripple at your stop */
-.tk-ripple{opacity:0;transform-box:fill-box;transform-origin:center;animation:tkRipple 6.5s ease-out infinite}
-@keyframes tkRipple{0%,55%{opacity:0;transform:scale(1)}57%{opacity:1;transform:scale(1)}72%,100%{opacity:0;transform:scale(3.4)}}
-.tk-pin{animation:tkPin 1.3s ease-in-out infinite}
-@keyframes tkPin{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-/* a flight climbs across the sky - same app, other mode */
-.tk-plane{opacity:0;animation:tkPlane 6.5s linear infinite}
-@keyframes tkPlane{
-  0%,16%{opacity:0;transform:translateX(0)}
-  24%,74%{opacity:0.9}
-  84%,100%{opacity:0;transform:translateX(220px)}
-}
-.tk-word{opacity:0;animation:tkWord 6.5s ease-out infinite}
-@keyframes tkWord{0%,58%{opacity:0;transform:translateY(4px)}64%,84%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
-
-/* --- Shelfie: drag up to read (liquid rises), lift the pass, magnet-drop it on FINISHED, stamp + confetti + XP --- */
-.sf-art svg{height:172px}
-.sf-pass{transform-box:view-box;transform-origin:70px 70px;
-  animation:sfPass 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes sfPass{
-  0%{opacity:0;transform:translate(0,10px) scale(0.92) rotate(-4deg)}
-  6%,42%{opacity:1;transform:translate(0,0) scale(1) rotate(0deg)}
-  46%{transform:translate(0,-6px) scale(1.07) rotate(3deg)}          /* lifted */
-  56%{transform:translate(171px,-2px) scale(1.04) rotate(-3deg)}     /* overshoots into the magnet */
-  60%,86%{opacity:1;transform:translate(165px,0) scale(1) rotate(-2deg)}
-  93%,100%{opacity:0;transform:translate(165px,6px) scale(0.96) rotate(-2deg)}
-}
-/* liquid rises in three page-flick bursts */
-.sf-liquid{animation:sfFill 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes sfFill{
-  0%,9%{transform:translateY(0)}
-  15%,21%{transform:translateY(-19px)}
-  27%,33%{transform:translateY(-38px)}
-  39%,100%{transform:translateY(-56px)}
-}
-.sf-wave{animation:sfWave 1.1s linear infinite}
-@keyframes sfWave{from{transform:translateX(0)}to{transform:translateX(32px)}}
-.sf-bar{transform-box:fill-box;transform-origin:left center;animation:sfBar 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes sfBar{
-  0%,9%{transform:scaleX(0)}
-  15%,21%{transform:scaleX(0.34)}
-  27%,33%{transform:scaleX(0.67)}
-  39%,100%{transform:scaleX(1)}
-}
-/* ghost finger: three drags up, then press-and-hold and carry */
-.sf-finger{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfFinger 6.5s ease-in-out infinite}
-@keyframes sfFinger{
-  0%,7%{opacity:0;transform:translate(0,14px)}
-  9%{opacity:1;transform:translate(0,14px)}
-  15%{opacity:1;transform:translate(0,-16px)}
-  17%{opacity:0;transform:translate(0,-16px)}
-  19%{opacity:0;transform:translate(0,14px)}
-  21%{opacity:1;transform:translate(0,14px)}
-  27%{opacity:1;transform:translate(0,-16px)}
-  29%{opacity:0;transform:translate(0,-16px)}
-  31%{opacity:0;transform:translate(0,14px)}
-  33%{opacity:1;transform:translate(0,14px)}
-  39%{opacity:1;transform:translate(0,-16px)}
-  40.5%{opacity:0;transform:translate(0,-16px)}
-  41.5%{opacity:0;transform:translate(0,0) scale(1)}
-  43%{opacity:1;transform:translate(0,0) scale(1)}
-  45%{opacity:1;transform:translate(0,0) scale(0.8)}               /* hold */
-  48%{opacity:1;transform:translate(0,-6px) scale(0.8)}
-  58%{opacity:1;transform:translate(165px,0) scale(0.8)}
-  61%,100%{opacity:0;transform:translate(165px,0) scale(1.2)}
-}
-.sf-zone,.sf-zone-label{opacity:0;transform-box:fill-box;transform-origin:center;animation:sfZone 6.5s ease-out infinite}
-@keyframes sfZone{
-  0%,40%{opacity:0;transform:scale(0.94)}
-  46%{opacity:1;transform:scale(1)}
-  52%{opacity:1;transform:scale(1.04)}                                 /* magnet pull */
-  58%,86%{opacity:1;transform:scale(1)}
-  94%,100%{opacity:0;transform:scale(0.94)}
-}
-.sf-flash{opacity:0;animation:sfFlash 6.5s ease-out infinite}
-@keyframes sfFlash{0%,58%{opacity:0}61%{opacity:0.28}74%,100%{opacity:0}}
-/* READ stamp slams onto the cover */
-.sf-stamp{opacity:0;transform-box:fill-box;transform-origin:center;
-  animation:sfStamp 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
-@keyframes sfStamp{
-  0%,60%{opacity:0;transform:scale(2.4)}
-  64%{opacity:1;transform:scale(0.92)}
-  67%,86%{opacity:1;transform:scale(1)}
-  93%,100%{opacity:0;transform:scale(1)}
-}
-.sf-bit{opacity:0;transform-box:fill-box;transform-origin:center;
-  animation:sfBit 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes sfBit{
-  0%,62%{opacity:0;transform:translate(0,0) rotate(0deg)}
-  64%{opacity:1;transform:translate(0,0) rotate(0deg)}
-  78%{opacity:1}
-  86%,100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(var(--r))}
-}
-.sf-xp{opacity:0;animation:sfXp 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes sfXp{
-  0%,63%{opacity:0;transform:translateY(8px)}
-  68%{opacity:1;transform:translateY(0)}
-  82%{opacity:1;transform:translateY(-12px)}
-  88%,100%{opacity:0;transform:translateY(-18px)}
-}
-
-/* --- Cookbook: tap what's in the fridge, match bars fill, the best dish rises to the top --- */
-.ck-art svg{height:168px}
-.ck-chip rect{fill:#1d1b16;stroke:#4a463c;stroke-width:1}
-.ck-chip text{fill:#A8A499}
-.ck-on{opacity:0;transform-box:fill-box;transform-origin:center}
-.ck-on rect{fill:#00FF94}
-.ck-on text{fill:#15130F}
-.ck-on.c1{animation:ckOn1 6.5s ease-out infinite}
-.ck-on.c2{animation:ckOn2 6.5s ease-out infinite}
-.ck-on.c3{animation:ckOn3 6.5s ease-out infinite}
-.ck-on.c4{animation:ckOn4 6.5s ease-out infinite}
-@keyframes ckOn1{0%,5%{opacity:0;transform:scale(1)}7%{opacity:1;transform:scale(1.1)}10%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
-@keyframes ckOn2{0%,11%{opacity:0;transform:scale(1)}13%{opacity:1;transform:scale(1.1)}16%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
-@keyframes ckOn3{0%,17%{opacity:0;transform:scale(1)}19%{opacity:1;transform:scale(1.1)}22%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
-@keyframes ckOn4{0%,23%{opacity:0;transform:scale(1)}25%{opacity:1;transform:scale(1.1)}28%,86%{opacity:1;transform:scale(1)}92%,100%{opacity:0;transform:scale(1)}}
-/* each dish's bar = how many of your picks it uses */
-.ck-bar{transform-box:fill-box;transform-origin:left center;transform:scaleX(0)}
-.ck-bar.b1{animation:ckB1 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-.ck-bar.b2{animation:ckB2 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-.ck-bar.b3{animation:ckB3 6.5s cubic-bezier(0.22,1,0.36,1) infinite}
-@keyframes ckB1{0%,17%{transform:scaleX(0)}20%,23%{transform:scaleX(0.25)}26%,86%{transform:scaleX(0.5)}93%,100%{transform:scaleX(0)}}
-@keyframes ckB2{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,86%{transform:scaleX(0.75)}93%,100%{transform:scaleX(0)}}
-@keyframes ckB3{0%,5%{transform:scaleX(0)}8%,11%{transform:scaleX(0.25)}14%,17%{transform:scaleX(0.5)}20%,23%{transform:scaleX(0.75)}26%,86%{transform:scaleX(1)}93%,100%{transform:scaleX(0)}}
-.ck-frac{opacity:0;animation:ckFrac 6.5s ease infinite}
-@keyframes ckFrac{0%,27%{opacity:0}31%,86%{opacity:1}92%,100%{opacity:0}}
-/* re-rank: the full match climbs over the partial ones */
-.ck-up{animation:ckUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
-.ck-down{animation:ckDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
-@keyframes ckUp{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(-68px)}97%,100%{transform:translateY(0)}}
-@keyframes ckDown{0%,35%{transform:translateY(0)}44%,88%{transform:translateY(68px)}97%,100%{transform:translateY(0)}}
-.ck-best{opacity:0;animation:ckBest 6.5s ease infinite}
-@keyframes ckBest{0%,44%{opacity:0}48%,86%{opacity:1}92%,100%{opacity:0}}
-.ck-macros{opacity:0;animation:ckMacros 6.5s ease-out infinite}
-@keyframes ckMacros{0%,48%{opacity:0;transform:translateY(4px)}54%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
-.ck-word{opacity:0;animation:ckWord 6.5s ease-out infinite}
-@keyframes ckWord{0%,56%{opacity:0;transform:translateY(4px)}62%,86%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(0)}}
-
-/* --- GRID: five red lights, lights out, a lap of a blueprint circuit, sectors go green/gold/purple --- */
-.gr-art svg{height:170px}
-.gr-l{opacity:0}
-.gr-l.l1{animation:grL1 6.5s steps(1,end) infinite}
-.gr-l.l2{animation:grL2 6.5s steps(1,end) infinite}
-.gr-l.l3{animation:grL3 6.5s steps(1,end) infinite}
-.gr-l.l4{animation:grL4 6.5s steps(1,end) infinite}
-.gr-l.l5{animation:grL5 6.5s steps(1,end) infinite}
-@keyframes grL1{0%{opacity:0}4%{opacity:1}26%,100%{opacity:0}}
-@keyframes grL2{0%{opacity:0}8%{opacity:1}26%,100%{opacity:0}}
-@keyframes grL3{0%{opacity:0}12%{opacity:1}26%,100%{opacity:0}}
-@keyframes grL4{0%{opacity:0}16%{opacity:1}26%,100%{opacity:0}}
-@keyframes grL5{0%{opacity:0}20%{opacity:1}26%,100%{opacity:0}}
-.gr-out{opacity:0;animation:grOut 6.5s ease-out infinite}
-@keyframes grOut{0%,26%{opacity:0;transform:translateX(-4px)}30%,48%{opacity:1;transform:translateX(0)}56%,100%{opacity:0;transform:translateX(0)}}
-/* the circuit draws itself like a technical plate */
-.gr-track{stroke-dasharray:100;stroke-dashoffset:100;animation:grTrack 6.5s ease-in-out infinite}
-@keyframes grTrack{0%{stroke-dashoffset:100;opacity:1}22%,88%{stroke-dashoffset:0;opacity:1}96%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
-/* the car is a short dash travelling the same path */
-.gr-car{stroke-dasharray:2 98;stroke-dashoffset:0;opacity:0;animation:grCar 6.5s linear infinite}
-@keyframes grCar{
-  0%,20%{opacity:0;stroke-dashoffset:0}
-  23%{opacity:1;stroke-dashoffset:0}
-  27%{stroke-dashoffset:0;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
-  72%,88%{opacity:1;stroke-dashoffset:-100}
-  94%,100%{opacity:0;stroke-dashoffset:-100}
-}
-.gr-trail{stroke-dasharray:10 90;stroke-dashoffset:8;opacity:0;animation:grTrail 6.5s linear infinite}
-@keyframes grTrail{
-  0%,27%{opacity:0;stroke-dashoffset:8;animation-timing-function:cubic-bezier(0.45,0,0.75,1)}
-  30%,68%{opacity:0.4}
-  72%{opacity:0;stroke-dashoffset:-92}
-  100%{opacity:0;stroke-dashoffset:-92}
-}
-.gr-s{fill:#2a2722}
-.gr-s.s1{animation:grS1 6.5s ease-out infinite}
-.gr-s.s2{animation:grS2 6.5s ease-out infinite}
-.gr-s.s3{animation:grS3 6.5s ease-out infinite}
-@keyframes grS1{0%,41%{fill:#2a2722}43%,88%{fill:#00FF94}94%,100%{fill:#2a2722}}
-@keyframes grS2{0%,56%{fill:#2a2722}58%,88%{fill:#E6B547}94%,100%{fill:#2a2722}}
-@keyframes grS3{0%,71%{fill:#2a2722}73%,88%{fill:#FF2D78}94%,100%{fill:#2a2722}}
-/* timing tower: NOR goes P3 -> P2 */
-.gr-up{animation:grUp 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
-.gr-down{animation:grDown 6.5s cubic-bezier(0.34,1.4,0.64,1) infinite}
-@keyframes grUp{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(-16px)}96%,100%{transform:translateY(0)}}
-@keyframes grDown{0%,58%{transform:translateY(0)}64%,88%{transform:translateY(16px)}96%,100%{transform:translateY(0)}}
-.gr-gain{opacity:0;animation:grGain 6.5s ease infinite}
-@keyframes grGain{0%,60%{opacity:0}64%,84%{opacity:1}90%,100%{opacity:0}}
-.gr-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
-.gr-fl{opacity:0;transform-box:fill-box;transform-origin:center;
-  animation:grFl 6.5s cubic-bezier(0.34,1.56,0.64,1) infinite}
-@keyframes grFl{0%,71%{opacity:0;transform:scale(0.6)}76%,88%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(1)}}
-
-/* --- Zero to a Hundred: 21 phases light up along the path, the odometer rolls 0 -> 100 --- */
-.ai-art svg{height:170px}
-.ai-fill{stroke-dasharray:100;stroke-dashoffset:100;animation:aiFill 6.5s linear infinite}
-@keyframes aiFill{0%,6%{stroke-dashoffset:100;opacity:1}72%,86%{stroke-dashoffset:0;opacity:1}92%{stroke-dashoffset:0;opacity:0}100%{stroke-dashoffset:100;opacity:0}}
-.ai-odo{animation:aiOdo 6.5s infinite}
-@keyframes aiOdo{
-  0%,6%{transform:translateY(0);animation-timing-function:steps(20,end)}
-  72%,88%{transform:translateY(-960px);animation-timing-function:cubic-bezier(0.65,0,0.35,1)}
-  97%,100%{transform:translateY(0)}
-}
-.ai-t{opacity:0}
-.ai-t.t0{opacity:1;animation:aiT0 6.5s ease infinite}
-.ai-t.t1{animation:aiT1 6.5s ease infinite}
-.ai-t.t2{animation:aiT2 6.5s ease infinite}
-.ai-t.t3{animation:aiT3 6.5s ease infinite}
-.ai-t.t4{animation:aiT4 6.5s ease infinite}
-.ai-t.t5{animation:aiT5 6.5s ease infinite}
-@keyframes aiT0{0%,20%{opacity:1}22%,93%{opacity:0}97%,100%{opacity:1}}
-@keyframes aiT1{0%,20%{opacity:0}22%,34.7%{opacity:1}36.7%,100%{opacity:0}}
-@keyframes aiT2{0%,34.7%{opacity:0}36.7%,41%{opacity:1}43%,100%{opacity:0}}
-@keyframes aiT3{0%,41%{opacity:0}43%,61.8%{opacity:1}63.8%,100%{opacity:0}}
-@keyframes aiT4{0%,61.8%{opacity:0}63.8%,71%{opacity:1}73%,100%{opacity:0}}
-@keyframes aiT5{0%,71%{opacity:0}73%,88%{opacity:1}93%,100%{opacity:0}}
-.ai-live{transform-box:fill-box;transform-origin:center;animation:pulse-dot 1.8s ease-in-out infinite}
-.ai-word{opacity:0;animation:aiWord 6.5s ease-out infinite}
-@keyframes aiWord{0%,72%{opacity:0;transform:translateY(4px)}77%,88%{opacity:1;transform:translateY(0)}93%,100%{opacity:0;transform:translateY(0)}}
-
-/* seven loops on one page: only run the ones on screen */
-.project:not(.in-view) .pr-art *{animation-play-state:paused}
-
-@media (prefers-reduced-motion:reduce){
-  .cc-card,.cc-hop,.cc-pulse,.cc-approve,.cc-stamp-word,
-  .jr-noise rect,.jr-action,.jr-prio,.jr-conf,.jr-cursor,.jr-audit,
-  .tk-island,.tk-island-in,.tk-ring,.tk-eta,.tk-arr,.tk-train,.tk-fill,.tk-st,.tk-ripple,.tk-pin,.tk-plane,.tk-word,
-  .sf-pass,.sf-liquid,.sf-wave,.sf-bar,.sf-finger,.sf-zone,.sf-zone-label,.sf-flash,.sf-stamp,.sf-bit,.sf-xp,
-  .ck-on,.ck-bar,.ck-frac,.ck-up,.ck-down,.ck-best,.ck-macros,.ck-word,
-  .gr-l,.gr-out,.gr-track,.gr-car,.gr-trail,.gr-s,.gr-up,.gr-down,.gr-gain,.gr-live,.gr-fl,
-  .ai-fill,.ai-odo,.ai-t,.ai-live,.ai-word,
-  .project.in-view .project-desc .pd-mark::before{animation:none}
-  .tk-island,.tk-island-in,.tk-arr,.tk-word{opacity:1;transform:none}
-  .tk-eta{opacity:0}
-  .tk-ring,.tk-fill{stroke-dashoffset:0}
-  .tk-train{opacity:1;transform:translateX(272px)}
-  .tk-st,.tk-st.s4{fill:#00FF94}
-  .tk-plane{opacity:0.9;transform:translateX(110px)}
-  .sf-pass{opacity:1;transform:translate(165px,0) rotate(-2deg)}
-  .sf-liquid{transform:translateY(-56px)}
-  .sf-bar{transform:none}
-  .sf-zone,.sf-zone-label,.sf-stamp,.sf-xp{opacity:1;transform:none}
-  .ck-on,.ck-frac,.ck-best,.ck-macros,.ck-word{opacity:1;transform:none}
-  .ck-bar.b1{transform:scaleX(0.5)}.ck-bar.b2{transform:scaleX(0.75)}.ck-bar.b3{transform:none}
-  .ck-up{transform:translateY(-68px)}.ck-down{transform:translateY(68px)}
-  .gr-track{stroke-dashoffset:0}
-  .gr-car,.gr-out,.gr-gain,.gr-fl{opacity:1;transform:none}
-  .gr-s.s1{fill:#00FF94}.gr-s.s2{fill:#E6B547}.gr-s.s3{fill:#FF2D78}
-  .gr-up{transform:translateY(-16px)}.gr-down{transform:translateY(16px)}
-  .ai-fill{stroke-dashoffset:0}
-  .ai-odo{transform:translateY(-960px)}
-  .ai-t.t0{opacity:0}.ai-t.t5,.ai-word{opacity:1;transform:none}
-  .cc-card{opacity:1;transform:translate(252px,0)}
-  .cc-hop{opacity:1;fill:#00FF94}
-  .cc-pulse{stroke-dashoffset:0;opacity:1}
-  .cc-approve,.cc-stamp-word{opacity:1;transform:none}
-  .jr-noise rect{opacity:0}
-  .jr-action{opacity:1;transform:none}
-  .jr-prio,.jr-conf{transform:none}
-  .project.in-view .project-desc .pd-mark::before{transform:scaleX(1)}
-}
-
-/* HERO - restored original layout */
-.hero{
-  min-height:100vh;
-  position:relative;
-  padding:7rem 2.5rem 4rem;
-  display:flex;flex-direction:column;justify-content:space-between;
-  overflow:hidden;
-}
-.hero-top{
-  display:flex;justify-content:space-between;align-items:flex-start;
-  margin-bottom:2rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-}
-.hero-top .left-col{display:flex;align-items:center;gap:0.75rem}
-.hero-top .left-col::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);
-  animation:pulse-dot 1.8s ease-in-out infinite;
-}
-.hero-top .right-col{text-align:right;line-height:1.7}
-.hero-top .right-col .key{color:var(--ink)}
-
-.hero-main{
-  flex:1;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:3rem 0;
-}
-.hero-type{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(4rem,11.5vw,12.5rem);
-  line-height:0.86;
-  letter-spacing:-0.012em;
-  color:var(--ink);
-  position:relative;
-}
-/* FIX: extra vertical padding around each line so italic descenders (p, g, f, y) don't get clipped by overflow:hidden */
-.hero-line{display:block;overflow:hidden;padding:0.06em 0 0.12em}
-.hero-word{
-  display:inline-block;
-  transform:translateY(110%);
-  animation:reveal-up 1s cubic-bezier(0.22,1,0.36,1) forwards;
-}
-.hero-word.d1{animation-delay:0.12s}
-.hero-word.d2{animation-delay:0.24s}
-.hero-word.d3{animation-delay:0.36s}
-.hero-word.d4{animation-delay:0.48s}
-.hero-word.d5{animation-delay:0.60s}
-.hero-word.d6{animation-delay:0.72s}
-@keyframes reveal-up{to{transform:translateY(0)}}
-.hero-word.serif{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-weight:400;
-  letter-spacing:-0.02em;
-  color:var(--neon-dark);
-}
-.hero-word.outline{
-  -webkit-text-stroke:1px var(--ink);
-  color:transparent;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-}
-.hero-word.with-mark{position:relative}
-.hero-word.with-mark::after{
-  content:'';
-  position:absolute;
-  left:-4%;right:-4%;bottom:8%;
-  height:24%;
-  background:var(--neon);
-  z-index:-1;
-  transform:scaleX(0);transform-origin:left;
-  animation:slide-in 0.8s cubic-bezier(0.76,0,0.24,1) 1.2s forwards;
-}
-@keyframes slide-in{to{transform:scaleX(1)}}
-
-.hero-bottom{
-  display:grid;
-  grid-template-columns:1fr auto;
-  gap:3rem;align-items:end;
-  margin-top:2rem;
-  opacity:0;
-  animation:fade-up 1s ease 1.5s forwards;
-}
-@keyframes fade-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-.hero-intro{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.2rem,1.8vw,1.5rem);
-  font-style:italic;
-  line-height:1.45;
-  color:var(--ink);
-  max-width:620px;
-}
-.hero-intro strong{
-  font-style:normal;
-  font-family:'Inter',sans-serif;
-  font-weight:500;
-  background:var(--neon);
-  padding:0.05em 0.4em;
-  box-decoration-break:clone;
-  -webkit-box-decoration-break:clone;
-}
-.hero-scroll{
-  display:flex;flex-direction:column;align-items:center;gap:0.5rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gray);
-}
-.hero-scroll::after{
-  content:'';width:1px;height:40px;background:var(--ink);
-  animation:scroll-hint 2s ease-in-out infinite;
-}
-@keyframes scroll-hint{0%,100%{transform:scaleY(0.3);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
-
-/* STAMPS */
-.stamps{
-  background:var(--ink);
-  padding:2.5rem 2.5rem;
-  border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:0.8rem 1rem;
-  position:relative;
-}
-.stamps::before,.stamps::after{
-  content:'';position:absolute;
-  left:0;right:0;
-  height:2px;
-  background-image:linear-gradient(to right,var(--ink) 0 4px,transparent 4px 8px);
-  background-size:8px 2px;
-}
-.stamps::before{top:0}
-.stamps::after{bottom:0}
-.stamp{
-  font-family:'DM Mono',monospace;
-  font-size:0.72rem;font-weight:500;
-  letter-spacing:0.14em;text-transform:uppercase;
-  padding:0.55rem 1rem;
-  border:1px solid #343028;
-  color:#a8a499;
-  transition:transform 0.3s,color 0.3s,border-color 0.3s,background 0.3s;
-  display:inline-flex;align-items:center;gap:0.5rem;
-}
-.stamp::before{content:'✦';color:#4a4740;font-size:0.6rem}
-.stamp.hot{color:var(--neon);border-color:var(--neon-dark);background:rgba(0,255,148,0.05);animation:flicker-green 3.6s infinite}
-.stamp.hot::before{color:var(--neon)}
-.stamp.gold{color:var(--gold);border-color:var(--gold-deep);animation:flicker-gold 4.2s infinite}
-.stamp.gold::before{color:var(--gold)}
-@keyframes flicker-green{
-  0%,18%,22%,25%,53%,57%,100%{
-    box-shadow:0 0 4px rgba(0,255,148,0.3),0 0 12px rgba(0,255,148,0.25),inset 0 0 6px rgba(0,255,148,0.1);
-    opacity:1;
-  }
-  20%,24%,55%{
-    box-shadow:none;
-    opacity:0.55;
-  }
-}
-@keyframes flicker-gold{
-  0%,8%,12%,62%,67%,100%{
-    box-shadow:0 0 4px rgba(230,181,71,0.35),0 0 10px rgba(230,181,71,0.22);
-    opacity:1;
-  }
-  10%,65%{
-    box-shadow:none;
-    opacity:0.6;
-  }
-}
-.stamp:nth-child(1){transform:rotate(-1.6deg);animation-delay:-0.3s}
-.stamp:nth-child(2){transform:rotate(1.2deg);animation-delay:-0.6s}
-.stamp:nth-child(3){transform:rotate(-0.8deg);animation-delay:-1.1s}
-.stamp:nth-child(4){transform:rotate(2deg);animation-delay:-1.8s}
-.stamp:nth-child(5){transform:rotate(-1.2deg);animation-delay:-2.4s}
-.stamp:nth-child(6){transform:rotate(0.6deg);animation-delay:-0.9s}
-.stamp:nth-child(7){transform:rotate(-2deg);animation-delay:-1.5s}
-.stamp:nth-child(8){transform:rotate(1.4deg);animation-delay:-2.1s}
-.stamp:nth-child(9){transform:rotate(-0.4deg);animation-delay:-0.2s}
-.stamp:nth-child(10){transform:rotate(1.8deg);animation-delay:-2.7s}
-.stamp:hover{transform:rotate(0) scale(1.08);color:var(--neon);border-color:var(--neon);background:rgba(0,255,148,0.12);animation-play-state:paused}
-
-.big-numbers{
-  padding:7rem 2.5rem 5rem;
-  border-bottom:1px solid var(--border);
-  background:var(--eggshell-warm);
-  position:relative;
-}
-.bn-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:3rem;
-  display:flex;align-items:center;gap:1rem;
-}
-.bn-label::before{
-  content:'';width:30px;height:1px;background:var(--neon-dark);
-}
-.bn-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:0;
-}
-.bn-cell{
-  padding:3rem 0;
-  border-bottom:1px solid var(--border);
-  padding-right:3rem;
-  position:relative;
-  transition:padding-left 0.4s cubic-bezier(0.76,0,0.24,1);
-}
-.sharpie-note{
-  position:absolute;
-  top:2rem;left:14rem;
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.5rem;
-  color:var(--pink);
-  pointer-events:none;
-  white-space:nowrap;
-  z-index:2;
-  opacity:0;
-  transform:rotate(-5deg);
-  animation:sharpie-in 0.7s cubic-bezier(0.22,1,0.36,1) 1.2s forwards, wiggle 3s ease-in-out 2s infinite;
-}
-.sharpie-note::before{
-  content:'';
-  position:absolute;
-  left:-2.2rem;top:55%;
-  width:2rem;height:1.5px;
-  background:var(--pink);
-  transform:rotate(-8deg);
-  transform-origin:right center;
-}
-.sharpie-note::after{
-  content:'';
-  position:absolute;
-  left:-2.4rem;top:50%;
-  width:0;height:0;
-  border-top:5px solid transparent;
-  border-bottom:5px solid transparent;
-  border-right:8px solid var(--pink);
-  transform:rotate(-8deg);
-}
-@keyframes wiggle{
-  0%,100%{transform:rotate(-5deg) translateY(0)}
-  50%{transform:rotate(-3deg) translateY(-2px)}
-}
-@keyframes sharpie-in{
-  from{opacity:0;transform:rotate(-12deg) translateX(-20px) scale(0.7)}
-  to{opacity:1;transform:rotate(-5deg) translateX(0) scale(1)}
-}
-/* Post-it note - used in philosophy */
-.postit{
-  display:inline-block;
-  background:#FFF9A8;
-  color:#4a3b00;
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.15rem;
-  padding:0.5rem 1rem 0.65rem;
-  transform:rotate(-3deg);
-  box-shadow:3px 4px 10px rgba(0,0,0,0.12),1px 1px 0 rgba(0,0,0,0.04);
-  letter-spacing:0.01em;
-  line-height:1.2;
-  position:relative;
-  margin:0 0.3rem;
-  vertical-align:middle;
-  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1);
-  cursor:none;
-}
-.postit::before{
-  content:'';
-  position:absolute;
-  top:-6px;left:50%;
-  width:42px;height:14px;
-  background:rgba(255,220,100,0.55);
-  transform:translateX(-50%) rotate(-4deg);
-  border:1px solid rgba(0,0,0,0.04);
-}
-.postit:hover{transform:rotate(0deg) scale(1.08)}
-.bn-cell:nth-child(odd){padding-right:3rem;border-right:1px solid var(--border)}
-.bn-cell:nth-child(even){padding-left:3rem}
-.bn-cell:nth-last-child(-n+2){border-bottom:none;padding-bottom:0}
-.bn-cell:hover{padding-left:1.5rem}
-.bn-cell:nth-child(even):hover{padding-left:4.5rem}
-.bn-cell::before{
-  content:'';
-  position:absolute;left:0;top:50%;
-  width:0;height:1px;background:var(--neon-dark);
-  transition:width 0.4s cubic-bezier(0.76,0,0.24,1);
-}
-.bn-cell:hover::before{width:1rem}
-.bn-cell:nth-child(even)::before{left:3rem}
-.bn-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(5rem,11vw,11rem);
-  line-height:0.9;
-  letter-spacing:-0.01em;
-  color:var(--ink);
-  display:flex;align-items:baseline;gap:0.3rem;
-}
-.bn-num .sup{font-size:0.35em;color:var(--neon-dark);letter-spacing:0}
-.bn-caption{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-top:0.5rem;
-  gap:2rem;
-}
-.bn-desc{font-size:0.95rem;line-height:1.5;color:var(--gray);max-width:320px}
-.bn-tag{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;
-  letter-spacing:0.12em;
-  color:var(--pink);
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-
-/* QUOTE - overflow:hidden restored so ghost text stays inside */
-.quote-section{
-  padding:8rem 2.5rem;
-  background:var(--ink);
-  color:var(--eggshell);
-  position:relative;
-  overflow:hidden;
-}
-.quote-bg-mark{
-  position:absolute;
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:clamp(20rem,40vw,35rem);
-  color:transparent;
-  -webkit-text-stroke:1px #1f1c18;
-  top:-8%;right:-5%;
-  user-select:none;pointer-events:none;
-  line-height:0.8;
-}
-.quote-inner{
-  max-width:900px;position:relative;z-index:1;margin-bottom:4rem;
-  opacity:0;transform:translateY(30px);
-  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);
-}
-.quote-section.in-view .quote-inner{opacity:1;transform:translateY(0)}
-.quote-section.in-view .quote-inner:nth-child(3){transition-delay:0.25s}
-.quote-inner:last-child{margin-bottom:0}
-.quote-inner.tilt-right{margin-left:auto;margin-right:0;max-width:900px}
-.quote-section.in-view .quote-inner.tilt-right{transform:translateY(0) rotate(-0.6deg)}
-.quote-inner.tilt-right{transform:translateY(30px) rotate(-0.6deg)}
-.quote-inner:hover .quote-text em{text-shadow:0 0 20px rgba(0,255,148,0.6)}
-.quote-inner:hover .quote-text .highlight::after{animation:hl-pulse 1.6s ease-in-out infinite}
-@keyframes hl-pulse{
-  0%,100%{opacity:1;transform:scaleX(1)}
-  50%{opacity:0.6;transform:scaleX(1.04)}
-}
-.quote-text .highlight::after{transition:opacity 0.3s,transform 0.3s;transform-origin:left center}
-.quote-text em{transition:text-shadow 0.4s}
-.quote-bg-mark{transition:transform 0.2s ease-out}
-.quote-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--neon);
-  margin-bottom:2.5rem;
-}
-.quote-text{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(2rem,4.5vw,4rem);
-  line-height:1.15;
-  letter-spacing:-0.01em;
-  margin-bottom:2rem;
-}
-.quote-text em{color:var(--neon);font-style:italic}
-.quote-text .highlight{position:relative;display:inline-block}
-.quote-text .highlight::after{
-  content:'';
-  position:absolute;
-  left:-2%;right:-2%;bottom:0.05em;
-  height:0.15em;
-  background:var(--pink);
-}
-.quote-attr{
-  font-family:'DM Mono',monospace;
-  font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray-light);
-  display:flex;align-items:center;gap:1rem;
-}
-.quote-attr::before{content:'';width:30px;height:1px;background:var(--gray-light)}
-
-.work-header{
-  padding:6rem 2.5rem 2rem;
-  display:flex;justify-content:space-between;align-items:baseline;
-  border-bottom:1px solid var(--border);
-  gap:2rem;flex-wrap:wrap;
-  background:var(--eggshell);
-}
-.wh-left{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gray);
-}
-.wh-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;
-  letter-spacing:-0.005em;
-  display:inline-block;
-  transform:rotate(-1deg);
-  transform-origin:left center;
-}
-.wh-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-
-.case{
-  padding:6rem 2.5rem;
-  border-bottom:1px solid var(--border);
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:4rem;
-  align-items:start;
-  position:relative;
-  opacity:0;transform:translateY(40px);
-  transition:opacity 0.9s cubic-bezier(0.22,1,0.36,1),transform 0.9s cubic-bezier(0.22,1,0.36,1);
-}
-.case.in-view{opacity:1;transform:translateY(0)}
-.case:hover .case-title em{color:var(--pink)}
-.case:hover .case-metric-hero .c-accent{transform:scale(1.05) translateY(-3px)}
-.case-metric-hero .c-accent{display:inline-block;transition:transform 0.4s cubic-bezier(0.22,1,0.36,1)}
-.case-title em{transition:color 0.4s}
-.case-client{
-  font-family:'DM Mono',monospace;
-  font-size:0.75rem;font-weight:500;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--ink);
-  margin-bottom:1rem;
-  display:inline-block;
-  background:var(--neon);
-  padding:0.4rem 0.9rem;
-  transform:rotate(-1.2deg);
-  transition:transform 0.3s cubic-bezier(0.22,1,0.36,1),background 0.3s;
-}
-.case:hover .case-client{transform:rotate(0deg) scale(1.05);background:var(--pink);color:var(--eggshell)}
-.case-stack span{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.06em;
-  padding:0.35rem 0.75rem;
-  border:1px solid var(--border);
-  color:var(--gray);
-  background:var(--paper);
-  transition:border-color 0.2s,color 0.2s,transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.2s;
-  opacity:0;
-  transform:translateY(12px);
-}
-.case.in-view .case-stack span{opacity:1;transform:translateY(0)}
-.case.in-view .case-stack span:nth-child(1){transition-delay:0.35s}
-.case.in-view .case-stack span:nth-child(2){transition-delay:0.4s}
-.case.in-view .case-stack span:nth-child(3){transition-delay:0.45s}
-.case.in-view .case-stack span:nth-child(4){transition-delay:0.5s}
-.case.in-view .case-stack span:nth-child(5){transition-delay:0.55s}
-.case.in-view .case-stack span:nth-child(6){transition-delay:0.6s}
-.case.in-view .case-stack span:nth-child(7){transition-delay:0.65s}
-.case.in-view .case-stack span:nth-child(8){transition-delay:0.7s}
-.case-stack span:hover{border-color:var(--ink);color:var(--ink);transform:translateY(-3px) rotate(-1.5deg);background:var(--neon)}
-.case:nth-child(odd){background:var(--eggshell)}
-.case:nth-child(even){background:var(--eggshell-deep)}
-.case-left{position:sticky;top:6rem}
-.case-num{
-  font-family:'DM Mono',monospace;
-  font-size:0.68rem;letter-spacing:0.15em;color:var(--gray);
-  margin-bottom:1rem;
-}
-.case-num span{color:var(--pink)}
-.case-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(2.5rem,5vw,4.5rem);
-  line-height:0.9;
-  letter-spacing:-0.01em;
-  margin-bottom:1.5rem;
-  color:var(--ink);
-}
-.case-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-.case-sub{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:1.1rem;
-  line-height:1.5;
-  color:var(--gray);
-  max-width:480px;
-  margin-bottom:2rem;
-}
-
-.case-metric-hero{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(6rem,11vw,10rem);
-  line-height:0.85;
-  color:var(--ink);
-  margin-bottom:0.5rem;
-  display:flex;align-items:baseline;
-}
-.case-metric-hero .c-accent{color:var(--neon-dark)}
-.case-metric-hero .sup{font-size:0.35em;color:var(--gray)}
-.case-metric-caption{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:3rem;
-  padding-bottom:1.5rem;
-  border-bottom:1px solid var(--border);
-}
-.case-desc{font-size:0.95rem;line-height:1.8;color:#3d3b34;margin-bottom:2rem}
-.case-desc strong{color:var(--ink);font-weight:500;background:var(--neon);padding:0.05em 0.3em}
-.case-stack{display:flex;flex-wrap:wrap;gap:0.4rem}
-
-.skills-wrap{
-  padding:6rem 2.5rem;
-  background:var(--ink);
-  color:var(--eggshell);
-  position:relative;overflow:hidden;
-}
-.skills-bg{
-  position:absolute;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(10rem,20vw,18rem);
-  color:transparent;
-  -webkit-text-stroke:1px #1f1c18;
-  top:10%;left:-5%;
-  user-select:none;pointer-events:none;
-  line-height:0.8;letter-spacing:-0.01em;
-}
-.skills-head{
-  position:relative;z-index:1;
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:4rem;flex-wrap:wrap;gap:2rem;
-}
-.skills-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;letter-spacing:-0.01em;
-  color:var(--eggshell);
-}
-.skills-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon)}
-.skills-sub{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:#5a5750;
-}
-.skills-cols{
-  display:grid;grid-template-columns:repeat(3,1fr);
-  gap:0;position:relative;z-index:1;
-  border-top:1px solid #1f1c18;
-}
-.skill-col{
-  padding:2.5rem 1.5rem 2.5rem 0;
-  border-right:1px solid #1f1c18;
-  transition:background 0.3s;
-  position:relative;
-}
-.skill-col:last-child{border-right:none;padding-right:0}
-.skill-col:first-child{padding-left:0}
-.skill-col:not(:first-child){padding-left:2rem}
-.skill-col:hover{background:rgba(0,255,148,0.02)}
-.skill-col::before{
-  /* Column index number */
-  content:counter(col-num,decimal-leading-zero);
-  counter-increment:col-num;
-  position:absolute;
-  top:0.5rem;right:0.5rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.55rem;letter-spacing:0.2em;
-  color:#3a3730;
-  opacity:0.8;
-}
-.skill-col:first-child::before{right:auto;left:0}
-.skills-cols{counter-reset:col-num}
-
-.sc-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--neon);
-  margin-bottom:2rem;
-  display:flex;align-items:center;gap:0.5rem;
-  padding-bottom:0.75rem;
-  border-bottom:1px dashed #2a2722;
-}
-.sc-label::before{
-  content:'';
-  width:8px;height:8px;
-  background:var(--neon);
-  flex-shrink:0;
-  animation:pulse-dot 2.2s ease-in-out infinite;
-}
-.skill-col:nth-child(2) .sc-label::before{background:var(--pink);animation-delay:-0.5s}
-.skill-col:nth-child(3) .sc-label::before{background:var(--gold);animation-delay:-1.1s}
-.skill-col:nth-child(2) .sc-label{color:var(--pink)}
-.skill-col:nth-child(3) .sc-label{color:var(--gold)}
-
-.sc-list{list-style:none;display:flex;flex-direction:column}
-.sc-list li{
-  font-family:'Inter',sans-serif;
-  font-weight:500;
-  font-size:0.95rem;
-  letter-spacing:0.005em;
-  color:#8a867d;
-  padding:0.75rem 0;
-  border-bottom:1px solid #1a1814;
-  transition:color 0.25s,padding-left 0.3s cubic-bezier(0.22,1,0.36,1),border-color 0.25s,letter-spacing 0.25s,transform 0.4s cubic-bezier(0.22,1,0.36,1),opacity 0.4s;
-  position:relative;
-  --hover-c:var(--neon);
-  opacity:0;
-  transform:translateX(-16px);
-}
-.skills-wrap.in-view .sc-list li{opacity:1;transform:translateX(0)}
-.skills-wrap.in-view .sc-list li:nth-child(1){transition-delay:0.15s,0.3s,0.25s,0.25s,0.15s,0.15s}
-.skills-wrap.in-view .sc-list li:nth-child(2){transition-delay:0.2s,0.3s,0.25s,0.25s,0.2s,0.2s}
-.skills-wrap.in-view .sc-list li:nth-child(3){transition-delay:0.25s,0.3s,0.25s,0.25s,0.25s,0.25s}
-.skills-wrap.in-view .sc-list li:nth-child(4){transition-delay:0.3s,0.3s,0.25s,0.25s,0.3s,0.3s}
-.skills-wrap.in-view .sc-list li:nth-child(5){transition-delay:0.35s,0.3s,0.25s,0.25s,0.35s,0.35s}
-.skills-wrap.in-view .sc-list li:nth-child(6){transition-delay:0.4s,0.3s,0.25s,0.25s,0.4s,0.4s}
-.skills-wrap.in-view .sc-list li:nth-child(7){transition-delay:0.45s,0.3s,0.25s,0.25s,0.45s,0.45s}
-.skills-wrap.in-view .sc-list li:nth-child(8){transition-delay:0.5s,0.3s,0.25s,0.25s,0.5s,0.5s}
-.skills-wrap.in-view .sc-list li:nth-child(9){transition-delay:0.55s,0.3s,0.25s,0.25s,0.55s,0.55s}
-.sc-list li::before{
-  content:'→';
-  font-family:'DM Mono',monospace;
-  font-size:0.85rem;
-  position:absolute;left:0;top:50%;transform:translate(-120%,-50%);
-  color:var(--hover-c);
-  opacity:0;
-  transition:opacity 0.25s,transform 0.25s cubic-bezier(0.22,1,0.36,1);
-}
-.sc-list li:hover{color:var(--hover-c);padding-left:1.75rem;border-color:var(--hover-c);letter-spacing:0.02em}
-.sc-list li:hover::before{opacity:1;transform:translate(0,-50%)}
-
-.philosophy{
-  padding:7rem 2.5rem;
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);
-  gap:4rem;
-  border-bottom:1px solid var(--border);
-  align-items:center;
-  background:var(--eggshell-warm);
-}
-.ph-left{
-  display:flex;flex-direction:column;gap:1.5rem;
-  max-width:380px;
-  justify-self:center;
-}
-.ph-label{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--gray);
-}
-.ph-label::before{
-  content:'';display:block;width:40px;height:1px;background:var(--neon-dark);margin-bottom:1rem;
-}
-.ph-figure{
-  background:var(--paper);
-  border:1px solid var(--border);
-  padding:1rem;
-  margin:0;
-  --ph-rot:-1.2deg;
-  --ph-ty:0px;
-  transform:rotate(var(--ph-rot)) translateY(var(--ph-ty));
-  box-shadow:4px 6px 20px rgba(0,0,0,0.06),1px 2px 4px rgba(0,0,0,0.04);
-  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s;
-  position:relative;
-}
-.ph-figure::before{
-  content:'';
-  position:absolute;
-  top:-8px;left:50%;transform:translateX(-50%);
-  width:16px;height:16px;border-radius:50%;
-  background:var(--pink);
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),inset -2px -2px 3px rgba(0,0,0,0.15);
-  z-index:2;
-}
-.ph-figure:hover{
-  transform:rotate(0deg) translateY(-8px) scale(1.03) !important;
-  box-shadow:8px 14px 40px rgba(0,0,0,0.12),2px 4px 8px rgba(0,0,0,0.06);
-}
-.ph-illustration{
-  display:block;
-  width:100%;
-  height:auto;
-}
-.ph-figcaption{
-  display:flex;align-items:baseline;gap:0.6rem;
-  padding-top:0.75rem;
-  margin-top:0.25rem;
-  border-top:1px dashed var(--border);
-}
-.ph-fignum{
-  font-family:'DM Mono',monospace;
-  font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:var(--pink);
-  font-weight:500;
-}
-.ph-figtext{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:0.85rem;
-  color:var(--ink);
-  line-height:1.3;
-}
-.ph-text{
-  font-family:'Fraunces',serif;
-  font-weight:500;
-  font-size:clamp(1.4rem,2.4vw,2.1rem);
-  line-height:1.35;
-  color:var(--ink);
-  letter-spacing:-0.008em;
-}
-.ph-text p{margin-bottom:1.75rem}
-.ph-text p:last-child{margin-bottom:0}
-.ph-text em{font-style:italic;color:var(--neon-dark);font-weight:600}
-.ph-text .boxed{
-  font-family:'Inter',sans-serif;
-  font-style:normal;
-  font-weight:600;
-  font-size:0.82em;
-  background:var(--ink);
-  color:var(--eggshell);
-  padding:0.12em 0.4em;
-  display:inline-block;
-  letter-spacing:-0.005em;
-  transform:rotate(-2deg);
-  box-shadow:2px 3px 0 rgba(0,0,0,0.08);
-}
-.ph-text .marked{position:relative;display:inline-block}
-.ph-text .marked::after{
-  content:'';
-  position:absolute;
-  left:-2%;right:-2%;bottom:0.05em;
-  height:0.35em;
-  background:var(--neon);
-  z-index:-1;
-}
-
-.writings{
-  padding:6rem 2.5rem;
-  border-bottom:1px solid var(--border);
-  background:var(--eggshell);
-  position:relative;
-  overflow:hidden;
-}
-.writings-head{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  margin-bottom:4rem;gap:2rem;flex-wrap:wrap;
-  padding-bottom:2rem;
-  border-bottom:2px solid var(--ink);
-  position:relative;
-}
-.writings-head::before{
-  content:'';
-  position:absolute;left:0;right:0;bottom:-7px;
-  height:1px;background:var(--ink);
-}
-.writings-masthead{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
-.writings-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;letter-spacing:-0.01em;
-  position:relative;
-}
-.writings-title em{
-  font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark);
-  display:inline-block;
-  animation:tilt-hover 6s ease-in-out infinite;
-  transform-origin:center bottom;
-}
-@keyframes tilt-hover{
-  0%,100%{transform:rotate(-1.5deg) translateY(0)}
-  50%{transform:rotate(1.5deg) translateY(-4px)}
-}
-.writings-title .bracket{
-  display:inline-block;
-  color:var(--pink);
-  opacity:0;
-  transform:translateX(-12px);
-  transition:opacity 0.5s cubic-bezier(0.22,1,0.36,1),transform 0.5s cubic-bezier(0.22,1,0.36,1);
-}
-.writings-title .bracket.right{transform:translateX(12px)}
-.writings.in-view .writings-title .bracket{opacity:0.85;transform:translateX(0);transition-delay:0.25s}
-.writings.in-view .writings-title .bracket.right{transform:translateX(0);transition-delay:0.4s}
-.writings-edition{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--gray);
-}
-.writings-sub{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:1.05rem;
-  color:var(--gray);
-  max-width:320px;
-  line-height:1.5;
-  text-align:right;
-}
-
-.feature-essay{
-  display:grid;
-  grid-template-columns:1.3fr 1fr;
-  gap:3rem;
-  padding:2.5rem 0 4rem;
-  border-bottom:1px solid var(--border);
-  margin-bottom:3rem;
-  align-items:stretch;
-  text-decoration:none;
-  color:var(--ink);
-  position:relative;
-  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1);
-}
-.feature-essay:hover{transform:translateY(-6px)}
-.feature-essay:hover .feat-title em{color:var(--pink)}
-.feature-essay:hover .feat-badge{transform:rotate(-4deg) scale(1.05);background:var(--pink);color:var(--eggshell)}
-.feature-essay:hover .feat-right{background:var(--neon);color:var(--ink)}
-.feature-essay:hover .feat-right::before{color:var(--ink);opacity:0.18}
-.feature-essay:hover .feat-pullquote{color:var(--ink);transform:translateX(4px)}
-.feature-essay:hover .feat-pullquote em{color:var(--ink);background:var(--ink);color:var(--neon);padding:0 0.2em;font-style:normal;font-family:'Inter',sans-serif;font-weight:500;font-size:0.8em;vertical-align:middle}
-.feature-essay::after{
-  content:'Read the full piece ↗';
-  position:absolute;bottom:-1.5rem;right:0;
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-  padding-top:0.5rem;
-  transition:color 0.3s,transform 0.3s,letter-spacing 0.3s;
-}
-.feature-essay:hover::after{color:var(--pink);transform:translateX(-8px);letter-spacing:0.2em}
-.feat-left{display:flex;flex-direction:column;justify-content:space-between;gap:1.5rem}
-.feat-title{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(2rem,4.5vw,3.8rem);
-  line-height:1.05;
-  letter-spacing:-0.015em;
-  color:var(--ink);
-}
-.feat-title em{font-style:italic;color:var(--neon-dark)}
-.feat-meta{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-  display:flex;align-items:center;gap:0.8rem;
-}
-.feat-meta span::before{content:'●  ';color:var(--pink);font-size:0.5em}
-.feat-right{
-  background:var(--ink);
-  padding:2.5rem;
-  display:flex;flex-direction:column;justify-content:center;
-  position:relative;
-  overflow:hidden;
-  transition:background 0.4s cubic-bezier(0.22,1,0.36,1);
-}
-.feat-right::before{
-  content:'"';
-  position:absolute;
-  top:-3rem;left:0.5rem;
-  font-family:'DM Serif Display',serif;
-  font-size:18rem;
-  color:var(--neon);
-  opacity:0.15;
-  line-height:1;
-  transition:color 0.4s,opacity 0.4s;
-}
-.feat-pullquote{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:clamp(1.3rem,1.8vw,1.6rem);
-  line-height:1.35;
-  color:var(--eggshell);
-  position:relative;z-index:1;
-  transition:color 0.4s,transform 0.4s cubic-bezier(0.22,1,0.36,1);
-}
-.feat-pullquote em{color:var(--neon);font-style:normal;transition:color 0.4s,background 0.4s}
-.feat-badge{
-  display:inline-block;
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;font-weight:500;
-  letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--ink);
-  background:var(--neon);
-  padding:0.45rem 0.9rem;
-  align-self:flex-start;
-  transform:rotate(-2deg);
-  transition:transform 0.35s cubic-bezier(0.22,1,0.36,1),background 0.35s,color 0.35s;
-}
-.feat-title em{transition:color 0.35s}
-
-.essay-grid{
-  display:grid;
-  grid-template-columns:repeat(12,1fr);
-  gap:1.5rem;
-  margin-bottom:4rem;
-}
-.essay{
-  text-decoration:none;
-  color:var(--ink);
-  display:flex;flex-direction:column;
-  padding:1.75rem;
-  border:1px solid var(--border);
-  background:var(--paper);
-  transition:transform 0.3s,background 0.3s,border-color 0.3s;
-  position:relative;
-  overflow:hidden;
-  justify-content:space-between;
-  min-height:240px;
-}
-.essay:hover{transform:translateY(-6px) rotate(0deg) !important;background:var(--ink);color:var(--eggshell);border-color:var(--ink)}
-.essay:hover .essay-kicker{color:var(--neon)}
-.essay:hover .essay-title em{color:var(--neon)}
-.essay:hover .essay-meta{color:var(--gray-light)}
-.essay:hover .essay-arrow{background:var(--neon);color:var(--ink);transform:translate(4px,-4px) rotate(0deg)}
-.e-a{grid-column:span 5;transform:rotate(-0.5deg)}
-.e-b{grid-column:span 7;transform:rotate(0.4deg)}
-.e-c{grid-column:span 4;background:var(--neon);transform:rotate(0.7deg)}
-.e-c .essay-kicker{color:var(--ink) !important;opacity:0.7}
-.e-c .essay-title{color:var(--ink)}
-.e-c .essay-title em{color:var(--ink);background:var(--ink);color:var(--neon);padding:0 0.2em;font-style:normal;font-family:'Inter',sans-serif;font-weight:500;font-size:0.75em;vertical-align:middle}
-.e-c:hover{background:var(--ink) !important;color:var(--eggshell)}
-.e-c:hover .essay-title{color:var(--eggshell)}
-.e-c:hover .essay-title em{background:var(--neon);color:var(--ink)}
-.e-d{grid-column:span 4;transform:rotate(-0.8deg)}
-.e-e{grid-column:span 4;transform:rotate(0.3deg)}
-.essay-kicker{
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--pink);
-  margin-bottom:1rem;
-  transition:color 0.3s;
-}
-.essay-title{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.15rem,1.6vw,1.45rem);
-  line-height:1.22;
-  margin-bottom:1rem;
-}
-.essay-title em{font-style:italic;color:var(--neon-dark)}
-.essay-bottom{display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
-.essay-meta{
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--gray);
-  line-height:1.5;
-  transition:color 0.3s;
-}
-.essay-arrow{
-  flex-shrink:0;
-  width:36px;height:36px;
-  border-radius:50%;
-  background:var(--ink);
-  color:var(--eggshell);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;
-  font-size:0.85rem;
-  transition:background 0.3s,transform 0.3s,color 0.3s;
-  transform:rotate(-8deg);
-}
-
-.series-band{
-  margin-top:1rem;
-  padding:2.5rem;
-  background:var(--ink);
-  color:var(--eggshell);
-  position:relative;
-  overflow:hidden;
-}
-.series-band::before{
-  content:'';
-  position:absolute;left:0;right:0;top:0;
-  height:3px;
-  background-image:repeating-linear-gradient(90deg,var(--neon) 0 12px,transparent 12px 24px);
-}
-.series-head{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:2rem;gap:2rem;flex-wrap:wrap;
-}
-.series-name{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.4rem,2.5vw,2.2rem);
-  font-style:italic;
-}
-.series-name strong{font-style:normal;font-weight:400;font-family:'Bebas Neue',sans-serif;color:var(--neon);letter-spacing:0.04em}
-.series-desc{
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:#888479;
-  max-width:420px;
-  line-height:1.7;
-  text-align:right;
-}
-.series-chapters{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:0;
-  border:1px solid #2a2722;
-}
-.chapter{
-  text-decoration:none;
-  color:var(--eggshell);
-  padding:1.5rem 1.2rem;
-  border-right:1px solid #2a2722;
-  display:flex;flex-direction:column;justify-content:space-between;
-  min-height:180px;
-  background:transparent;
-  transition:background 0.35s cubic-bezier(0.22,1,0.36,1),color 0.35s,transform 0.35s cubic-bezier(0.22,1,0.36,1),box-shadow 0.35s;
-  position:relative;
-}
-.chapter:nth-child(1){transform:rotate(-1.1deg)}
-.chapter:nth-child(2){transform:rotate(0.8deg)}
-.chapter:nth-child(3){transform:rotate(-0.5deg)}
-.chapter:nth-child(4){transform:rotate(1.2deg)}
-.chapter:nth-child(5){transform:rotate(-0.9deg)}
-.chapter:last-child{border-right:none}
-.chapter:hover{
-  background:var(--neon);
-  color:var(--ink);
-  transform:translateY(-8px) rotate(0deg);
-  z-index:2;
-  box-shadow:0 10px 28px rgba(0,0,0,0.4);
-}
-.chapter:hover .chapter-num{color:var(--ink);border-color:var(--ink)}
-.chapter:hover .chapter-name em{color:var(--ink)}
-.chapter-num{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2rem;line-height:1;
-  color:var(--neon);
-  padding-bottom:0.5rem;
-  border-bottom:1px solid #333;
-  margin-bottom:1rem;
-  transition:color 0.3s,border-color 0.3s;
-}
-.chapter-name{
-  font-family:'DM Serif Display',serif;
-  font-size:0.95rem;
-  line-height:1.3;
-}
-.chapter-name em{font-style:italic;color:var(--neon);transition:color 0.3s}
-
-.writings-foot{display:flex;justify-content:flex-end;padding:2rem 0 0}
-.writings-link{
-  font-family:'DM Mono',monospace;
-  font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ink);
-  text-decoration:none;
-  border-bottom:1px solid var(--ink);
-  padding-bottom:0.2rem;
-  transition:color 0.2s,border-color 0.2s;
-}
-.writings-link:hover{color:var(--neon-dark);border-color:var(--neon-dark)}
-
-.xp-section{padding:6rem 2.5rem;border-bottom:1px solid var(--border);background:var(--eggshell-warm)}
-.xp-head{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:4rem;gap:2rem;flex-wrap:wrap;
-}
-.xp-main-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;letter-spacing:-0.01em;
-}
-.xp-main-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-
-.xp-row{
-  display:grid;
-  grid-template-columns:200px 1fr;
-  gap:3rem;
-  padding:2.5rem 0;
-  border-top:1px solid var(--border);
-  position:relative;
-  transition:padding-left 0.3s,background 0.3s;
-}
-.xp-row:last-child{border-bottom:1px solid var(--border)}
-.xp-row:hover{padding-left:1rem;background:var(--eggshell-deep)}
-.xp-row::before{
-  content:'';
-  position:absolute;left:0;top:50%;
-  width:0;height:1px;background:var(--neon-dark);
-  transition:width 0.3s;
-}
-.xp-row:hover::before{width:0.75rem}
-.xp-date{
-  font-family:'DM Mono',monospace;
-  font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:0.5rem;
-}
-.xp-co{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:2.2rem;line-height:0.95;
-  letter-spacing:0.01em;
-  color:var(--pink);
-}
-.xp-role{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.4rem,2.2vw,1.8rem);
-  line-height:1.2;
-  margin-bottom:1.25rem;
-  color:var(--ink);
-}
-.xp-role em{font-style:italic;color:var(--gray)}
-.xp-pts{list-style:none;display:flex;flex-direction:column;gap:0.7rem;max-width:680px}
-.xp-pts li{
-  font-size:0.9rem;line-height:1.7;
-  color:#45423b;
-  padding-left:1.5rem;
-  position:relative;
-}
-.xp-pts li::before{
-  content:'';
-  position:absolute;left:0;top:0.75em;
-  width:0.8rem;height:1px;
-  background:var(--neon-dark);
-}
-.xp-pts li strong{color:var(--ink);font-weight:500;background:rgba(0,255,148,0.35);padding:0 0.2em}
-.xp-now{
-  display:inline-flex;align-items:center;gap:0.45rem;
-  margin-top:0.85rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.58rem;letter-spacing:0.16em;text-transform:uppercase;
-  background:var(--ink);color:var(--neon);
-  padding:0.32rem 0.65rem;
-  transform:rotate(-2deg);
-}
-.xp-now::before{
-  content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);
-  animation:pulse-dot 1.8s ease-in-out infinite;
-}
-
-.awards-section{padding:6rem 2.5rem;border-bottom:1px solid var(--border);background:var(--eggshell);position:relative}
-.aw-head{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:3rem;gap:2rem;flex-wrap:wrap;
-}
-.aw-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;letter-spacing:-0.01em;
-}
-.aw-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-.aw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.aw-card{
-  position:relative;
-  padding:2.5rem 1.75rem 1.75rem;
-  background:var(--paper);
-  border:1px solid var(--border);
-  overflow:hidden;
-  opacity:0;
-  transform:translateY(36px) rotate(-6deg) scale(0.92);
-  transition:transform 0.4s cubic-bezier(0.22,1,0.36,1),box-shadow 0.4s,border-color 0.3s;
-}
-.aw-card.visible{opacity:1}
-.aw-card.visible.tilt-a{animation:aw-in-a 0.8s cubic-bezier(0.22,1,0.36,1) 0s forwards}
-.aw-card.visible.tilt-b{animation:aw-in-b 0.8s cubic-bezier(0.22,1,0.36,1) 0.08s forwards}
-.aw-card.visible.tilt-c{animation:aw-in-c 0.8s cubic-bezier(0.22,1,0.36,1) 0.16s forwards}
-.aw-card.visible.tilt-d{animation:aw-in-d 0.8s cubic-bezier(0.22,1,0.36,1) 0.24s forwards}
-.aw-card.visible.tilt-e{animation:aw-in-e 0.8s cubic-bezier(0.22,1,0.36,1) 0.32s forwards}
-.aw-card.visible.tilt-f{animation:aw-in-f 0.8s cubic-bezier(0.22,1,0.36,1) 0.40s forwards}
-@keyframes aw-in-a{0%{opacity:0;transform:translateY(36px) rotate(-8deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(-0.5deg) scale(1.02)}100%{opacity:1;transform:rotate(-1.2deg)}}
-@keyframes aw-in-b{0%{opacity:0;transform:translateY(36px) rotate(8deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0.2deg) scale(1.02)}100%{opacity:1;transform:rotate(0.8deg)}}
-@keyframes aw-in-c{0%{opacity:0;transform:translateY(36px) rotate(-6deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(-0.5deg)}}
-@keyframes aw-in-d{0%{opacity:0;transform:translateY(36px) rotate(6deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0.5deg) scale(1.02)}100%{opacity:1;transform:rotate(1.3deg)}}
-@keyframes aw-in-e{0%{opacity:0;transform:translateY(36px) rotate(-5deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(-0.8deg)}}
-@keyframes aw-in-f{0%{opacity:0;transform:translateY(36px) rotate(5deg) scale(0.92)}60%{opacity:1;transform:translateY(-4px) rotate(0deg) scale(1.02)}100%{opacity:1;transform:rotate(0.6deg)}}
-.aw-card:hover{transform:translateY(-8px) rotate(0deg) !important;box-shadow:0 14px 36px rgba(0,0,0,0.12);border-color:var(--ink);z-index:2;animation-play-state:paused !important}
-.aw-card:hover .aw-medal{animation:medal-shake 0.5s ease-in-out}
-.aw-card:hover .aw-brush{transform:scale(1.08) rotate(-3deg)}
-@keyframes medal-shake{
-  0%,100%{transform:rotate(0)}
-  25%{transform:rotate(-10deg) scale(1.08)}
-  50%{transform:rotate(8deg) scale(1.1)}
-  75%{transform:rotate(-4deg) scale(1.05)}
-}
-.aw-medal{
-  position:relative;z-index:1;width:56px;height:56px;margin-bottom:1.25rem;
-  transform-origin:50% 10%;
-  animation:medal-sway 5s ease-in-out infinite;
-  transition:transform 0.3s;
-}
-.aw-card:nth-child(1) .aw-medal{animation-delay:-0.2s}
-.aw-card:nth-child(2) .aw-medal{animation-delay:-1.4s}
-.aw-card:nth-child(3) .aw-medal{animation-delay:-2.6s}
-.aw-card:nth-child(4) .aw-medal{animation-delay:-0.8s}
-.aw-card:nth-child(5) .aw-medal{animation-delay:-3.1s}
-.aw-card:nth-child(6) .aw-medal{animation-delay:-1.9s}
-@keyframes medal-sway{
-  0%,100%{transform:rotate(-2deg)}
-  50%{transform:rotate(2deg)}
-}
-.aw-brush{
-  position:absolute;
-  top:-20px;right:-30px;
-  width:180px;height:70px;
-  z-index:0;
-  opacity:0.85;
-  pointer-events:none;
-  transition:transform 0.5s cubic-bezier(0.22,1,0.36,1);
-}
-.aw-year{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:0.5rem;
-  position:relative;z-index:1;
-}
-.aw-name{
-  font-family:'DM Serif Display',serif;
-  font-size:1.1rem;line-height:1.3;
-  color:var(--ink);
-  margin-bottom:0.4rem;
-  position:relative;z-index:1;
-}
-.aw-name em{font-style:italic;color:var(--gray);font-size:0.85em}
-.aw-co{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gold-deep);
-  position:relative;z-index:1;
-}
-
-/* CERTIFICATIONS - sticker / ticket style on warm eggshell */
-.certs-section{
-  padding:6rem 2.5rem;
-  border-bottom:1px solid var(--border);
-  background:var(--eggshell-warm);
-  position:relative;
-  overflow:hidden;
-}
-.certs-head{
-  display:flex;justify-content:space-between;align-items:baseline;
-  margin-bottom:3rem;gap:2rem;flex-wrap:wrap;
-}
-.certs-title{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:0.9;letter-spacing:-0.01em;
-}
-.certs-title em{font-family:'DM Serif Display',serif;font-style:italic;color:var(--neon-dark)}
-.certs-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.25rem;
-}
-.cert-card{
-  position:relative;
-  padding:2rem 1.75rem;
-  background:var(--paper);
-  border:1px solid var(--border);
-  display:flex;flex-direction:column;justify-content:space-between;
-  gap:1.5rem;
-  min-height:260px;
-  transition:transform 0.3s,box-shadow 0.3s,border-color 0.3s;
-}
-.cert-card::before{
-  /* Perforated tear line on the left - like a ticket */
-  content:'';
-  position:absolute;
-  left:-7px;top:20px;bottom:20px;
-  width:14px;
-  background:
-    radial-gradient(circle at 50% 50%,var(--eggshell-warm) 5px,transparent 5px);
-  background-size:14px 22px;
-  background-repeat:repeat-y;
-  pointer-events:none;
-}
-.cert-card.tilt-a{transform:rotate(-1.4deg)}
-.cert-card.tilt-b{transform:rotate(0.8deg)}
-.cert-card.tilt-c{transform:rotate(-0.7deg)}
-.cert-card:hover{transform:translateY(-4px) rotate(0) !important;box-shadow:0 12px 32px rgba(0,0,0,0.09);border-color:var(--ink)}
-.cert-issuer-row{
-  display:flex;align-items:center;gap:0.75rem;
-  padding-bottom:1rem;
-  border-bottom:1px dashed var(--border);
-}
-.cert-logo{
-  width:44px;height:44px;
-  border-radius:6px;
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:1.4rem;
-  color:var(--paper);
-}
-.cert-logo.udemy{background:#141414;color:#A435F0;position:relative}
-.cert-logo.udemy::after{
-  content:'U';
-  font-weight:900;
-}
-.cert-logo.udemy::before{
-  content:'';
-  position:absolute;
-  top:6px;left:50%;transform:translateX(-50%);
-  width:0;height:0;
-  border-left:7px solid transparent;
-  border-right:7px solid transparent;
-  border-bottom:10px solid #A435F0;
-}
-.cert-logo.atlassian{background:#0052CC;color:white;position:relative}
-.cert-logo.atlassian::after{
-  content:'';
-  width:24px;height:22px;
-  background:
-    linear-gradient(45deg,transparent 45%,white 45%,white 55%,transparent 55%) left/50% 100% no-repeat,
-    linear-gradient(-45deg,transparent 45%,white 45%,white 55%,transparent 55%) right/50% 100% no-repeat;
-}
-.cert-issuer-text{flex:1;min-width:0}
-.cert-issuer-name{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;font-weight:500;
-  letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--ink);
-  line-height:1.3;
-}
-.cert-date{
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--gray);
-  margin-top:0.25rem;
-}
-.cert-body{}
-.cert-name{
-  font-family:'DM Serif Display',serif;
-  font-size:clamp(1.15rem,1.6vw,1.4rem);
-  line-height:1.2;
-  color:var(--ink);
-  margin-bottom:0.75rem;
-}
-.cert-name em{font-style:italic;color:var(--neon-dark)}
-.cert-skills{
-  font-family:'DM Mono',monospace;
-  font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--gray);
-  line-height:1.7;
-}
-.cert-skills span{
-  display:inline-block;
-  padding:0.2rem 0.5rem;
-  border:1px solid var(--border);
-  margin:0 0.25rem 0.25rem 0;
-  color:var(--gray);
-}
-.cert-foot{
-  display:flex;justify-content:space-between;align-items:center;
-  padding-top:1rem;
-  border-top:1px dashed var(--border);
-}
-.cert-credential{
-  font-family:'DM Mono',monospace;
-  font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--gray);
-}
-.cert-link{
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--ink);
-  text-decoration:none;
-  background:var(--neon);
-  padding:0.35rem 0.7rem;
-  transition:background 0.2s,transform 0.2s;
-}
-.cert-link:hover{background:var(--ink);color:var(--neon);transform:translateY(-1px)}
-.cert-verified{
-  font-family:'DM Mono',monospace;
-  font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--neon-dark);
-  display:flex;align-items:center;gap:0.3rem;
-}
-.cert-verified::before{content:'●';font-size:0.6rem}
-
-.cta-section{
-  min-height:100vh;
-  display:flex;flex-direction:column;justify-content:center;
-  padding:6rem 2.5rem;
-  position:relative;
-  overflow:hidden;
-  background:var(--eggshell-warm);
-}
-/* The giant HELLO ghost text now scrolls horizontally */
-.cta-bg{
-  position:absolute;
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(12rem,30vw,28rem);
-  color:var(--neon);
-  opacity:0.38;
-  top:50%;left:50%;
-  transform:translate(-50%,-50%) rotate(-2deg);
-  user-select:none;pointer-events:none;
-  letter-spacing:-0.02em;
-  line-height:0.8;white-space:nowrap;
-  animation:hello-scroll 18s linear infinite;
-}
-@keyframes hello-scroll{
-  0%{transform:translate(-30%,-50%) rotate(-2deg)}
-  100%{transform:translate(-70%,-50%) rotate(-2deg)}
-}
-.cta-content{position:relative;z-index:1;text-align:center}
-.cta-eyebrow{
-  font-family:'DM Mono',monospace;
-  font-size:0.7rem;letter-spacing:0.24em;text-transform:uppercase;
-  color:var(--gray);
-  margin-bottom:2rem;
-  display:inline-flex;align-items:center;gap:0.75rem;
-  opacity:0;transform:translateY(16px);
-  transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.22,1,0.36,1);
-}
-.cta-section.in-view .cta-eyebrow{opacity:1;transform:translateY(0);transition-delay:0.1s}
-.cta-eyebrow::before,.cta-eyebrow::after{content:'';width:30px;height:1px;background:var(--ink)}
-.cta-headline{
-  font-family:'Bebas Neue',sans-serif;
-  font-size:clamp(4.5rem,12vw,12rem);
-  line-height:0.85;letter-spacing:-0.01em;
-  margin-bottom:2.5rem;
-  color:var(--ink);
-}
-.cta-line{display:block;overflow:hidden;padding:0.06em 0 0.12em}
-.cta-word{
-  display:inline-block;
-  transform:translateY(110%);
-  transition:transform 0.9s cubic-bezier(0.22,1,0.36,1);
-}
-.cta-section.in-view .cta-word.d1{transform:translateY(0);transition-delay:0.25s}
-.cta-section.in-view .cta-word.d2{transform:translateY(0);transition-delay:0.35s}
-.cta-section.in-view .cta-word.d3{transform:translateY(0);transition-delay:0.5s}
-.cta-headline em{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  color:var(--ink);
-  display:inline-block;
-  position:relative;
-}
-.cta-headline em::after{
-  content:'';
-  position:absolute;left:-3%;right:-3%;bottom:8%;
-  height:18%;background:var(--neon);z-index:-1;
-  transform:scaleX(0);transform-origin:left;
-  transition:transform 0.7s cubic-bezier(0.76,0,0.24,1);
-}
-.cta-section.in-view .cta-headline em::after{transform:scaleX(1);transition-delay:1.1s}
-/* Neon-sign pulse: glow shifts with a subtle flicker */
-.cta-section.in-view .cta-headline em{
-  animation:brew-neon 3.2s ease-in-out 1.8s infinite;
-}
-@keyframes brew-neon{
-  0%,8%,11%,100%{
-    text-shadow:0 0 10px rgba(0,255,148,0.55),0 0 24px rgba(0,255,148,0.4),0 0 42px rgba(0,255,148,0.25);
-    transform:scale(1) rotate(0deg);
-  }
-  9%,10%{
-    /* Flicker - brief dimming like a faulty sign */
-    text-shadow:0 0 3px rgba(0,255,148,0.2);
-    transform:scale(1) rotate(0deg);
-  }
-  45%{
-    text-shadow:0 0 16px rgba(255,45,120,0.55),0 0 32px rgba(255,45,120,0.35),0 0 54px rgba(0,255,148,0.3);
-    transform:scale(1.04) rotate(-1deg);
-  }
-  60%{
-    text-shadow:0 0 10px rgba(0,255,148,0.55),0 0 24px rgba(0,255,148,0.4),0 0 42px rgba(0,255,148,0.25);
-    transform:scale(1.06) rotate(0.5deg);
-  }
-}
-/* Pulsing fill under Brewing */
-.cta-section.in-view .cta-headline em::after{
-  animation:brew-bar-pulse 3.2s ease-in-out 2.4s infinite;
-}
-@keyframes brew-bar-pulse{
-  0%,100%{filter:brightness(1) saturate(1);box-shadow:none}
-  50%{filter:brightness(1.18) saturate(1.3);box-shadow:0 0 24px rgba(0,255,148,0.5)}
-}
-.cta-sub{
-  font-family:'DM Serif Display',serif;
-  font-style:italic;
-  font-size:clamp(1.1rem,1.6vw,1.4rem);
-  color:var(--gray);
-  max-width:640px;
-  margin:0 auto 3.5rem;
-  line-height:1.5;
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.22,1,0.36,1);
-}
-.cta-section.in-view .cta-sub{opacity:1;transform:translateY(0);transition-delay:1s}
-.cta-buttons{
-  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;margin-bottom:4rem;
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.7s ease,transform 0.7s cubic-bezier(0.22,1,0.36,1);
-}
-.cta-section.in-view .cta-buttons{opacity:1;transform:translateY(0);transition-delay:1.2s}
-.cta-meta{
-  display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;
-  font-family:'DM Mono',monospace;
-  font-size:0.65rem;letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--gray);
-  opacity:0;
-  transition:opacity 0.7s ease;
-}
-.cta-section.in-view .cta-meta{opacity:1;transition-delay:1.4s}
-.cta-meta span::before{content:'◦  '}
-
-/* MICHAEL SCOTT POLAROID STICKER */
-.boss-sticker{
-  position:absolute;
-  bottom:6%;left:4%;
-  z-index:3;
-  display:flex;flex-direction:column;align-items:flex-start;gap:0.4rem;
-  opacity:0;
-  transform:translateY(40px) rotate(-20deg) scale(0.7);
-  transition:opacity 0.9s ease 1.3s,transform 0.9s cubic-bezier(0.22,1,0.36,1) 1.3s;
-  pointer-events:auto;
-}
-.cta-section.in-view .boss-sticker{
-  opacity:1;
-  transform:translateY(0) rotate(-10deg) scale(1);
-}
-.boss-sticker:hover{
-  transform:translateY(-8px) rotate(-3deg) scale(1.12) !important;
-  transition:transform 0.45s cubic-bezier(0.22,1,0.36,1) 0s,opacity 0.3s 0s !important;
-  z-index:10;
-}
-.boss-polaroid{
-  background:#fafafa;
-  padding:10px 10px 40px;
-  border:1px solid #d8d3c2;
-  box-shadow:4px 6px 18px rgba(0,0,0,0.18),1px 2px 4px rgba(0,0,0,0.08);
-  width:160px;
-  position:relative;
-  transition:box-shadow 0.45s,background 0.45s;
-}
-.boss-sticker:hover .boss-polaroid{
-  box-shadow:12px 16px 40px rgba(0,0,0,0.28),3px 5px 10px rgba(0,0,0,0.14);
-  background:#fff;
-}
-.boss-polaroid::before{
-  content:'';
-  position:absolute;
-  top:-10px;left:50%;
-  width:54px;height:18px;
-  background:rgba(0,255,148,0.55);
-  transform:translateX(-50%) rotate(-4deg);
-  border:1px solid rgba(0,0,0,0.06);
-  z-index:2;
-  transition:background 0.35s,transform 0.35s,width 0.35s;
-}
-.boss-sticker:hover .boss-polaroid::before{
-  background:rgba(255,45,120,0.7);
-  transform:translateX(-50%) rotate(4deg);
-  width:72px;
-}
-.boss-polaroid img{
-  display:block;
-  width:140px;height:112px;
-  object-fit:cover;
-  object-position:center 30%;
-  filter:grayscale(20%) contrast(0.95);
-  transition:filter 0.45s,transform 0.45s cubic-bezier(0.22,1,0.36,1);
-}
-.boss-sticker:hover .boss-polaroid img{
-  filter:grayscale(0%) contrast(1.08) saturate(1.1);
-  transform:scale(1.04);
-}
-.boss-caption{
-  font-family:'Caveat',cursive;
-  font-weight:600;
-  font-size:1.15rem;
-  color:var(--pink);
-  transform:rotate(3deg);
-  margin-left:0.75rem;
-  margin-top:-0.25rem;
-  transition:transform 0.35s,font-size 0.35s,color 0.35s;
-}
-.boss-sticker:hover .boss-caption{
-  transform:rotate(-2deg) translateX(6px);
-  font-size:1.3rem;
-  color:var(--neon-dark);
-}
-.cta-btn{
-  font-family:'DM Mono',monospace;
-  font-size:0.75rem;font-weight:500;
-  letter-spacing:0.14em;text-transform:uppercase;
-  padding:1.1rem 2.5rem;
-  text-decoration:none;
-  border:1px solid var(--ink);
-  color:var(--ink);
-  background:transparent;
-  transition:color 0.3s,background 0.3s,transform 0.2s;
-  position:relative;overflow:hidden;
-}
-.cta-btn span{position:relative;z-index:1}
-.cta-btn::before{
-  content:'';position:absolute;inset:0;
-  background:var(--ink);
-  transform:translateY(101%);
-  transition:transform 0.35s cubic-bezier(0.76,0,0.24,1);
-}
-.cta-btn:hover{transform:translateY(-2px);color:var(--eggshell)}
-.cta-btn:hover::before{transform:translateY(0)}
-.cta-btn.primary{background:var(--ink);color:var(--eggshell)}
-.cta-btn.primary::before{background:var(--neon)}
-.cta-btn.primary:hover{color:var(--ink)}
-
-footer{
-  background:var(--ink);
-  color:var(--gray-light);
-  padding:1.5rem 2.5rem;
-  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;
-  font-family:'DM Mono',monospace;
-  font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;
-}
-footer span.neon{color:var(--neon)}
-
-.reveal{opacity:0;transform:translateY(24px);transition:opacity 0.8s ease,transform 0.8s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
-
-@media(max-width:900px){
-  .side-nav{display:none}
-  .scroll-progress{display:none}
-  .sw-item{font-size:1.4rem}
-  .boss-sticker{display:none}
-  .hero-bottom{grid-template-columns:1fr}
-  .hero-scroll{display:none}
-  .bn-grid{grid-template-columns:1fr}
-  .bn-cell{padding:2rem 0 !important;border-right:none !important}
-  .case{grid-template-columns:1fr;gap:2rem}
-  .case-left{position:static}
-  .project{grid-template-columns:1fr;margin-left:1.5rem;margin-right:1.5rem}
-  .project-left{border-right:none;border-bottom:1.5px solid var(--ink)}
-  .project + .project{margin-top:2.5rem}
-  .cc-art svg{height:128px}
-  .jr-art svg{height:140px}
-  .tk-art svg{height:140px}
-  .sf-art svg{height:142px}
-  .ck-art svg{height:140px}
-  .gr-art svg{height:140px}
-  .ai-art svg{height:140px}
-  .skills-cols{grid-template-columns:1fr}
-  .skill-col{padding:2rem 0 !important;border-right:none !important;border-bottom:1px solid #1f1c18}
-  .philosophy{grid-template-columns:1fr}
-  .ph-left{position:static}
-  .feature-essay{grid-template-columns:1fr}
-  .essay-grid{grid-template-columns:1fr;gap:1rem}
-  .essay{grid-column:auto !important;transform:none !important}
-  .series-chapters{grid-template-columns:1fr 1fr}
-  .chapter{border-right:none;border-bottom:1px solid #2a2722;min-height:auto}
-  .xp-row{grid-template-columns:1fr;gap:1rem}
-  .aw-grid{grid-template-columns:1fr}
-  .certs-grid{grid-template-columns:1fr}
-  .cert-card{transform:none !important}
-  .float-cta{bottom:1rem;right:1rem;padding:0.7rem 1rem}
-  nav{padding:1rem 1.5rem}
-  .nav-right{display:none}
-  .hero,.big-numbers,.quote-section,.work-header,.case,.skills-wrap,.philosophy,.writings,.xp-section,.awards-section,.certs-section,.cta-section,.stamps{padding-left:1.5rem;padding-right:1.5rem}
-}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Caveat:wght@400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/sections.css">
+<link rel="stylesheet" href="css/projects.css">
+<!-- mark js early so collapsible content never flashes open then shut -->
+<script>document.documentElement.classList.add('js')</script>
+<script type="module" src="js/main.js"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Parth Aggarwal", "jobTitle": "Forward Deployed Product Manager", "worksFor": {"@type": "Organization", "name": "Backbase"}, "address": {"@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN"}, "url": "https://parth8.github.io/portfolio/", "sameAs": ["https://linkedin.com/in/aggarwalparth", "https://parthaggarwal8.medium.com"], "knowsAbout": ["Platform product management", "Agentic AI", "MCP", "RAG", "Card issuing", "Payments", "Data platforms"]}</script>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
 
-<!-- Scroll progress bar -->
 <div class="scroll-progress" aria-hidden="true">
   <div class="scroll-progress-fill" id="scrollFill"></div>
 </div>
 
-<nav>
+<nav class="topnav" aria-label="Primary">
   <a href="#" class="nav-logo">Parth Aggarwal <span>-</span> Technical Product ✦ Platform</a>
   <div class="nav-right">
-    <a href="#sec-work">The Work</a>
-    <a href="#sec-built">Built</a>
-    <a href="#sec-writings">Thoughts</a>
-    <a href="#contact">Say Hi</a>
+    <a href="#sec-work" data-icon="✦">Work</a>
+    <a href="#sec-built" data-icon="⌘">Built</a>
+    <a href="#sec-experience" data-icon="◐">Journey</a>
+    <a href="#sec-writings" data-icon="✎">Writing</a>
+    <a href="#contact" data-icon="✉">Say Hi</a>
   </div>
+</nav>
+
+<nav class="side-nav" id="sideNav" aria-label="Sections">
+  <a class="side-dot" href="#sec-numbers" data-target="sec-numbers" data-label="Impact" aria-label="Impact"></a>
+  <a class="side-dot" href="#sec-work" data-target="sec-work" data-label="Work" aria-label="Work"></a>
+  <a class="side-dot" href="#sec-built" data-target="sec-built" data-label="Built" aria-label="Built"></a>
+  <a class="side-dot" href="#sec-experience" data-target="sec-experience" data-label="Journey" aria-label="Journey"></a>
+  <a class="side-dot" href="#sec-skills" data-target="sec-skills" data-label="Toolkit" aria-label="Toolkit"></a>
+  <a class="side-dot" href="#sec-recognition" data-target="sec-recognition" data-label="Recognition" aria-label="Recognition"></a>
+  <a class="side-dot" href="#sec-writings" data-target="sec-writings" data-label="Writing" aria-label="Writing"></a>
+  <a class="side-dot" href="#sec-manifesto" data-target="sec-manifesto" data-label="Manifesto" aria-label="Manifesto"></a>
+  <a class="side-dot" href="#contact" data-target="contact" data-label="Say hi" aria-label="Say hi"></a>
 </nav>
 
 <a href="#contact" class="float-cta" id="floatCta">
@@ -2519,28 +68,25 @@ footer span.neon{color:var(--neon)}
 <!-- HERO -->
 <section class="hero" id="sec-hero">
   <div class="hero-top">
-    <span class="left-col">Available · Full-time</span>
+    <span class="left-col">Now · <b>Forward Deployed PM @ Backbase</b></span>
     <div class="right-col">
-      <div>Bengaluru, India</div>
-      <div><span class="key">B1/B2 Visa · Valid to Oct 2035</span></div>
+      <div>Hyderabad, India</div>
+      <div><span class="key">Open to roles · B1/B2 Visa to Oct 2035</span></div>
     </div>
   </div>
 
   <div class="hero-main">
     <h1 class="hero-type">
-      <span class="hero-line"><span class="hero-word d1">Technical</span></span>
-      <span class="hero-line"><span class="hero-word serif d2">Platform Product</span></span>
-      <span class="hero-line"><span class="hero-word with-mark d3">Manager/</span></span>
-      <span class="hero-line"><span class="hero-word with-mark d3">Architect</span></span>
-      <span class="hero-line"><span class="hero-word outline d4">BUILDING</span></span>
-      <span class="hero-line"><span class="hero-word serif d5">big, boring, beautiful</span>
-      <span class="hero-word d6">THINGS.</span></span>
+      <span class="hero-line"><span class="hero-word d1">Technical</span> <span class="hero-word serif d2">Platform Product</span></span>
+      <span class="hero-line"><span class="hero-word with-mark d3">Manager/Architect</span></span>
+      <span class="hero-line"><span class="hero-word outline d4">BUILDING</span> <span class="hero-word serif d5">big, boring,</span></span>
+      <span class="hero-line"><span class="hero-word serif d5">beautiful</span> <span class="hero-word d6">THINGS.</span></span>
     </h1>
   </div>
 
   <div class="hero-bottom">
     <p class="hero-intro">
-      Architected one multi-tenant data platform. Shipped one <strong>$2B</strong> payments infrastructure. Launched one US credit card program. A handful of awards. I'm <strong>Parth</strong> - I own systems end-to-end, and I build what <strong>banks bet their license on</strong>.
+      Shipped a <strong>$2B+</strong> virtual card platform for a Fortune 3. Architected a multi-tenant data platform for US &amp; EMEA banks. Now I own Backbase's <strong>agentic AI connector platform</strong>, where banks build integrations with agents. I'm Parth - I own systems end-to-end, and I build what <strong>banks bet their license on</strong>.
     </p>
     <div class="hero-scroll">Scroll</div>
   </div>
@@ -2548,64 +94,134 @@ footer span.neon{color:var(--neon)}
 
 <!-- STAMPS -->
 <div class="stamps" aria-hidden="true">
-  <span class="stamp hot">$2B+ Card Transactions Volume</span>
+  <span class="stamp hot">Agentic AI · MCP</span>
   <span class="stamp">Mastercard Rails</span>
-  <span class="stamp gold">2x Revenue &amp; 150K Card Issuances</span>
+  <span class="stamp gold">Fortune 3 Client</span>
   <span class="stamp">Multi-tenant Data Platform</span>
-  <span class="stamp hot">0-Defect GTM</span>
+  <span class="stamp hot">90%+ LLM Mapping Accuracy</span>
   <span class="stamp">Fraud &amp; Risk Management</span>
   <span class="stamp gold">1200+ Data Contracts</span>
-  <span class="stamp">90-Day GTM Cut</span>
+  <span class="stamp">0 P1/P2 GTMs</span>
   <span class="stamp hot">US + EMEA Banking</span>
-  <span class="stamp">Fortune 3 Client</span>
+  <span class="stamp">7 Side Projects Shipped</span>
 </div>
+
+<!-- INDEX -->
+<nav class="index" aria-label="On this page">
+  <div class="idx-head">
+    <p class="idx-label">On this page · eight stops</p>
+    <p class="idx-note">skim it in two minutes, or go deep.</p>
+  </div>
+  <ol class="idx-list">
+    <li><a href="#sec-numbers"><span class="idx-n">01</span><span class="idx-t">Impact</span><span class="idx-c">4 numbers that moved</span></a></li>
+    <li><a href="#sec-work"><span class="idx-n">02</span><span class="idx-t">Work</span><span class="idx-c">4 case studies · 2022 → now</span></a></li>
+    <li><a href="#sec-built"><span class="idx-n">03</span><span class="idx-t">Built</span><span class="idx-c">7 side projects, all live</span></a></li>
+    <li><a href="#sec-experience"><span class="idx-n">04</span><span class="idx-t">Journey</span><span class="idx-c">5 roles · 3 companies</span></a></li>
+    <li><a href="#sec-skills"><span class="idx-n">05</span><span class="idx-t">Toolkit</span><span class="idx-c">4 stacks, end to end</span></a></li>
+    <li><a href="#sec-recognition"><span class="idx-n">06</span><span class="idx-t">Recognition</span><span class="idx-c">6 awards · 3 certifications</span></a></li>
+    <li><a href="#sec-writings"><span class="idx-n">07</span><span class="idx-t">Writing</span><span class="idx-c">5 essays · a 5-part series</span></a></li>
+    <li><a href="#contact"><span class="idx-n">08</span><span class="idx-t">Say hi</span><span class="idx-c">20 minutes, any timezone</span></a></li>
+  </ol>
+</nav>
 
 <!-- BIG NUMBERS -->
 <section class="big-numbers" id="sec-numbers">
-  <p class="bn-label">Impact · Measured</p>
+  <p class="bn-label">01 · Impact · Measured</p>
   <div class="bn-grid">
     <div class="bn-cell reveal">
       <span class="sharpie-note">yes, with a B!</span>
       <div class="bn-num"><span data-count="2" data-prefix="$">$0</span><span class="sup">B+</span></div>
       <div class="bn-caption">
-        <div class="bn-desc">Annual card transactions powered across Mastercard rails for Optum (United Healthcare Group - Fortune 3).</div>
-        <div class="bn-tag">Virtual Cards</div>
+        <div class="bn-desc">Annual virtual card disbursements on Mastercard rails for UnitedHealthcare payers (UnitedHealth Group - Fortune 3).</div>
+        <div class="bn-tag">Virtual Cards · Optum</div>
       </div>
     </div>
     <div class="bn-cell reveal" style="transition-delay:0.1s">
-      <div class="bn-num"><span data-count="150">0</span><span class="sup">K+</span></div>
+      <div class="bn-num"><span data-count="80">0</span><span class="sup">% FASTER</span></div>
       <div class="bn-caption">
-        <div class="bn-desc">Onboardings and card issuances in Sparrow Card's first year, Zeta's first US credit card program.</div>
-        <div class="bn-tag">US Launch · Jul '24</div>
+        <div class="bn-desc">Connector build time at Backbase - ~12 days to ~2, since banks, PMs and services engineers started building with agents over MCP.</div>
+        <div class="bn-tag">Agentic AI · Backbase</div>
       </div>
     </div>
     <div class="bn-cell reveal" style="transition-delay:0.15s">
-      <div class="bn-num"><span data-count="50" data-prefix="$">$0</span><span class="sup">K / YR</span></div>
+      <div class="bn-num"><span data-count="150">0</span><span class="sup">K+</span></div>
       <div class="bn-caption">
-        <div class="bn-desc">Annual infrastructure costs eliminated through platform architecture decisions and removing MongoDB dependency.</div>
-        <div class="bn-tag">Platform Economics</div>
+        <div class="bn-desc">Card issuances for Sparrow Card, Zeta's first US credit card program - and 2x revenue projections.</div>
+        <div class="bn-tag">US Launch · Jul '24</div>
       </div>
     </div>
     <div class="bn-cell reveal" style="transition-delay:0.2s">
       <div class="bn-num"><span data-count="90">0</span><span class="sup">DAYS</span></div>
       <div class="bn-caption">
-        <div class="bn-desc">Cut from client onboarding - what used to take 4 months now takes 30 days, standardized and repeatable.</div>
-        <div class="bn-tag">GTM Velocity</div>
+        <div class="bn-desc">Cut from bank onboarding and GTM - 4 months down to 1, config-driven, zero code changes.</div>
+        <div class="bn-tag">GTM Velocity · Zeta</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- WORK -->
-<section id="sec-work" data-nav="work">
+<section id="sec-work">
   <div class="work-header">
-    <span class="wh-left">03 · Featured Cases · 2022-2025</span>
+    <span class="wh-left">02 · Selected Work · 2022 → now</span>
     <h2 class="wh-title">Selected <em>work</em></h2>
   </div>
+  <div class="case-tabs" role="tablist" aria-label="Case studies">
+    <button class="case-tab" role="tab" id="tab-1" aria-controls="case-1" aria-selected="true">
+      <span class="ct-num">/001</span>
+      <span class="ct-co">Backbase · Agentic AI</span>
+      <span class="ct-name">Connector Studio MCP</span>
+      <span class="ct-metric">~80% <small>faster builds</small></span>
+    </button>
+    <button class="case-tab" role="tab" id="tab-2" aria-controls="case-2" aria-selected="false">
+      <span class="ct-num">/002</span>
+      <span class="ct-co">Optum · UnitedHealth</span>
+      <span class="ct-name">Virtual card platform</span>
+      <span class="ct-metric">$2B+ <small>a year</small></span>
+    </button>
+    <button class="case-tab" role="tab" id="tab-3" aria-controls="case-3" aria-selected="false">
+      <span class="ct-num">/003</span>
+      <span class="ct-co">US + EMEA banks</span>
+      <span class="ct-name">Multi-tenant data platform</span>
+      <span class="ct-metric">$50K <small>a year saved</small></span>
+    </button>
+    <button class="case-tab" role="tab" id="tab-4" aria-controls="case-4" aria-selected="false">
+      <span class="ct-num">/004</span>
+      <span class="ct-co">Evolve Bank · Zeta</span>
+      <span class="ct-name">Sparrow Card launch</span>
+      <span class="ct-metric">150K+ <small>cards issued</small></span>
+    </button>
+  </div>
 
-  <article class="case">
+  <article class="case" id="case-1" role="tabpanel" aria-labelledby="tab-1" tabindex="0">
     <div class="case-left">
       <p class="case-num">Case <span>/001</span></p>
+      <p class="case-client">Backbase · Agentic Banking</p>
+      <h3 class="case-title">Connector Studio<br><em>agent-built connectors</em></h3>
+      <p class="case-sub">Shipped an MCP in six weeks. Banks and ~20 internal PMs and services engineers now build banking connectors with agents - gated to pre-prod until the mappings are safe for production traffic.</p>
+    </div>
+    <div class="case-right">
+      <div class="case-metric-hero"><span>~</span><span class="c-accent">80</span><span class="sup">%</span></div>
+      <p class="case-metric-caption">Faster connector builds · ~12 days → ~2, review and deploy included</p>
+      <p class="case-desc">
+        Own Connector Studio end-to-end - Backbase's iPaaS for banking connectors, across the web app and the agentic AI MCP: build, deploy, install, run, maintain. Launched the MCP in six weeks and moved PMs and services teams off manual builds. The hard part is trust: LLM mapping accuracy from <strong>BIAN unified APIs to vendor JSON/XML specs</strong> went from ~50-60% to 90%+ against a golden dataset - by cleaning the RAG vector store, rewriting unified API definitions and tagging every API and attribute. Every MCP and UI build stays gated to pre-prod until accuracy is safe for production banking traffic: safety over adoption speed. Now running the rent-vs-own call on the model itself - self-hosted open-weight vs OpenAI and Anthropic enterprise, RAG vs LLM-native - on accuracy, token cost, control and data isolation. Also shipped an API Playground and MCP token rotation with instant self-serve revoke.
+      </p>
+      <div class="case-stack">
+        <span>MCP</span>
+        <span>RAG · Vector DB</span>
+        <span>LLM Evals</span>
+        <span>Golden Dataset</span>
+        <span>BIAN Unified APIs</span>
+        <span>iPaaS</span>
+        <span>Token Rotation</span>
+        <span>API Playground</span>
+      </div>
+    </div>
+  </article>
+
+  <article class="case" id="case-2" role="tabpanel" aria-labelledby="tab-2" tabindex="0">
+    <div class="case-left">
+      <p class="case-num">Case <span>/002</span></p>
       <p class="case-client">Optum Financial · UHG</p>
       <h3 class="case-title">Virtual Card<br><em>issuance platform</em></h3>
       <p class="case-sub">0 P1/P2 defects into production. 9 functional areas. Clean regulatory sign-off from a Fortune 3. Mastercard open loop rails.</p>
@@ -2628,9 +244,9 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="case">
+  <article class="case" id="case-3" role="tabpanel" aria-labelledby="tab-3" tabindex="0">
     <div class="case-left">
-      <p class="case-num">Case <span>/002</span></p>
+      <p class="case-num">Case <span>/003</span></p>
       <p class="case-client">US + EMEA Banking</p>
       <h3 class="case-title">Multi-tenant<br><em>data platform</em></h3>
       <p class="case-sub">Config-driven architecture. 1200+ governed attributes. Medallion layers with enforced data contracts. Single point of architectural decision-making.</p>
@@ -2654,9 +270,9 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="case">
+  <article class="case" id="case-4" role="tabpanel" aria-labelledby="tab-4" tabindex="0">
     <div class="case-left">
-      <p class="case-num">Case <span>/003</span></p>
+      <p class="case-num">Case <span>/004</span></p>
       <p class="case-client">Evolve Bank · Zeta</p>
       <h3 class="case-title">Sparrow Card<br><em>US market launch</em></h3>
       <p class="case-sub">Zeta's first US credit card program. Stood up the ops and support function from zero.</p>
@@ -2677,10 +293,9 @@ footer span.neon{color:var(--neon)}
       </div>
     </div>
   </article>
-
 </section>
 
-<!-- QUOTE -->
+<!-- PRINCIPLES -->
 <section class="quote-section">
   <span class="quote-bg-mark">Parth.</span>
   <div class="quote-inner">
@@ -2688,7 +303,7 @@ footer span.neon{color:var(--neon)}
     <p class="quote-text">
       I architect platforms the way systems engineers build <em>critical infrastructure</em> - <span class="highlight">constraints are features</span>, simplicity is earned, and the most important line of code is the one we decided not to write.
     </p>
-    <p class="quote-attr">From my desk · Bengaluru</p>
+    <p class="quote-attr">From my desk · Hyderabad</p>
   </div>
 
   <div class="quote-inner tilt-right">
@@ -2700,214 +315,21 @@ footer span.neon{color:var(--neon)}
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section class="xp-section" id="sec-experience">
-  <div class="xp-head">
-    <h2 class="xp-main-title"><em>the</em> journey</h2>
-    <p class="skills-sub" style="color:var(--gray)">2021 · 2026</p>
-  </div>
-  <div class="xp-row">
-    <div class="xp-left">
-      <p class="xp-date">Aug 2026 - Present</p>
-      <p class="xp-co">Backbase.</p>
-      <span class="xp-now">Now · Hyderabad</span>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Forward Deployed Product Manager <em>- Connector Studio · Agentic Banking</em></p>
-      <ul class="xp-pts">
-        <li><strong>Platform owner for Connector Studio</strong> - Backbase's iPaaS for banking connectors. Build, deploy, install, run and maintain, across the web app and the agentic AI MCP.</li>
-        <li>Launched the <strong>Connector Studio MCP in 6 weeks</strong> - banking clients and ~20 internal PMs and services engineers now build connectors with agents, off manual builds.</li>
-        <li>Connector build time cut from <strong>~12 days to ~2 (~80%)</strong>, mapping review and deployment included. Every build gated to pre-prod until mapping accuracy is safe for production banking traffic.</li>
-        <li>Driving LLM mapping accuracy - BIAN unified APIs to vendor JSON/XML specs - from <strong>~50-60% to 90%+</strong>, baselined against a golden dataset. Own the Q4 KPI: the first official connectors built and published.</li>
-        <li>Running the <strong>rent vs own the LLM</strong> call: self-hosted open-weight models vs OpenAI and Anthropic enterprise plans, and RAG vs LLM-native mapping, on accuracy, token cost, control and data isolation.</li>
-        <li>Shipped the <strong>API Playground</strong> and MCP token rotation (90-day expiry, auto re-provisioning, instant self-serve revoke). Redesigning the Connector Studio UI off user feedback.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row">
-    <div class="xp-left">
-      <p class="xp-date">May 2024 - Aug 2026</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Product Manager <em>- Data Platform SaaS (US + EMEA)</em></p>
-      <ul class="xp-pts">
-        <li><strong>Lead platform PM</strong> for a multi-tenant, config-driven data platform for US + EMEA banks - subscription onboarding, 0 code changes, onboarding + GTM cut by <strong>90 days</strong>.</li>
-        <li>Eliminated the MongoDB dependency - <strong>~$50K/year infra savings</strong>. Made data freshness a per-tenant config tied to its AWS cost.</li>
-        <li>Data contracts and a governed semantic layer across <strong>1,200+ attributes, 20+ schemas</strong> - lineage, PII/PCI DSS/GDPR, sanctions &amp; AML (OFAC, FinCEN).</li>
-        <li>Owned <strong>12+ connectors</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless, AWS Connect. One subscription provisions a DAG per tenant-vendor pair.</li>
-        <li><strong>0 P1/P2 defects, 4-week GTM</strong> with a team of 8 engineers at 90%+ on-time delivery. 70+ data quality gaps closed in 2 months, CSAT 2.5 → 4.0.</li>
-        <li>Authored architecture docs across 600+ attributes, driving CardWorks' <strong>$3M+ credit card portfolio data migration</strong>.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row">
-    <div class="xp-left">
-      <p class="xp-date">May 2024 - Aug 2026</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Product Manager <em>- Optum Virtual Card Platform</em></p>
-      <ul class="xp-pts">
-        <li>Led the <strong>0 P1/P2 defect launch</strong> of a virtual card platform for UnitedHealthcare payers to disburse <strong>$2B+ a year</strong> to US healthcare providers - Optum Bank as sponsor, on Mastercard rails.</li>
-        <li>Owned product strategy across <strong>9 functional areas</strong> for a Fortune 3 - discovery to clean regulatory sign-off for Mastercard integration.</li>
-        <li>Designed API specs and led QA for the full card lifecycle - <strong>issue, cancel, reissue, reset</strong> - webhook triggers, idempotency, error handling, fallback.</li>
-        <li>Architected a real-time <strong>FRM rules engine</strong> with configurable merchant, amount, and risk thresholds.</li>
-        <li>Led <strong>FeatureSpace ML integration</strong> for real-time fraud detection; built event-based transaction traceability for UHC compliance teams.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row">
-    <div class="xp-left">
-      <p class="xp-date">May 2022 - May 2024</p>
-      <p class="xp-co">Zeta.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Technical Program Manager <em>- US &amp; India Banking Program Lead</em></p>
-      <ul class="xp-pts">
-        <li>Led Sparrow Card US launch with Evolve Bank - <strong>2x revenue &amp; 150K+ onboardings and issuances</strong> in first year vs projections by Dec '24.</li>
-        <li>Built US support &amp; ops from scratch - first response time <strong>-99%</strong>, CSAT 2.5 → 4.6 in 3 months.</li>
-        <li>120+ real-time SQL dashboards. 300+ releases managed. 89% SLO, 99% SLA adherence.</li>
-        <li>Led RBI-mandated wind-down of <strong>22 fintechs in 60 days</strong> across product, BI, engineering, bank partners.</li>
-      </ul>
-    </div>
-  </div>
-  <div class="xp-row">
-    <div class="xp-left">
-      <p class="xp-date">Feb 2021 - Apr 2022</p>
-      <p class="xp-co">HackerEarth.</p>
-    </div>
-    <div class="xp-right">
-      <p class="xp-role">Project Manager <em>- Enterprise &amp; SMB Recruitment</em></p>
-      <ul class="xp-pts">
-        <li>60+ enterprise &amp; SMB programs delivered. <strong>NPS 9</strong>. Churn reduced by 25%.</li>
-        <li><strong>₹38L ($46K) revenue</strong> in 9 months - referrals and upsells.</li>
-        <li>7+ case studies with Google, Microsoft, Accenture, Walmart Global Tech, HCL Sweden, Husqvarna.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="skills-wrap" id="sec-skills">
-  <span class="skills-bg">CAPABILITIES</span>
-  <div class="skills-head">
-    <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
-    <p class="skills-sub">The stack · End to end</p>
-  </div>
-  <div class="skills-cols">
-    <div class="skill-col">
-      <p class="sc-label">◦ Fintech, Platform &amp; Payments</p>
-      <ul class="sc-list">
-        <li>Card issuance</li>
-        <li>Virtual cards &amp; BIN mgmt</li>
-        <li>Fraud detection &amp; FRM</li>
-        <li>REST · GraphQL APIs</li>
-        <li>Webhook architecture</li>
-        <li>Idempotency systems</li>
-        <li>Event-driven systems</li>
-        <li>Medallion architecture</li>
-        <li>Multi-tenant design</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Data &amp; Infrastructure</p>
-      <ul class="sc-list">
-        <li>Data contracts</li>
-        <li>Schema governance</li>
-        <li>DBT · Apache Airflow</li>
-        <li>Kafka · S3 · Batch · API ingestion</li>
-        <li>ETL · ELT pipelines</li>
-        <li>OLTP · OLAP systems</li>
-        <li>GDPR · PII · Lineage · Sanctions · OFAC</li>
-        <li>Metabase · Superset</li>
-        <li>SQL · Python · MongoDB</li>
-      </ul>
-    </div>
-    <div class="skill-col">
-      <p class="sc-label">◦ Product &amp; Leadership</p>
-      <ul class="sc-list">
-        <li>PRD · BRD · GTM</li>
-        <li>Agile · Scrum · RACI · Kanban</li>
-        <li>OKR · Product Roadmapping</li>
-        <li>CxO-level stakeholder mgmt</li>
-        <li>AI workflows · Claude · Cursor · Copilot</li>
-        <li>Figma · Notion · Jira</li>
-        <li>0-to-1 platform builds</li>
-        <li>Enterprise banking</li>
-        <li>CSAT &amp; ops scaling</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- SHIPPED WITH / CLIENTS & PARTNERS -->
-<section class="shipped-with">
-  <p class="sw-label">Shipped with · Banked by · Integrated through</p>
-  <div class="sw-marquee-wrap">
-    <div class="sw-marquee">
-      <span class="sw-item">Mastercard</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Visa</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Optum Financial</span><span class="sw-dot">✦</span>
-      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot">✦</span>
-      <span class="sw-item">HDFC Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">IDFC Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Evolve Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Focus Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">AWS</span><span class="sw-dot">✦</span>
-      <span class="sw-item">FeatureSpace</span><span class="sw-dot">✦</span>
-      <span class="sw-item">TransUnion</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Equifax</span><span class="sw-dot">✦</span>
-      <span class="sw-item">DigiFi</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Zeta</span><span class="sw-dot">✦</span>
-      <span class="sw-item">MoEngage</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Qualco</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Decta</span><span class="sw-dot">✦</span>
-      <span class="sw-item">GoCardless</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Zendesk + Freshdesk</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Tabapay</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Lighthouse</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Office of Foreign Assets Control (OFAC)</span><span class="sw-dot">✦</span>
-      <!-- Loop duplicate -->
-      <span class="sw-item">Mastercard</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Visa</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Optum Financial</span><span class="sw-dot">✦</span>
-      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot">✦</span>
-      <span class="sw-item">HDFC Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">IDFC Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Evolve Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Focus Bank</span><span class="sw-dot">✦</span>
-      <span class="sw-item">AWS</span><span class="sw-dot">✦</span>
-      <span class="sw-item">FeatureSpace</span><span class="sw-dot">✦</span>
-      <span class="sw-item">TransUnion</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Equifax</span><span class="sw-dot">✦</span>
-      <span class="sw-item">DigiFi</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Zeta</span><span class="sw-dot">✦</span>
-      <span class="sw-item">MoEngage</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Qualco</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Decta</span><span class="sw-dot">✦</span>
-      <span class="sw-item">GoCardless</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Zendesk + Freshdesk</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Tabapay</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Lighthouse</span><span class="sw-dot">✦</span>
-      <span class="sw-item">Office of Foreign Assets Control (OFAC)</span><span class="sw-dot">✦</span>
-    </div>
-  </div>
-</section>
-
 <!-- BUILT -->
 <section class="built" id="sec-built">
   <div class="built-header">
-    <span class="bh-left">04 · Shipped Solo · Off The Clock</span>
+    <span class="bh-left">03 · Shipped Solo · Off The Clock</span>
     <h2 class="bh-title">Built <em>because it</em> didn't exist
-      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>seven arguments, made in code.</b></span>
+      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>seven arguments, made in code.</b> Tap any one for the story.</span>
     </h2>
   </div>
-
-  <article class="project">
+  <div class="built-grid">
+  <article class="project" id="p-track" data-project="track">
     <div class="project-left">
       <span class="project-tag">Live · Installable · Ad-Free</span>
       <h3 class="project-title">Track <em>trains &amp; flights</em></h3>
+      <p class="project-line">A calm, ad-free live tracker for Indian trains and flights. Your stop is the hero, not the train.</p>
+      <div class="project-more" id="more-track"><div>
       <div class="project-desc">
         <p>Every train tracker I used fired <span class="pd-box">266 requests</span> and megabytes of ads to answer one question: <em>where is my train?</em> Flight apps swing the other way and bury you in telemetry you never asked for.</p>
         <p>So I built Track around one idea: <span class="pd-mark">show what matters to the traveller right now</span>, and nothing else. The hero is <em>your stop</em>, not the train's raw position. Flights reshape themselves by phase - the gate leads before takeoff, the map in the air, the baggage belt after landing.</p>
@@ -2922,7 +344,9 @@ footer span.neon{color:var(--neon)}
         <span>Add to Home Screen</span>
         <span>No Build Step</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-track"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/track/" target="_blank" rel="noopener">Track a journey <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3000,10 +424,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-shelfie" data-project="shelfie">
     <div class="project-left">
       <span class="project-tag">Live · Thumb-Driven · Offline-First</span>
       <h3 class="project-title">Shelfie <em>reading arcade</em></h3>
+      <p class="project-line">A reading tracker you drive with your thumbs. Books are arcade passes; reading is the game.</p>
+      <div class="project-more" id="more-shelfie"><div>
       <div class="project-desc">
         <p>Every reading tracker I tried felt like <span class="pd-mark">filling in a spreadsheet</span>. Log a page, tap save, feel nothing. Meanwhile every game on the same phone makes a thumb-flick feel <em>incredible</em>.</p>
         <p>So I built a reading tracker you drive with your thumbs. Books are arcade passes you flick through, <span class="pd-box">drag up to turn pages</span>, and drop onto shelves - every move is a spring that <span class="pd-mark">keeps your finger's speed</span>. Finish a book and a rubber stamp slams down, confetti flies, and the island counts up your XP.</p>
@@ -3018,7 +444,9 @@ footer span.neon{color:var(--neon)}
         <span>Device Motion</span>
         <span>Goodreads Import</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-shelfie"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/shelfie/" target="_blank" rel="noopener">Insert coin <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3117,10 +545,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-credit" data-project="credit">
     <div class="project-left">
       <span class="project-tag">Live · Open Source · Free Forever</span>
       <h3 class="project-title">Decoding <em>Credit Cards</em></h3>
+      <p class="project-line">22 interactive chapters on how credit cards actually work. No ads, no pitches, no card recommendations.</p>
+      <div class="project-more" id="more-credit"><div>
       <div class="project-desc">
         <p>I wanted to understand how credit cards <span class="pd-mark">actually work</span> - not "best card for lounge access" content, the real mechanics. How a transaction clears. What the bank does when you swipe. Why the minimum payment is a <em>trap</em>.</p>
         <p>There was no clean source for any of it. Just me with scattered tabs, RBI documents, and late-night YouTube rabbit holes. So I built the thing I wished existed: <span class="pd-box">22 interactive chapters</span> where you tap a card to watch a transaction settle, drag a slider to watch compound interest <em>destroy you</em> in real time.</p>
@@ -3136,7 +566,9 @@ footer span.neon{color:var(--neon)}
         <span>GitHub Pages</span>
         <span>AI-Assisted Build</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-credit"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/credit/" target="_blank" rel="noopener">Visit the site <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3190,10 +622,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-ai" data-project="ai">
     <div class="project-left">
       <span class="project-tag">Open Curriculum · Free-First · Vendor-Neutral</span>
       <h3 class="project-title">Zero <em>to a hundred</em></h3>
+      <p class="project-line">An open, vendor-neutral path to learning AI - 21 phases, from Python to inference economics.</p>
+      <div class="project-more" id="more-ai"><div>
       <div class="project-desc">
         <p>Every "learn AI" list is either a <span class="pd-mark">vendor's sales funnel</span> or a hundred YouTube tabs in no particular order. People end up able to <em>use</em> AI but unable to explain it.</p>
         <p>So I wrote the path I wanted: <span class="pd-box">21 phases</span>, from Python and Git through classic ML, how LLMs actually work, RAG, agents and MCP, to evals, security and <em>inference economics</em>. Each phase says what you'll be able to do when it's done, and <span class="pd-mark">asks you to build something</span> before moving on.</p>
@@ -3208,7 +642,9 @@ footer span.neon{color:var(--neon)}
         <span>Inference Economics</span>
         <span>One HTML File</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-ai"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/ai/" target="_blank" rel="noopener">Start at phase 00 <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3331,10 +767,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-jira" data-project="jira">
     <div class="project-left">
       <span class="project-tag">Product Teardown · Working Prototype</span>
       <h3 class="project-title">Jira <em>2.0</em></h3>
+      <p class="project-line">A teardown and working prototype of an AI-native layer on Jira, where every AI output is auditable.</p>
+      <div class="project-more" id="more-jira"><div>
       <div class="project-desc">
         <p>Jira is the most-used PM tool on the planet, and it still asks every user to <span class="pd-mark">low-key be a database admin</span>. Configure a filter, save it, build a dashboard, wire up a gadget - all to answer a question that took ten seconds to ask.</p>
         <p>So I tore it down and rebuilt the interaction layer. Not a Jira clone. <span class="pd-box">An AI-native layer on top of the system of record</span> - same data, same workflows, same integrations. It just stops <b><em>taxing your attention</em></b> before delivering value.</p>
@@ -3350,7 +788,9 @@ footer span.neon{color:var(--neon)}
         <span>AI Transparency Layer</span>
         <span>13-Slide Teardown</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-jira"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/jira2/" target="_blank" rel="noopener">Try the prototype <span class="arr">↗</span></a>
         <a class="project-link primary" href="https://docs.google.com/presentation/d/1BeDPLtkNR43jhxy6g7QtDaWu2xa0twQP5OvqAMm6CZc/edit?usp=sharing" target="_blank" rel="noopener">Check out the deck <span class="arr">↗</span></a>
       </div>
@@ -3399,10 +839,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-grid" data-project="grid">
     <div class="project-left">
       <span class="project-tag">Live Data · Editorial Reference</span>
       <h3 class="project-title">GRID <em>F1 in 2026</em></h3>
+      <p class="project-line">An editorial reference for Formula 1's 2026 reset, with live timing from OpenF1.</p>
+      <div class="project-more" id="more-grid"><div>
       <div class="project-desc">
         <p>2026 is the <span class="pd-mark">biggest technical reset</span> in Formula 1's history - new engines, active aero, smaller cars - and most explainers are either 40-minute videos or wikis that assume you've watched since 1998.</p>
         <p>GRID is a primer that <em>respects your time</em>: five pages, compressed like a blueprint. Eleven teams, twenty-two drivers, twenty-two tracks drawn as abstract silhouettes, and a top-down technical drawing of the car where you can <span class="pd-box">flip the wings</span> between corner and straight-line mode.</p>
@@ -3417,7 +859,9 @@ footer span.neon{color:var(--neon)}
         <span>~190 KB Total</span>
         <span>Editorial Design</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-grid"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/grid/" target="_blank" rel="noopener">Lights out <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3506,10 +950,12 @@ footer span.neon{color:var(--neon)}
     </div>
   </article>
 
-  <article class="project">
+  <article class="project" id="p-cookbook" data-project="cookbook">
     <div class="project-left">
       <span class="project-tag">Live · 216 Dishes · Zero Build</span>
       <h3 class="project-title">The Cookbook <em>by Parth</em></h3>
+      <p class="project-line">216 high-protein dishes that start from context: what's in the fridge, how long you've got, who's coming.</p>
+      <div class="project-more" id="more-cookbook"><div>
       <div class="project-desc">
         <p>Recipe sites are built for <span class="pd-mark">search engines, not hungry people</span>. A life story, three ads, and the ingredient list somewhere below the fold. None of them answer the real question: <em>what should I cook tonight?</em></p>
         <p>So mine starts from context, not chapters. <span class="pd-box">I have 20 minutes.</span> I have chicken. Zero cleanup. Someone's coming over. Tap what's in the fridge and it ranks dishes with <span class="pd-mark">honest set math</span>; pick one and cook mode takes over the screen, timers running and the screen kept awake.</p>
@@ -3524,7 +970,9 @@ footer span.neon{color:var(--neon)}
         <span>⌘K Palette</span>
         <span>Python Data QA</span>
       </div>
+      </div></div>
       <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-cookbook"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
         <a class="project-link primary" href="https://parth8.github.io/cookbook/" target="_blank" rel="noopener">What's for dinner? <span class="arr">↗</span></a>
       </div>
     </div>
@@ -3593,9 +1041,494 @@ footer span.neon{color:var(--neon)}
       <p class="pr-note">the fridge decides. the data checks.</p>
     </div>
   </article>
+
+  <a class="project project-next" href="#contact">
+    <span class="pn-num">08</span>
+    <span class="project-tag">Slot open · Yours?</span>
+    <h3 class="project-title">Your <em>problem</em> here</h3>
+    <p class="project-line">Every build above started as a tool that didn't exist yet. Got one that should? I'm listening.</p>
+    <span class="project-link primary">Pitch me <span class="arr">↗</span></span>
+    <span class="pn-note">the next one could be yours.</span>
+  </a>
+  </div>
 </section>
 
-<!-- PHILOSOPHY -->
+<!-- JOURNEY -->
+<section class="xp-section" id="sec-experience">
+  <div class="xp-head">
+    <h2 class="xp-main-title"><em>the</em> journey</h2>
+    <p class="skills-sub" style="color:var(--gray)">04 · 2021 → now · 5 roles · 3 companies</p>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">Aug 2026 - Present</p>
+      <p class="xp-co">Backbase.</p>
+      <span class="xp-now">Now · Hyderabad</span>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Forward Deployed Product Manager <em>- Connector Studio · Agentic Banking</em></p>
+      <ul class="xp-pts">
+        <li><strong>Platform owner for Connector Studio</strong> - Backbase's iPaaS for banking connectors. Build, deploy, install, run and maintain, across the web app and the agentic AI MCP.</li>
+        <li>Launched the <strong>Connector Studio MCP in 6 weeks</strong> - banking clients and ~20 internal PMs and services engineers now build connectors with agents, off manual builds.</li>
+        <li>Connector build time cut from <strong>~12 days to ~2 (~80%)</strong>, mapping review and deployment included. Every build gated to pre-prod until mapping accuracy is safe for production banking traffic.</li>
+        <li>Driving LLM mapping accuracy - BIAN unified APIs to vendor JSON/XML specs - from <strong>~50-60% to 90%+</strong>, baselined against a golden dataset. Own the Q4 KPI: the first official connectors built and published.</li>
+        <li>Running the <strong>rent vs own the LLM</strong> call: self-hosted open-weight models vs OpenAI and Anthropic enterprise plans, and RAG vs LLM-native mapping, on accuracy, token cost, control and data isolation.</li>
+        <li>Shipped the <strong>API Playground</strong> and MCP token rotation (90-day expiry, auto re-provisioning, instant self-serve revoke). Redesigning the Connector Studio UI off user feedback.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">May 2024 - Aug 2026</p>
+      <p class="xp-co">Zeta.</p>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Technical Product Manager <em>- Data Platform SaaS (US + EMEA)</em></p>
+      <ul class="xp-pts">
+        <li><strong>Lead platform PM</strong> for a multi-tenant, config-driven data platform for US + EMEA banks - subscription onboarding, 0 code changes, onboarding + GTM cut by <strong>90 days</strong>.</li>
+        <li>Eliminated the MongoDB dependency - <strong>~$50K/year infra savings</strong>. Made data freshness a per-tenant config tied to its AWS cost.</li>
+        <li>Data contracts and a governed semantic layer across <strong>1,200+ attributes, 20+ schemas</strong> - lineage, PII/PCI DSS/GDPR, sanctions &amp; AML (OFAC, FinCEN).</li>
+        <li>Owned <strong>12+ connectors</strong> - DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace, Qualco, Xero, Decta, GoCardless, AWS Connect. One subscription provisions a DAG per tenant-vendor pair.</li>
+        <li><strong>0 P1/P2 defects, 4-week GTM</strong> with a team of 8 engineers at 90%+ on-time delivery. 70+ data quality gaps closed in 2 months, CSAT 2.5 → 4.0.</li>
+        <li>Authored architecture docs across 600+ attributes, driving CardWorks' <strong>$3M+ credit card portfolio data migration</strong>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">May 2024 - Aug 2026</p>
+      <p class="xp-co">Zeta.</p>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Technical Product Manager <em>- Optum Virtual Card Platform</em></p>
+      <ul class="xp-pts">
+        <li>Led the <strong>0 P1/P2 defect launch</strong> of a virtual card platform for UnitedHealthcare payers to disburse <strong>$2B+ a year</strong> to US healthcare providers - Optum Bank as sponsor, on Mastercard rails.</li>
+        <li>Owned product strategy across <strong>9 functional areas</strong> for a Fortune 3 - discovery to clean regulatory sign-off for Mastercard integration.</li>
+        <li>Designed API specs and led QA for the full card lifecycle - <strong>issue, cancel, reissue, reset</strong> - webhook triggers, idempotency, error handling, fallback.</li>
+        <li>Architected a real-time <strong>FRM rules engine</strong> with configurable merchant, amount, and risk thresholds.</li>
+        <li>Led <strong>FeatureSpace ML integration</strong> for real-time fraud detection; built event-based transaction traceability for UHC compliance teams.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">May 2022 - May 2024</p>
+      <p class="xp-co">Zeta.</p>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Technical Program Manager <em>- US &amp; India Banking Program Lead</em></p>
+      <ul class="xp-pts">
+        <li>Led Sparrow Card US launch with Evolve Bank - <strong>2x revenue &amp; 150K+ onboardings and issuances</strong> in first year vs projections by Dec '24.</li>
+        <li>Built US support &amp; ops from scratch - first response time <strong>-99%</strong>, CSAT 2.5 → 4.6 in 3 months.</li>
+        <li>120+ real-time SQL dashboards. 300+ releases managed. 89% SLO, 99% SLA adherence.</li>
+        <li>Led RBI-mandated wind-down of <strong>22 fintechs in 60 days</strong> across product, BI, engineering, bank partners.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="xp-row">
+    <div class="xp-left">
+      <p class="xp-date">Feb 2021 - Apr 2022</p>
+      <p class="xp-co">HackerEarth.</p>
+    </div>
+    <div class="xp-right">
+      <p class="xp-role">Project Manager <em>- Enterprise &amp; SMB Recruitment</em></p>
+      <ul class="xp-pts">
+        <li>60+ enterprise &amp; SMB programs delivered. <strong>NPS 9</strong>. Churn reduced by 25%.</li>
+        <li><strong>₹38L ($46K) revenue</strong> in 9 months - referrals and upsells.</li>
+        <li>7+ case studies with Google, Microsoft, Accenture, Walmart Global Tech, HCL Sweden, Husqvarna.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLKIT -->
+<section class="skills-wrap" id="sec-skills">
+  <span class="skills-bg" aria-hidden="true">CAPABILITIES</span>
+  <div class="skills-head">
+    <h2 class="skills-title"><em>what do I bring to <br>the table?</em></h2>
+    <p class="skills-sub">05 · The stack · End to end</p>
+  </div>
+  <div class="skills-cols">
+    <div class="skill-col">
+      <p class="sc-label">◦ Fintech, Payments &amp; Platform</p>
+      <ul class="sc-list">
+        <li>Card issuance · Mastercard &amp; Visa</li>
+        <li>Virtual &amp; credit cards · BIN mgmt</li>
+        <li>Sponsor bank programs</li>
+        <li>Fraud detection &amp; FRM</li>
+        <li>Disputes &amp; traceability</li>
+        <li>REST · GraphQL · SOAP APIs</li>
+        <li>Webhooks · idempotency</li>
+        <li>Event-driven systems</li>
+        <li>Multi-tenant SaaS design</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <p class="sc-label">◦ Data &amp; Infrastructure</p>
+      <ul class="sc-list">
+        <li>Data contracts · semantic layer</li>
+        <li>Medallion architecture</li>
+        <li>dbt · Apache Airflow</li>
+        <li>Kafka · S3 · batch · API ingestion</li>
+        <li>ETL · ELT · OLTP · OLAP</li>
+        <li>Cost vs freshness tradeoffs</li>
+        <li>PII · PCI DSS · GDPR · OFAC</li>
+        <li>Metabase · Superset · Grafana</li>
+        <li>SQL · Python</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <p class="sc-label">◦ AI &amp; LLM</p>
+      <ul class="sc-list">
+        <li>MCP servers &amp; agent tooling</li>
+        <li>RAG · vector databases</li>
+        <li>LLM evals · golden datasets</li>
+        <li>Mapping accuracy benchmarks</li>
+        <li>Human-in-the-loop review</li>
+        <li>Open-weight vs managed LLMs</li>
+        <li>Inference cost tradeoffs</li>
+        <li>Token &amp; credential lifecycle</li>
+        <li>Claude · Cursor · Copilot · Ollama</li>
+      </ul>
+    </div>
+    <div class="skill-col">
+      <p class="sc-label">◦ Product &amp; Leadership</p>
+      <ul class="sc-list">
+        <li>PRD · BRD · GTM</li>
+        <li>Roadmaps from 120+ requirements</li>
+        <li>Agile · Scrum · Kanban · RACI</li>
+        <li>CxO-level stakeholder mgmt</li>
+        <li>Forward-deployed with clients</li>
+        <li>0-to-1 platform builds</li>
+        <li>Teams of 8 engineers</li>
+        <li>Ops &amp; CSAT scaling</li>
+        <li>Figma · Notion · Jira</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SHIPPED WITH / CLIENTS & PARTNERS -->
+<section class="shipped-with" aria-label="Shipped with, banked by, integrated through">
+  <p class="sw-label">Shipped with · Banked by · Integrated through</p>
+  <div class="sw-marquee-wrap">
+    <div class="sw-marquee">
+      <span class="sw-item">Backbase</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Mastercard</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Visa</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Optum Financial</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">UnitedHealth Group</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">HDFC Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">IDFC Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Evolve Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Focus Bank</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">CardWorks</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">BIAN</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">AWS</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">FeatureSpace</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">TransUnion</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Equifax</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">DigiFi</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Zeta</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">MoEngage</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Qualco</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Xero</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Decta</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">GoCardless</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Zendesk + Freshdesk</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Tabapay</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Lighthouse</span><span class="sw-dot" aria-hidden="true">✦</span>
+      <span class="sw-item">Office of Foreign Assets Control (OFAC)</span><span class="sw-dot" aria-hidden="true">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section class="awards-section" id="sec-recognition">
+  <div class="aw-head">
+    <h2 class="aw-title"><em>recognition</em></h2>
+    <p class="skills-sub" style="color:var(--gray)">06 · Six awards · three certifications · 2021-2024</p>
+  </div>
+  <div class="aw-grid">
+
+    <div class="aw-card tilt-a">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M5,38 C25,18 55,55 90,32 C125,12 160,48 195,28 C193,34 196,42 190,50 C160,65 125,42 90,58 C55,72 25,50 8,55 C4,50 3,44 5,38 Z" fill="#FFE7A0"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold1)" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="40" cy="38" r="16" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
+        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="18" fill="#8a6a1f">★</text>
+      </svg>
+      <p class="aw-year">Jul 2024 · Annual</p>
+      <p class="aw-name">Outstanding Award <em>Sparrow Card · US Ops · Platform Stability</em></p>
+      <p class="aw-co">● Zeta</p>
+    </div>
+
+    <div class="aw-card tilt-b">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M10,40 C35,20 60,52 95,35 C130,18 155,50 190,30 C190,38 193,45 188,52 C155,66 130,46 95,60 C60,70 35,52 12,58 C6,52 6,46 10,40 Z" fill="#B6F0D3"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <circle cx="40" cy="40" r="28" fill="url(#gold2)" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="40" cy="40" r="18" fill="none" stroke="#8a6a1f" stroke-width="0.8"/>
+        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="20" fill="#8a6a1f">2</text>
+        <path d="M20 68 L40 78 L60 68 L56 72 L40 82 L24 72 Z" fill="#D4483B"/>
+      </svg>
+      <p class="aw-year">Mar 2024 · Quarterly</p>
+      <p class="aw-name">Mountain Mover <em>US Support Automation</em></p>
+      <p class="aw-co">● Zeta</p>
+    </div>
+
+    <div class="aw-card tilt-c">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M8,38 C30,16 58,58 92,30 C128,10 165,50 192,32 C192,38 194,44 188,50 C165,66 128,46 92,60 C58,72 30,48 10,56 C5,50 4,44 8,38 Z" fill="#FFC9D7"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <path d="M20 6 L60 6 L68 22 L48 52 L32 52 L12 22 Z" fill="url(#gold3)" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="40" cy="30" r="13" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
+        <text x="40" y="36" text-anchor="middle" font-family="Bebas Neue" font-size="16" fill="#8a6a1f">★</text>
+        <rect x="28" y="52" width="24" height="14" fill="#3B82B4"/>
+        <path d="M28 66 L40 74 L52 66 L52 76 L40 82 L28 76 Z" fill="#3B82B4"/>
+      </svg>
+      <p class="aw-year">Dec 2023 · Quarterly</p>
+      <p class="aw-name">Mountain Mover <em>Platform Stability Initiative</em></p>
+      <p class="aw-co">● Zeta</p>
+    </div>
+
+    <div class="aw-card tilt-d">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M6,40 C30,14 60,60 95,32 C130,12 160,50 194,30 C194,38 196,44 190,50 C160,66 130,46 95,60 C60,72 30,50 8,58 C3,52 2,46 6,40 Z" fill="#FFE7A0"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <path d="M40 6 L46 28 L68 28 L50 42 L56 64 L40 50 L24 64 L30 42 L12 28 L34 28 Z" fill="url(#gold4)" stroke="#8a6a1f" stroke-width="1"/>
+      </svg>
+      <p class="aw-year">Nov 2022 · Quarterly</p>
+      <p class="aw-name">Shining Star <em>Wind-down Program Execution</em></p>
+      <p class="aw-co">● Zeta</p>
+    </div>
+
+    <div class="aw-card tilt-e">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M10,38 C35,16 60,56 95,30 C130,12 160,50 190,32 C190,38 194,45 188,52 C160,68 130,46 95,60 C60,72 35,50 12,56 C6,50 6,44 10,38 Z" fill="#B6F0D3"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <circle cx="40" cy="38" r="26" fill="url(#gold5)" stroke="#8a6a1f" stroke-width="1"/>
+        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#8a6a1f">HE</text>
+      </svg>
+      <p class="aw-year">Jan 2022 · Quarterly</p>
+      <p class="aw-name">Spot Award <em>SMB Churn Reduction</em></p>
+      <p class="aw-co">● HackerEarth</p>
+    </div>
+
+    <div class="aw-card tilt-f">
+      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M8,40 C32,16 58,58 94,32 C130,10 162,50 192,30 C192,38 195,44 189,52 C162,66 130,46 94,60 C58,72 32,50 10,56 C5,52 4,46 8,40 Z" fill="#FFC9D7"/>
+      </svg>
+      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="gold6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
+        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold6)" stroke="#8a6a1f" stroke-width="1"/>
+        <circle cx="40" cy="38" r="15" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
+        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#8a6a1f">PM</text>
+      </svg>
+      <p class="aw-year">Jun 2021 · Quarterly</p>
+      <p class="aw-name">Spot Award <em>Ownership Beyond Scope</em></p>
+      <p class="aw-co">● HackerEarth</p>
+    </div>
+
+  </div>
+  <p class="certs-sub">Certifications · Udemy &amp; Atlassian</p>
+  <div class="certs-grid">
+
+    <div class="cert-card tilt-a">
+      <div class="cert-issuer-row">
+        <div class="cert-logo udemy"></div>
+        <div class="cert-issuer-text">
+          <p class="cert-issuer-name">Udemy</p>
+          <p class="cert-date">Issued Jan 2024</p>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-name">API &amp; Web Service <em>Introduction</em></h3>
+        <div class="cert-skills">
+          <span>REST APIs</span>
+          <span>Web Services</span>
+          <span>+2 skills</span>
+        </div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-verified">Verified</span>
+        <span class="cert-credential">Jan '24</span>
+      </div>
+    </div>
+
+    <div class="cert-card tilt-b">
+      <div class="cert-issuer-row">
+        <div class="cert-logo atlassian"></div>
+        <div class="cert-issuer-text">
+          <p class="cert-issuer-name">Atlassian</p>
+          <p class="cert-date">Issued May 2023</p>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-name">Agile with <em>Atlassian Jira</em></h3>
+        <div class="cert-skills">
+          <span>JQL</span>
+          <span>Scrum</span>
+          <span>+2 skills</span>
+        </div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-verified">Verified</span>
+        <span class="cert-credential">ID · RMEBHDSY2E48</span>
+      </div>
+    </div>
+
+    <div class="cert-card tilt-c">
+      <div class="cert-issuer-row">
+        <div class="cert-logo atlassian"></div>
+        <div class="cert-issuer-text">
+          <p class="cert-issuer-name">Atlassian</p>
+          <p class="cert-date">Issued May 2023</p>
+        </div>
+      </div>
+      <div class="cert-body">
+        <h3 class="cert-name">Confluence <em>Fundamentals Badge</em></h3>
+        <div class="cert-skills">
+          <span>Confluence</span>
+          <span>Jira</span>
+        </div>
+      </div>
+      <div class="cert-foot">
+        <span class="cert-verified">Verified</span>
+        <span class="cert-credential">May '23</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WRITING -->
+<section class="writings" id="sec-writings">
+  <div class="writings-head">
+    <div class="writings-masthead">
+      <h2 class="writings-title"><span class="bracket">[</span>thoughts, <em>absurd, aloud.</em><span class="bracket right">]</span></h2>
+      <span class="writings-edition">07 · Vol. 001 · Essays · Medium</span>
+    </div>
+    <p class="writings-sub">On fintech, credit cards, tech culture, and the occasional metaphysical detour.</p>
+  </div>
+
+  <a class="feature-essay" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank" rel="noopener">
+    <div class="feat-left">
+      <span class="feat-badge">Feature · Fintech Strategy</span>
+      <h3 class="feat-title">OLX is a crime scene. Is the cure a <em>pivot into becoming a fintech?</em></h3>
+      <div class="feat-meta">
+        <span>Medium</span>
+        <span>~8 min read</span>
+        <span>Analysis</span>
+      </div>
+    </div>
+    <div class="feat-right">
+      <p class="feat-pullquote">
+        A marketplace drowning in fraud, user trust collapsing in real time. The unlock is <em>not a safer listing flow</em> - it's a completely different business model.
+      </p>
+    </div>
+  </a>
+
+  <div class="essay-grid">
+    <a class="essay e-a" href="https://parthaggarwal8.medium.com/the-metro-housing-crisis-is-not-a-you-problem-265c167aa122" target="_blank" rel="noopener">
+      <div>
+        <p class="essay-kicker">Essay · Culture</p>
+        <h4 class="essay-title">The metro housing crisis is <em>not a "you problem"</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~7 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-b" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank" rel="noopener">
+      <div>
+        <p class="essay-kicker">Essay · Product · Hot Take</p>
+        <h4 class="essay-title">Why are PM interviews still obsessed with <em>guesstimates like it's 2009?</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~6 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-c" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank" rel="noopener">
+      <div>
+        <p class="essay-kicker">Essay · Tech Culture</p>
+        <h4 class="essay-title">The <em>mental debt</em> of being in tech</h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium · ~5 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-d" href="https://parthaggarwal8.medium.com/metacognition-as-quantum-superposition-rethinking-how-we-think-c75be6777444" target="_blank" rel="noopener">
+      <div>
+        <p class="essay-kicker">Essay · Philosophy</p>
+        <h4 class="essay-title">Metacognition as quantum superposition: <em>rethinking how we think</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Medium<br>~9 min</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+
+    <a class="essay e-e" href="https://parthaggarwal8.medium.com/" target="_blank" rel="noopener">
+      <div>
+        <p class="essay-kicker">More writing</p>
+        <h4 class="essay-title">Read every piece on <em>Medium</em></h4>
+      </div>
+      <div class="essay-bottom">
+        <span class="essay-meta">Archive · All essays</span>
+        <span class="essay-arrow">↗</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="series-band">
+    <div class="series-head">
+      <p class="series-name">Series - <strong>Decoding Credit Cards</strong></p>
+      <p class="series-desc">A five-part deep dive · Everything there is to know, from issuance to interest calc.</p>
+    </div>
+    <div class="series-chapters">
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank" rel="noopener">
+        <div class="chapter-num">I</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Introduction</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-issuance-part-2-5b0ac72f638d" target="_blank" rel="noopener">
+        <div class="chapter-num">II</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Issuance</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-types-part-3-040304533272" target="_blank" rel="noopener">
+        <div class="chapter-num">III</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Types</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-transactions-part-4-37d25633fc97" target="_blank" rel="noopener">
+        <div class="chapter-num">IV</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Transactions</em></p>
+      </a>
+      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-payments-interest-calculations-part-5-bb95accaf804" target="_blank" rel="noopener">
+        <div class="chapter-num">V</div>
+        <p class="chapter-name">Decoding Credit Cards: <em>Payments &amp; Interest</em></p>
+      </a>
+    </div>
+  </div>
+
+</section>
+
+<!-- MANIFESTO -->
 <section class="philosophy" id="sec-manifesto">
   <div class="ph-left">
     <p class="ph-label">Manifesto | No. 00</p>
@@ -3752,7 +1685,7 @@ footer span.neon{color:var(--neon)}
       </svg>
       <figcaption class="ph-figcaption">
         <span class="ph-fignum">Fig. 05 | v3</span>
-        <span class="ph-figtext">the pipeline I own. end-to-end.</span>
+        <span class="ph-figtext">the pipeline I owned. end-to-end.</span>
       </figcaption>
     </figure>
   </div>
@@ -3764,301 +1697,9 @@ footer span.neon{color:var(--neon)}
       I don't over-engineer. I don't underthink. I <span class="boxed">enforce earned simplicity</span> - the kind you only get after mapping every edge case and deliberately, strategically deciding what not to build. Customer needs at the front. Platform reliability at the core.
     </p>
     <p>
-      Now? I'm hunting for the next <em>impossibly ambitious</em> thing to own. <span class="postit">yes, I'm that guy<br>no, I'll not slow down</span>
+      Now? I'm teaching agents to build banking integrations - and making sure they're <em>right</em> before they're fast. <span class="postit">yes, I'm that guy<br>no, I'll not slow down</span>
     </p>
   </div>
-</section>
-
-<!-- AWARDS -->
-<section class="awards-section" id="sec-awards">
-  <div class="aw-head">
-    <h2 class="aw-title"><em>recognition</em></h2>
-    <p class="skills-sub" style="color:var(--gray)">Six awards · 2021-2024</p>
-  </div>
-  <div class="aw-grid">
-
-    <div class="aw-card tilt-a">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M5,38 C25,18 55,55 90,32 C125,12 160,48 195,28 C193,34 196,42 190,50 C160,65 125,42 90,58 C55,72 25,50 8,55 C4,50 3,44 5,38 Z" fill="#FFE7A0"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold1)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="38" r="16" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="18" fill="#8a6a1f">★</text>
-      </svg>
-      <p class="aw-year">Jul 2024 · Annual</p>
-      <p class="aw-name">Outstanding Award <em>Sparrow Card · US Ops · Platform Stability</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-b">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M10,40 C35,20 60,52 95,35 C130,18 155,50 190,30 C190,38 193,45 188,52 C155,66 130,46 95,60 C60,70 35,52 12,58 C6,52 6,46 10,40 Z" fill="#B6F0D3"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <circle cx="40" cy="40" r="28" fill="url(#gold2)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="40" r="18" fill="none" stroke="#8a6a1f" stroke-width="0.8"/>
-        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="20" fill="#8a6a1f">2</text>
-        <path d="M20 68 L40 78 L60 68 L56 72 L40 82 L24 72 Z" fill="#D4483B"/>
-      </svg>
-      <p class="aw-year">Mar 2024 · Quarterly</p>
-      <p class="aw-name">Mountain Mover <em>US Support Automation</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-c">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M8,38 C30,16 58,58 92,30 C128,10 165,50 192,32 C192,38 194,44 188,50 C165,66 128,46 92,60 C58,72 30,48 10,56 C5,50 4,44 8,38 Z" fill="#FFC9D7"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold3" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M20 6 L60 6 L68 22 L48 52 L32 52 L12 22 Z" fill="url(#gold3)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="30" r="13" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="36" text-anchor="middle" font-family="Bebas Neue" font-size="16" fill="#8a6a1f">★</text>
-        <rect x="28" y="52" width="24" height="14" fill="#3B82B4"/>
-        <path d="M28 66 L40 74 L52 66 L52 76 L40 82 L28 76 Z" fill="#3B82B4"/>
-      </svg>
-      <p class="aw-year">Dec 2023 · Quarterly</p>
-      <p class="aw-name">Mountain Mover <em>Platform Stability Initiative</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-d">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M6,40 C30,14 60,60 95,32 C130,12 160,50 194,30 C194,38 196,44 190,50 C160,66 130,46 95,60 C60,72 30,50 8,58 C3,52 2,46 6,40 Z" fill="#FFE7A0"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 6 L46 28 L68 28 L50 42 L56 64 L40 50 L24 64 L30 42 L12 28 L34 28 Z" fill="url(#gold4)" stroke="#8a6a1f" stroke-width="1"/>
-      </svg>
-      <p class="aw-year">Nov 2022 · Quarterly</p>
-      <p class="aw-name">Shining Star <em>Wind-down Program Execution</em></p>
-      <p class="aw-co">● Zeta</p>
-    </div>
-
-    <div class="aw-card tilt-e">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M10,38 C35,16 60,56 95,30 C130,12 160,50 190,32 C190,38 194,45 188,52 C160,68 130,46 95,60 C60,72 35,50 12,56 C6,50 6,44 10,38 Z" fill="#B6F0D3"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold5" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <circle cx="40" cy="38" r="26" fill="url(#gold5)" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="46" text-anchor="middle" font-family="Bebas Neue" font-size="24" fill="#8a6a1f">HE</text>
-      </svg>
-      <p class="aw-year">Jan 2022 · Quarterly</p>
-      <p class="aw-name">Spot Award <em>SMB Churn Reduction</em></p>
-      <p class="aw-co">● HackerEarth</p>
-    </div>
-
-    <div class="aw-card tilt-f">
-      <svg class="aw-brush" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-        <path d="M8,40 C32,16 58,58 94,32 C130,10 162,50 192,30 C192,38 195,44 189,52 C162,66 130,46 94,60 C58,72 32,50 10,56 C5,52 4,46 8,40 Z" fill="#FFC9D7"/>
-      </svg>
-      <svg class="aw-medal" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="gold6" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4CC5F"/><stop offset="50%" stop-color="#E6B547"/><stop offset="100%" stop-color="#A8822A"/></linearGradient></defs>
-        <path d="M40 2 L48 8 L58 6 L62 16 L72 20 L70 30 L76 38 L70 46 L72 56 L62 60 L58 70 L48 68 L40 74 L32 68 L22 70 L18 60 L8 56 L10 46 L4 38 L10 30 L8 20 L18 16 L22 6 L32 8 Z" fill="url(#gold6)" stroke="#8a6a1f" stroke-width="1"/>
-        <circle cx="40" cy="38" r="15" fill="#FBE28A" stroke="#8a6a1f" stroke-width="1"/>
-        <text x="40" y="44" text-anchor="middle" font-family="Bebas Neue" font-size="14" fill="#8a6a1f">PM</text>
-      </svg>
-      <p class="aw-year">Jun 2021 · Quarterly</p>
-      <p class="aw-name">Spot Award <em>Ownership Beyond Scope</em></p>
-      <p class="aw-co">● HackerEarth</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section class="certs-section">
-  <div class="certs-head">
-    <h2 class="certs-title"><em>certifications</em></h2>
-    <p class="skills-sub" style="color:var(--gray)">Three · 2023-2024 · Udemy &amp; Atlassian</p>
-  </div>
-  <div class="certs-grid">
-
-    <div class="cert-card tilt-a">
-      <div class="cert-issuer-row">
-        <div class="cert-logo udemy"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Udemy</p>
-          <p class="cert-date">Issued Jan 2024</p>
-        </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">API &amp; Web Service <em>Introduction</em></h3>
-        <div class="cert-skills">
-          <span>REST APIs</span>
-          <span>Web Services</span>
-          <span>+2 skills</span>
-        </div>
-      </div>
-      <div class="cert-foot">
-        <span class="cert-verified">Verified</span>
-        <span class="cert-credential">Jan '24</span>
-      </div>
-    </div>
-
-    <div class="cert-card tilt-b">
-      <div class="cert-issuer-row">
-        <div class="cert-logo atlassian"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Atlassian</p>
-          <p class="cert-date">Issued May 2023</p>
-        </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">Agile with <em>Atlassian Jira</em></h3>
-        <div class="cert-skills">
-          <span>JQL</span>
-          <span>Scrum</span>
-          <span>+2 skills</span>
-        </div>
-      </div>
-      <div class="cert-foot">
-        <a class="cert-link" href="#" target="_blank">Show credential ↗</a>
-        <span class="cert-credential">ID · RMEBHDSY2E48</span>
-      </div>
-    </div>
-
-    <div class="cert-card tilt-c">
-      <div class="cert-issuer-row">
-        <div class="cert-logo atlassian"></div>
-        <div class="cert-issuer-text">
-          <p class="cert-issuer-name">Atlassian</p>
-          <p class="cert-date">Issued May 2023</p>
-        </div>
-      </div>
-      <div class="cert-body">
-        <h3 class="cert-name">Confluence <em>Fundamentals Badge</em></h3>
-        <div class="cert-skills">
-          <span>Confluence</span>
-          <span>Jira</span>
-        </div>
-      </div>
-      <div class="cert-foot">
-        <a class="cert-link" href="#" target="_blank">Show credential ↗</a>
-        <span class="cert-credential">May '23</span>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- WRITINGS -->
-<section class="writings" id="sec-writings">
-  <div class="writings-head">
-    <div class="writings-masthead">
-      <h2 class="writings-title"><span class="bracket">[</span>thoughts, <em>absurd, aloud.</em><span class="bracket right">]</span></h2>
-      <span class="writings-edition">Vol. 001 · Essays · Medium</span>
-    </div>
-    <p class="writings-sub">On fintech, credit cards, tech culture, and the occasional metaphysical detour.</p>
-  </div>
-
-  <a class="feature-essay" href="https://parthaggarwal8.medium.com/olx-is-a-crime-scene-is-the-cure-a-pivot-into-becoming-a-fintech-527efe8151d4" target="_blank">
-    <div class="feat-left">
-      <span class="feat-badge">Feature · Fintech Strategy</span>
-      <h3 class="feat-title">OLX is a crime scene. Is the cure a <em>pivot into becoming a fintech?</em></h3>
-      <div class="feat-meta">
-        <span>Medium</span>
-        <span>~8 min read</span>
-        <span>Analysis</span>
-      </div>
-    </div>
-    <div class="feat-right">
-      <p class="feat-pullquote">
-        A marketplace drowning in fraud, user trust collapsing in real time. The unlock is <em>not a safer listing flow</em> - it's a completely different business model.
-      </p>
-    </div>
-  </a>
-
-  <div class="essay-grid">
-    <a class="essay e-a" href="https://parthaggarwal8.medium.com/the-metro-housing-crisis-is-not-a-you-problem-265c167aa122" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Culture</p>
-        <h4 class="essay-title">The metro housing crisis is <em>not a "you problem"</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~7 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-b" href="https://parthaggarwal8.medium.com/why-are-pm-interviews-still-obsessed-with-guesstimates-like-its-2009-ef451919cbf1" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Product · Hot Take</p>
-        <h4 class="essay-title">Why are PM interviews still obsessed with <em>guesstimates like it's 2009?</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~6 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-c" href="https://parthaggarwal8.medium.com/the-mental-debt-of-being-in-tech-89dd5d7cea17" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Tech Culture</p>
-        <h4 class="essay-title">The <em>mental debt</em> of being in tech</h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium · ~5 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-d" href="https://parthaggarwal8.medium.com/metacognition-as-quantum-superposition-rethinking-how-we-think-c75be6777444" target="_blank">
-      <div>
-        <p class="essay-kicker">Essay · Philosophy</p>
-        <h4 class="essay-title">Metacognition as quantum superposition: <em>rethinking how we think</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Medium<br>~9 min</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-
-    <a class="essay e-e" href="https://parthaggarwal8.medium.com/" target="_blank">
-      <div>
-        <p class="essay-kicker">More writing</p>
-        <h4 class="essay-title">Read every piece on <em>Medium</em></h4>
-      </div>
-      <div class="essay-bottom">
-        <span class="essay-meta">Archive · All essays</span>
-        <span class="essay-arrow">↗</span>
-      </div>
-    </a>
-  </div>
-
-  <div class="series-band">
-    <div class="series-head">
-      <p class="series-name">Series - <strong>Decoding Credit Cards</strong></p>
-      <p class="series-desc">A five-part deep dive · Everything there is to know, from issuance to interest calc.</p>
-    </div>
-    <div class="series-chapters">
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-part-1-41c61eabdd6d" target="_blank">
-        <div class="chapter-num">I</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Introduction</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-issuance-part-2-5b0ac72f638d" target="_blank">
-        <div class="chapter-num">II</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Issuance</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-types-part-3-040304533272" target="_blank">
-        <div class="chapter-num">III</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Types</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-transactions-part-4-37d25633fc97" target="_blank">
-        <div class="chapter-num">IV</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Credit Card Transactions</em></p>
-      </a>
-      <a class="chapter" href="https://parthaggarwal8.medium.com/decoding-credit-cards-credit-card-payments-interest-calculations-part-5-bb95accaf804" target="_blank">
-        <div class="chapter-num">V</div>
-        <p class="chapter-name">Decoding Credit Cards: <em>Payments &amp; Interest</em></p>
-      </a>
-    </div>
-  </div>
-
 </section>
 
 <!-- CTA -->
@@ -4068,7 +1709,7 @@ footer span.neon{color:var(--neon)}
   <!-- Michael Scott polaroid sticker -->
   <div class="boss-sticker" aria-hidden="true">
     <div class="boss-polaroid">
-      <img src="worlds-best-boss.png" alt="Michael Scott World's Best Boss mug">
+      <img src="assets/worlds-best-boss.webp" alt="" width="140" height="112" loading="lazy" decoding="async">
     </div>
     <div class="boss-caption">hire your next one →</div>
   </div>
@@ -4081,17 +1722,17 @@ footer span.neon{color:var(--neon)}
     </h2>
     <p class="cta-sub">
       Open to Product &amp; Platform roles - India and global.<br>
-      Fintech, data infra, big tech, early-stage. <br>If you're building something ambitious and need someone who can own it end-to-end, let's find 20 minutes.
+      Fintech, data infra, AI platforms, big tech, early-stage. <br>If you're building something ambitious and need someone who can own it end-to-end, let's find 20 minutes.
     </p>
     <div class="cta-buttons">
       <a href="mailto:8parthaggarwal1999@gmail.com?subject=Let's%20talk" class="cta-btn primary"><span>Send an Email</span></a>
-      <a href="https://linkedin.com/in/aggarwalparth" target="_blank" class="cta-btn"><span>LinkedIn →</span></a>
+      <a href="https://linkedin.com/in/aggarwalparth" target="_blank" rel="noopener" class="cta-btn"><span>LinkedIn →</span></a>
       <a href="tel:+917406910425" class="cta-btn"><span>+91 74069 10425</span></a>
-      <a href="https://parthaggarwal8.medium.com" target="_blank" class="cta-btn"><span>Medium →</span></a>
+      <a href="https://parthaggarwal8.medium.com" target="_blank" rel="noopener" class="cta-btn"><span>Medium →</span></a>
       <a href="https://drive.google.com/file/d/1vTLOz_c9T_ioQVn5VPjvriIwr4d1j905/view?usp=drive_link" class="cta-btn primary"><span>Resume →</span></a>
     </div>
     <div class="cta-meta">
-      <span>Bengaluru, IN</span>
+      <span>Hyderabad, IN</span>
       <span>Open to relocation</span>
       <span>B1/B2 Visa · Oct 2025 - Oct 2035</span>
       <span>Full-time</span>
@@ -4102,214 +1743,8 @@ footer span.neon{color:var(--neon)}
 <footer>
   <span>© 2026 Parth Aggarwal · All rights reserved</span>
   <span class="neon">● Available for opportunities</span>
-  <span>Crafted with love+coffee (&amp; Claude) in Bengaluru</span>
+  <span>Crafted with love+coffee (&amp; Claude) in Hyderabad</span>
 </footer>
 
-<script>
-const cur = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=window.innerWidth/2, my=window.innerHeight/2;
-let rx=mx, ry=my;
-document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-(function move(){
-  cur.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-  rx += (mx - rx)*0.14;
-  ry += (my - ry)*0.14;
-  ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-  requestAnimationFrame(move);
-})();
-document.querySelectorAll('a,button,.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
-  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
-});
-
-const floatCta = document.getElementById('floatCta');
-window.addEventListener('scroll',()=>{
-  const scrolled = window.scrollY > window.innerHeight * 0.6;
-  const nearBottom = window.scrollY + window.innerHeight > document.body.scrollHeight - window.innerHeight;
-  if(scrolled && !nearBottom){floatCta.classList.add('visible')}
-  else{floatCta.classList.remove('visible')}
-});
-
-const io = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('visible');
-    }
-  });
-},{threshold:0.05});
-document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-
-// Awards observer - triggers tilt-in animation on entry
-const awardsObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('visible'); }
-  });
-},{threshold:0.1});
-document.querySelectorAll('.aw-card').forEach(el=>awardsObs.observe(el));
-
-// CTA observer - animate headline on entry
-const ctaObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){ e.target.classList.add('in-view'); }
-    else { e.target.classList.remove('in-view'); }
-  });
-},{threshold:0.25});
-const ctaSec = document.getElementById('contact');
-if(ctaSec) ctaObs.observe(ctaSec);
-
-// Counters - RE-TRIGGER every time they enter the viewport
-const countObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    const counter = e.target.querySelector('[data-count]');
-    if(!counter) return;
-    if(e.isIntersecting){
-      countUp(counter);
-    }
-  });
-},{threshold:0.4});
-document.querySelectorAll('.bn-cell').forEach(el=>countObs.observe(el));
-
-function countUp(el){
-  // Always allow re-trigger - kill any running rAF from previous run
-  if(el.dataset.raf) cancelAnimationFrame(parseInt(el.dataset.raf));
-  const target = parseFloat(el.dataset.count);
-  const prefix = el.dataset.prefix || '';
-  const dur = 1400;
-  const start = performance.now();
-  const scrambleMax = Math.max(target * 20, 99);
-  function tick(now){
-    const p = Math.min((now - start) / dur, 1);
-    const eased = 1 - Math.pow(1 - p, 3);
-    if(p < 0.75){
-      const climbing = Math.round(scrambleMax * eased * (0.7 + Math.random() * 0.5));
-      el.textContent = prefix + climbing;
-    } else {
-      const settlePhase = (p - 0.75) / 0.25;
-      const val = Math.round(target + (scrambleMax - target) * (1 - settlePhase) * 0.15 * (Math.random() - 0.5));
-      el.textContent = prefix + Math.max(val, target);
-    }
-    if(p < 1) el.dataset.raf = requestAnimationFrame(tick);
-    else { el.textContent = prefix + target; delete el.dataset.raf; }
-  }
-  el.dataset.raf = requestAnimationFrame(tick);
-}
-
-// Random hover-color assignment on skill list items
-document.querySelectorAll('.sc-list li').forEach(li=>{
-  const pick = Math.random() > 0.5 ? 'var(--neon)' : 'var(--pink)';
-  li.style.setProperty('--hover-c', pick);
-});
-
-// Re-triggering "in-view" observer for sections that should re-animate
-const repeatObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('in-view');
-    else e.target.classList.remove('in-view');
-  });
-},{threshold:0.2});
-// Writings (brackets), skills (left-slide items), quote (entrance), cta already handled separately
-document.querySelectorAll('.writings, .skills-wrap, .quote-section').forEach(el=>repeatObs.observe(el));
-
-// Case cards - re-trigger their scroll-in animation too
-const caseObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('in-view');
-    else e.target.classList.remove('in-view');
-  });
-},{threshold:0.15});
-document.querySelectorAll('.case, .project').forEach(el=>caseObs.observe(el));
-
-// SCROLL PROGRESS BAR (vertical, left edge)
-const scrollFill = document.getElementById('scrollFill');
-function updateScrollProgress(){
-  if(!scrollFill) return;
-  const max = document.documentElement.scrollHeight - window.innerHeight;
-  const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
-  scrollFill.style.height = pct + '%';
-}
-window.addEventListener('scroll', updateScrollProgress, {passive:true});
-updateScrollProgress();
-
-// DARK SECTION DETECTION - swap cursor color on dark bg sections
-const darkBgSections = document.querySelectorAll('.stamps, .quote-section, .skills-wrap, .series-band, footer');
-function checkDarkBg(){
-  const centerY = window.innerHeight / 2;
-  let onDark = false;
-  darkBgSections.forEach(sec=>{
-    const r = sec.getBoundingClientRect();
-    if(r.top < centerY && r.bottom > centerY){ onDark = true; }
-  });
-  document.body.classList.toggle('dark-section', onDark);
-}
-window.addEventListener('scroll', checkDarkBg, {passive:true});
-window.addEventListener('resize', checkDarkBg);
-checkDarkBg();
-
-// SIDE NAV - activate dot based on viewport position
-const sideNav = document.getElementById('sideNav');
-const sideDots = document.querySelectorAll('.side-dot');
-const navSections = Array.from(sideDots).map(d=>document.getElementById(d.dataset.target)).filter(Boolean);
-function updateSideNav(){
-  if(!sideNav) return;
-  const scrolled = window.scrollY > window.innerHeight * 0.4;
-  sideNav.classList.toggle('visible', scrolled);
-  const triggerY = window.innerHeight * 0.4;
-  let activeId = null;
-  navSections.forEach(sec=>{
-    const r = sec.getBoundingClientRect();
-    if(r.top <= triggerY && r.bottom > triggerY){ activeId = sec.id; }
-  });
-  sideDots.forEach(d=>{
-    d.classList.toggle('active', d.dataset.target === activeId);
-  });
-}
-sideDots.forEach(d=>{
-  d.addEventListener('click', e=>{
-    e.preventDefault();
-    const target = document.getElementById(d.dataset.target);
-    if(target) window.scrollTo({top: target.offsetTop - 20, behavior: 'smooth'});
-  });
-});
-window.addEventListener('scroll', updateSideNav, {passive:true});
-window.addEventListener('resize', updateSideNav);
-updateSideNav();
-
-// MANIFESTO FIGURE PARALLAX (CSS vars so :hover still wins)
-const phFig = document.querySelector('.ph-figure');
-if(phFig){
-  window.addEventListener('scroll', ()=>{
-    const r = phFig.getBoundingClientRect();
-    const vh = window.innerHeight;
-    if(r.bottom < 0 || r.top > vh) return;
-    const progress = 1 - (r.top + r.height/2) / vh * 2;
-    const clamped = Math.max(-1, Math.min(1, progress));
-    const rot = -1.2 + clamped * 1.8;
-    const ty = clamped * -8;
-    phFig.style.setProperty('--ph-rot', rot.toFixed(2) + 'deg');
-    phFig.style.setProperty('--ph-ty', ty.toFixed(1) + 'px');
-  }, {passive:true});
-}
-
-// DYNAMIC TAB TITLE
-const originalTitle = document.title;
-const awayTitles = ["👀 come back","missing you already","parth is still here","wait wait wait","don't leave yet"];
-let awayIndex = 0;
-document.addEventListener('visibilitychange', ()=>{
-  if(document.hidden){
-    document.title = awayTitles[awayIndex % awayTitles.length];
-    awayIndex++;
-  } else {
-    document.title = originalTitle;
-  }
-});
-
-// Hook side dots and boss sticker and ph-figure into cursor hover
-document.querySelectorAll('.side-dot,.boss-sticker,.ph-figure').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.classList.add('hover');ring.classList.add('hover')});
-  el.addEventListener('mouseleave',()=>{cur.classList.remove('hover');ring.classList.remove('hover')});
-});
-
-</script>
 </body>
 </html>
