@@ -3,14 +3,16 @@
 
 import { initReceipt } from './receipt.js';
 import { initCursor } from './cursor.js';
+import { initDoor } from './door.js';
 
 const root = document.documentElement;
 root.classList.add('js');
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+initDoor({ reduceMotion });
 
 /* ---------- custom cursor (mouse and trackpad only) ---------- */
-const HOVER_TARGETS = 'a,button,[role="tab"],.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp,.side-dot,.boss-sticker,.ph-figure,.idx-list a';
+const HOVER_TARGETS = '.door-card,a,button,[role="tab"],.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp,.side-dot,.boss-sticker,.ph-figure,.idx-list a';
 initCursor(HOVER_TARGETS);
 
 /* ---------- intersection helpers ---------- */

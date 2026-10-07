@@ -24,8 +24,13 @@
 <link rel="stylesheet" href="css/sections.css">
 <link rel="stylesheet" href="css/projects.css">
 <link rel="stylesheet" href="css/receipt.css">
-<!-- mark js early so collapsible content never flashes open then shut -->
-<script>document.documentElement.classList.add('js')</script>
+<link rel="stylesheet" href="css/door.css">
+<!-- mark js early so collapsible content never flashes open then shut;
+     every visit opens on the door, unless a link points somewhere specific -->
+<script>
+  document.documentElement.classList.add('js');
+  if (!location.hash) document.documentElement.classList.add('door-open');
+</script>
 <script type="module" src="js/main.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Person", "name": "Parth Aggarwal", "jobTitle": "Forward Deployed Product Manager", "worksFor": {"@type": "Organization", "name": "Backbase"}, "address": {"@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN"}, "url": "https://parth8.github.io/portfolio/", "sameAs": ["https://linkedin.com/in/aggarwalparth", "https://parthaggarwal8.medium.com"], "knowsAbout": ["Platform product management", "Agentic AI", "MCP", "RAG", "Card issuing", "Payments", "Data platforms"]}</script>
 </head>
@@ -34,6 +39,71 @@
 <div id="cursor" aria-hidden="true"></div>
 <div id="cursor-ring" aria-hidden="true"></div>
 
+<!-- THE DOOR: every visit starts with a choice -->
+<div class="door" id="door" role="dialog" aria-modal="true" aria-labelledby="doorTitle">
+  <div class="door-top">
+    <span class="door-logo">Parth Aggarwal<span class="dl-tail"> <span>-</span> Technical Product ✦ Platform</span></span>
+    <button type="button" class="door-skip" data-door="portfolio">Skip<span class="ds-long"> to the portfolio</span> <span aria-hidden="true">↓</span></button>
+  </div>
+
+  <div class="door-main">
+    <p class="door-eyebrow">Three ways in<span class="de-long"> · one record behind all of them</span></p>
+    <h1 class="door-title" id="doorTitle">
+      <span class="dl"><span class="dw w1">How do you</span></span>
+      <span class="dl"><span class="dw w2">want to</span> <span class="dw serif w3">meet</span> <span class="dw mark w4">me?</span></span>
+    </h1>
+
+    <div class="door-cards">
+      <a class="door-card" href="#sec-hero" data-door="portfolio">
+        <span class="dc-n">01</span>
+        <span class="dc-art art-scroll" aria-hidden="true">
+          <span class="tix t1"><b>~80%</b><i>faster builds</i></span>
+          <span class="tix t2"><b>$2B+</b><i>a year</i></span>
+          <span class="tix t3"><b>150K+</b><i>cards issued</i></span>
+        </span>
+        <span class="dc-t">Scroll the <em>portfolio</em></span>
+        <span class="dc-l">4 case studies · 7 things built · the receipt</span>
+        <span class="dc-time">~6 min <span aria-hidden="true">↓</span></span>
+        <span class="dc-note">the full story</span>
+      </a>
+      <a class="door-card" href="for/" data-door="for">
+        <span class="dc-n">02</span>
+        <span class="dc-art art-dial" aria-hidden="true">
+          <svg viewBox="0 0 120 70">
+            <g fill="none" stroke-width="7">
+              <path d="M12.0 60.8 A48 48 0 0 1 70.8 15.2" stroke="#FF2D78"/>
+              <path d="M73.1 15.8 A48 48 0 0 1 89.7 24.3" stroke="#E6B547"/>
+              <path d="M91.5 25.8 A48 48 0 0 1 102.2 39.1" stroke="#00CC75"/>
+              <path d="M103.3 41.3 A48 48 0 0 1 108.0 60.8" stroke="#00FF94"/>
+            </g>
+            <g class="mini-needle"><line x1="60" y1="62" x2="60" y2="22" stroke="#15130F" stroke-width="2.5" stroke-linecap="round"/><circle cx="60" cy="62" r="5" fill="#15130F"/><circle cx="60" cy="62" r="2" fill="#00FF94"/></g>
+          </svg>
+          <span class="dial-n">784</span>
+        </span>
+        <span class="dc-t">Tailored to <em>you</em></span>
+        <span class="dc-l">Paste a job description · fit score · evidence · gaps</span>
+        <span class="dc-time">~30 sec <span aria-hidden="true">→</span></span>
+        <span class="dc-note">recruiters, start here</span>
+      </a>
+      <a class="door-card dark" href="mcp/" data-door="mcp">
+        <span class="dc-n">03</span>
+        <span class="dc-art art-term" aria-hidden="true">
+          <span class="tl l1">› prove_claim("150K cards")</span>
+          <span class="tl l2 ok">✓ supported · Sparrow Card</span>
+          <span class="tl l3">› fit_for(job_description)</span>
+          <span class="tl l4 ok">✓ 88/100 · Excellent</span>
+        </span>
+        <span class="dc-t">Ask your <em>AI</em></span>
+        <span class="dc-l">Claude, ChatGPT or Cursor interviews my record</span>
+        <span class="dc-time">~1 min <span aria-hidden="true">→</span></span>
+        <span class="dc-note">new ✦</span>
+      </a>
+    </div>
+
+    <p class="door-hint"><span>Press</span> <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> <span>· or just scroll</span></p>
+  </div>
+</div>
+
 <div class="scroll-progress" aria-hidden="true">
   <div class="scroll-progress-fill" id="scrollFill"></div>
 </div>
@@ -41,7 +111,7 @@
 <nav class="topnav" aria-label="Primary">
   <a href="#" class="nav-logo">Parth Aggarwal <span class="nl-tail"><span>-</span> Technical Product ✦ Platform</span></a>
   <div class="modes" role="navigation" aria-label="Ways to see Parth">
-    <a class="mode" href="./" aria-current="page"><span class="m-n">01</span> Portfolio</a>
+    <a class="mode" href="#sec-hero" aria-current="page"><span class="m-n">01</span> Portfolio</a>
     <a class="mode" href="for/"><span class="m-n">02</span> For you</a>
     <a class="mode" href="mcp/"><span class="m-n">03</span> MCP <span class="m-new" aria-hidden="true"></span></a>
   </div>

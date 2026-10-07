@@ -28,15 +28,15 @@
 <div id="cursor-ring" aria-hidden="true"></div>
 
 <nav class="topnav" aria-label="Primary">
-  <a href="../" class="nav-logo">Parth Aggarwal <span class="nl-tail"><span>-</span> Technical Product ✦ Platform</span></a>
+  <a href="../#sec-hero" class="nav-logo">Parth Aggarwal <span class="nl-tail"><span>-</span> Technical Product ✦ Platform</span></a>
   <div class="modes" role="navigation" aria-label="Ways to see Parth">
-    <a class="mode" href="../"><span class="m-n">01</span> Portfolio</a>
+    <a class="mode" href="../#sec-hero"><span class="m-n">01</span> Portfolio</a>
     <a class="mode" href="../for/"><span class="m-n">02</span> For you</a>
     <a class="mode" href="./" aria-current="page"><span class="m-n">03</span> MCP <span class="m-new" aria-hidden="true"></span></a>
   </div>
   <div class="nav-right">
-    <a href="#console" data-icon="▸">Try it</a>
-    <a href="#connect" data-icon="⌁">Connect</a>
+    <a href="#plug" data-icon="⌁">Connect</a>
+    <a href="#try" data-icon="▸">Try it</a>
     <a href="../#contact" data-icon="✉">Say Hi</a>
   </div>
 </nav>
@@ -46,26 +46,21 @@
   <div class="mh-left">
     <p class="mh-eyebrow">Mode 03 · Parth, as an MCP server</p>
     <h1 class="mh-title"><span class="mh-l">Have your AI</span> <em class="mh-l">interview</em> <span class="mh-l">me.</span></h1>
-    <p class="mh-sub">My career, served over the <b>Model Context Protocol</b>. Point Claude, ChatGPT or Cursor at it and ask anything. Every answer comes back with a quote and a link, and it says so when the evidence isn't there.</p>
+    <p class="mh-sub">Point Claude, ChatGPT or Cursor at my career record and ask anything. Every answer quotes the line it rests on, and says so when there isn't one.</p>
 
-    <div class="endpoint" id="endpoint">
-      <span class="ep-dot" aria-hidden="true"></span>
-      <span class="ep-state" id="epState">Preview</span>
-      <code class="ep-url" id="epUrl">runs in this page · endpoint soon</code>
-      <button type="button" class="ep-copy" id="epCopy" hidden>Copy URL</button>
+    <div class="plug" id="plug">
+      <div class="plug-url">
+        <span class="ep-dot" aria-hidden="true"></span>
+        <span class="ep-state" id="epState">Preview</span>
+        <code class="ep-url" id="epUrl">runs in this page · endpoint soon</code>
+        <button type="button" class="ep-copy" id="epCopy" hidden>Copy URL</button>
+      </div>
+      <div class="plug-pick">
+        <span class="plug-k">Add it to</span>
+        <div class="plug-tabs" role="tablist" aria-label="Where you use AI" id="plugTabs"></div>
+      </div>
+      <div class="plug-step" id="plugStep" role="tabpanel"></div>
     </div>
-
-    <div class="mh-ctas">
-      <a class="mh-btn primary" href="#console">Run it here <span aria-hidden="true">↓</span></a>
-      <a class="mh-btn" href="#connect">Add it to your AI</a>
-    </div>
-
-    <ul class="mh-tools" aria-label="Tools on this server">
-      <li><code>fit_for</code> score him against a job description</li>
-      <li><code>prove_claim</code> check a number before you repeat it</li>
-      <li><code>search_evidence</code> "has he done X?", answered with quotes</li>
-      <li><code>get_work</code> <code>list_work</code> <code>get_profile</code> <code>contact</code></li>
-    </ul>
   </div>
 
   <aside class="demo" aria-label="Example: an assistant using this server">
@@ -74,75 +69,55 @@
     <p class="demo-note">The tool calls and results are real, computed in this page. The replies are stitched from them, word for word.</p>
   </aside>
 </section>
-<noscript><p class="mcp-nojs">The console needs JavaScript. Without it, hand any AI <a href="../llms.txt">llms.txt</a> and <a href="../data/career.json">career.json</a>: everything the server knows is in there.</p></noscript>
+<noscript><p class="mcp-nojs">The demo and console need JavaScript. Without it, hand any AI <a href="../llms.txt">llms.txt</a> and <a href="../data/career.json">career.json</a>: everything the server knows is in there.</p></noscript>
 
-<section class="mcp-sec" id="console">
+<section class="mcp-sec" id="try">
   <header class="sec-head">
-    <p class="sec-k"><span>01</span> Run it here</p>
-    <h2 class="sec-t">The server, <em>in this page</em></h2>
-    <p class="sec-s" id="consoleSub">This console runs the same code as the server, in your browser. Pick a tool, send, and see exactly what your AI would read, down to the HTTP headers.</p>
+    <p class="sec-k"><span>01</span> Try it</p>
+    <h2 class="sec-t">Ask it <em>yourself</em></h2>
+    <p class="sec-s">Same code as the server, running in your browser. Pick a question, then read exactly what your AI would read.</p>
   </header>
 
-  <div class="console">
-    <div class="cs-side">
+  <div class="asks" role="tablist" aria-label="Questions" id="asks"></div>
+  <form class="ask-form" id="askForm" autocomplete="off"></form>
+
+  <div class="answer" id="answer" aria-live="polite">
+    <div class="ans-bar"><span class="ans-k">What your AI reads</span><span class="ans-status" id="ansStatus">nothing asked yet</span></div>
+    <div class="ans-stamp" id="ansStamp" aria-hidden="true"></div>
+    <div class="ans-body" id="ansBody"><p class="ans-hint">Pick a question above. Try <b>Is this true?</b> with "managed a team of 20 PMs".</p></div>
+  </div>
+
+  <details class="raw" id="raw">
+    <summary>For engineers: the raw JSON-RPC</summary>
+    <div class="raw-in">
       <div class="proto" role="radiogroup" aria-label="Protocol version">
-        <button type="button" role="radio" aria-checked="true" data-proto="2026-07-28">2026-07-28 <small>stateless</small></button>
-        <button type="button" role="radio" aria-checked="false" data-proto="2025-06-18">2025-06-18 <small>handshake</small></button>
+        <span>Protocol</span>
+        <button type="button" role="radio" aria-checked="true" data-proto="2026-07-28">2026-07-28 · stateless</button>
+        <button type="button" role="radio" aria-checked="false" data-proto="2025-06-18">2025-06-18 · handshake</button>
       </div>
-      <nav class="cs-list" id="csList" aria-label="Methods"></nav>
+      <pre class="wire" id="wire">Ask something first.</pre>
     </div>
-    <div class="cs-main">
-      <div class="cs-head" id="csHead"></div>
-      <form class="cs-form" id="csForm" autocomplete="off"></form>
-      <div class="cs-out">
-        <div class="cs-bar">
-          <div class="cs-tabs" role="tablist" aria-label="Response view">
-            <button type="button" role="tab" aria-selected="true" data-view="reads">What your AI reads</button>
-            <button type="button" role="tab" aria-selected="false" data-view="json">Structured</button>
-            <button type="button" role="tab" aria-selected="false" data-view="wire">On the wire</button>
-          </div>
-          <p class="cs-status" id="csStatus" aria-live="polite"></p>
-        </div>
-        <div class="cs-stamp" id="csStamp" aria-hidden="true"></div>
-        <pre class="cs-pane" id="csPane" tabindex="0" role="tabpanel"><span class="cs-hint">Send something. Try prove_claim with "managed a team of 20 PMs".</span></pre>
-      </div>
-      <ol class="cs-history" id="csHistory" aria-label="Calls this session"></ol>
-    </div>
-  </div>
+  </details>
 </section>
 
-<section class="mcp-sec" id="connect">
-  <header class="sec-head">
-    <p class="sec-k"><span>02</span> Connect it</p>
-    <h2 class="sec-t">Add it to <em>your AI</em></h2>
-    <p class="sec-s">One URL, no sign-in, read-only. Pick where you work.</p>
-  </header>
-  <div class="connect">
-    <div class="cn-tabs" role="tablist" aria-label="Where you use AI" id="cnTabs"></div>
-    <div class="cn-panels" id="cnPanels"></div>
-  </div>
-</section>
-
-<section class="mcp-sec" id="inside">
-  <header class="sec-head">
-    <p class="sec-k"><span>03</span> Under the hood</p>
-    <h2 class="sec-t">Built like a <em>real server</em></h2>
-  </header>
-  <ol class="specs">
-    <li><b>Speaks both eras of MCP.</b> 2026-07-28 (stateless: no handshake, version and method in every request, headers checked against the body) and 2025-11-25, 2025-06-18, 2025-03-26 with the classic initialize.</li>
-    <li><b>Seven read-only tools, three resources, three prompts.</b> Every tool is annotated read-only and idempotent. Nothing on this server can write anything.</li>
-    <li><b>It would rather say no.</b> A claim it can't back comes back <code>not_found</code> or <code>not_supported</code>, with a reason. Gaps are in the data on purpose.</li>
-    <li><b>One Worker, one JSON file.</b> A single Cloudflare Worker reads <a href="../data/career.json">data/career.json</a>, the same record that powers <a href="../for/">For you</a>. Origin-checked, rate-limited, and it stores nothing you send.</li>
-    <li><b>Tested against the official SDK.</b> Connects, lists and calls cleanly with the MCP TypeScript SDK client, plus 18 tests across both eras. <a href="https://github.com/Parth8/portfolio/tree/main/server" target="_blank" rel="noopener">Read the source ↗</a></li>
-  </ol>
-</section>
+<div class="stamps" aria-label="About the server">
+  <span class="stamp hot">Read-only</span>
+  <span class="stamp">7 tools · 3 documents · 3 prompts</span>
+  <span class="stamp gold">Quotes every answer</span>
+  <span class="stamp">Says no when it can't back it</span>
+  <span class="stamp hot">MCP 2026-07-28</span>
+  <span class="stamp">+ the 2025 handshake</span>
+  <span class="stamp gold">Stores nothing you send</span>
+  <span class="stamp">One Cloudflare Worker</span>
+  <span class="stamp">Same record as the portfolio</span>
+</div>
 
 <section class="mcp-cta">
   <p>Or skip the robots. <em>A line about the role is plenty.</em></p>
   <div class="mh-ctas">
     <a class="mh-btn primary" href="mailto:8parthaggarwal1999@gmail.com?subject=Hello%20from%20your%20MCP%20page">Email Parth <span aria-hidden="true">↗</span></a>
     <a class="mh-btn" href="../for/">See the page tailored to you</a>
-    <a class="mh-btn" href="../">The full portfolio</a>
+    <a class="mh-btn" href="../#sec-hero">The full portfolio</a>
   </div>
 </section>
 
@@ -151,7 +126,7 @@
 <footer>
   <span>© 2026 Parth Aggarwal</span>
   <span class="neon">● Read-only · cites every answer</span>
-  <span><a href="../">Portfolio</a> · <a href="../for/">For you</a></span>
+  <span><a href="../#sec-hero">Portfolio</a> · <a href="../for/">For you</a> · <a href="https://github.com/Parth8/portfolio/tree/main/server" target="_blank" rel="noopener">Source</a></span>
 </footer>
 </body>
 </html>

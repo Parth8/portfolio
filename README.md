@@ -6,9 +6,9 @@ Three ways to read one career, all from one file (`data/career.json`):
 
 | Mode | URL | What it is |
 | --- | --- | --- |
-| 01 Portfolio | `/` | The site, for people who scroll: case reel, Built tiles, proof-of-work receipt. |
+| 01 Portfolio | `/` | Every visit opens on **the door**: "How do you want to meet me?" with three tilted cards (portfolio, tailored to you, ask your AI). Picking the portfolio lifts the door like a shutter and the hero animates in. Keys 1/2/3, Escape or a scroll also work; any link with a `#hash` (and the mode switch on the other pages) skips it. Then the site for people who scroll: case reel, Built tiles, proof-of-work receipt. |
 | 02 For you | `/for/` | Pick a reader (recruiter, hiring manager, engineer, founder) or paste a job description. The page rebuilds around matching evidence, with a 300-850 fit dial, a requirement → evidence ledger, honest gaps and questions to ask. Runs in the browser; a pasted JD never leaves it. Share links carry requirement ids, not JD text. |
-| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page has a live demo, an in-browser console running the server's own code, and connect guides for Claude, Claude Code, Cursor and ChatGPT. Deploy notes: [server/README.md](server/README.md). |
+| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page keeps it to three things: one connect box (the URL plus a client picker for Claude, ChatGPT, Cursor, Claude Code or any AI), a live demo chat, and four question tickets (Is this true? Is he a fit? Has he done...? Tell me about...) that run the server's own code and show the answer your AI would read, with a rubber-stamp verdict. The raw JSON-RPC is folded away for engineers. Deploy notes: [server/README.md](server/README.md). |
 
 Plain HTML, CSS and native ES modules. No framework and no build step for the site: GitHub Pages serves the files as they are.
 
@@ -35,7 +35,7 @@ The For-you page shows each requirement's confidence, its reasons, every quoted 
 ## Layout
 
 ```
-index.html            mode 01: every section, in reading order
+index.html            mode 01: the door, then every section in reading order
 for/index.html        mode 02: "Tailored to you"
 mcp/index.html        mode 03: "Parth, as an MCP server"
 data/career.json      the single source of truth: profile, cases, roles, projects, 27 competencies with
@@ -47,11 +47,13 @@ css/sections.css      portfolio sections: hero, stamps, index (+ the two other w
                       principles, journey, toolkit, marquee, recognition, writing, manifesto, contact
 css/projects.css      the Built tiles and every project's looping SVG animation
 css/receipt.css       the proof-of-work receipt and the "30 seconds?" button (portfolio only)
+css/door.css          the door: the choice every visit opens on
 css/for.css           mode 02: personas, JD sheet, fit dial, ledger, gaps, CTA
-css/mcp.css           mode 03: the dark page, demo chat, console, connect tabs
+css/mcp.css           mode 03: the dark page, connect box, demo chat, question tickets, answer card, stamps
 
 js/main.js            portfolio: scroll loop, observers, number scramble, case reel, tiles, journey, marquee
 js/receipt.js         portfolio: the receipt
+js/door.js            portfolio: the door (choose, lift, keys, scroll, back-button restore)
 js/cursor.js          the custom cursor, shared by all three pages (mouse/trackpad only)
 js/career-engine.js   pure functions over career.json: profile, search, claim checking, fit scoring
 js/mcp-core.js        the MCP protocol (both eras), tools, resources and prompts; used by the console and the Worker

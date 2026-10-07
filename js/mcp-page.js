@@ -21,7 +21,7 @@ try {
   if (!res.ok) throw new Error(res.status);
   data = await res.json();
 } catch {
-  $('#csPane').textContent = 'The career record did not load, so the console cannot run. Reload, or read data/career.json directly.';
+  $('#ansBody').textContent = 'The career record did not load, so the console cannot run. Reload, or read data/career.json directly.';
   throw new Error('career.json failed to load');
 }
 
@@ -38,12 +38,11 @@ async function copy(text, what = 'Copied') {
 
 /* ---------- endpoint ---------- */
 if (LIVE) {
-  $('#endpoint').classList.add('live');
+  $('#plug').classList.add('live');
   $('#epState').textContent = 'Live';
   $('#epUrl').textContent = MCP_ENDPOINT;
   $('#epCopy').hidden = false;
   $('#epCopy').addEventListener('click', () => copy(MCP_ENDPOINT, 'URL copied'));
-  $('#consoleSub').textContent = 'This console talks to the live server. Pick a tool, send, and see exactly what your AI would read, down to the HTTP headers.';
 }
 
 /* ---------- the demo chat: real tool results, replies stitched from them ---------- */
@@ -118,115 +117,84 @@ async function playDemo() {
 }
 playDemo();
 
-/* ---------- the console ---------- */
+/* ---------- connect: one URL, one client at a time ---------- */
+const EP = MCP_ENDPOINT || 'https://<endpoint going live soon>/mcp';
+const ANY_PROMPT = `I'm considering Parth Aggarwal for a role. Read his career record:
+${SITE}data/career.json
+(a short summary for AI readers: ${SITE}llms.txt)
+
+Answer only from that record. Quote the line behind every claim, link to it on his portfolio, and say plainly when something isn't covered - the record lists his gaps on purpose.
+
+The role:
+[paste the job description]`;
+const CLIENTS = [
+  { id: 'claude', label: 'Claude', step: 'In Claude, open <b>Settings → Connectors → Add custom connector</b>, name it <b>Parth Aggarwal</b> and paste the URL. (Team or Enterprise: an owner adds it under <b>Admin settings → Connectors</b>.)', code: EP },
+  { id: 'chatgpt', label: 'ChatGPT', step: 'In <b>Settings → Apps &amp; Connectors → Advanced settings</b>, turn on Developer mode, then <b>Create</b>: paste the URL and pick <b>No authentication</b>. Plan-dependent.', code: EP },
+  { id: 'cursor', label: 'Cursor', step: 'Add this to <code>~/.cursor/mcp.json</code> (or <b>Cursor Settings → MCP</b>) and ask in the agent chat.', code: JSON.stringify({ mcpServers: { parth: { url: EP } } }, null, 2) },
+  { id: 'code', label: 'Claude Code', step: 'Run this once, then ask in plain words. <code>/mcp</code> shows it connected.', code: `claude mcp add --transport http parth ${EP}` },
+  { id: 'any', label: 'Any AI', small: 'no setup', step: 'No connector? Paste this into any assistant that can open links, with the job description at the end.', code: ANY_PROMPT },
+];
+const plugTabs = $('#plugTabs'), plugStep = $('#plugStep');
+plugTabs.innerHTML = CLIENTS.map(c => `<button type="button" role="tab" aria-selected="false" data-client="${c.id}">${esc(c.label)}${c.small ? `<small>${esc(c.small)}</small>` : ''}</button>`).join('');
+function showClient(id) {
+  const c = CLIENTS.find(x => x.id === id);
+  for (const b of $$('button', plugTabs)) b.setAttribute('aria-selected', String(b.dataset.client === id));
+  plugStep.innerHTML = `<p>${c.step}</p><div class="snip"><pre>${esc(c.code)}</pre><button type="button" class="cp-btn" data-copy>Copy</button></div>
+    ${c.id !== 'any' && !LIVE ? '<p class="plug-note">endpoint going live soon: until then, "Any AI" works today</p>' : ''}`;
+  plugStep.style.animation = 'none'; void plugStep.offsetWidth; plugStep.style.animation = '';
+}
+plugTabs.addEventListener('click', e => { const b = e.target.closest('[data-client]'); if (b) showClient(b.dataset.client); });
+plugStep.addEventListener('click', e => { if (e.target.closest('[data-copy]')) copy($('pre', plugStep).textContent); });
+showClient(LIVE ? 'claude' : 'any');
+
+/* ---------- try it: four questions, one answer ---------- */
 const JD = {
   card: 'Senior Product Manager, Card Issuing. Own our card issuing platform: virtual and physical cards, processor integrations and the APIs our enterprise clients build on. Work with compliance and risk to launch card programs in the US and Europe. 5+ years in fintech or payments; card networks (Visa, Mastercard), chargebacks and disputes, fraud controls, KYC and PCI DSS; webhooks; go-to-market with sales; SQL and dashboards.',
   ai: 'Product Manager, AI Platform (Forward Deployed). Own the platform that lets enterprise customers build agents on our APIs: tools over MCP, retrieval (RAG) and evaluation pipelines, and the call between open-weight and hosted models on cost, latency and accuracy. 4+ years on developer or platform products; hands-on with LLMs, prompt engineering, evals and guardrails; technical enough to prototype; regulated industries a plus.',
   growth: 'Director of Product, Consumer Growth. Lead and manage a team of 6 product managers across activation, retention and monetisation for our consumer app on iOS and Android. Own experimentation: A/B testing, funnels, growth loops. 10+ years of product experience, including 4+ years managing product managers.',
 };
-const PRESETS = {
-  'tool:prove_claim': { field: 'claim', values: ['managed a team of 20 PMs', '0 P1/P2 defects at launch', '$3B a year in disbursements', 'built an MCP in 6 weeks'] },
-  'tool:search_evidence': { field: 'query', values: ['Kafka', 'idempotency', 'Mastercard', 'golden dataset', 'passkeys'] },
-  'tool:get_work': { field: 'id', values: ['connector-studio', 'Sparrow Card', 'track', 'zeta-tpgm'] },
-  'tool:fit_for': { field: 'job_description', values: [['Card-issuing PM', JD.card], ['AI platform PM', JD.ai], ['Growth director', JD.growth]] },
-  'prompt:assess_fit': { field: 'job_description', values: [['Card-issuing PM', JD.card], ['AI platform PM', JD.ai]] },
-  'prompt:interview': { field: 'focus', values: ['payments', 'AI platforms', 'leadership'] },
-};
-const DEFAULTS = { 'tool:prove_claim': { claim: 'managed a team of 20 PMs' }, 'tool:search_evidence': { query: 'Kafka' }, 'tool:get_work': { id: 'connector-studio' }, 'tool:fit_for': { job_description: JD.ai } };
-
-const fieldsFrom = schema => Object.entries(schema.properties || {}).map(([name, p]) => ({
-  name, type: p.type, enum: p.enum, def: p.default, desc: p.description, required: (schema.required || []).includes(name), long: name === 'job_description',
-}));
-const ITEMS = [
-  ...TOOLS.map(t => ({ key: `tool:${t.name}`, group: 'Tools', method: 'tools/call', name: t.name, label: t.name, sub: t.title, desc: t.description, fields: fieldsFrom(t.inputSchema), ann: t.annotations })),
-  ...RESOURCES.map(r => ({ key: `res:${r.uri}`, group: 'Resources', method: 'resources/read', uri: r.uri, label: r.uri, sub: r.title, desc: r.description, fields: [] })),
-  ...PROMPTS.map(p => ({ key: `prompt:${p.name}`, group: 'Prompts', method: 'prompts/get', name: p.name, label: p.name, sub: p.title, desc: p.description,
-    fields: p.arguments.map(a => ({ name: a.name, type: 'string', desc: a.description, required: !!a.required, long: a.name === 'job_description' })) })),
-  { key: 'm:server/discover', group: 'Protocol', method: 'server/discover', label: 'server/discover', sub: 'What this server is', desc: 'Supported versions, capabilities and the instructions your AI gets. In 2026-07-28 this replaces the initialize handshake.', fields: [] },
-  { key: 'm:tools/list', group: 'Protocol', method: 'tools/list', label: 'tools/list', sub: 'Tool definitions', desc: 'Every tool with its JSON Schema and annotations, exactly as your AI receives them.', fields: [] },
-  { key: 'm:resources/list', group: 'Protocol', method: 'resources/list', label: 'resources/list', sub: 'Readable documents', desc: 'The documents an AI can read in full: a plain resume, the profile and the whole record.', fields: [] },
-  { key: 'm:prompts/list', group: 'Protocol', method: 'prompts/list', label: 'prompts/list', sub: 'Ready-made prompts', desc: 'Prompts a client can offer as one-click actions.', fields: [] },
+const ASKS = [
+  { tool: 'prove_claim', n: 'A', title: 'Is this true?', field: 'claim', label: 'The claim, in plain words', def: 'managed a team of 20 PMs',
+    presets: ['managed a team of 20 PMs', '150K+ cards issued', '$3B a year in disbursements', 'built an MCP in 6 weeks'] },
+  { tool: 'fit_for', n: 'B', title: 'Is he a fit?', field: 'job_description', label: 'The job description', def: JD.ai, long: true,
+    presets: [['AI platform PM', JD.ai], ['Card-issuing PM', JD.card], ['Growth director', JD.growth]] },
+  { tool: 'search_evidence', n: 'C', title: 'Has he done…?', field: 'query', label: 'Words to look for', def: 'Kafka',
+    presets: ['Kafka', 'idempotency', 'golden dataset', 'passkeys'] },
+  { tool: 'get_work', n: 'D', title: 'Tell me about…', field: 'id', label: 'A case, role or project', def: 'sparrow-launch',
+    presets: ['sparrow-launch', 'connector-studio', 'Optum', 'shelfie'] },
 ];
-
-const els = { list: $('#csList'), head: $('#csHead'), form: $('#csForm'), pane: $('#csPane'), status: $('#csStatus'), stamp: $('#csStamp'), history: $('#csHistory') };
-const values = new Map(Object.entries(DEFAULTS).map(([k, v]) => [k, { ...v }]));
-let current = ITEMS[0];
-let view = 'reads';
-let shown = null;
-let proto = '2026-07-28';
-let legacyReady = false;
-let rid = 0;
-const history = [];
-
-let lastGroup = '';
-els.list.innerHTML = ITEMS.map(it => {
-  const g = it.group !== lastGroup ? `<p class="cs-group">${it.group}</p>` : '';
-  lastGroup = it.group;
-  return `${g}<button type="button" class="cs-item" data-key="${esc(it.key)}"><code>${esc(it.label)}</code><span>${esc(it.sub)}</span></button>`;
-}).join('');
-
-function select(key) {
-  current = ITEMS.find(i => i.key === key) || ITEMS[0];
-  for (const b of $$('.cs-item', els.list)) b.setAttribute('aria-current', String(b.dataset.key === current.key));
-  const a = current.ann;
-  els.head.innerHTML = `<h3><code>${esc(current.label)}</code><small>${esc(current.method)}</small></h3><p>${esc(current.desc)}</p>` +
-    (a ? `<div class="badges"><span class="on">read-only</span><span class="${a.idempotentHint ? 'on' : ''}">idempotent</span><span>${a.destructiveHint ? 'destructive' : 'not destructive'}</span><span>${a.openWorldHint ? 'open world' : 'closed world'}</span></div>` : '');
-  const vals = values.get(current.key) || {};
-  const pre = PRESETS[current.key];
-  els.form.innerHTML = current.fields.map(f => {
-    const id = `f-${f.name}`;
-    const label = `<label for="${id}"><b>${esc(f.name)}</b>${f.required ? ' <i>required</i>' : ''} · ${esc(f.desc || f.type)}</label>`;
-    const v = vals[f.name] ?? f.def ?? '';
-    let input;
-    if (f.enum) input = `<select id="${id}" name="${esc(f.name)}">${f.enum.map(o => `<option${o === v ? ' selected' : ''}>${esc(o)}</option>`).join('')}</select>`;
-    else if (f.long) input = `<textarea id="${id}" name="${esc(f.name)}" spellcheck="false">${esc(v)}</textarea>`;
-    else input = `<input id="${id}" name="${esc(f.name)}" type="${f.type === 'integer' ? 'number' : 'text'}" value="${esc(v)}">`;
-    return `<div class="cs-field">${label}${input}</div>`;
-  }).join('') +
-    (pre ? `<div class="cs-presets"><span>Try</span>${pre.values.map((p, i) => `<button type="button" data-preset="${i}">${esc(Array.isArray(p) ? p[0] : p)}</button>`).join('')}</div>` : '') +
-    `<div class="cs-send"><button class="cs-go" type="submit">Send <code>${esc(current.method)}</code> <span aria-hidden="true">↵</span></button><span class="cs-kbd"><kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>Enter</kbd></span></div>`;
-  els.stamp.className = 'cs-stamp';
+const values = Object.fromEntries(ASKS.map(a => [a.tool, a.def]));
+let ask = ASKS[0];
+const asksEl = $('#asks'), form = $('#askForm');
+asksEl.innerHTML = ASKS.map(a => `<button type="button" class="ask" role="tab" aria-selected="false" data-tool="${a.tool}">
+  <span class="ask-n">${a.n}</span><span class="ask-t">${esc(a.title)}</span><span class="ask-l">${a.tool}</span></button>`).join('');
+function pick(tool) {
+  if ($('#q')) values[ask.tool] = $('#q').value;
+  ask = ASKS.find(a => a.tool === tool);
+  for (const b of $$('.ask', asksEl)) b.setAttribute('aria-selected', String(b.dataset.tool === tool));
+  form.innerHTML = `<label for="q">${esc(ask.label)}</label>
+    ${ask.long ? `<textarea id="q" spellcheck="false">${esc(values[tool])}</textarea>` : `<input id="q" value="${esc(values[tool])}">`}
+    <div class="ask-row">
+      <div class="presets"><span>try</span>${ask.presets.map((x, i) => `<button type="button" data-preset="${i}">${esc(Array.isArray(x) ? x[0] : x)}</button>`).join('')}</div>
+      <button class="ask-go" type="submit">Ask <code>${ask.tool}</code> <span aria-hidden="true">↵</span></button>
+    </div>`;
 }
-
-function readForm() {
-  const out = {};
-  for (const f of current.fields) {
-    const el = els.form.elements[f.name];
-    let v = el.value;
-    if (f.type === 'integer') { if (v === '') continue; v = Number(v); }
-    else if (!v.trim() && !f.required) continue;
-    out[f.name] = v;
-  }
-  values.set(current.key, { ...out });
-  return out;
-}
-
-els.list.addEventListener('click', e => {
-  const b = e.target.closest('.cs-item');
-  if (b) { readForm(); select(b.dataset.key); }
-});
-els.form.addEventListener('click', e => {
+asksEl.addEventListener('click', e => { const b = e.target.closest('.ask'); if (b) pick(b.dataset.tool); });
+form.addEventListener('click', e => {
   const b = e.target.closest('[data-preset]');
   if (!b) return;
-  const pre = PRESETS[current.key];
-  const p = pre.values[+b.dataset.preset];
-  els.form.elements[pre.field].value = Array.isArray(p) ? p[1] : p;
+  const x = ask.presets[+b.dataset.preset];
+  $('#q').value = Array.isArray(x) ? x[1] : x;
   send();
 });
-els.form.addEventListener('submit', e => { e.preventDefault(); send(); });
-els.form.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } });
-
-for (const b of $$('.proto button')) b.addEventListener('click', () => {
-  proto = b.dataset.proto;
-  legacyReady = false;
-  for (const x of $$('.proto button')) x.setAttribute('aria-checked', String(x === b));
-  toast(proto === '2026-07-28' ? 'Stateless: no handshake' : 'Classic: initialize first');
-});
+form.addEventListener('submit', e => { e.preventDefault(); send(); });
+form.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } });
+pick('prove_claim');
 
 /* transport: the live Worker when configured, otherwise the same handler in this page */
 const META = 'io.modelcontextprotocol/';
-const CLIENT = { name: 'parth-portfolio-console', version: '1.0.0' };
-let liveOutdated = false;
+const CLIENT = { name: 'parth-portfolio-console', version: '2.0.0' };
+let proto = '2026-07-28', legacyReady = false, rid = 0, liveOutdated = false;
 async function exchange(method, params, { notify = false } = {}) {
   const modern = proto === '2026-07-28';
   const msg = { jsonrpc: '2.0', ...(notify ? {} : { id: ++rid }), method };
@@ -237,8 +205,7 @@ async function exchange(method, params, { notify = false } = {}) {
   if (modern) {
     headers['mcp-protocol-version'] = proto;
     if (!notify) headers['mcp-method'] = method;
-    const name = method === 'resources/read' ? p.uri : ['tools/call', 'prompts/get'].includes(method) ? p.name : null;
-    if (name) headers['mcp-name'] = name;
+    if (method === 'tools/call') headers['mcp-name'] = p.name;
   } else if (method !== 'initialize') headers['mcp-protocol-version'] = proto;
   const body = JSON.stringify(msg);
   const t0 = performance.now();
@@ -247,184 +214,101 @@ async function exchange(method, params, { notify = false } = {}) {
     try {
       const r = await fetch(MCP_ENDPOINT, { method: 'POST', headers, body });
       res = { status: r.status, headers: Object.fromEntries(r.headers), body: await r.text() };
-      where = 'live endpoint';
-      // an endpoint deployed from an older build would contradict the rest of the site: run the current code instead
+      where = 'live server';
+      // a server deployed from an older build would contradict the rest of the site: run the current code instead
       const v = (() => { try { const j = JSON.parse(res.body); return (j.result?._meta?.[`${META}serverInfo`] || j.result?.serverInfo)?.version; } catch { return null; } })();
       if (v && parseInt(v, 10) < parseInt(SERVER_INFO.version, 10)) { liveOutdated = v; res = null; }
-    } catch { where = 'in this page (endpoint unreachable)'; }
+    } catch { where = 'in this page (server unreachable)'; }
   }
-  if (LIVE && liveOutdated) where = `in this page (the live endpoint runs older build ${liveOutdated})`;
+  if (LIVE && liveOutdated) where = `in this page (the live server runs older build ${liveOutdated})`;
   if (!res) res = handleMcp(data, { method: 'POST', headers, body });
   let json = null;
   try { json = res.body ? JSON.parse(res.body) : null; } catch { /* not JSON */ }
-  return { n: history.length + 1, label: method === 'tools/call' || method === 'prompts/get' ? p.name : method === 'resources/read' ? p.uri : method,
-    method, proto, request: { headers, msg }, response: { status: res.status, headers: res.headers, json, raw: res.body }, ms: performance.now() - t0, where };
+  return { request: { headers, msg }, response: { status: res.status, headers: res.headers, json }, ms: performance.now() - t0, where };
 }
 
-function record(x) {
-  history.push(x);
-  if (history.length > 14) history.shift();
-  els.history.innerHTML = history.map(h => `<li><button type="button" data-n="${h.n}">#${h.n} ${esc(h.label)} <i class="${h.response.status >= 400 || h.response.json?.error || h.response.json?.result?.isError ? 'err' : ''}">${h.response.status}</i></button></li>`).join('');
-}
-
-const go = () => $('.cs-go', els.form);
+const wires = [];
 async function send() {
-  const params = {};
-  const args = readForm();
-  for (const f of current.fields) {
-    if (f.required && !String(args[f.name] ?? '').trim()) { els.form.elements[f.name].focus(); toast(`${f.name} is required`); return; }
-  }
-  if (current.method === 'tools/call' || current.method === 'prompts/get') { params.name = current.name; params.arguments = args; }
-  if (current.method === 'resources/read') params.uri = current.uri;
-  go()?.classList.add('busy');
+  const v = $('#q').value.trim();
+  if (!v) { $('#q').focus(); return; }
+  values[ask.tool] = v;
+  const go = $('.ask-go', form);
+  go.disabled = true;
   try {
+    wires.length = 0;
     if (proto !== '2026-07-28' && !legacyReady) {
-      record(await exchange('initialize', { protocolVersion: proto, capabilities: {}, clientInfo: CLIENT }));
-      record(await exchange('notifications/initialized', null, { notify: true }));
+      wires.push(await exchange('initialize', { protocolVersion: proto, capabilities: {}, clientInfo: CLIENT }));
+      wires.push(await exchange('notifications/initialized', null, { notify: true }));
       legacyReady = true;
     }
-    const x = await exchange(current.method, params);
-    record(x);
+    const x = await exchange('tools/call', { name: ask.tool, arguments: { [ask.field]: v } });
+    wires.push(x);
     show(x);
-  } finally { go()?.classList.remove('busy'); }
+  } finally { go.disabled = false; }
 }
 
-els.history.addEventListener('click', e => {
-  const b = e.target.closest('[data-n]');
-  if (b) show(history.find(h => h.n === +b.dataset.n));
-});
-for (const t of $$('.cs-tabs [role="tab"]')) t.addEventListener('click', () => {
-  view = t.dataset.view;
-  for (const x of $$('.cs-tabs [role="tab"]')) x.setAttribute('aria-selected', String(x === t));
-  if (shown) show(shown, { flash: false });
-});
-
-/* rendering */
-const hl = s => esc(s).replace(/(&quot;(?:\\.|[^&\\]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b/g,
-  (m, str, colon, kw) => (str ? (colon ? `<span class="j-k">${str}</span>${colon}` : `<span class="j-s">${str}</span>`) : kw ? `<span class="j-b">${m}</span>` : `<span class="j-n">${m}</span>`));
-const cut = (s, n = 9000) => (s.length > n ? `${s.slice(0, n)}\n\n… ${(s.length - n).toLocaleString()} more characters` : s);
-const pretty = v => cut(JSON.stringify(v, null, 2));
-const STATUS = { 200: 'OK', 202: 'Accepted', 400: 'Bad Request', 403: 'Forbidden', 404: 'Not Found', 405: 'Method Not Allowed', 413: 'Payload Too Large', 429: 'Too Many Requests' };
-
-function reads(x) {
-  const j = x.response.json;
-  if (!j) return `<span class="cs-hint">${x.response.status} ${STATUS[x.response.status] || ''}: no body. The server accepted the notification.</span>`;
-  if (j.error) return `<span class="r-err">Error ${j.error.code}: ${esc(j.error.message)}</span>${j.error.data ? `\n\n${hl(pretty(j.error.data))}` : ''}`;
-  const r = j.result;
-  if (r.content) return `${r.isError ? '<span class="r-err">isError: true · the AI is told what to fix</span>\n\n' : ''}${esc(cut(r.content.map(c => c.text).join('\n\n')))}`;
-  if (r.contents) return esc(cut(r.contents.map(c => c.text).join('\n\n')));
-  if (r.messages) return esc(r.messages.map(m => `[${m.role}]\n${m.content.text}`).join('\n\n'));
-  if (r.tools) return esc(r.tools.map(t => `${t.name}  ·  ${t.annotations?.readOnlyHint ? 'read-only' : 'writes'}\n  ${t.description}`).join('\n\n'));
-  if (r.resources) return esc(r.resources.map(t => `${t.uri}  ·  ${t.mimeType}\n  ${t.description}`).join('\n\n'));
-  if (r.prompts) return esc(r.prompts.map(t => `${t.name}(${t.arguments.map(a => a.name + (a.required ? '' : '?')).join(', ')})\n  ${t.description}`).join('\n\n'));
-  if (r.capabilities) {
-    const info = r.serverInfo || r._meta?.[`${META}serverInfo`] || {};
-    return esc([`${info.title || info.name} · v${info.version}`, `Protocol: ${r.protocolVersion || (r.supportedVersions || []).join(', ')}`,
-      `Capabilities: ${Object.keys(r.capabilities).join(', ')}`, '', 'Instructions for the AI:', r.instructions || ''].join('\n'));
+// the text an AI reads, lightly set for people: **bold**, [links](url), "- " lists, "quotes"
+function md(text) {
+  const inline = s => esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<b>$1</b>')
+    .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
+    .replace(/&quot;(.{12,}?)&quot;/g, '<q>$1</q>');
+  let html = '', depth = 0;
+  const close = to => { while (depth > to) { html += '</ul>'; depth--; } };
+  for (const raw of text.split('\n')) {
+    const m = raw.match(/^(\s*)- (.*)$/);
+    if (m) {
+      const d = m[1].length >= 2 ? 2 : 1;
+      while (depth < d) { html += '<ul>'; depth++; }
+      close(d);
+      html += `<li>${inline(m[2])}</li>`;
+    } else {
+      close(0);
+      if (raw.trim()) html += `<p>${inline(raw.replace(/^##\s*/, ''))}</p>`;
+    }
   }
-  return hl(pretty(r));
+  close(0);
+  return html;
 }
-function structured(x) {
-  const j = x.response.json;
-  if (!j) return '<span class="cs-hint">No body.</span>';
-  if (j.error) return hl(pretty(j));
-  return hl(pretty(j.result.structuredContent ?? j.result));
-}
-function wire(x) {
-  const host = LIVE && x.where === 'live endpoint' ? new URL(MCP_ENDPOINT) : null;
-  const reqH = Object.entries({ host: host ? host.host : '(this page)', ...x.request.headers }).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
-  const resH = Object.entries(x.response.headers || {}).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
-  const st = x.response.status;
-  return `<span class="w-l">POST ${esc(host ? host.pathname : '/mcp')} HTTP/1.1</span>\n${reqH}\n\n${hl(JSON.stringify(x.request.msg, null, 2))}\n\n` +
-    `<span class="${st >= 400 ? 'w-e' : 'w-l'}">HTTP/1.1 ${st} ${STATUS[st] || ''}</span>\n${resH}\n\n${x.response.raw ? hl(cut(JSON.stringify(x.response.json, null, 2))) : '<span class="cs-hint">(empty body)</span>'}`;
-}
-
-function show(x, { flash = true } = {}) {
-  shown = x;
-  for (const b of $$('button', els.history)) b.setAttribute('aria-current', String(+b.dataset.n === x.n));
-  const st = x.response.status;
-  const bad = st >= 400 || x.response.json?.error || x.response.json?.result?.isError;
-  els.status.innerHTML = `<b class="${bad ? 'err' : ''}">${st} ${STATUS[st] || ''}</b> · ${x.ms < 1 ? '<1' : Math.round(x.ms)} ms · ${esc(x.where)} · ${esc(x.proto)}`;
-  els.pane.innerHTML = view === 'reads' ? reads(x) : view === 'json' ? structured(x) : wire(x);
-  els.pane.scrollTop = 0;
-  if (flash && !reduceMotion) { els.pane.classList.remove('flash'); void els.pane.offsetWidth; els.pane.classList.add('flash'); }
+const STATUS = { 200: 'OK', 202: 'Accepted', 400: 'Bad Request', 404: 'Not Found', 429: 'Too Many Requests' };
+function show(x) {
+  const j = x.response.json, r = j?.result;
+  const bad = x.response.status >= 400 || j?.error || r?.isError;
+  $('#ansStatus').innerHTML = `<b class="${bad ? 'err' : ''}">${x.response.status} ${STATUS[x.response.status] || ''}</b> · ${x.ms < 1 ? '<1' : Math.round(x.ms)} ms · ${esc(x.where)}`;
+  const body = $('#ansBody');
+  body.innerHTML = j?.error ? `<p><b>Error ${j.error.code}</b>: ${esc(j.error.message)}</p>` : md(r.content.map(c => c.text).join('\n\n'));
+  body.scrollTop = 0;
+  if (!reduceMotion) { body.classList.remove('flash'); void body.offsetWidth; body.classList.add('flash'); }
   // a rubber stamp for the two tools with a verdict
-  const sc = x.response.json?.result?.structuredContent;
-  const name = x.request.msg.params?.name;
-  els.stamp.className = 'cs-stamp';
-  if (sc && name === 'prove_claim') stamp(sc.verdict.replace(/_/g, ' '), `v-${sc.verdict}`);
-  else if (sc && name === 'fit_for' && sc.score != null) stamp(`${sc.band} · ${sc.score}`, `v-${sc.band.toLowerCase()}`);
+  const sc = r?.structuredContent, st = $('#ansStamp');
+  st.className = 'ans-stamp';
+  if (sc && ask.tool === 'prove_claim') stamp(sc.verdict.replace(/_/g, ' '), `v-${sc.verdict}`);
+  else if (sc && ask.tool === 'fit_for' && sc.score != null) stamp(`${sc.band} · ${sc.score}`, `v-${sc.band.toLowerCase()}`);
+  renderWire();
 }
 function stamp(text, cls) {
-  els.stamp.textContent = text;
-  els.stamp.classList.add(cls);
-  requestAnimationFrame(() => requestAnimationFrame(() => els.stamp.classList.add('show')));
+  const st = $('#ansStamp');
+  st.textContent = text;
+  st.classList.add(cls);
+  requestAnimationFrame(() => requestAnimationFrame(() => st.classList.add('show')));
 }
 
-select(ITEMS.find(i => i.key === 'tool:prove_claim').key);
-
-/* ---------- connect guides ---------- */
-const EP = MCP_ENDPOINT || 'https://<endpoint going live soon>/mcp';
-const ANY_PROMPT = `I'm considering Parth Aggarwal for a role. Read his machine-readable career record:
-${SITE}data/career.json
-(a short summary for AI readers is at ${SITE}llms.txt)
-
-Answer only from that record. Cite the portfolio link for every claim, check numbers against the evidence lines, and say plainly when something isn't covered - the record lists his gaps on purpose.
-
-The role:
-[paste the job description]`;
-const CURL = `curl -s ${EP} \\
-  -H 'content-type: application/json' \\
-  -H 'accept: application/json, text/event-stream' \\
-  -H 'mcp-protocol-version: 2026-07-28' \\
-  -H 'mcp-method: tools/call' \\
-  -H 'mcp-name: prove_claim' \\
-  -d '{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"prove_claim","arguments":{"claim":"0 P1/P2 defects"},"_meta":{"io.modelcontextprotocol/protocolVersion":"2026-07-28","io.modelcontextprotocol/clientInfo":{"name":"curl","version":"1"},"io.modelcontextprotocol/clientCapabilities":{}}}}'`;
-const TABS = [
-  { id: 'any', label: 'Any AI', small: 'no setup', needsLive: false,
-    steps: ['Copy the prompt. It works in any assistant that can open links.', 'Paste the job description where it says so.', 'Want tool calls and stricter citations? Connect the server with one of the other tabs.'],
-    code: [['Paste into any assistant', ANY_PROMPT]] },
-  { id: 'claude', label: 'Claude', small: 'web · desktop', needsLive: true,
-    steps: ['Open <b>Settings → Connectors</b> and choose <b>Add custom connector</b>. On a Team or Enterprise plan, an owner adds it under <b>Admin settings → Connectors</b>.', 'Name it <b>Parth Aggarwal</b> and paste the URL. No sign-in, no keys.', 'In a chat, switch it on from the tools menu and ask.'],
-    code: [['Server URL', EP], ['Then ask', 'Using the Parth Aggarwal connector: is he a fit for this role? Check every number with prove_claim.\n\n[paste the job description]']] },
-  { id: 'code', label: 'Claude Code', small: 'terminal', needsLive: true,
-    steps: ['Add the server once, from any project.', 'Check it with <code>/mcp</code>, then ask in plain words.'],
-    code: [['Terminal', `claude mcp add --transport http parth ${EP}`], ['Then ask', 'Use parth to check: has he shipped MCP in production? Quote the evidence.']] },
-  { id: 'cursor', label: 'Cursor', small: 'mcp.json', needsLive: true,
-    steps: ['Open <b>Cursor Settings → MCP</b> and add a server, or edit <code>~/.cursor/mcp.json</code>.', 'Ask in the agent chat. Cursor lists the seven tools once it connects.'],
-    code: [['~/.cursor/mcp.json', JSON.stringify({ mcpServers: { parth: { url: EP } } }, null, 2)]] },
-  { id: 'chatgpt', label: 'ChatGPT', small: 'developer mode', needsLive: true,
-    steps: ['In <b>Settings → Apps &amp; Connectors → Advanced settings</b>, turn on <b>Developer mode</b>. Availability depends on your plan.', 'Choose <b>Create</b>, paste the URL and pick <b>No authentication</b>.', 'Turn it on in a chat and ask.'],
-    code: [['MCP server URL', EP]] },
-  { id: 'other', label: 'Anything else', small: 'inspector · curl', needsLive: true,
-    steps: ['Any client that speaks Streamable HTTP works. To poke at it, run the MCP Inspector and connect with transport <b>Streamable HTTP</b>.', 'Or use curl. This is a complete 2026-07-28 request: no handshake, the headers match the body.'],
-    code: [['MCP Inspector', 'npx @modelcontextprotocol/inspector'], ['curl', CURL]] },
-];
-const pending = '<p class="cn-pending">The public endpoint isn\'t switched on yet. Until it is, use <b>Any AI</b> or the console above, which runs the same server code in this page.</p>';
-$('#cnTabs').innerHTML = TABS.map((t, i) => `<button type="button" role="tab" id="cnt-${t.id}" aria-controls="cnp-${t.id}" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${esc(t.label)}<small>${esc(t.small)}</small></button>`).join('');
-$('#cnPanels').innerHTML = TABS.map((t, i) => `<div class="cn-panel" role="tabpanel" id="cnp-${t.id}" aria-labelledby="cnt-${t.id}"${i ? ' hidden' : ''}>
-  <div>${t.needsLive && !LIVE ? pending : ''}<ol class="cn-steps">${t.steps.map(s => `<li>${s}</li>`).join('')}</ol></div>
-  <div>${t.code.map(([title, text]) => `<div class="code"><div class="code-h"><span>${esc(title)}</span><button type="button" class="cp-btn" data-copy>Copy</button></div><pre>${esc(text)}</pre></div>`).join('')}</div>
-</div>`).join('');
-const cnTabs = $$('#cnTabs [role="tab"]');
-function openTab(tab) {
-  for (const t of cnTabs) {
-    const on = t === tab;
-    t.setAttribute('aria-selected', String(on));
-    t.tabIndex = on ? 0 : -1;
-    $(`#${t.getAttribute('aria-controls')}`).hidden = !on;
-  }
+const hl = s => esc(s).replace(/(&quot;(?:\\.|[^&\\]|&(?!quot;))*?&quot;)(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b/g,
+  (m, str, colon, kw) => (str ? (colon ? `<span class="j-k">${str}</span>${colon}` : `<span class="j-s">${str}</span>`) : kw ? `<span class="j-b">${m}</span>` : `<span class="j-n">${m}</span>`));
+const cut = (s, n = 6000) => (s.length > n ? `${s.slice(0, n)}\n… ${(s.length - n).toLocaleString()} more characters` : s);
+function renderWire() {
+  $('#wire').innerHTML = wires.map(x => {
+    const reqH = Object.entries(x.request.headers).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
+    const resH = Object.entries(x.response.headers || {}).map(([k, v]) => `<span class="w-h">${esc(k)}:</span> ${esc(v)}`).join('\n');
+    const st = x.response.status;
+    return `<span class="w-l">POST /mcp HTTP/1.1</span>\n${reqH}\n\n${hl(JSON.stringify(x.request.msg, null, 2))}\n\n<span class="${st >= 400 ? 'w-e' : 'w-l'}">HTTP/1.1 ${st} ${STATUS[st] || ''}</span>\n${resH}${x.response.json ? `\n\n${hl(cut(JSON.stringify(x.response.json, null, 2)))}` : ''}`;
+  }).join('\n\n<span class="w-h">──────────</span>\n\n') || 'Ask something first.';
 }
-cnTabs.forEach((t, i) => {
-  t.addEventListener('click', () => openTab(t));
-  t.addEventListener('keydown', e => {
-    const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-    if (!d) return;
-    const next = cnTabs[(i + d + cnTabs.length) % cnTabs.length];
-    openTab(next); next.focus();
-  });
+for (const b of $$('.proto button')) b.addEventListener('click', () => {
+  proto = b.dataset.proto;
+  legacyReady = false;
+  for (const x of $$('.proto button')) x.setAttribute('aria-checked', String(x === b));
+  toast(proto === '2026-07-28' ? 'Stateless: no handshake' : 'Classic: the next ask does initialize first');
 });
-$('#cnPanels').addEventListener('click', e => {
-  const b = e.target.closest('[data-copy]');
-  if (b) copy(b.closest('.code').querySelector('pre').textContent);
-});
+console.info(`parth-aggarwal MCP: ${TOOLS.length} tools, ${RESOURCES.length} resources, ${PROMPTS.length} prompts, running ${LIVE ? `against ${MCP_ENDPOINT}` : 'in this page'}`);
