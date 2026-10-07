@@ -2,26 +2,61 @@
 
 Parth Aggarwal's portfolio - **https://parth8.github.io/portfolio/**
 
-Plain HTML, CSS and native ES modules. No framework, no build step: GitHub Pages serves the files as they are.
+Three ways to read one career, all from one file (`data/career.json`):
+
+| Mode | URL | What it is |
+| --- | --- | --- |
+| 01 Portfolio | `/` | The site, for people who scroll: case reel, Built tiles, proof-of-work receipt. |
+| 02 For you | `/for/` | Pick a reader (recruiter, hiring manager, engineer, founder) or paste a job description. The page rebuilds around matching evidence, with a 300-850 fit dial, a requirement → evidence ledger, honest gaps and questions to ask. Runs in the browser; a pasted JD never leaves it. Share links carry requirement ids, not JD text. |
+| 03 MCP | `/mcp/` | The career as a Model Context Protocol server, so a recruiter's AI can interview it (`fit_for`, `prove_claim`, `search_evidence`, ...). The page has a live demo, an in-browser console running the server's own code, and connect guides for Claude, Claude Code, Cursor and ChatGPT. Deploy notes: [server/README.md](server/README.md). |
+
+Plain HTML, CSS and native ES modules. No framework and no build step for the site: GitHub Pages serves the files as they are.
 
 ## Layout
 
 ```
-index.html          the page: every section, in reading order
-css/base.css        tokens (colours), reset, grain, cursor, top nav, side-nav, progress bar, focus, reduced motion
-css/sections.css    hero, stamps, index, impact, case tabs, principles, journey, toolkit, marquee,
-                    recognition, writing, manifesto, contact, footer
-css/projects.css    the Built tiles (closed/open states) and every project's looping SVG animation
-css/receipt.css     the proof-of-work receipt (docked terminal + full receipt) and the "30 seconds?" button
-js/main.js          cursor (mouse/trackpad only), one scroll loop, scroll-in observers, number scramble,
-                    case reel, tile open/close, journey "+ more", marquee loop
-js/receipt.js       the receipt: prints a line per highlight, totals at "say hi", tears off as a PNG
-assets/             favicon, share image (og.png), the polaroid
+index.html            mode 01: every section, in reading order
+for/index.html        mode 02: "Tailored to you"
+mcp/index.html        mode 03: "Parth, as an MCP server"
+data/career.json      the single source of truth: profile, cases, roles, projects, 27 competencies with
+                      evidence refs and honest notes (gaps included). Edit this, then run the build below.
+llms.txt              a plain summary for AI readers (generated)
+
+css/base.css          tokens, reset, grain, cursor, top nav + mode switch, side-nav, focus, footer, reduced motion
+css/sections.css      portfolio sections: hero, stamps, index (+ the two other ways in), impact, case tabs,
+                      principles, journey, toolkit, marquee, recognition, writing, manifesto, contact
+css/projects.css      the Built tiles and every project's looping SVG animation
+css/receipt.css       the proof-of-work receipt and the "30 seconds?" button (portfolio only)
+css/for.css           mode 02: personas, JD sheet, fit dial, ledger, gaps, CTA
+css/mcp.css           mode 03: the dark page, demo chat, console, connect tabs
+
+js/main.js            portfolio: scroll loop, observers, number scramble, case reel, tiles, journey, marquee
+js/receipt.js         portfolio: the receipt
+js/cursor.js          the custom cursor, shared by all three pages (mouse/trackpad only)
+js/career-engine.js   pure functions over career.json: profile, search, claim checking, fit scoring
+js/mcp-core.js        the MCP protocol (both eras), tools, resources and prompts; used by the console and the Worker
+js/for.js             mode 02 page logic
+js/mcp-page.js        mode 03 page logic
+js/config.js          MCP_ENDPOINT: empty until the Worker is deployed
+
+server/worker.js      the Cloudflare Worker (generated; see server/README.md)
+tools/build-worker.mjs   builds server/worker.js and llms.txt from the sources
+tools/worker-shell.js    the Worker's HTTP wrapper: routing, CORS, Origin, rate limit, data loading
+tests/                node --test tests/*.test.mjs (protocol, engine, and a stale-build check)
+assets/               favicon, share image (og.png), the polaroid
 ```
 
-## Page order
+## Updating the record
 
-Hero → stamps → **on this page** index → 01 Impact → 02 Work (case tabs) → principles → 03 Built (tiles) →
+1. Edit `data/career.json`. Every competency's `evidence` must point at a real `case:`, `role:` or `project:`
+   id, and a weak area should say so in `note` (the tests check the refs).
+2. `node tools/build-worker.mjs` to regenerate `server/worker.js` and `llms.txt`.
+3. `node --test tests/*.test.mjs`.
+4. Push. The live Worker picks up the new record within 10 minutes; redeploy it only if engine or protocol code changed.
+
+## Portfolio page order
+
+Hero → stamps → **on this page** index (+ links to modes 02 and 03) → 01 Impact → 02 Work (case tabs) → principles → 03 Built (tiles) →
 04 Journey → 05 Toolkit → partners marquee → 06 Recognition → 07 Writing → manifesto → 08 Say hi.
 
 ## Two ideas that keep people from missing things
@@ -47,5 +82,6 @@ Hero → stamps → **on this page** index → 01 Impact → 02 Work (case tabs)
 ## Run locally
 
 ```
-python3 -m http.server 8765    # then open http://localhost:8765
+python3 -m http.server 8765    # then open http://localhost:8765, /for/ and /mcp/
+node --test tests/*.test.mjs
 ```

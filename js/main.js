@@ -2,41 +2,16 @@
 // Everything here is progressive enhancement - the page reads fine without it.
 
 import { initReceipt } from './receipt.js';
+import { initCursor } from './cursor.js';
 
 const root = document.documentElement;
 root.classList.add('js');
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const finePointer = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 /* ---------- custom cursor (mouse and trackpad only) ---------- */
 const HOVER_TARGETS = 'a,button,[role="tab"],.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp,.side-dot,.boss-sticker,.ph-figure,.idx-list a';
-
-if (finePointer) {
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  root.classList.add('has-cursor');
-  let mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, running = false;
-
-  const frame = () => {
-    cur.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-    rx += (mx - rx) * 0.14;
-    ry += (my - ry) * 0.14;
-    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
-    // stop the loop once the ring has caught up; the next mousemove restarts it
-    if (Math.abs(mx - rx) > 0.1 || Math.abs(my - ry) > 0.1) requestAnimationFrame(frame);
-    else running = false;
-  };
-  addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    if (!running) { running = true; requestAnimationFrame(frame); }
-  }, { passive: true });
-
-  // one delegated listener instead of one per element, so new elements work too
-  const setHover = on => { cur.classList.toggle('hover', on); ring.classList.toggle('hover', on); };
-  document.addEventListener('mouseover', e => setHover(!!e.target.closest(HOVER_TARGETS)));
-  document.addEventListener('mouseleave', () => setHover(false));
-}
+initCursor(HOVER_TARGETS);
 
 /* ---------- intersection helpers ---------- */
 function watch(selector, { threshold = 0.15, once = false, cls = 'in-view', onEnter } = {}) {
