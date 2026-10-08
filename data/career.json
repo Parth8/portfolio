@@ -1,6 +1,6 @@
 {
  "schema": "parth-career/2",
- "updated": "2026-10-07",
+ "updated": "2026-10-08",
  "base_url": "https://parth8.github.io/portfolio/",
  "evidence_note": "Everything here comes from Parth's own record: his resume, profile and portfolio. Much of the work is internal to employers, so it is not checked against the web; every score and answer instead cites the exact lines it rests on.",
  "profile": {
@@ -16,7 +16,7 @@
   "open_to": "Product and platform roles, India and global. Open to relocation. Full-time.",
   "travel": "US B1/B2 visa, valid to Oct 2035 (business travel).",
   "experience": "5+ years in B2B SaaS (since Feb 2021), 4+ in fintech, from 0-to-1 through enterprise scale.",
-  "summary": "Built a $2B+/yr virtual card disbursement platform for a Fortune 3 enterprise, architected and launched a multi-tenant, multi-geography financial data platform sold to US and EMEA banks, and now owns Backbase's agentic AI connector platform. Led GTMs with 0 P1/P2 defects and owned platform economics.",
+  "summary": "Built a $2B+/yr virtual card disbursement platform for a Fortune 3 enterprise, architected and launched a full-stack, multi-tenant, multi-geography, multi-vendor financial data platform sold to US and EMEA banks, and now owns Backbase's agentic AI connector platform. Led GTMs with 0 P1/P2 defects and owned platform economics.",
   "education": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.",
   "links": {
    "portfolio": "https://parth8.github.io/portfolio/",
@@ -68,6 +68,7 @@
    "evidence": [
     "Launched the Connector Studio MCP in 6 weeks; banking clients and ~20 internal PMs and services engineers now build connectors with agents.",
     "Moved PMs and Backbase services teams off manual connector builds and onto the MCP for new connector work.",
+    "Forward deployed: works directly with banking clients and internal services teams on connector builds.",
     "Cut connector build time from ~12 days to ~2 days (~80%), including manual mapping review and deployment to the GitHub project repository.",
     "Gated all MCP and UI builds to pre-prod until mapping accuracy is safe for production banking traffic - prioritised safety over adoption speed.",
     "Driving LLM mapping accuracy from Backbase's BIAN unified APIs to vendors' JSON/XML specs from ~50-60% to 90%+, baselined against a golden dataset.",
@@ -89,13 +90,14 @@
     "iPaaS",
     "Token rotation",
     "API Playground"
-   ]
+   ],
+   "product": "Connector Studio"
   },
   {
    "id": "optum-virtual-cards",
    "title": "Virtual card issuance platform for a Fortune 3",
    "org": "Zeta, for Optum Financial / UnitedHealth Group",
-   "period": "2024 - 2026",
+   "period": "May 2024 - Aug 2026",
    "anchor": "#case-2",
    "metric": {
     "value": "$2B+",
@@ -122,7 +124,8 @@
     "Webhooks",
     "Idempotency",
     "Dispute resolution"
-   ]
+   ],
+   "product": "Optum virtual card platform"
   },
   {
    "id": "data-platform",
@@ -134,25 +137,28 @@
     "value": "$50K/yr",
     "label": "infra cost removed; onboarding + GTM cut by 90 days"
    },
-   "summary": "Lead platform PM for a multi-tenant, config-driven data platform (DPaaS) serving enterprise banks in the US and EMEA. Banks onboard by subscription with zero code changes.",
+   "summary": "Lead technical platform PM for Data Platform SaaS (DPaaS) and its Data Extracts products: a multi-tenant, config-driven platform serving enterprise banks in the US and EMEA. Banks onboard by subscription with zero code changes.",
    "evidence": [
-    "Owned the full design of the Data Platform SaaS: architecture, boundaries, integrations and vendors, data flows and contracts, subscription model, onboarding, configuration format and UI.",
-    "Defined and enforced a multi-tenant, config-driven, ephemeral DAG architecture; mandated subscription-based onboarding and said no to client-specific builds.",
+    "Owned the full design of the Data Platform SaaS: architecture, infrastructure, boundaries, functionality, integrations and vendors, data flows and contracts, subscription model, onboarding, configuration format, and the UI for data pipeline subscriptions and data extracts.",
+    "Defined and enforced a multi-tenant, config-driven, ephemeral DAG architecture; mandated subscription-based onboarding and said no to client-specific builds, trading short-term customisation for reliability, consistency and faster client acquisition. Owned architecture boundaries, tradeoff decisions and client ownership end to end.",
     "Banks onboard through subscription-based, config-driven setup: 0 code changes, 0 engineering-led builds, standardized deployment workflows.",
     "Eliminated the MongoDB dependency, saving ~$50K a year in recurring infrastructure cost.",
-    "Made data freshness a per-tenant config tied to its AWS cost; drove cost vs freshness tradeoffs across S3, real-time Kafka, API and batch ingestion, dbt/Airflow orchestration and provisioned vs serverless compute.",
+    "Paid for freshness only where it matters: made data freshness a per-tenant config tied to its AWS cost, and drove cost vs freshness tradeoffs across data lifecycle policies, S3, real-time Kafka, API and batch ingestion, dbt/Airflow orchestration, provisioned vs serverless compute, medallion layers, extraction and analytics.",
     "Cut client onboarding + GTM by 90 days (4 months to 1 month) with reusable ETL/ELT pipelines, standardized playbooks and integration guides.",
-    "Established data contracts and a governed semantic layer across 1,200+ attributes and 20+ schemas: lineage, replication strategy, freshness guarantees, PII/PCI DSS/GDPR controls and sanctions/AML data flows (OFAC, FinCEN).",
-    "Codified platform guarantees and non-guarantees: SLAs, quality, ingress and egress strategy, sequencing; canonical ingestion, modelling and transformation patterns.",
+    "Established data contracts and a governed semantic layer across 1,200+ attributes and 20+ schemas: schema design and ownership, lineage, replication strategy, acceptance criteria, freshness guarantees, PII/PCI DSS/GDPR controls and sanctions/AML data flows (OFAC, FinCEN).",
+    "Codified platform guarantees and non-guarantees: SLAs, quality, ingress and egress strategy, sequencing; established canonical ingestion, modelling and transformation patterns.",
+    "Documented fact and dimension tables across OLTP and OLAP systems for criticality, availability, compliance, analytics and DS/AI/ML use.",
     "Owned the connector portfolio: 12+ connectors live across DigiFi, Equifax, TransUnion, MoEngage, FeatureSpace FRM, Qualco, Xero, Decta, GoCardless, AWS Connect, core processor and banking partner warehouses.",
     "A client subscription provisions a DAG per tenant-vendor combination, replacing per-client integrations and cutting GTM by months.",
     "Shipped with 0 P1/P2 defects and a 4-week GTM using parallel QA workflows and automated regression testing; led CxO-level governance and a team of 8 engineers at 90%+ on-time delivery with compliance sign-off.",
-    "Defined a 1-year roadmap across 120+ business requirements from enterprise banking clients, achieving a 95% delivery rate against strategic OKRs.",
-    "Closed 70+ data quality gaps in 2 months; reached a 0-incident steady state; escalations down 70% and CSAT up from 2.5 to 4.0.",
+    "Drove the roadmap through requirement discussions with banks and issuing partners; decided build, implementation, capacity and budget tradeoffs.",
+    "Data Extracts products: defined a 1-year roadmap across 120+ business requirements from enterprise banking clients, achieving a 95% delivery rate against strategic OKRs.",
+    "Data Extracts products: reduced client integration timelines by ~50% and established reusable integration standards.",
+    "Closed 70+ data quality gaps in 2 months and made the platform stable in 2 months, with a 0-incident steady state after; proactive monitoring and automated replication failure response cut escalations 70% and lifted CSAT from 2.5 to 4.0 (+60%).",
     "Replaced a manual reporting bottleneck with self-serve analytics for finance teams: reporting time down from 1 week to 5 minutes.",
-    "Authored architecture documentation across 600+ attributes, driving CardWorks' $3M+ credit card portfolio data migration.",
-    "Co-owned an analytics product launch with HDFC: DAU/MAU, transaction and dispute tracking dashboards.",
-    "Established data governance as a platform layer: RBAC, test cases and lifecycle policies."
+    "Authored architecture documentation across 600+ attributes and processes, driving CardWorks' $3M+ credit card portfolio data migration.",
+    "Stickiness through analytics: co-owned an analytics product launch with HDFC's org unit - DAU/MAU, transaction and dispute tracking dashboards.",
+    "Established data governance as a first-class platform layer - RBAC, test cases and lifecycle policies - arresting data quality incidents across tenants."
    ],
    "stack": [
     "Medallion architecture",
@@ -164,8 +170,11 @@
     "AWS",
     "Multi-tenant",
     "Semantic layer",
-    "GDPR/PCI/AML"
-   ]
+    "GDPR/PCI/AML",
+    "OLTP/OLAP",
+    "Data Extracts"
+   ],
+   "product": "Data Platform SaaS (DPaaS)"
   },
   {
    "id": "sparrow-launch",
@@ -194,7 +203,8 @@
     "Ops infrastructure",
     "SQL dashboards",
     "Release management"
-   ]
+   ],
+   "product": "US banking program"
   }
  ],
  "roles": [
@@ -208,32 +218,36 @@
    "cases": [
     "connector-studio"
    ],
-   "evidence": [
-    "Forward deployed: works directly with banking clients and internal services teams on connector builds."
+   "evidence": [],
+   "products": [
+    {
+     "name": "Connector Studio (Agentic Banking / Grand Central)",
+     "as": "Platform owner",
+     "case": "connector-studio"
+    }
    ]
   },
   {
-   "id": "zeta-tpm-data",
+   "id": "zeta-tpm",
    "company": "Zeta",
-   "title": "Technical Product Manager - Data Platform SaaS (US + EMEA)",
+   "title": "Technical Product Manager",
    "period": "May 2024 - Aug 2026",
    "location": "Bengaluru, India",
-   "scope": "Lead technical platform PM for a multi-tenant data platform serving enterprise banking clients in the US and EMEA.",
-   "cases": [
-    "data-platform"
+   "scope": "One role, two products: lead technical platform PM for Data Platform SaaS (DPaaS) and its Data Extracts products, serving enterprise banks in the US and EMEA; and Optum platform lead, the client-facing product lead for virtual card issuance infrastructure for UnitedHealth Group.",
+   "products": [
+    {
+     "name": "Data Platform SaaS (DPaaS) + Data Extracts",
+     "as": "Lead Technical Platform Product Manager",
+     "case": "data-platform"
+    },
+    {
+     "name": "Optum virtual card issuance infrastructure",
+     "as": "Optum Platform Lead (client-facing product lead)",
+     "case": "optum-virtual-cards"
+    }
    ],
-   "evidence": [
-    "Drove the roadmap through requirement discussions with banks and issuing partners; decided build, implementation, capacity and budget tradeoffs."
-   ]
-  },
-  {
-   "id": "zeta-tpm-optum",
-   "company": "Zeta",
-   "title": "Technical Product Manager - Optum virtual card platform",
-   "period": "May 2024 - Aug 2026",
-   "location": "Bengaluru, India",
-   "scope": "Client-facing product lead for virtual card issuance infrastructure for Optum (UnitedHealth Group).",
    "cases": [
+    "data-platform",
     "optum-virtual-cards"
    ],
    "evidence": []
@@ -241,10 +255,10 @@
   {
    "id": "zeta-tpgm",
    "company": "Zeta",
-   "title": "Technical Program Manager - US & India banking program lead",
+   "title": "Technical Program Manager",
    "period": "May 2022 - May 2024",
    "location": "Bengaluru, India",
-   "scope": "US: led Zeta's first US credit card client launch through BAU. India: led an RBI-mandated regulatory wind-down across 20+ fintech partners.",
+   "scope": "One role, two programs. US Banking Program Lead: led Zeta's first US credit card client launch from onboarding through BAU operations. India Banking Program Lead: led an RBI-mandated regulatory compliance program for a platform wind-down across 20+ fintech partners.",
    "cases": [
     "sparrow-launch"
    ],
@@ -253,12 +267,23 @@
     "Led a team of 3 CSMs through complex multi-party negotiations and timeline commitments.",
     "Automated banking reports with SQL and Python; ran technical knowledge transfer for a 5-member ops team.",
     "Tested 40+ APIs in the MVP phase; ran competitive analysis against key BaaS providers to inform product strategy."
+   ],
+   "products": [
+    {
+     "name": "US banking program (Sparrow Card)",
+     "as": "US Banking Program Lead",
+     "case": "sparrow-launch"
+    },
+    {
+     "name": "India banking program",
+     "as": "India Banking Program Lead"
+    }
    ]
   },
   {
    "id": "hackerearth-pm",
    "company": "HackerEarth",
-   "title": "Project Manager - Enterprise & SMB",
+   "title": "Project Manager",
    "period": "Feb 2021 - Apr 2022",
    "location": "Bengaluru, India",
    "scope": "Delivered hiring solutions for enterprise and SMB clients.",
@@ -515,7 +540,8 @@
     "fintech",
     "neobank",
     "banking-as-a-service",
-    "baas"
+    "baas",
+    "bin management"
    ],
    "evidence": [
     "case:optum-virtual-cards",
@@ -594,7 +620,11 @@
     "data infrastructure",
     "data infra",
     "olap",
-    "oltp"
+    "oltp",
+    "data modelling",
+    "data modeling",
+    "fact tables",
+    "event-based ingestion"
    ],
    "evidence": [
     "case:data-platform"
@@ -614,7 +644,9 @@
     "schema",
     "data quality",
     "rbac",
-    "metadata"
+    "metadata",
+    "lifecycle policies",
+    "lifecycle policy"
    ],
    "evidence": [
     "case:data-platform"
@@ -690,7 +722,15 @@
     "swagger",
     "partner integrations",
     "developer experience",
-    "dx"
+    "dx",
+    "soap",
+    "wsdl",
+    "xml",
+    "postman",
+    "event-driven",
+    "back-off",
+    "error handling",
+    "token rotation"
    ],
    "evidence": [
     "case:connector-studio",
@@ -717,7 +757,10 @@
     "ai product",
     "ai-native",
     "copilot",
-    "ai"
+    "ai",
+    "cursor",
+    "lovable",
+    "ollama"
    ],
    "evidence": [
     "case:connector-studio",
@@ -742,7 +785,8 @@
     "accuracy",
     "benchmark",
     "benchmarking",
-    "prompt engineering"
+    "prompt engineering",
+    "human-in-the-loop"
    ],
    "evidence": [
     "case:connector-studio",
@@ -865,7 +909,9 @@
     "sla",
     "slo",
     "on-time",
-    "raci"
+    "raci",
+    "jira",
+    "confluence"
    ],
    "evidence": [
     "case:sparrow-launch",
@@ -936,7 +982,9 @@
     "superset",
     "grafana",
     "python",
-    "looker"
+    "looker",
+    "elasticsearch",
+    "dbeaver"
    ],
    "evidence": [
     "case:sparrow-launch",
@@ -1141,5 +1189,27 @@
     "case:optum-virtual-cards"
    ]
   }
- ]
+ ],
+ "skills": {
+  "Platform & Architecture": {
+   "Data platforms": "Medallion architecture, multi-tenant design, data contracts, semantic layer, schema governance, lineage tracking, data lifecycle policies, surround-systems integration and developer experience",
+   "Payment systems": "Card issuance (Mastercard and Visa), credit, prepaid and virtual cards, sponsor bank programs, BIN management, payment processing, FRM and fraud detection, disputes",
+   "API design": "REST/GraphQL, Swagger/OpenAPI, SOAP/WSDL, XML, webhook architecture, idempotency, error handling, graceful back-off, event-driven architecture, token rotation and credential lifecycle",
+   "Compliance & governance": "PII, PCI DSS, GDPR, sanctions/AML data (OFAC, FinCEN), RBAC, audit readiness, RBI regulatory programs"
+  },
+  "AI & LLM": {
+   "Retrieval & models": "MCP, RAG, vector databases, managed vs open-weight LLMs (OpenAI, Anthropic, self-hosted), inference cost tradeoffs",
+   "Evaluation": "LLM evals, golden datasets, mapping accuracy benchmarking, human-in-the-loop review",
+   "AI tools": "Cursor, Claude, Copilot, Lovable, ChatGPT, Ollama"
+  },
+  "Data & Analytics": {
+   "Technologies": "SQL, dbt, Apache Airflow, Kafka, S3, Metabase, Apache Superset, Tableau, Grafana, Elasticsearch (ELK), DBeaver, MongoDB, GitHub",
+   "Methodologies": "ETL/ELT, OLTP/OLAP, event-based vs batched ingestion, data lake design, cost vs freshness tradeoffs, AWS provisioned vs serverless compute"
+  },
+  "Product & Collaboration": {
+   "Product tools": "Jira, Confluence, JSM, Freshdesk, Asana, Notion, Figma (wireframing and design collaboration)",
+   "Programming": "Python (automation, reporting), SQL (analytics, dashboards), Postman (API testing)",
+   "Methodologies": "Agile/Scrum/Kanban, RACI frameworks, stakeholder management, PRD/BRD/GTM planning"
+  }
+ }
 }

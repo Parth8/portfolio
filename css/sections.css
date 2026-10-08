@@ -1157,6 +1157,7 @@
 .xp-row.open .xp-pts li:nth-child(n+4){animation:xpIn 0.5s cubic-bezier(0.22,1,0.36,1) both}
 .xp-row.open .xp-pts li:nth-child(5){animation-delay:0.06s}
 .xp-row.open .xp-pts li:nth-child(6){animation-delay:0.12s}
+.xp-row.open .xp-pts li:nth-child(7){animation-delay:0.18s}
 @keyframes xpIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .xp-sub{
   font-family:'DM Mono',monospace;font-size:0.65rem;letter-spacing:0.12em;text-transform:uppercase;
@@ -1181,6 +1182,26 @@
 .xp-now::before{
   content:'';width:6px;height:6px;border-radius:50%;background:var(--neon);
   animation:pulse-dot 1.8s ease-in-out infinite;
+}
+
+/* one role, two products: each gets its own numbered block */
+.xp-two{
+  display:inline-block;margin-top:0.85rem;
+  font-family:'Caveat',cursive;font-weight:700;font-size:1.15rem;line-height:1;
+  color:var(--ink);background:var(--gold);padding:0.3rem 0.6rem 0.25rem;transform:rotate(-2deg);
+}
+.xp-prod + .xp-prod{margin-top:1.6rem;padding-top:1.4rem;border-top:1px dashed var(--border)}
+.xp-prod-h{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:0.35rem 0.7rem;margin-bottom:0.9rem;
+  font-family:'DM Serif Display',serif;font-size:1.12rem;line-height:1.3;color:var(--ink);
+}
+.xp-prod-n{
+  font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:0.04em;line-height:1;
+  background:var(--ink);color:var(--neon);padding:0.18rem 0.4rem 0.08rem;align-self:center;
+}
+.xp-prod-as{
+  flex-basis:100%;padding-left:0.1rem;
+  font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);
 }
 
 .awards-section{padding:6rem 2.5rem;border-bottom:1px solid var(--border);background:var(--eggshell);position:relative}

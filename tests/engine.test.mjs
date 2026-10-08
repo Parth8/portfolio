@@ -58,7 +58,7 @@ test('confidence: self-assessment only ever lowers a score; one place alone stay
     const row = (f => [...f.matches, ...f.gaps][0])(E.fitFromIds(data, [{ id: c.id, w: 1 }]));
     const cap = { gap: 0.15, adjacent: 0.45, working: 0.7 }[c.strength];
     if (cap != null) assert.ok(row.confidence <= cap, `${c.id} ${row.confidence} > ${cap}`);
-    const places = new Set(row.evidence.map(e => e.kind === 'project' ? e.ref : e.org));
+    const places = new Set(row.evidence.map(e => e.where));
     if (row.evidence.length && places.size === 1) assert.ok(row.confidence <= 0.75, `${c.id} reached ${row.confidence} from one place`);
   }
 });

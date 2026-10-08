@@ -1,6 +1,6 @@
 # Parth Aggarwal
 
-> Technical Platform Product Manager. Forward Deployed Product Manager at Backbase since Aug 2026. Built a $2B+/yr virtual card disbursement platform for a Fortune 3 enterprise, architected and launched a multi-tenant, multi-geography financial data platform sold to US and EMEA banks, and now owns Backbase's agentic AI connector platform. Led GTMs with 0 P1/P2 defects and owned platform economics.
+> Technical Platform Product Manager. Forward Deployed Product Manager at Backbase since Aug 2026. Built a $2B+/yr virtual card disbursement platform for a Fortune 3 enterprise, architected and launched a full-stack, multi-tenant, multi-geography, multi-vendor financial data platform sold to US and EMEA banks, and now owns Backbase's agentic AI connector platform. Led GTMs with 0 P1/P2 defects and owned platform economics.
 
 - Based in: Hyderabad, India. Product and platform roles, India and global. Open to relocation. Full-time.
 - Experience: 5+ years in B2B SaaS (since Feb 2021), 4+ in fintech, from 0-to-1 through enterprise scale.
@@ -23,8 +23,8 @@
 ## Case studies
 
 - [Connector Studio MCP - agent-built banking connectors](https://parth8.github.io/portfolio/#case-1) (Backbase, Aug 2026 - present): ~80% faster connector builds (~12 days to ~2). Owns Connector Studio end-to-end: Backbase's iPaaS for banking connectors, in the web app and as an agentic AI MCP. Shipped the MCP in six weeks; banks and ~20 internal PMs and services engineers now build connectors with agents.
-- [Virtual card issuance platform for a Fortune 3](https://parth8.github.io/portfolio/#case-2) (Zeta, for Optum Financial / UnitedHealth Group, 2024 - 2026): $2B+ a year disbursed to US healthcare providers. Led the 0 P1/P2 defect production launch of a virtual card platform for UnitedHealthcare payers to disburse $2B+ a year to US healthcare providers, with Optum Bank as sponsor bank, on Mastercard rails.
-- [Multi-tenant data platform for US + EMEA banks](https://parth8.github.io/portfolio/#case-3) (Zeta, May 2024 - Aug 2026): $50K/yr infra cost removed; onboarding + GTM cut by 90 days. Lead platform PM for a multi-tenant, config-driven data platform (DPaaS) serving enterprise banks in the US and EMEA. Banks onboard by subscription with zero code changes.
+- [Virtual card issuance platform for a Fortune 3](https://parth8.github.io/portfolio/#case-2) (Zeta, for Optum Financial / UnitedHealth Group, May 2024 - Aug 2026): $2B+ a year disbursed to US healthcare providers. Led the 0 P1/P2 defect production launch of a virtual card platform for UnitedHealthcare payers to disburse $2B+ a year to US healthcare providers, with Optum Bank as sponsor bank, on Mastercard rails.
+- [Multi-tenant data platform for US + EMEA banks](https://parth8.github.io/portfolio/#case-3) (Zeta, May 2024 - Aug 2026): $50K/yr infra cost removed; onboarding + GTM cut by 90 days. Lead technical platform PM for Data Platform SaaS (DPaaS) and its Data Extracts products: a multi-tenant, config-driven platform serving enterprise banks in the US and EMEA. Banks onboard by subscription with zero code changes.
 - [Sparrow Card US launch - Zeta's first US credit card](https://parth8.github.io/portfolio/#case-4) (Zeta, with Evolve Bank, May 2022 - May 2024): 150K+ cards issued; 2x revenue projections. Led Zeta's first US credit card client launch, Sparrow Card with Evolve Bank, from onboarding through BAU operations, and built the US support and ops function from scratch.
 
 ## Built solo

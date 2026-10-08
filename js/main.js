@@ -267,9 +267,9 @@ tiles.forEach(tile => {
   });
 });
 
-/* ---------- journey: long roles show three bullets until asked ---------- */
+/* ---------- journey: each product shows three bullets until asked ---------- */
 document.querySelectorAll('.xp-row').forEach(row => {
-  const extra = row.querySelectorAll('.xp-pts li').length - 3;
+  const extra = [...row.querySelectorAll('.xp-pts')].reduce((n, ul) => n + Math.max(0, ul.children.length - 3), 0);
   if (extra < 1) return;
   const btn = document.createElement('button');
   btn.type = 'button';

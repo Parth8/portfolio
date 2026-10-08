@@ -23,7 +23,8 @@ For each requirement (from a job description or a reader persona), `js/career-en
 - Each quoted line is weighed on what you can see in it: relevance (uses your words 1.0, linked by his record 0.7) ×
   ownership (owned or led 1.0, else 0.85) × specificity (carries a number 1.0, else 0.85) × recency (a year 1.0,
   three 0.9, older 0.75) × setting (day job 1.0, side project 0.85).
-- Lines from the same role or project count once. Places combine like independent examples:
+- Lines from the same product (a case study, or the role that ran it) or side project count once; a role that ran
+  two products counts as two places. Places combine like independent examples:
   `confidence = 1 - Π(1 - 0.75 × place)`, so one strong place reaches 0.75 and "Strong" (0.85+) needs two.
 - Parth's self-assessment in `competencies[].strength` can only cap a score (gap 0.15, adjacent 0.45, working 0.70).
 - Fit = the confidence average across requirements, weighted by how often each is asked for, × 100. A must-have with

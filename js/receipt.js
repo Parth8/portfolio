@@ -4,7 +4,7 @@
 // The receipt can be opened, read, used as navigation, and torn off as a PNG.
 
 const KEY = 'pa-receipt-v1';
-const GROUPS = { IMPACT: 'Impact', CASES: 'Case studies', BUILT: 'Built', JOURNEY: 'Journey', EXTRAS: 'Also on the page' };
+const GROUPS = { IMPACT: 'Impact', CASES: 'Case studies', JOURNEY: 'Journey', BUILT: 'Built', EXTRAS: 'Also on the page' };
 const PAY = [
   ['Email', 'mailto:8parthaggarwal1999@gmail.com?subject=Your%20receipt%20checks%20out'],
   ['LinkedIn', 'https://linkedin.com/in/aggarwalparth'],

@@ -85,6 +85,7 @@ const RENDER = {
     `Location: ${p.location}. ${p.open_to} ${p.travel}`,
     `Experience: ${p.experience}`, '', p.summary, '',
     'Headline results:', ...p.headline_numbers.map(n => `- ${n.value} ${n.label}`), '',
+    ...(p.skills ? ['Skills:', ...Object.entries(p.skills).map(([g, rows]) => `- ${g}: ${Object.values(rows).join('; ')}`), ''] : []),
     `Portfolio: ${p.links.portfolio} · LinkedIn: ${p.links.linkedin}`,
   ].join('\n'),
   list_work: list => list.map(r => `- \`${r.id}\` (${r.kind}) ${link(r)}${r.period ? `, ${r.period}` : ''}${r.metric ? ` - ${r.metric}` : ''}\n  ${r.summary}`).join('\n'),

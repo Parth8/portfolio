@@ -73,20 +73,29 @@ export function index(data) {
   const base = data.base_url;
   const records = new Map();
   const add = (ref, r) => records.set(ref, { ref, ...r });
-  // where it happened: a case belongs to the role that ran it, so one job is never counted twice
-  const roleOf = id => data.roles.find(r => r.cases.includes(id))?.id;
+  // where it happened: one product or program. A role that ran two products counts as two places; a role's own
+  // lines belong to its product when it has one, so the same work is never counted twice.
+  const roleOf = id => data.roles.find(r => r.cases.includes(id));
+  const caseLabel = c => { const r = roleOf(c.id); return `${r?.company || c.org} · ${c.product || c.title}, ${c.period || r?.period || ''}`.replace(/, $/, ''); };
   for (const c of data.cases) {
-    add(`case:${c.id}`, { kind: 'case', id: c.id, title: c.title, org: c.org, period: c.period, end: endOf(c.period, data.updated), url: base + c.anchor, summary: c.summary, metric: c.metric, evidence: c.evidence, stack: c.stack, place: `role:${roleOf(c.id) || c.id}` });
+    add(`case:${c.id}`, { kind: 'case', id: c.id, title: c.title, org: c.org, period: c.period, end: endOf(c.period, data.updated), url: base + c.anchor, summary: c.summary, metric: c.metric, evidence: c.evidence, stack: c.stack, place: `case:${c.id}`, where: caseLabel(c) });
   }
   for (const r of data.roles) {
     const linked = r.cases.map(id => data.cases.find(c => c.id === id)).filter(Boolean);
+    // a role's own lines: the one product without a case study, else its only case, else the role itself
+    const caseless = (r.products || []).filter(x => !x.case);
+    const own = caseless.length === 1 ? { place: `role:${r.id}`, where: `${r.company} · ${caseless[0].name}, ${r.period}` }
+      : linked.length === 1 ? { place: `case:${linked[0].id}`, where: caseLabel(linked[0]) }
+      : { place: `role:${r.id}`, where: `${r.company} · ${r.title}, ${r.period}` };
+    const lineAt = new Map(r.evidence.map(l => [l, own]));
+    for (const c of linked) for (const l of c.evidence) lineAt.set(l, { place: `case:${c.id}`, where: caseLabel(c) });
     add(`role:${r.id}`, {
       kind: 'role', id: r.id, title: `${r.title}, ${r.company}`, org: r.company, period: r.period, end: endOf(r.period, data.updated), url: base + '#sec-experience',
-      summary: r.scope, evidence: [...r.evidence, ...linked.flatMap(c => c.evidence)], cases: r.cases, place: `role:${r.id}`,
+      summary: r.scope, evidence: [...r.evidence, ...linked.flatMap(c => c.evidence)], cases: r.cases, products: r.products, lineAt, ...own,
     });
   }
   for (const p of data.projects) {
-    add(`project:${p.id}`, { kind: 'project', id: p.id, title: p.name, org: 'Side project', url: p.url, portfolio: base + p.anchor, summary: p.tagline, evidence: p.evidence, stack: p.built_with, end: data.updated.slice(0, 7), place: `project:${p.id}` });
+    add(`project:${p.id}`, { kind: 'project', id: p.id, title: p.name, org: 'Side project', url: p.url, portfolio: base + p.anchor, summary: p.tagline, evidence: p.evidence, stack: p.built_with, end: data.updated.slice(0, 7), place: `project:${p.id}`, where: `${p.name} (side project)` });
   }
   // the searchable corpus: one document per evidence line (role lines that duplicate a case are skipped)
   const docs = [];
@@ -123,7 +132,7 @@ export function getProfile(data) {
   return {
     name: p.name, headline: p.headline, current: p.current, location: p.location, open_to: p.open_to, travel: p.travel,
     experience: p.experience, summary: p.summary, education: p.education, headline_numbers: p.headline_numbers,
-    principles: data.principles, links: p.links,
+    principles: data.principles, skills: data.skills, links: p.links,
   };
 }
 
@@ -151,8 +160,8 @@ export function getWork(data, idOrName) {
     if (best < 0.5) r = null;
   }
   if (!r) return null;
-  const { kind, id, title, org, period, url, summary, metric, evidence, stack, portfolio, cases } = r;
-  return { ref: r.ref, kind, id, title, org, period, url, portfolio, summary, metric, evidence, stack, cases };
+  const { kind, id, title, org, period, url, summary, metric, evidence, stack, portfolio, cases, products } = r;
+  return { ref: r.ref, kind, id, title, org, period, url, portfolio, summary, metric, evidence, stack, cases, products };
 }
 
 export function contact(data) {
@@ -288,7 +297,8 @@ export function fitFromIds(data, items, title = null) {
      specificity  it carries a number (1.0) or doesn't (0.85)
      recency      within a year (1.0), within three (0.9), older (0.75)
      setting      day job (1.0) or side project (0.85)
-   Lines from the same place (a role and its case studies, or one project) count once: the strongest.
+   Lines from the same place (one product or program, or one side project) count once: the strongest. A role that
+   ran two products counts as two places.
    Places combine like independent examples:  confidence = 1 - Π(1 - 0.75 × place)
    so one strong place reaches 0.75 and "Strong" (0.85+) needs evidence from two places or more.
    His own self-assessment can cap it (gap 0.15, adjacent 0.45, working 0.70), never raise it. */
@@ -311,7 +321,8 @@ function assess(data, f, records, quoted) {
       setting: r.kind === 'project' ? 0.85 : 1,
     };
     const e = r2(Object.values(factors).reduce((x, y) => x * y, 1));
-    return { ...brief(r), org: r.org, period: r.period, place: r.place, quote, matched: words, months, factors, e };
+    const at = r.lineAt?.get(quote) || r;
+    return { ...brief(r), org: r.org, period: r.period, place: at.place, where: at.where, quote, matched: words, months, factors, e };
   });
   const places = new Map();
   for (const it of items) if (!places.has(it.place) || places.get(it.place).e < it.e) places.set(it.place, it);
@@ -322,7 +333,7 @@ function assess(data, f, records, quoted) {
   return { items, parts, raw: r2(raw), cap: cap != null && raw > cap ? cap : null, confidence };
 }
 
-const placeName = it => (it.kind === 'project' ? `${it.title} (side project)` : `${it.org}${it.period ? `, ${it.period.replace(/\s*-\s*present/i, ' to now').replace(/\s+-\s+/, ' to ')}` : ''}`);
+const placeName = it => it.where.replace(/\s*-\s*present/i, ' to now').replace(/(\w{3} \d{4}|\d{4})\s+-\s+/, '$1 to ');
 function reasonsFor(a, f) {
   const out = [];
   if (!a.items.length) return ['Nothing in his record evidences this.', ...(f.c.note ? [`On record: ${f.c.note}`] : [])];
@@ -336,7 +347,7 @@ function reasonsFor(a, f) {
   if (nums) out.push(`${nums} of ${a.items.length} lines carry a measured result.`);
   const newest = a.items.reduce((x, y) => (y.months < x.months ? y : x));
   out.push(`Most recent evidence: ${placeName(newest)}${newest.months <= 1 ? ' (current)' : `, ${newest.months} months ago`}.`);
-  if (a.parts.length === 1 && a.cap == null) out.push('One place only, so it stops short of "Strong", which needs a second role or project.');
+  if (a.parts.length === 1 && a.cap == null) out.push('One place only, so it stops short of "Strong", which needs a second product or project.');
   if (a.cap != null) out.push(`Capped at ${a.cap} by his own assessment ("${STRENGTH_LABEL[f.c.strength]}"): self-assessment can lower a score, never raise it.${f.c.note ? ` ${f.c.note}` : ''}`);
   return out;
 }
@@ -415,7 +426,7 @@ function build(data, found, { title, text, persona }) {
   const detected = found.map(f => ({ id: f.c.id, w: f.w }));
   return {
     title, score, band, credit: Math.round(300 + (score / 100) * 550), coverage,
-    method: 'Each requirement: every line of evidence is weighed on relevance (your words 1.0, linked 0.7) × ownership (owned or led 1.0, else 0.85) × specificity (a number 1.0, else 0.85) × recency (1 year 1.0, 3 years 0.9, older 0.75) × setting (day job 1.0, side project 0.85). Lines from the same role or project count once. Places combine as confidence = 1 - Π(1 - 0.75 × place), so one strong place reaches 0.75 and 0.85+ needs two. His self-assessment can only cap it. Fit = the average of confidence across your requirements, weighted by how often you ask for each, × 100; a must-have with no evidence caps it at 44. Everything is from his own record: much of it is internal to employers, so nothing is checked against the web.',
+    method: 'Each requirement: every line of evidence is weighed on relevance (your words 1.0, linked 0.7) × ownership (owned or led 1.0, else 0.85) × specificity (a number 1.0, else 0.85) × recency (1 year 1.0, 3 years 0.9, older 0.75) × setting (day job 1.0, side project 0.85). Lines from the same product or project count once. Places combine as confidence = 1 - Π(1 - 0.75 × place), so one strong place reaches 0.75 and 0.85+ needs two. His self-assessment can only cap it. Fit = the average of confidence across your requirements, weighted by how often you ask for each, × 100; a must-have with no evidence caps it at 44. Everything is from his own record: much of it is internal to employers, so nothing is checked against the web.',
     matches, gaps, also, read_first, notes, questions, summary, detected,
   };
 }
@@ -425,10 +436,19 @@ export function resumeMarkdown(data) {
   const p = data.profile;
   const lines = [`# ${p.name}`, `${p.headline} · ${p.location}`, '', p.summary, '', `Now: ${p.current.title}, ${p.current.company} (${p.current.since}). ${p.current.focus}`, '', '## Case studies'];
   for (const c of data.cases) lines.push('', `### ${c.title} (${c.org}, ${c.period})`, `${c.metric.value} ${c.metric.label}`, ...c.evidence.map(e => `- ${e}`));
-  lines.push('', '## Roles');
-  for (const r of data.roles) lines.push(`- ${r.title}, ${r.company}, ${r.period}. ${r.scope}`);
+  lines.push('', '## Experience');
+  for (const r of data.roles) {
+    lines.push('', `### ${r.title}, ${r.company} (${r.period}, ${r.location})`, r.scope);
+    for (const x of r.products || []) lines.push(`- ${x.as}: ${x.name}${x.case ? ` (case study above: ${data.cases.find(c => c.id === x.case)?.title})` : ''}`);
+    lines.push(...r.evidence.map(e => `- ${e}`));
+  }
   lines.push('', '## Side projects');
   for (const pr of data.projects) lines.push(`- ${pr.name} (${pr.url}): ${pr.tagline}`);
+  if (data.skills) {
+    lines.push('', '## Skills');
+    for (const [group, rows] of Object.entries(data.skills)) lines.push(`- **${group}**: ${Object.entries(rows).map(([k, v]) => `${k}: ${v}`).join('; ')}`);
+  }
+  lines.push('', '## Education', p.education);
   lines.push('', '## Recognition', ...data.awards.map(a => `- ${a.name}, ${a.org}, ${a.date}: ${a.for}`));
   lines.push('', `Contact: ${p.contact.email} · ${p.contact.linkedin} · ${p.links.portfolio}`);
   return lines.join('\n');

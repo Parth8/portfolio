@@ -234,7 +234,7 @@ function tabsFor(fit, opts) {
       <div><b>Recent</b><span>1.0 this year, 0.9 within three, 0.75 older</span></div>
       <div><b>Day job</b><span>1.0 at work, 0.85 for a side project</span></div>
     </div>
-    <p class="how-p">Each quoted line is worth those five multiplied together. Lines from the same role or project count once. Different places add up like independent examples:</p>
+    <p class="how-p">Each quoted line is worth those five multiplied together. Lines from the same product or project count once (one role can run two products). Different places add up like independent examples:</p>
     <span class="how-f">confidence = 1 − Π(1 − 0.75 × place)</span>
     <p class="how-p">So one strong place reaches 0.75, and "Strong" needs evidence from two. His own self-assessment can only lower a score (a declared gap caps it at 0.15), never raise it. The fit is the average across your requirements, weighted by how often you ask for each, and a must-have with nothing behind it caps the fit at 44. Everything comes from his own record; much of it is internal to employers, so nothing is checked against the web.</p>` });
   return tabs;
