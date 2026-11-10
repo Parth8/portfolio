@@ -75,3 +75,15 @@ Worker only when `js/career-engine.js`, `js/mcp-core.js` or `tools/worker-shell.
 node --test tests/*.test.mjs                 # both protocol eras, errors, CORS, claims, fit, freshness
 npx @modelcontextprotocol/inspector          # transport: Streamable HTTP, URL: your /mcp endpoint
 ```
+
+## Automatic deploys
+
+`.github/workflows/deploy-worker.yml` redeploys the Worker whenever its sources change on `main`, after the
+build check and the tests pass. It needs two repository secrets (GitHub: Settings, Secrets and variables, Actions):
+
+- `CLOUDFLARE_API_TOKEN`: create one in the Cloudflare dashboard (My Profile, API Tokens) from the
+  "Edit Cloudflare Workers" template.
+- `CLOUDFLARE_ACCOUNT_ID`: shown on the Workers overview page in the Cloudflare dashboard.
+
+Until both are set the workflow skips the deploy with a warning, and the manual steps above still work.
+
