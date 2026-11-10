@@ -11,7 +11,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Parth Aggarwal">
 <meta property="og:title" content="Parth Aggarwal - Technical Platform Product Manager">
-<meta property="og:description" content="Agentic AI connectors at Backbase. $2B+ card platform for a Fortune 3. Data platforms for US &amp; EMEA banks. Seven side projects, all live.">
+<meta property="og:description" content="Agentic AI connectors at Backbase. $2B+ card platform for a Fortune 3. Data platforms for US &amp; EMEA banks. Nine side projects, all live.">
 <meta property="og:url" content="https://parth8.github.io/portfolio/">
 <meta property="og:image" content="https://parth8.github.io/portfolio/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -62,7 +62,7 @@
           <span class="tix t3"><b>150K+</b><i>cards issued</i></span>
         </span>
         <span class="dc-t">Scroll the <em>portfolio</em></span>
-        <span class="dc-l">4 case studies · 7 things built · the receipt</span>
+        <span class="dc-l">4 case studies · 9 things built · the receipt</span>
         <span class="dc-time">~6 min <span aria-hidden="true">↓</span></span>
         <span class="dc-note">the full story</span>
       </a>
@@ -191,7 +191,7 @@
   <span class="stamp gold">1200+ Data Contracts</span>
   <span class="stamp">0 P1/P2 GTMs</span>
   <span class="stamp hot">US + EMEA Banking</span>
-  <span class="stamp">7 Side Projects Shipped</span>
+  <span class="stamp">9 Side Projects Shipped</span>
 </div>
 
 <!-- INDEX -->
@@ -204,7 +204,7 @@
     <li><a href="#sec-numbers"><span class="idx-n">01</span><span class="idx-t">Impact</span><span class="idx-c">4 numbers that moved</span></a></li>
     <li><a href="#sec-work"><span class="idx-n">02</span><span class="idx-t">Work</span><span class="idx-c">4 case studies · 2022 → now</span></a></li>
     <li><a href="#sec-experience"><span class="idx-n">03</span><span class="idx-t">Journey</span><span class="idx-c">4 roles · 3 companies</span></a></li>
-    <li><a href="#sec-built"><span class="idx-n">04</span><span class="idx-t">Built</span><span class="idx-c">7 side projects, all live</span></a></li>
+    <li><a href="#sec-built"><span class="idx-n">04</span><span class="idx-t">Built</span><span class="idx-c">9 side projects, all live</span></a></li>
     <li><a href="#sec-skills"><span class="idx-n">05</span><span class="idx-t">Toolkit</span><span class="idx-c">4 stacks, end to end</span></a></li>
     <li><a href="#sec-recognition"><span class="idx-n">06</span><span class="idx-t">Recognition</span><span class="idx-c">6 awards · 3 certifications</span></a></li>
     <li><a href="#sec-writings"><span class="idx-n">07</span><span class="idx-t">Writing</span><span class="idx-c">5 essays · a 5-part series</span></a></li>
@@ -554,28 +554,32 @@
   <div class="built-header">
     <span class="bh-left">04 · Shipped Solo · Off The Clock</span>
     <h2 class="bh-title">Built <em>because it</em> didn't exist
-      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>seven arguments, made in code.</b> Tap any one for the story.</span>
+      <span class="bh-sub">Nobody asked for these. I shipped them anyway - <b>nine arguments, made in code.</b> Tap any one for the story.</span>
     </h2>
+    <p class="bh-credit">Crafted with love+coffee (&amp; Claude)</p>
   </div>
   <div class="built-grid">
   <article class="project" id="p-track" data-project="track" data-r="BUILT|Track|trains &amp; flights">
     <div class="project-left">
       <span class="project-tag">Live · Installable · Ad-Free</span>
       <h3 class="project-title">Track <em>trains &amp; flights</em></h3>
-      <p class="project-line">A calm, ad-free live tracker for Indian trains and flights. Your stop is the hero, not the train.</p>
+      <p class="project-line">A calm, ad-free live tracker for Indian trains and flights that also keeps your trips. Your stop is the hero, not the train.</p>
       <div class="project-more" id="more-track"><div>
       <div class="project-desc">
-        <p>Every train tracker I used fired <span class="pd-box">266 requests</span> and megabytes of ads to answer one question: <em>where is my train?</em> Flight apps swing the other way and bury you in telemetry you never asked for.</p>
+        <p>Every train tracker I used fired <span class="pd-box">hundreds of requests</span> and megabytes of ads to answer one question: <em>where is my train?</em> Flight apps swing the other way and bury you in telemetry you never asked for.</p>
         <p>So I built Track around one idea: <span class="pd-mark">show what matters to the traveller right now</span>, and nothing else. The hero is <em>your stop</em>, not the train's raw position. Flights reshape themselves by phase - the gate leads before takeoff, the map in the air, the baggage belt after landing.</p>
-        <p>Under the hood it's a platform, not a page. One Cloudflare Worker normalises the running feed, NTES, IRCTC seats, AeroDataBox and live ADS-B into one shape, so <span class="pd-mark">the frontend never knows who answered</span>. A free-tier flight quota stretches across every user through shared caches and a daily budget. And stale data is <span class="pd-pink">labelled, never passed off as exact.</span></p>
+        <p>Then it learned to keep your trips. <span class="pd-mark">My journeys</span> are saved on your device only: paste a PNR and the trip fills itself in. A coach finder tells you how many coaches to walk, and says "2 of 3 sources place B1" instead of guessing. Delay projections carry the latest actual delay forward to the stops ahead, shown with a <span class="pd-box">~</span> and a range.</p>
+        <p>Under the hood it's a platform, not a page. One Cloudflare Worker normalises more than ten public sources into one shape for live status, so <span class="pd-mark">the frontend never knows who answered</span>. A free-tier flight quota stretches across every user through shared caches and a daily budget. And stale data is <span class="pd-pink">labelled, never passed off as exact.</span></p>
       </div>
       <div class="project-stack">
         <span>Vanilla JS · ES Modules</span>
         <span>Cloudflare Worker</span>
-        <span>5 Data Sources, 1 Contract</span>
+        <span>10+ Sources, 1 Contract</span>
         <span>MapLibre GL</span>
         <span>Live ADS-B</span>
         <span>Add to Home Screen</span>
+        <span>Saved Journeys · PNR</span>
+        <span>73 Tests</span>
         <span>No Build Step</span>
       </div>
       </div></div>
@@ -658,21 +662,208 @@
     </div>
   </article>
 
+  <article class="project" id="p-chalk" data-project="chalk" data-r="BUILT|Chalk|snooker &amp; pool scorer">
+    <div class="project-left">
+      <span class="project-tag">Live · Installable · Ad-Free</span>
+      <h3 class="project-title">Chalk <em>snooker &amp; pool</em></h3>
+      <p class="project-line">Snooker and 8-ball pool scored and explained, for people who have never played.</p>
+      <div class="project-more" id="more-chalk"><div>
+      <div class="project-desc">
+        <p>Snooker and pool are easy to love and <span class="pd-mark">intimidating to start</span>. Score sheets assume you know the rules, and the rules assume you've played. So the first question is always <em>whose turn is it, and was that a foul?</em></p>
+        <p>So Chalk keeps the table for you. <span class="pd-box">Tap what happens</span> - a pot, a miss, or "What happened?" for a possible foul - and it keeps the score, whose turn it is and what's on next. Fouls are ruled in plain words with the penalty points, and a top-down table shows <span class="pd-mark">where to put a colour back</span>.</p>
+        <p>Underneath: a rules engine per game (snooker to the WPBSA rules, pool to the WPA rules of 2025), 128 quick answers to "what if..." questions and seven cue-technique pages. Two phones can score one game live, and a Cloudflare Worker re-checks every move with <span class="pd-mark">the same rules engine as the page</span>. 81 automated tests pass. <span class="pd-pink">No ads, no sign-ups, no build step.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>Vanilla JS · ES Modules</span>
+        <span>Service Worker · Installable</span>
+        <span>Cloudflare Worker · D1</span>
+        <span>Shared Live Games · QR</span>
+        <span>81 Tests · CI</span>
+        <span>No Build Step</span>
+        <span>AI-Assisted Build</span>
+      </div>
+      </div></div>
+      <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-chalk"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
+        <a class="project-link primary" href="https://parth8.github.io/chalk/" target="_blank" rel="noopener">Chalk up a game <span class="arr">↗</span></a>
+        <a class="project-link" href="https://github.com/Parth8/chalk" target="_blank" rel="noopener">Source <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: a top-down snooker table, the cue ball sends a red into the pocket, the score ticks and the next ball on changes -->
+      <div class="pr-art ch-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- table: rail, felt, baulk line and D, pockets -->
+          <rect x="10" y="22" width="200" height="106" rx="8" fill="#2a2722" stroke="#3a3731" stroke-width="1"/>
+          <rect x="18" y="30" width="184" height="90" rx="3" fill="rgba(0,255,148,0.07)" stroke="#00FF94" stroke-opacity="0.35" stroke-width="1"/>
+          <line x1="58" y1="30" x2="58" y2="120" stroke="#00FF94" stroke-opacity="0.25" stroke-width="1"/>
+          <path d="M 58 55 A 20 20 0 0 0 58 95" fill="none" stroke="#00FF94" stroke-opacity="0.25" stroke-width="1"/>
+          <g fill="#0A0A0A">
+            <circle cx="18" cy="30" r="5.5"/><circle cx="202" cy="30" r="5.5"/>
+            <circle cx="18" cy="120" r="5.5"/><circle cx="202" cy="120" r="5.5"/>
+            <circle cx="110" cy="30" r="5"/><circle cx="110" cy="120" r="5"/>
+          </g>
+          <circle class="ch-pocket" cx="202" cy="30" r="7" fill="none" stroke="#00FF94" stroke-width="1.5"/>
+          <!-- colours on their spots -->
+          <circle cx="58" cy="52" r="3.2" fill="#E6B547"/>
+          <circle cx="58" cy="75" r="3.2" fill="#8a5a2b"/>
+          <circle cx="58" cy="98" r="3.2" fill="#00CC75"/>
+          <circle cx="192" cy="75" r="3.2" fill="#0A0A0A" stroke="#7E7A70" stroke-width="0.8"/>
+          <!-- the pack of reds -->
+          <g fill="#FF2D78">
+            <circle cx="146" cy="75" r="3.2"/>
+            <circle cx="152.5" cy="71.5" r="3.2"/><circle cx="152.5" cy="78.5" r="3.2"/>
+            <circle cx="159" cy="68" r="3.2"/><circle cx="159" cy="75" r="3.2"/><circle cx="159" cy="82" r="3.2"/>
+          </g>
+          <!-- the shot: aim line, then the loose red goes in the corner -->
+          <line class="ch-aim" x1="70" y1="100" x2="144.5" y2="63.2" stroke="#E6B547" stroke-width="1" stroke-dasharray="3 3"/>
+          <line class="ch-aim" x1="150" y1="60" x2="202" y2="30" stroke="#E6B547" stroke-width="1" stroke-dasharray="3 3"/>
+          <circle class="ch-red" cx="150" cy="60" r="3.2" fill="#FF2D78"/>
+          <circle class="ch-cue" cx="70" cy="100" r="3.2" fill="#F3EFE4"/>
+          <!-- scoreboard -->
+          <rect x="220" y="22" width="88" height="62" rx="4" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
+          <text x="228" y="35" font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" letter-spacing="0.8">YOUR SCORE</text>
+          <g font-family="Bebas Neue, sans-serif" font-size="30" fill="#00FF94">
+            <text class="ch-n0" x="228" y="64">0</text>
+            <text class="ch-n1" x="228" y="64">1</text>
+          </g>
+          <text class="ch-plus" x="252" y="62" font-family="Bebas Neue, sans-serif" font-size="14" fill="#FF2D78">+1</text>
+          <text class="ch-on0" x="228" y="78" font-family="DM Mono, monospace" font-size="6" fill="#FF2D78" letter-spacing="0.5">ON: A RED</text>
+          <text class="ch-on1" x="228" y="78" font-family="DM Mono, monospace" font-size="6" fill="#E6B547" letter-spacing="0.5">ON: A COLOUR</text>
+          <g transform="rotate(-4 222 108)">
+            <text class="ch-word" x="222" y="108" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">potted.</text>
+          </g>
+          <g transform="rotate(-2 14 146)">
+            <text x="14" y="146" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">tap what happened. chalk does the rest.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">128<span class="sup"> QUICK ANSWERS</span></div>
+        <div class="pr-stat-label">76 snooker, 52 pool - "what if..." in plain words</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">2<span class="sup"> PHONES, 1 GAME</span></div>
+        <div class="pr-stat-label">Share a link or QR; each phone scores its own turns</div>
+      </div>
+      <p class="pr-note">the rules, said out loud.</p>
+    </div>
+  </article>
+
+  <article class="project" id="p-posters" data-project="posters" data-r="BUILT|Map Poster Studio|city roads fork">
+    <div class="project-left">
+      <span class="project-tag">Live · Fork of City Roads · Open Source</span>
+      <h3 class="project-title">Map Poster <em>Studio</em></h3>
+      <p class="project-line">Built on City Roads by Andrei Kashcha: turn any place, or one of 96 race circuits, into a print-ready poster.</p>
+      <div class="project-more" id="more-posters"><div>
+      <div class="project-desc">
+        <p><span class="pd-mark">City Roads</span> is Andrei Kashcha's open-source app that draws every road in a city from OpenStreetMap data. The renderer, the city search and the original idea are his, and the classic app is still there at <span class="pd-box">?mode=classic</span>. I forked it and built on top.</p>
+        <p>What the fork adds: a poster studio with <span class="pd-mark">96 pre-extracted race circuits</span> from F1, MotoGP, WEC and more, any place through OSM search, layers, gradient paints, neon, emboss and blur effects, street selection, wallpaper sizes, and export to PNG, JPEG, WebP, AVIF or SVG at up to 600 dpi. There is also a Skyline view with 3D buildings in true perspective.</p>
+        <p>Under the hood: map data now loads as OpenFreeMap vector tiles in a web worker, with VersaTiles and Overpass as fallbacks, so big cities stop timing out. I removed Google Analytics and a mug shop that uploaded users' images to a third party, added a Content-Security-Policy, and took the dependency audit from 10 vulnerabilities to <span class="pd-pink">0.</span></p>
+      </div>
+      <div class="project-stack">
+        <span>Fork of City Roads</span>
+        <span>Vue 3 · Vite 8</span>
+        <span>96 Race Circuits</span>
+        <span>OpenFreeMap Tiles</span>
+        <span>PNG · SVG · 600 dpi</span>
+        <span>Skyline 3D View</span>
+        <span>GitHub Actions · Pages</span>
+        <span>AI-Assisted Build</span>
+      </div>
+      </div></div>
+      <div class="project-links">
+        <button type="button" class="project-link project-toggle" aria-expanded="false" aria-controls="more-posters"><span class="pt-label">Read the story</span> <span class="pt-icon" aria-hidden="true">+</span></button>
+        <a class="project-link primary" href="https://parth8.github.io/city-roads/" target="_blank" rel="noopener">Make a poster <span class="arr">↗</span></a>
+        <a class="project-link" href="https://github.com/Parth8/city-roads" target="_blank" rel="noopener">The fork <span class="arr">↗</span></a>
+        <a class="project-link" href="https://github.com/anvaka/city-roads" target="_blank" rel="noopener">Original by Andrei Kashcha <span class="arr">↗</span></a>
+      </div>
+    </div>
+    <div class="project-right">
+      <!-- ANIMATED ART: street lines and a circuit draw themselves into a poster frame, then the look flips from paper to neon -->
+      <div class="pr-art po-art" aria-hidden="true">
+        <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+          <!-- look chips -->
+          <text x="14" y="16" font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" letter-spacing="0.8">LOOK</text>
+          <g font-family="DM Mono, monospace" font-size="6.5" text-anchor="middle" letter-spacing="0.5">
+            <g class="po-chip"><rect x="14" y="22" width="62" height="18" rx="9"/><text x="45" y="33.5">PAPER</text></g>
+            <g class="po-chip"><rect x="14" y="46" width="62" height="18" rx="9"/><text x="45" y="57.5">NEON</text></g>
+            <g class="po-on pa"><rect x="14" y="22" width="62" height="18" rx="9"/><text x="45" y="33.5">PAPER ✓</text></g>
+            <g class="po-on ne"><rect x="14" y="46" width="62" height="18" rx="9"/><text x="45" y="57.5">NEON ✓</text></g>
+          </g>
+          <!-- the poster -->
+          <rect x="106" y="8" width="108" height="134" fill="#0A0A0A" opacity="0.5" transform="translate(4 5)"/>
+          <rect class="po-sheet" x="106" y="8" width="108" height="134"/>
+          <!-- streets, faint -->
+          <g class="po-streets" fill="none" stroke-width="0.8" stroke-linecap="round">
+            <path pathLength="100" d="M 114 30 L 206 26"/>
+            <path pathLength="100" d="M 112 52 L 208 56"/>
+            <path pathLength="100" d="M 114 78 L 206 72"/>
+            <path pathLength="100" d="M 124 22 L 120 100"/>
+            <path pathLength="100" d="M 152 22 L 158 100"/>
+            <path pathLength="100" d="M 184 22 L 180 100"/>
+            <path pathLength="100" d="M 196 24 L 204 98"/>
+          </g>
+          <!-- the circuit draws itself -->
+          <path class="po-line" pathLength="100" d="M 130 88 L 186 88 C 200 88 204 76 194 68 L 168 50 C 160 44 164 34 174 34 L 190 34 C 198 34 198 24 188 24 L 140 24 C 126 24 122 36 130 44 L 146 62 C 152 70 146 78 136 76 L 128 74 C 118 72 114 82 122 86 Z" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- poster type -->
+          <g class="po-type po-t0" text-anchor="middle">
+            <text x="160" y="116" font-family="Bebas Neue, sans-serif" font-size="20" fill="#15130F" letter-spacing="1.5">YOUR CIRCUIT</text>
+            <text x="160" y="128" font-family="DM Mono, monospace" font-size="4.8" fill="#7E7A70" letter-spacing="0.8">ANY PLACE · 96 RACE LAYOUTS</text>
+          </g>
+          <g class="po-type po-t1" text-anchor="middle">
+            <text x="160" y="116" font-family="Bebas Neue, sans-serif" font-size="20" fill="#00FF94" letter-spacing="1.5">YOUR CIRCUIT</text>
+            <text x="160" y="128" font-family="DM Mono, monospace" font-size="4.8" fill="#FF2D78" letter-spacing="0.8">ANY PLACE · 96 RACE LAYOUTS</text>
+          </g>
+          <!-- export -->
+          <text x="232" y="16" font-family="DM Mono, monospace" font-size="5.5" fill="#7E7A70" letter-spacing="0.8">EXPORT</text>
+          <g font-family="DM Mono, monospace" font-size="6.5" letter-spacing="0.4">
+            <rect x="232" y="22" width="76" height="18" rx="3" fill="#1d1b16" stroke="#3a3731"/>
+            <text x="238" y="33.5" fill="#F3EFE4">PNG · 300 DPI</text>
+            <rect x="232" y="46" width="76" height="18" rx="3" fill="#1d1b16" stroke="#3a3731"/>
+            <text x="238" y="57.5" fill="#F3EFE4">SVG · VECTOR</text>
+            <rect class="po-save" x="232" y="46" width="76" height="18" rx="3" fill="none" stroke="#00FF94" stroke-width="1.5"/>
+            <text class="po-save" x="302" y="33.5" fill="#00FF94" text-anchor="end">✓</text>
+          </g>
+          <g transform="rotate(-3 232 100)">
+            <text class="po-word" x="232" y="100" font-family="Caveat, cursive" font-weight="700" font-size="14" fill="#E6B547">for the wall.</text>
+          </g>
+          <g transform="rotate(-2 14 142)">
+            <text x="14" y="142" font-family="Caveat, cursive" font-weight="700" font-size="12" fill="#E6B547">draw it. print it.</text>
+          </g>
+        </svg>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">96<span class="sup"> CIRCUITS</span></div>
+        <div class="pr-stat-label">Race layouts pre-extracted from OpenStreetMap</div>
+      </div>
+      <div class="pr-divider"></div>
+      <div class="pr-stat">
+        <div class="pr-stat-num">600<span class="sup"> DPI</span></div>
+        <div class="pr-stat-label">Top print resolution, or vector SVG</div>
+      </div>
+      <p class="pr-note">built on city roads. made for walls.</p>
+    </div>
+  </article>
+
   <article class="project" id="p-shelfie" data-project="shelfie" data-r="BUILT|Shelfie|reading arcade">
     <div class="project-left">
-      <span class="project-tag">Live · Thumb-Driven · Offline-First</span>
+      <span class="project-tag">Live · Thumb-Driven · Local-First</span>
       <h3 class="project-title">Shelfie <em>reading arcade</em></h3>
       <p class="project-line">A reading tracker you drive with your thumbs. Books are arcade passes; reading is the game.</p>
       <div class="project-more" id="more-shelfie"><div>
       <div class="project-desc">
         <p>Every reading tracker I tried felt like <span class="pd-mark">filling in a spreadsheet</span>. Log a page, tap save, feel nothing. Meanwhile every game on the same phone makes a thumb-flick feel <em>incredible</em>.</p>
         <p>So I built a reading tracker you drive with your thumbs. Books are arcade passes you flick through, <span class="pd-box">drag up to turn pages</span>, and drop onto shelves - every move is a spring that <span class="pd-mark">keeps your finger's speed</span>. Finish a book and a rubber stamp slams down, confetti flies, and the island counts up your XP.</p>
-        <p>Under the arcade: offline-first, optional accounts with passkeys and <em>end-to-end encrypted</em> sync, a two-minute Goodreads import, synthesised sound and haptics, and motion controls <span class="pd-mark">tuned on real iPhone recordings</span>. <span class="pd-pink">No ads, no build step.</span></p>
+        <p>Under the arcade: your books live on your device, optional accounts (with passkey login as an add-on) and <em>end-to-end encrypted</em> sync, a Goodreads import in about two minutes, synthesised sound and haptics, and motion controls <span class="pd-mark">tuned on real iPhone recordings</span>. <span class="pd-pink">No ads, no build step.</span></p>
       </div>
       <div class="project-stack">
         <span>Vanilla JS · No Build</span>
         <span>Spring Physics</span>
-        <span>Passkeys · E2E Sync</span>
+        <span>Passkey Login · E2E Sync</span>
         <span>Cloudflare Worker · D1</span>
         <span>Web Audio · Haptics</span>
         <span>Device Motion</span>
@@ -856,21 +1047,22 @@
     </div>
   </article>
 
-  <article class="project" id="p-ai" data-project="ai" data-r="BUILT|Zero to a Hundred|21 phases">
+  <article class="project" id="p-ai" data-project="ai" data-r="BUILT|Zero to a Hundred|22 phases">
     <div class="project-left">
       <span class="project-tag">Open Curriculum · Free-First · Vendor-Neutral</span>
       <h3 class="project-title">Zero <em>to a hundred</em></h3>
-      <p class="project-line">An open, vendor-neutral path to learning AI - 21 phases, from Python to inference economics.</p>
+      <p class="project-line">An open, vendor-neutral path to learning AI - 22 phases, from ML basics to the open-weights-or-API decision.</p>
       <div class="project-more" id="more-ai"><div>
       <div class="project-desc">
         <p>Every "learn AI" list is either a <span class="pd-mark">vendor's sales funnel</span> or a hundred YouTube tabs in no particular order. People end up able to <em>use</em> AI but unable to explain it.</p>
-        <p>So I wrote the path I wanted: <span class="pd-box">21 phases</span>, from Python and Git through classic ML, how LLMs actually work, RAG, agents and MCP, to evals, security and <em>inference economics</em>. Each phase says what you'll be able to do when it's done, and <span class="pd-mark">asks you to build something</span> before moving on.</p>
-        <p>It maps straight onto my day job: the RAG cleanup, golden-dataset evals and rent-vs-own model calls at Backbase are <span class="pd-mark">phases 09, 15 and 17</span>. <span class="pd-pink">No vendor worship. No "AI is like a brain" metaphors.</span></p>
+        <p>So I wrote the path I wanted: <span class="pd-box">22 phases in two parts</span>, from classic ML and how LLMs actually work, through RAG, agents and MCP, evals and <em>inference economics</em>, to running, serving and fine-tuning open weights yourself. Each phase says what you'll be able to do when it's done, and <span class="pd-mark">asks you to build something</span> before moving on.</p>
+        <p>It maps straight onto my day job: the RAG cleanup, golden-dataset evals and rent-vs-own model calls at Backbase are <span class="pd-mark">phases 05, 09 and 10</span>. There is a searchable 585-term AI dictionary too. <span class="pd-pink">No vendor worship. No "AI is like a brain" metaphors.</span></p>
       </div>
       <div class="project-stack">
-        <span>21 Phases</span>
-        <span>154 Concepts</span>
-        <span>105 Curated Resources</span>
+        <span>22 Phases · 2 Parts</span>
+        <span>175 Concepts</span>
+        <span>129 Curated Resources</span>
+        <span>585-Term Dictionary</span>
         <span>ML → LLMs → Agents</span>
         <span>MCP · RAG · Evals</span>
         <span>Inference Economics</span>
@@ -883,7 +1075,7 @@
       </div>
     </div>
     <div class="project-right">
-      <!-- ANIMATED ART: 21 phases light up along the path, the odometer rolls 0 -> 100 -->
+      <!-- ANIMATED ART: 22 phases light up along the path, the odometer rolls 0 -> 100 -->
       <div class="pr-art ai-art" aria-hidden="true">
         <svg viewBox="0 0 320 150" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
           <defs>
@@ -892,61 +1084,63 @@
           <!-- what you're on now -->
           <circle class="ai-live" cx="17" cy="12" r="2" fill="#00FF94"/>
           <g font-family="DM Mono, monospace" font-size="6.5" fill="#F3EFE4" letter-spacing="0.4">
-            <text class="ai-t t0" x="24" y="14.5">PHASE 00 · THE BUILDER'S TOOLKIT</text>
-            <text class="ai-t t1" x="24" y="14.5">PHASE 05 · HOW LLMs WORK</text>
-            <text class="ai-t t2" x="24" y="14.5">PHASE 09 · EMBEDDINGS, VECTORS &amp; RAG</text>
-            <text class="ai-t t3" x="24" y="14.5">PHASE 11 · MCP &amp; MULTI-AGENT SYSTEMS</text>
-            <text class="ai-t t4" x="24" y="14.5">PHASE 17 · INFERENCE ECONOMICS</text>
-            <text class="ai-t t5" x="24" y="14.5">PHASE 20 · FINE-TUNING &amp; FRONTIER</text>
+            <text class="ai-t t0" x="24" y="14.5">PHASE 00 · ML FOUNDATIONS</text>
+            <text class="ai-t t1" x="24" y="14.5">PHASE 03 · HOW LLMs WORK</text>
+            <text class="ai-t t2" x="24" y="14.5">PHASE 05 · EMBEDDINGS, VECTORS &amp; RAG</text>
+            <text class="ai-t t3" x="24" y="14.5">PHASE 07 · MCP &amp; MULTI-AGENT SYSTEMS</text>
+            <text class="ai-t t4" x="24" y="14.5">PHASE 10 · INFERENCE ECONOMICS</text>
+            <text class="ai-t t5" x="24" y="14.5">PHASE 21 · OPEN WEIGHTS OR API?</text>
           </g>
-          <!-- the path: 21 phases, snaking -->
-          <path d="M 24 40 H 204 A 18 18 0 0 1 204 76 H 24 A 18 18 0 0 0 24 112 H 204" fill="none" stroke="#2a2722" stroke-width="8" stroke-linecap="round"/>
-          <path class="ai-fill" pathLength="100" d="M 24 40 H 204 A 18 18 0 0 1 204 76 H 24 A 18 18 0 0 0 24 112 H 204" fill="none" stroke="#00FF94" stroke-width="8" stroke-linecap="round"/>
+          <!-- the path: 22 phases, snaking (8 + 8 + 6) -->
+          <path d="M 24 40 H 206 A 18 18 0 0 1 206 76 H 24 A 18 18 0 0 0 24 112 H 154" fill="none" stroke="#2a2722" stroke-width="8" stroke-linecap="round"/>
+          <path class="ai-fill" pathLength="100" d="M 24 40 H 206 A 18 18 0 0 1 206 76 H 24 A 18 18 0 0 0 24 112 H 154" fill="none" stroke="#00FF94" stroke-width="8" stroke-linecap="round"/>
           <g fill="#15130F">
             <circle cx="24" cy="40" r="2.2"/>
-            <circle cx="54" cy="40" r="2.2"/>
-            <circle cx="84" cy="40" r="2.2"/>
-            <circle cx="114" cy="40" r="2.2"/>
-            <circle cx="144" cy="40" r="2.2"/>
-            <circle cx="174" cy="40" r="2.2"/>
-            <circle cx="204" cy="40" r="2.2"/>
-            <circle cx="204" cy="76" r="2.2"/>
-            <circle cx="174" cy="76" r="2.2"/>
-            <circle cx="144" cy="76" r="2.2"/>
-            <circle cx="114" cy="76" r="2.2"/>
-            <circle cx="84" cy="76" r="2.2"/>
-            <circle cx="54" cy="76" r="2.2"/>
+            <circle cx="50" cy="40" r="2.2"/>
+            <circle cx="76" cy="40" r="2.2"/>
+            <circle cx="102" cy="40" r="2.2"/>
+            <circle cx="128" cy="40" r="2.2"/>
+            <circle cx="154" cy="40" r="2.2"/>
+            <circle cx="180" cy="40" r="2.2"/>
+            <circle cx="206" cy="40" r="2.2"/>
+            <circle cx="206" cy="76" r="2.2"/>
+            <circle cx="180" cy="76" r="2.2"/>
+            <circle cx="154" cy="76" r="2.2"/>
+            <circle cx="128" cy="76" r="2.2"/>
+            <circle cx="102" cy="76" r="2.2"/>
+            <circle cx="76" cy="76" r="2.2"/>
+            <circle cx="50" cy="76" r="2.2"/>
             <circle cx="24" cy="76" r="2.2"/>
             <circle cx="24" cy="112" r="2.2"/>
-            <circle cx="54" cy="112" r="2.2"/>
-            <circle cx="84" cy="112" r="2.2"/>
-            <circle cx="114" cy="112" r="2.2"/>
-            <circle cx="144" cy="112" r="2.2"/>
-            <circle cx="174" cy="112" r="2.2"/>
-            <circle cx="204" cy="112" r="2.2"/>
+            <circle cx="50" cy="112" r="2.2"/>
+            <circle cx="76" cy="112" r="2.2"/>
+            <circle cx="102" cy="112" r="2.2"/>
+            <circle cx="128" cy="112" r="2.2"/>
+            <circle cx="154" cy="112" r="2.2"/>
           </g>
           <g font-family="DM Mono, monospace" font-size="4.5" fill="#7E7A70" text-anchor="middle">
             <text x="24" y="31">00</text>
-            <text x="54" y="31">01</text>
-            <text x="84" y="31">02</text>
-            <text x="114" y="31">03</text>
-            <text x="144" y="31">04</text>
-            <text x="174" y="31">05</text>
-            <text x="204" y="31">06</text>
-            <text x="204" y="67">07</text>
-            <text x="174" y="67">08</text>
-            <text x="144" y="67">09</text>
-            <text x="114" y="67">10</text>
-            <text x="84" y="67">11</text>
-            <text x="54" y="67">12</text>
-            <text x="24" y="67">13</text>
-            <text x="24" y="103">14</text>
-            <text x="54" y="103">15</text>
-            <text x="84" y="103">16</text>
-            <text x="114" y="103">17</text>
-            <text x="144" y="103">18</text>
-            <text x="174" y="103">19</text>
-            <text x="204" y="103">20</text>
+            <text x="50" y="31">01</text>
+            <text x="76" y="31">02</text>
+            <text x="102" y="31">03</text>
+            <text x="128" y="31">04</text>
+            <text x="154" y="31">05</text>
+            <text x="180" y="31">06</text>
+            <text x="206" y="31">07</text>
+            <text x="206" y="67">08</text>
+            <text x="180" y="67">09</text>
+            <text x="154" y="67">10</text>
+            <text x="128" y="67">11</text>
+            <text x="102" y="67">12</text>
+            <text x="76" y="67">13</text>
+            <text x="50" y="67">14</text>
+            <text x="24" y="67">15</text>
+            <text x="24" y="103">16</text>
+            <text x="50" y="103">17</text>
+            <text x="76" y="103">18</text>
+            <text x="102" y="103">19</text>
+            <text x="128" y="103">20</text>
+            <text x="154" y="103">21</text>
           </g>
           <!-- odometer -->
           <rect x="228" y="26" width="80" height="80" rx="6" fill="#0A0A0A" stroke="#3a3731" stroke-width="1"/>
@@ -989,13 +1183,13 @@
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
-        <div class="pr-stat-num">21<span class="sup"> PHASES</span></div>
+        <div class="pr-stat-num">22<span class="sup"> PHASES</span></div>
         <div class="pr-stat-label">~9-12 months at a steady pace, pre-LLM ML included</div>
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
-        <div class="pr-stat-num">90<span class="sup">% FREE</span></div>
-        <div class="pr-stat-label">Of the resources. Paid ones are marked and optional</div>
+        <div class="pr-stat-num">97<span class="sup">% FREE</span></div>
+        <div class="pr-stat-label">126 of 129 resources. Paid ones are marked and optional</div>
       </div>
       <p class="pr-note">watch less. build more.</p>
     </div>
@@ -1005,13 +1199,13 @@
     <div class="project-left">
       <span class="project-tag">Product Teardown · Working Prototype</span>
       <h3 class="project-title">Jira <em>2.0</em></h3>
-      <p class="project-line">A teardown and working prototype of an AI-native layer on Jira, where every AI output is auditable.</p>
+      <p class="project-line">A teardown and working prototype of an AI-native layer on Jira, where AI suggestions show their reasoning.</p>
       <div class="project-more" id="more-jira"><div>
       <div class="project-desc">
-        <p>Jira is the most-used PM tool on the planet, and it still asks every user to <span class="pd-mark">low-key be a database admin</span>. Configure a filter, save it, build a dashboard, wire up a gadget - all to answer a question that took ten seconds to ask.</p>
+        <p>Jira is the default project tool for engineering teams everywhere, and it still asks every user to <span class="pd-mark">low-key be a database admin</span>. Configure a filter, save it, build a dashboard, wire up a gadget - all to answer a question that took ten seconds to ask.</p>
         <p>So I tore it down and rebuilt the interaction layer. Not a Jira clone. <span class="pd-box">An AI-native layer on top of the system of record</span> - same data, same workflows, same integrations. It just stops <b><em>taxing your attention</em></b> before delivering value.</p>
         <p>Three surfaces: <br>• an action-first home that answers what blocks others, what blocks me, what's overdue.<br>• Conversational ticket creation, maker-checker preserved.<br>• And natural-language dashboards that write the JQL for you.</p>
-        <p>The differentiator is trust - <span class="pd-pink">every AI output is auditable</span>. Click any suggestion and a drawer opens: signals used, plain-English reasoning, a confidence number, and the cost of being wrong.</p>
+        <p>The differentiator is trust - <span class="pd-pink">AI suggestions are built to be auditable</span>. Click one and a drawer opens: signals used, plain-English reasoning, a confidence number and, where defined, the cost of being wrong. The AI answers in the prototype are scripted samples on sample data - the point is the interaction, not a model.</p>
       </div>
       <div class="project-stack">
         <span>Product Strategy</span>
@@ -1020,7 +1214,7 @@
         <span>Chart.js</span>
         <span>3 Role Personas</span>
         <span>AI Transparency Layer</span>
-        <span>13-Slide Teardown</span>
+        <span>Teardown Deck</span>
       </div>
       </div></div>
       <div class="project-links">
@@ -1066,8 +1260,8 @@
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
-        <div class="pr-stat-num">100<span class="sup">%</span></div>
-        <div class="pr-stat-label">AI outputs auditable - signals, reasoning, confidence</div>
+        <div class="pr-stat-num">1<span class="sup"> AUDIT DRAWER</span></div>
+        <div class="pr-stat-label">Signals, reasoning, confidence, cost if wrong</div>
       </div>
       <p class="pr-note">not a rebuild. a layer.</p>
     </div>
@@ -1090,7 +1284,7 @@
         <span>SVG Technical Drawings</span>
         <span>Strategy Simulator</span>
         <span>Pit-Stop Game</span>
-        <span>~190 KB Total</span>
+        <span>~257 KB · ~65 KB Gzipped</span>
         <span>Editorial Design</span>
       </div>
       </div></div>
@@ -1177,23 +1371,23 @@
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
-        <div class="pr-stat-num">~190<span class="sup"> KB</span></div>
-        <div class="pr-stat-label">All five pages, no framework, no build</div>
+        <div class="pr-stat-num">~257<span class="sup"> KB</span></div>
+        <div class="pr-stat-label">All five pages, ~65 KB compressed, no framework</div>
       </div>
       <p class="pr-note">lights out and away we go.</p>
     </div>
   </article>
 
-  <article class="project" id="p-cookbook" data-project="cookbook" data-r="BUILT|The Cookbook|216 dishes">
+  <article class="project" id="p-cookbook" data-project="cookbook" data-r="BUILT|The Cookbook|216 dishes &amp; drinks">
     <div class="project-left">
       <span class="project-tag">Live · 216 Dishes · Zero Build</span>
       <h3 class="project-title">The Cookbook <em>by Parth</em></h3>
-      <p class="project-line">216 high-protein dishes that start from context: what's in the fridge, how long you've got, who's coming.</p>
+      <p class="project-line">216 dishes and drinks that start from context: what's in the fridge, how long you've got, who's coming.</p>
       <div class="project-more" id="more-cookbook"><div>
       <div class="project-desc">
         <p>Recipe sites are built for <span class="pd-mark">search engines, not hungry people</span>. A life story, three ads, and the ingredient list somewhere below the fold. None of them answer the real question: <em>what should I cook tonight?</em></p>
-        <p>So mine starts from context, not chapters. <span class="pd-box">I have 20 minutes.</span> I have chicken. Zero cleanup. Someone's coming over. Tap what's in the fridge and it ranks dishes with <span class="pd-mark">honest set math</span>; pick one and cook mode takes over the screen, timers running and the screen kept awake.</p>
-        <p>Underneath, it's a data product: 216 cards, an ingredient database, 421 aliases, and a graph of pairings and leftovers. A validator <span class="pd-mark">blocks the deploy</span> if any card's macros disagree with the database. <span class="pd-pink">Nothing is estimated.</span></p>
+        <p>So mine starts from context, not chapters. <span class="pd-box">I have 20 minutes.</span> I have chicken. Zero cleanup. Someone's coming over. Tap what's in the fridge and it ranks dishes with <span class="pd-mark">honest set math</span>; pick one and cook mode takes over the screen, timers running and the screen kept awake. A 14-day planner adds up the macros and the grocery list.</p>
+        <p>Underneath, it's a data product: 216 cards, an ingredient database, 421 aliases, and a graph of pairings and leftovers. A validator script, run before each deploy, <span class="pd-mark">fails if any card's macros</span> disagree with the database. <span class="pd-pink">Nothing is estimated.</span></p>
       </div>
       <div class="project-stack">
         <span>ES Modules · Hash Routing</span>
@@ -1202,6 +1396,7 @@
         <span>Fridge Matcher</span>
         <span>Cook Mode · Wake Lock</span>
         <span>⌘K Palette</span>
+        <span>14-Day Planner</span>
         <span>Python Data QA</span>
       </div>
       </div></div>
@@ -1264,8 +1459,8 @@
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
-        <div class="pr-stat-num">216<span class="sup"> DISHES</span></div>
-        <div class="pr-stat-label">58 in rotation, café and bar included</div>
+        <div class="pr-stat-num">216<span class="sup"> CARDS</span></div>
+        <div class="pr-stat-label">Dishes and drinks, 58 in rotation</div>
       </div>
       <div class="pr-divider"></div>
       <div class="pr-stat">
@@ -1277,7 +1472,7 @@
   </article>
 
   <a class="project project-next" href="#contact">
-    <span class="pn-num">08</span>
+    <span class="pn-num">10</span>
     <span class="project-tag">Slot open · Yours?</span>
     <h3 class="project-title">Your <em>problem</em> here</h3>
     <p class="project-line">Every build above started as a tool that didn't exist yet. Got one that should? I'm listening.</p>

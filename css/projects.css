@@ -189,6 +189,19 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
   max-width:34ch;
 }
 .bh-sub b{color:var(--pink);font-weight:700}
+/* a handwritten credit note under the header */
+.bh-credit{
+  flex-basis:100%;
+  margin:-1rem 0 0;
+  font-family:'Caveat',cursive;
+  font-weight:700;
+  font-size:1.3rem;
+  line-height:1.1;
+  color:var(--pink);
+  text-align:right;
+  transform:rotate(-2deg);
+  transform-origin:right center;
+}
 
 /* ---- open: the tile spans the row and becomes the full side-by-side card ---- */
 .project.open{
@@ -207,7 +220,7 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
 
 @keyframes tileOpen{from{opacity:0.35;transform:translateY(14px) scale(0.985)}to{opacity:1;transform:none}}
 
-/* ---- slot 08: the open tile, marching ants ---- */
+/* ---- slot 10: the open tile, marching ants ---- */
 .project-next{
   align-self:stretch;
   border:none;
@@ -631,7 +644,85 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
 .ai-word{opacity:0;animation:aiWord 6.5s ease-out infinite}
 @keyframes aiWord{0%,72%{opacity:0;transform:translateY(4px)}77%,88%{opacity:1;transform:translateY(0)}93%,100%{opacity:0;transform:translateY(0)}}
 
-/* seven loops on one page: only run the ones on screen */
+/* --- Chalk: a red goes in the corner, the score ticks, the next ball on changes --- */
+.ch-art svg{height:170px}
+.ch-aim{opacity:0;animation:chAim 6.5s ease infinite}
+@keyframes chAim{0%,4%{opacity:0}9%,22%{opacity:0.9}27%,100%{opacity:0}}
+.ch-cue{animation:chCue 6.5s infinite}
+@keyframes chCue{
+  0%,14%{opacity:1;transform:translate(0,0);animation-timing-function:cubic-bezier(0.5,0,0.8,0.6)}
+  26%{opacity:1;transform:translate(74.5px,-36.8px);animation-timing-function:cubic-bezier(0.2,0.6,0.4,1)}
+  36%,92%{opacity:1;transform:translate(80px,-39.5px)}
+  95%{opacity:0;transform:translate(80px,-39.5px)}
+  97%{opacity:0;transform:translate(0,0)}
+  100%{opacity:1;transform:translate(0,0)}
+}
+.ch-red{transform-box:fill-box;transform-origin:center;animation:chRed 6.5s infinite}
+@keyframes chRed{
+  0%,25%{opacity:1;transform:translate(0,0) scale(1);animation-timing-function:cubic-bezier(0.3,0.5,0.6,1)}
+  41%{opacity:1;transform:translate(52px,-30px) scale(1)}
+  45%,97%{opacity:0;transform:translate(52px,-30px) scale(0.3)}
+  100%{opacity:1;transform:translate(0,0) scale(1)}
+}
+.ch-pocket{transform-box:fill-box;transform-origin:center;opacity:0;animation:chPocket 6.5s ease-out infinite}
+@keyframes chPocket{0%,40%{opacity:0;transform:scale(0.6)}44%{opacity:1;transform:scale(1)}56%,100%{opacity:0;transform:scale(1.5)}}
+.ch-n0{animation:chN0 6.5s steps(1,end) infinite}
+.ch-n1{opacity:0;animation:chN1 6.5s steps(1,end) infinite}
+@keyframes chN0{0%,42%{opacity:1}43%,96%{opacity:0}97%,100%{opacity:1}}
+@keyframes chN1{0%,42%{opacity:0}43%,94%{opacity:1}95%,100%{opacity:0}}
+.ch-on0{animation:chN0 6.5s steps(1,end) infinite}
+.ch-on1{opacity:0;animation:chN1 6.5s steps(1,end) infinite}
+.ch-plus{opacity:0;animation:chPlus 6.5s ease-out infinite}
+@keyframes chPlus{0%,42%{opacity:0;transform:translateY(4px)}46%{opacity:1;transform:translateY(0)}58%,100%{opacity:0;transform:translateY(-12px)}}
+.ch-word{opacity:0;animation:chWord 6.5s ease-out infinite}
+@keyframes chWord{0%,46%{opacity:0;transform:translateY(4px)}52%,88%{opacity:1;transform:translateY(0)}94%,100%{opacity:0;transform:translateY(0)}}
+
+/* --- Map Poster Studio: streets and a circuit draw into the poster, the look flips paper -> neon --- */
+.po-art svg{height:170px}
+.po-sheet{animation:poSheet 7s ease-in-out infinite}
+@keyframes poSheet{0%,58%{fill:#F3EFE4}64%,90%{fill:#15130F}96%,100%{fill:#F3EFE4}}
+.po-streets path{stroke-dasharray:100;stroke-dashoffset:100;animation:poStreet 7s ease-in-out infinite}
+.po-streets path:nth-child(2){animation-delay:0.08s}
+.po-streets path:nth-child(3){animation-delay:0.16s}
+.po-streets path:nth-child(4){animation-delay:0.24s}
+.po-streets path:nth-child(5){animation-delay:0.32s}
+.po-streets path:nth-child(6){animation-delay:0.4s}
+.po-streets path:nth-child(7){animation-delay:0.48s}
+@keyframes poStreet{
+  0%,4%{stroke-dashoffset:100;stroke:#bdb6a2;opacity:1}
+  22%,58%{stroke-dashoffset:0;stroke:#bdb6a2}
+  64%,90%{stroke-dashoffset:0;stroke:#3a3731}
+  94%{stroke-dashoffset:0;opacity:0}
+  100%{stroke-dashoffset:100;opacity:0}
+}
+.po-line{stroke-dasharray:100;stroke-dashoffset:100;animation:poLine 7s ease-in-out infinite}
+@keyframes poLine{
+  0%,18%{stroke-dashoffset:100;stroke:#FF2D78;opacity:1}
+  50%,58%{stroke-dashoffset:0;stroke:#FF2D78}
+  64%,90%{stroke-dashoffset:0;stroke:#00FF94}
+  94%{stroke-dashoffset:0;stroke:#00FF94;opacity:0}
+  100%{stroke-dashoffset:100;opacity:0}
+}
+.po-type{opacity:0}
+.po-t0{animation:poT0 7s ease infinite}
+.po-t1{animation:poT1 7s ease infinite}
+@keyframes poT0{0%,46%{opacity:0}52%,58%{opacity:1}62%,100%{opacity:0}}
+@keyframes poT1{0%,60%{opacity:0}66%,90%{opacity:1}95%,100%{opacity:0}}
+.po-chip rect{fill:none;stroke:#3a3731}
+.po-chip text{fill:#A8A499}
+.po-on{opacity:0}
+.po-on rect{fill:#0f2a1f;stroke:#00FF94}
+.po-on text{fill:#00FF94}
+.po-on.pa{animation:poPa 7s steps(1,end) infinite}
+.po-on.ne{animation:poNe 7s steps(1,end) infinite}
+@keyframes poPa{0%{opacity:1}60%{opacity:0}96%{opacity:1}}
+@keyframes poNe{0%,59%{opacity:0}60%,93%{opacity:1}94%,100%{opacity:0}}
+.po-save{opacity:0;animation:poSave 7s ease infinite}
+@keyframes poSave{0%,66%{opacity:0}70%,90%{opacity:1}95%,100%{opacity:0}}
+.po-word{opacity:0;animation:poWord 7s ease-out infinite}
+@keyframes poWord{0%,68%{opacity:0;transform:translateY(4px)}74%,90%{opacity:1;transform:translateY(0)}95%,100%{opacity:0;transform:translateY(0)}}
+
+/* nine loops on one page: only run the ones on screen */
 .project:not(.in-view) .pr-art *{animation-play-state:paused}
 
 @media (prefers-reduced-motion:reduce){
@@ -642,6 +733,8 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
   .ck-on,.ck-bar,.ck-frac,.ck-up,.ck-down,.ck-best,.ck-macros,.ck-word,
   .gr-l,.gr-out,.gr-track,.gr-car,.gr-trail,.gr-s,.gr-up,.gr-down,.gr-gain,.gr-live,.gr-fl,
   .ai-fill,.ai-odo,.ai-t,.ai-live,.ai-word,
+  .ch-aim,.ch-cue,.ch-red,.ch-pocket,.ch-n0,.ch-n1,.ch-on0,.ch-on1,.ch-plus,.ch-word,
+  .po-sheet,.po-streets path,.po-line,.po-type,.po-on,.po-save,.po-word,
   .project-desc .pd-mark::before{animation:none}
   .tk-island,.tk-island-in,.tk-arr,.tk-word{opacity:1;transform:none}
   .tk-eta{opacity:0}
@@ -663,6 +756,14 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
   .ai-fill{stroke-dashoffset:0}
   .ai-odo{transform:translateY(-960px)}
   .ai-t.t0{opacity:0}.ai-t.t5,.ai-word{opacity:1;transform:none}
+  .ch-cue{transform:translate(80px,-39.5px)}
+  .ch-red,.ch-pocket,.ch-n0,.ch-on0,.ch-plus,.ch-aim{opacity:0}
+  .ch-n1,.ch-on1,.ch-word{opacity:1;transform:none}
+  .po-sheet{fill:#F3EFE4}
+  .po-streets path{stroke-dashoffset:0;stroke:#bdb6a2}
+  .po-line{stroke-dashoffset:0;stroke:#FF2D78}
+  .po-t0,.po-on.pa,.po-save,.po-word{opacity:1;transform:none}
+  .po-t1,.po-on.ne{opacity:0}
   .cc-card{opacity:1;transform:translate(252px,0)}
   .cc-hop{opacity:1;fill:#00FF94}
   .cc-pulse{stroke-dashoffset:0;opacity:1}
@@ -690,4 +791,6 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
   .ck-art svg{height:140px}
   .gr-art svg{height:140px}
   .ai-art svg{height:140px}
+  .ch-art svg{height:140px}
+  .po-art svg{height:140px}
 }

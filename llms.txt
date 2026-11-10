@@ -29,13 +29,15 @@
 
 ## Built solo
 
-- [Track](https://parth8.github.io/track/): A calm, ad-free live tracker for Indian trains and flights.
-- [Shelfie](https://parth8.github.io/shelfie/): A reading tracker you drive with your thumbs.
-- [Decoding Credit Cards](https://parth8.github.io/credit/): 22 interactive chapters on how credit cards actually work.
-- [Zero to a Hundred](https://parth8.github.io/ai/): An open, vendor-neutral curriculum for learning AI in 21 phases.
-- [Jira 2.0](https://parth8.github.io/jira2/): A product teardown and working prototype of an AI-native layer on Jira.
-- [GRID](https://parth8.github.io/grid/): An editorial reference for Formula 1's 2026 reset, with live timing.
-- [The Cookbook](https://parth8.github.io/cookbook/): 216 high-protein dishes that start from context, not chapters.
+- [Track](https://parth8.github.io/track/): A calm, ad-free tracker for Indian trains and flights that also keeps your trips and tells you where to stand on the platform.
+- [Chalk](https://parth8.github.io/chalk/): Snooker and 8-ball pool scored and explained, for people who have never played.
+- [Shelfie](https://parth8.github.io/shelfie/): A reading tracker you drive with your thumbs: flick, drag, drop, level up.
+- [Decoding Credit Cards](https://parth8.github.io/credit/): 22 interactive chapters on how credit cards actually work, for India.
+- [Zero to a Hundred](https://parth8.github.io/ai/): An open, vendor-neutral curriculum for learning AI in 22 phases, from ML basics to the open-weights-or-API decision.
+- [Jira 2.0](https://parth8.github.io/jira2/): A teardown and clickable prototype of an AI layer on Jira, where every suggestion shows its reasoning.
+- [GRID](https://parth8.github.io/grid/): An editorial reference for Formula 1's 2026 reset, with live timing from OpenF1.
+- [The Cookbook](https://parth8.github.io/cookbook/): 216 dishes and drinks that start from context, not chapters.
+- [Map Poster Studio](https://parth8.github.io/city-roads/): Turn any place or one of 96 race circuits into a print-ready poster, wallpaper or 3D skyline, in the browser.
 
 ## Gaps, stated plainly
 
