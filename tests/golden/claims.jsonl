@@ -1,0 +1,150 @@
+{"claim": "He is a Forward Deployed Product Manager at Backbase.", "expect": "supported", "source": "Forward Deployed Product Manager", "kind": "title", "note": "Current title on the record."}
+{"claim": "Parth has worked at Backbase since Aug 2026.", "expect": "supported", "source": "Aug 2026 - present", "kind": "dates", "note": "Backbase role period starts Aug 2026."}
+{"claim": "Parth held the title Technical Product Manager at Zeta.", "expect": "supported", "source": "Technical Product Manager", "kind": "title", "note": "Zeta TPM role, May 2024 to Aug 2026."}
+{"claim": "Parth has worked at Zeta.", "expect": "supported", "source": "Zeta's first US credit card program, later used as a reference case", "kind": "employer", "note": "Zeta roles appear in the record (sparrow-launch case)."}
+{"claim": "Parth studied at PES University in Bengaluru.", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Degree and institution are on the record."}
+{"claim": "He has a B.Tech in Electrical & Electronics Engineering.", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Field of study matches exactly."}
+{"claim": "Parth is based in Hyderabad, India.", "expect": "supported", "source": "Hyderabad, India", "kind": "location", "note": "Profile location."}
+{"claim": "He holds a US B1/B2 visa valid to Oct 2035.", "expect": "supported", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "Stated in the travel field."}
+{"claim": "Parth is open to relocation.", "expect": "supported", "source": "Open to relocation.", "kind": "location", "note": "In the open_to field."}
+{"claim": "He has 5+ years of experience in B2B SaaS.", "expect": "supported", "source": "5+ years in B2B SaaS (since Feb 2021)", "kind": "number", "note": "Matches the experience field."}
+{"claim": "Parth has 4+ years in fintech.", "expect": "supported", "source": "4+ in fintech", "kind": "number", "note": "Matches the experience field."}
+{"claim": "Optum's virtual card platform disburses $2B+ a year to US healthcare providers.", "expect": "supported", "source": "disbursing $2B+ a year to US healthcare providers", "kind": "number", "note": "Headline figure for the Optum case."}
+{"claim": "Optum Bank was the sponsor bank for the Optum virtual card program.", "expect": "supported", "source": "Optum Bank (Optum Financial) was the sponsor bank", "kind": "entity", "note": "Sponsor bank named in the case."}
+{"claim": "The Optum virtual card program runs on Mastercard rails.", "expect": "supported", "source": "the program runs on Mastercard rails", "kind": "entity", "note": "Network stated in the case evidence."}
+{"claim": "Sparrow Card was Zeta's first US credit card program.", "expect": "supported", "source": "Zeta's first US credit card program", "kind": "project", "note": "Sparrow case evidence."}
+{"claim": "Sparrow Card was launched with Evolve Bank.", "expect": "supported", "source": "Delivered the Sparrow Card multi-phase launch with Evolve Bank", "kind": "entity", "note": "Partner bank on the record."}
+{"claim": "150K+ cards issued, Sparrow Card.", "expect": "supported", "source": "150K+ issuances (July 2024)", "kind": "number", "note": "Headline figure, dated July 2024."}
+{"claim": "Sparrow Card delivered 2x revenue projections in Dec 2024.", "expect": "supported", "source": "2x revenue projections (Dec 2024)", "kind": "number", "note": "Dated outcome on the record."}
+{"claim": "Parth cut first response time by 99% in the US support function.", "expect": "supported", "source": "first response time down 99%", "kind": "number", "note": "Sparrow ops outcome."}
+{"claim": "Parth cut finance reporting time from 1 week to 5 minutes.", "expect": "supported", "source": "reporting time down from 1 week to 5 minutes", "kind": "number", "note": "Self-serve analytics outcome."}
+{"claim": "The data platform eliminated its MongoDB dependency, saving about $50K a year.", "expect": "supported", "source": "Eliminated the MongoDB dependency, saving ~$50K a year in recurring infrastructure cost.", "kind": "number", "note": "Infra saving figure."}
+{"claim": "Parth cut client onboarding and GTM by 90 days.", "expect": "supported", "source": "Cut client onboarding + GTM by 90 days", "kind": "number", "note": "Data platform outcome, 4 months to 1."}
+{"claim": "Connector build time at Backbase fell about 80%, from ~12 days to ~2.", "expect": "supported", "source": "Cut connector build time from ~12 days to ~2 days (~80%)", "kind": "number", "note": "Connector Studio outcome."}
+{"claim": "Parth launched the Connector Studio MCP in 6 weeks.", "expect": "supported", "source": "Launched the Connector Studio MCP in 6 weeks", "kind": "project", "note": "Stated in the case evidence."}
+{"claim": "The data platform's data contracts cover 1,200+ attributes and 20+ schemas.", "expect": "supported", "source": "1,200+ attributes and 20+ schemas", "kind": "number", "note": "Governed semantic layer scope."}
+{"claim": "Parth closed 70+ data quality gaps in 2 months.", "expect": "supported", "source": "Closed 70+ data quality gaps in 2 months", "kind": "number", "note": "Stated in the data platform evidence."}
+{"claim": "Parth owned 12+ connectors live across DigiFi, Equifax and TransUnion.", "expect": "supported", "source": "12+ connectors live across DigiFi, Equifax, TransUnion", "kind": "entity", "note": "Connector portfolio at Zeta."}
+{"claim": "Parth led a team of 8 engineers at 90%+ on-time delivery.", "expect": "supported", "source": "a team of 8 engineers at 90%+ on-time delivery", "kind": "number", "note": "Data platform delivery record."}
+{"claim": "Parth built 120+ real-time SQL dashboards at Zeta.", "expect": "supported", "source": "Built 120+ real-time SQL dashboards", "kind": "number", "note": "Sparrow analytics work."}
+{"claim": "Parth won the Mountain Mover award at Zeta in Dec 2023.", "expect": "supported", "source": "Mountain Mover | Zeta | Dec 2023", "kind": "award", "note": "Awards list: name, org and date match."}
+{"claim": "Parth received the Outstanding Award from Zeta in Jul 2024.", "expect": "supported", "source": "Outstanding Award | Zeta | Jul 2024", "kind": "award", "note": "Awards list: name, org and date match."}
+{"claim": "Parth received a Spot Award from HackerEarth in Jan 2022.", "expect": "supported", "source": "Spot Award | HackerEarth | Jan 2022", "kind": "award", "note": "Awards list: name, org and date match."}
+{"claim": "Parth completed the Udemy course API & Web Service Introduction in Jan 2024.", "expect": "supported", "source": "API & Web Service Introduction | Udemy | Jan 2024", "kind": "education", "note": "Certifications list, Udemy, Jan 2024."}
+{"claim": "Parth wrote the Medium series Decoding Credit Cards in 5 parts.", "expect": "supported", "source": "Decoding Credit Cards (5-part series)", "kind": "project", "note": "Writing list."}
+{"claim": "Track searches 8,677 stations on the device.", "expect": "supported", "source": "Searches 8,677 stations and 4,008 airports on the device", "kind": "project", "note": "Track project evidence."}
+{"claim": "Chalk answers 128 quick questions, 76 for snooker and 52 for pool.", "expect": "supported", "source": "128 quick answers (76 snooker, 52 pool)", "kind": "project", "note": "Chalk project evidence."}
+{"claim": "Shelfie has 105 unit tests and 37 browser tests.", "expect": "supported", "source": "105 unit tests and 37 browser tests", "kind": "project", "note": "Shelfie project evidence."}
+{"claim": "The credit guide has 22 chapter pages.", "expect": "supported", "source": "The guide has 22 chapter pages", "kind": "project", "note": "Decoding Credit Cards evidence."}
+{"claim": "Zero to a Hundred has 175 concepts and 129 resource cards.", "expect": "supported", "source": "It carries 175 concepts and 129 resource cards", "kind": "project", "note": "AI curriculum project evidence."}
+{"claim": "The Cookbook has 216 dishes and drinks.", "expect": "supported", "source": "216 dishes and drinks that start from context, not chapters.", "kind": "project", "note": "Cookbook tagline."}
+{"claim": "Map Poster Studio covers 96 race circuits.", "expect": "supported", "source": "96 pre-extracted race circuits", "kind": "project", "note": "Posters project evidence."}
+{"claim": "Parth uses Python for automation and reporting.", "expect": "supported", "source": "Python (automation, reporting)", "kind": "skill", "note": "Skills list, Product & Collaboration."}
+{"claim": "Parth has used Figma for wireframing.", "expect": "supported", "source": "Figma (wireframing and design collaboration)", "kind": "skill", "note": "Skills list, Product tools."}
+{"claim": "Parth is familiar with Metabase and Apache Superset.", "expect": "supported", "source": "Metabase, Apache Superset", "kind": "skill", "note": "Skills list, Data & Analytics."}
+{"claim": "He has used Claude in his AI tooling.", "expect": "supported", "source": "Cursor, Claude, Copilot, Lovable, ChatGPT, Ollama", "kind": "skill", "note": "Skills list, AI tools."}
+{"claim": "Parth is currently based in Bengaluru, India.", "expect": "differs", "source": "Hyderabad, India", "kind": "location", "note": "Record says Hyderabad, India."}
+{"claim": "Parth's US visa is valid until 2030.", "expect": "differs", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "Record says valid to Oct 2035."}
+{"claim": "Parth studied at PES University, Bengaluru, from 2014 to 2018.", "expect": "differs", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Record says 2017-2021."}
+{"claim": "Parth holds a B.Tech in Computer Science from PES University.", "expect": "differs", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Record says Electrical & Electronics Engineering, not CS."}
+{"claim": "Parth has 10+ years of B2B SaaS experience.", "expect": "differs", "source": "5+ years in B2B SaaS (since Feb 2021)", "kind": "number", "note": "Record says 5+ years."}
+{"claim": "Parth has been in fintech for 10 years.", "expect": "differs", "source": "4+ in fintech", "kind": "number", "note": "Record says 4+ years."}
+{"claim": "Optum's virtual card platform disburses $2M a year to US healthcare providers.", "expect": "differs", "source": "disbursing $2B+ a year to US healthcare providers", "kind": "number", "note": "Record says $2B+, not $2M."}
+{"claim": "Chase was the sponsor bank for the Optum virtual card program.", "expect": "differs", "source": "Optum Bank (Optum Financial) was the sponsor bank", "kind": "entity", "note": "Record says Optum Bank."}
+{"claim": "The Optum virtual card program runs on Visa rails.", "expect": "differs", "source": "the program runs on Mastercard rails", "kind": "entity", "note": "Record says Mastercard rails."}
+{"claim": "Sparrow Card launched with Chase.", "expect": "differs", "source": "Delivered the Sparrow Card multi-phase launch with Evolve Bank", "kind": "entity", "note": "Record says Evolve Bank."}
+{"claim": "1.5M cards issued, Sparrow Card.", "expect": "differs", "source": "150K+ issuances (July 2024)", "kind": "number", "note": "Record says 150K+, roughly 10x off."}
+{"claim": "Sparrow Card delivered 5x revenue projections in Dec 2024.", "expect": "differs", "source": "2x revenue projections (Dec 2024)", "kind": "number", "note": "Record says 2x."}
+{"claim": "Parth cut first response time by 90% in the US support function.", "expect": "differs", "source": "first response time down 99%", "kind": "number", "note": "Record says 99%."}
+{"claim": "Parth cut finance reporting time from 1 week to 5 hours.", "expect": "differs", "source": "reporting time down from 1 week to 5 minutes", "kind": "number", "note": "Record says 5 minutes."}
+{"claim": "The data platform saved about $500K a year by eliminating MongoDB.", "expect": "differs", "source": "Eliminated the MongoDB dependency, saving ~$50K a year in recurring infrastructure cost.", "kind": "number", "note": "Record says ~$50K, 10x off."}
+{"claim": "Parth cut client onboarding and GTM by 60 days.", "expect": "differs", "source": "Cut client onboarding + GTM by 90 days", "kind": "number", "note": "Record says 90 days."}
+{"claim": "Connector build time at Backbase fell about 90%, from ~12 days to ~2.", "expect": "differs", "source": "Cut connector build time from ~12 days to ~2 days (~80%)", "kind": "number", "note": "Record says ~80%."}
+{"claim": "Parth launched the Connector Studio MCP in 6 months.", "expect": "differs", "source": "Launched the Connector Studio MCP in 6 weeks", "kind": "number", "note": "Record says 6 weeks."}
+{"claim": "The data platform's data contracts cover 2,000 attributes and 20+ schemas.", "expect": "differs", "source": "1,200+ attributes and 20+ schemas", "kind": "number", "note": "Record says 1,200+ attributes."}
+{"claim": "Parth closed 700 data quality gaps in 2 months.", "expect": "differs", "source": "Closed 70+ data quality gaps in 2 months", "kind": "number", "note": "Record says 70+."}
+{"claim": "Parth owned 30+ connectors live across DigiFi, Equifax and TransUnion.", "expect": "differs", "source": "12+ connectors live across DigiFi, Equifax, TransUnion", "kind": "number", "note": "Record says 12+."}
+{"claim": "Parth led a team of 12 engineers at 90%+ on-time delivery.", "expect": "differs", "source": "a team of 8 engineers at 90%+ on-time delivery", "kind": "number", "note": "Record says 8 engineers."}
+{"claim": "Parth built 500+ real-time SQL dashboards at Zeta.", "expect": "differs", "source": "Built 120+ real-time SQL dashboards", "kind": "number", "note": "Record says 120+."}
+{"claim": "Parth won the Mountain Mover award at Zeta in Dec 2022.", "expect": "differs", "source": "Mountain Mover | Zeta | Dec 2023", "kind": "award", "note": "Right award and org, wrong year."}
+{"claim": "Parth received the Outstanding Award from Zeta in Jul 2023.", "expect": "differs", "source": "Outstanding Award | Zeta | Jul 2024", "kind": "award", "note": "Right award and org, wrong year."}
+{"claim": "Parth received a Spot Award from HackerEarth in Jan 2023.", "expect": "differs", "source": "Spot Award | HackerEarth | Jan 2022", "kind": "award", "note": "Right award and org, wrong year."}
+{"claim": "Parth completed the Udemy course API & Web Service Introduction in Jan 2021.", "expect": "differs", "source": "API & Web Service Introduction | Udemy | Jan 2024", "kind": "education", "note": "Right course, wrong year."}
+{"claim": "Parth earned the Agile with Atlassian Jira certificate in May 2021.", "expect": "differs", "source": "Agile with Atlassian Jira | Atlassian | May 2023", "kind": "education", "note": "Right certificate, wrong year."}
+{"claim": "Parth wrote a Medium article on OLX dated Feb 2026.", "expect": "differs", "source": "OLX is a crime scene. Is the clue a pivot into becoming a fintech? | 2026-01-21", "kind": "project", "note": "Right article, date is 21 Jan 2026."}
+{"claim": "Track searches 9,000 stations on the device.", "expect": "differs", "source": "Searches 8,677 stations", "kind": "project", "note": "Record says 8,677."}
+{"claim": "Track uses Mapbox GL for its maps.", "expect": "differs", "source": "MapLibre GL", "kind": "project", "note": "Record says MapLibre GL."}
+{"claim": "Track has 12 Cloudflare Worker API routes.", "expect": "differs", "source": "One Cloudflare Worker with nine API routes", "kind": "project", "note": "Record says nine routes."}
+{"claim": "Shelfie uses AES-128-GCM for its end-to-end encryption.", "expect": "differs", "source": "AES-256-GCM", "kind": "project", "note": "Record says AES-256-GCM."}
+{"claim": "Shelfie has 12 levels, from Fresh Spine to Literary Final Boss.", "expect": "differs", "source": "9 levels from Fresh Spine to Literary Final Boss", "kind": "project", "note": "Record says 9 levels."}
+{"claim": "Chalk has 300 quick answers for snooker and pool.", "expect": "differs", "source": "128 quick answers", "kind": "project", "note": "Record says 128."}
+{"claim": "Decoding Credit Cards has 40 chapter pages.", "expect": "differs", "source": "The guide has 22 chapter pages", "kind": "project", "note": "Record says 22."}
+{"claim": "Part two of Zero to a Hundred has 14 phases.", "expect": "differs", "source": "The path has 22 phases in two parts: 14 on understanding and building with AI, and 8 on running, serving, evaluating and fine-tuning open models.", "kind": "number", "note": "Part two has 8 phases; 14 is part one."}
+{"claim": "The AI curriculum defines 585 AI terms in 12 categories.", "expect": "differs", "source": "A searchable dictionary covers 585 AI terms in 17 categories.", "kind": "number", "note": "Record says 17 categories."}
+{"claim": "Jira 2.0 connects to a live Jira Cloud instance for its AI answers.", "expect": "differs", "source": "The AI answers are scripted samples: there are no network calls", "kind": "entity", "note": "Record says scripted samples with no network calls."}
+{"claim": "The GRID calendar covers 24 races.", "expect": "differs", "source": "a 22-race calendar", "kind": "number", "note": "Record says 22 races."}
+{"claim": "The Cookbook has 300 dishes and drinks.", "expect": "differs", "source": "216 dishes and drinks that start from context, not chapters.", "kind": "number", "note": "Record says 216."}
+{"claim": "Map Poster Studio loads its map data from Overpass as the primary source.", "expect": "differs", "source": "Map data now loads from OpenFreeMap vector tiles in a web worker, with VersaTiles and Overpass as fallbacks.", "kind": "entity", "note": "Overpass is only a fallback."}
+{"claim": "Parth was a Technical Product Manager at Zeta from May 2022 to May 2024.", "expect": "differs", "source": "Technical Program Manager", "kind": "title", "note": "Role in that period was Technical Program Manager."}
+{"claim": "Parth was Head of Product at Backbase.", "expect": "differs", "source": "Forward Deployed Product Manager", "kind": "title", "note": "Record title is Forward Deployed Product Manager."}
+{"claim": "Parth joined Backbase in Jan 2026.", "expect": "differs", "source": "Aug 2026 - present", "kind": "dates", "note": "Record says Aug 2026."}
+{"claim": "Parth has never shipped a defect.", "expect": "differs", "source": "Shipped with 0 P1/P2 defects and a 4-week GTM", "kind": "absolute", "note": "Record gives 0 P1/P2 on specific launches, not a lifetime claim."}
+{"claim": "Every launch Parth has led shipped with 0 P1/P2 defects.", "expect": "differs", "source": "Led the 0 P1/P2 defect production launch", "kind": "absolute", "note": "Record names specific launches only."}
+{"claim": "Parth has had zero production incidents in his entire career.", "expect": "differs", "source": "with a 0-incident steady state after", "kind": "absolute", "note": "Scoped to the data platform after stabilisation."}
+{"claim": "Parth has never missed a release SLA.", "expect": "differs", "source": "managed 300+ releases with 89% SLO and 99% SLA adherence", "kind": "absolute", "note": "Record says 99% SLA adherence, not 100%."}
+{"claim": "Parth has delivered 100% of every roadmap he has owned.", "expect": "differs", "source": "achieving a 95% delivery rate against strategic OKRs", "kind": "absolute", "note": "Record says 95%."}
+{"claim": "Parth has never had a product with CSAT below 4.0.", "expect": "differs", "source": "CSAT from 2.5 to 4.6 within 3 months", "kind": "absolute", "note": "Sparrow CSAT started at 2.5."}
+{"claim": "Every connector at Backbase is now built with agents.", "expect": "differs", "source": "Moved PMs and Backbase services teams off manual connector builds and onto the MCP for new connector work.", "kind": "absolute", "note": "Record describes a shift for new connector work, not every connector."}
+{"claim": "Parth has never managed anyone, only individual contributors.", "expect": "differs", "source": "Led a team of 3 CSMs", "kind": "absolute", "note": "Record shows he led teams of 8 engineers and 3 CSMs."}
+{"claim": "Parth's Track app never makes a network call.", "expect": "differs", "source": "One Cloudflare Worker with nine API routes fronts more than ten public sources", "kind": "absolute", "note": "Track calls a Worker that fronts public sources."}
+{"claim": "Map Poster Studio is fully covered by automated tests.", "expect": "differs", "source": "There are no automated tests.", "kind": "absolute", "note": "Record says no automated tests."}
+{"claim": "Parth worked at Stripe as a product manager.", "expect": "not_found", "source": "", "kind": "employer", "note": "No Stripe role on record."}
+{"claim": "Parth was a product manager at Google.", "expect": "not_found", "source": "", "kind": "employer", "note": "No Google role on record."}
+{"claim": "Parth has an MBA.", "expect": "not_found", "source": "", "kind": "education", "note": "No MBA on record."}
+{"claim": "Parth holds a PMP certification.", "expect": "not_found", "source": "", "kind": "education", "note": "No PMP on record."}
+{"claim": "Parth has an AWS Certified Solutions Architect certificate.", "expect": "not_found", "source": "", "kind": "education", "note": "Certifications list has no AWS certificate."}
+{"claim": "Parth completed a Certified Scrum Master course.", "expect": "not_found", "source": "", "kind": "education", "note": "Only Agile with Atlassian Jira is listed."}
+{"claim": "Parth studied at IIT Bombay.", "expect": "not_found", "source": "", "kind": "education", "note": "Only PES University is on record."}
+{"claim": "Parth has a Master's degree in Computer Science.", "expect": "not_found", "source": "", "kind": "education", "note": "Only a B.Tech is on record."}
+{"claim": "Parth is a Kubernetes administrator.", "expect": "not_found", "source": "", "kind": "skill", "note": "Kubernetes does not appear in the record."}
+{"claim": "Parth has used Snowflake in production.", "expect": "not_found", "source": "", "kind": "skill", "note": "Snowflake does not appear in the record."}
+{"claim": "Parth writes Java services.", "expect": "not_found", "source": "", "kind": "skill", "note": "Java does not appear in the record."}
+{"claim": "Parth uses Terraform to provision infrastructure.", "expect": "not_found", "source": "", "kind": "skill", "note": "Terraform does not appear in the record."}
+{"claim": "Parth has worked with Go for backend services.", "expect": "not_found", "source": "", "kind": "skill", "note": "Go does not appear in the record."}
+{"claim": "Parth holds a US H-1B visa.", "expect": "not_found", "source": "", "kind": "location", "note": "Only a B1/B2 visa is on record."}
+{"claim": "Parth has a US green card.", "expect": "not_found", "source": "", "kind": "location", "note": "No green card on record."}
+{"claim": "Parth has lived in London for two years.", "expect": "not_found", "source": "", "kind": "location", "note": "London does not appear in the record."}
+{"claim": "Parth relocated to Singapore in 2025.", "expect": "not_found", "source": "", "kind": "location", "note": "Singapore does not appear in the record."}
+{"claim": "Parth won an Outstanding Award at HackerEarth.", "expect": "not_found", "source": "", "kind": "award", "note": "The Outstanding Award is from Zeta; HackerEarth has Spot Awards."}
+{"claim": "Parth received a President's Award from Zeta.", "expect": "not_found", "source": "", "kind": "award", "note": "No such award on record."}
+{"claim": "Parth was named a Top 40 Under 40 product leader.", "expect": "not_found", "source": "", "kind": "award", "note": "No such recognition on record."}
+{"claim": "Parth published a book on product management.", "expect": "not_found", "source": "", "kind": "project", "note": "No book on record."}
+{"claim": "Parth built a native iOS app on the App Store.", "expect": "not_found", "source": "", "kind": "project", "note": "No native iOS product on record."}
+{"claim": "Parth's Shelfie app is on the Google Play Store.", "expect": "not_found", "source": "", "kind": "project", "note": "Shelfie is a web app; no Play Store listing on record."}
+{"claim": "Parth founded a fintech startup.", "expect": "not_found", "source": "", "kind": "employer", "note": "No startup founding on record."}
+{"claim": "Parth worked at Razorpay.", "expect": "not_found", "source": "", "kind": "employer", "note": "Razorpay does not appear in the record."}
+{"claim": "Parth managed a Stripe integration.", "expect": "not_found", "source": "", "kind": "entity", "note": "No Stripe integration on record."}
+{"claim": "Parth led the Plaid integration for Optum.", "expect": "not_found", "source": "", "kind": "entity", "note": "Plaid does not appear in the record."}
+{"claim": "Parth trained PyTorch models for fraud detection at Zeta.", "expect": "not_found", "source": "", "kind": "skill", "note": "Record says he integrated FeatureSpace; model training is not on record."}
+{"claim": "Parth has a Medium article on Kubernetes.", "expect": "not_found", "source": "", "kind": "project", "note": "No such article on the writing list."}
+{"claim": "Parth is a Salesforce administrator.", "expect": "not_found", "source": "", "kind": "skill", "note": "Salesforce does not appear in the record."}
+{"claim": "Parth has spoken at a Google I/O session.", "expect": "not_found", "source": "", "kind": "entity", "note": "No speaking engagement on record."}
+{"claim": "Parth was a speaker at ProductCon 2024.", "expect": "not_found", "source": "", "kind": "entity", "note": "No speaking engagement on record."}
+{"claim": "Parth has a Google Cloud Professional Data Engineer certificate.", "expect": "not_found", "source": "", "kind": "education", "note": "Not on the certifications list."}
+{"claim": "Parth built a PayPal checkout integration at Zeta.", "expect": "not_found", "source": "", "kind": "entity", "note": "PayPal does not appear in the record."}
+{"claim": "Parth's cards at Zeta were issued on American Express rails.", "expect": "not_found", "source": "", "kind": "entity", "note": "American Express does not appear in the record."}
+{"claim": "Parth led product at Revolut.", "expect": "not_found", "source": "", "kind": "employer", "note": "Revolut does not appear in the record."}
+{"claim": "Parth received a Mastercard award for fraud innovation.", "expect": "not_found", "source": "", "kind": "award", "note": "No such award on record."}
+{"claim": "Parth was promoted to Senior Product Manager at Backbase.", "expect": "not_found", "source": "", "kind": "title", "note": "No senior title on record."}
+{"claim": "Parth was Chief Product Officer at Zeta.", "expect": "not_found", "source": "", "kind": "title", "note": "No CPO title on record."}
+{"claim": "Parth is a Data Scientist by title.", "expect": "not_found", "source": "", "kind": "title", "note": "No data scientist title on record."}
+{"claim": "Parth was a Software Engineer at HackerEarth.", "expect": "not_found", "source": "", "kind": "title", "note": "HackerEarth title was Project Manager."}
+{"claim": "Parth's Track app has over 100,000 monthly users.", "expect": "not_found", "source": "", "kind": "number", "note": "No user numbers for Track on record."}
+{"claim": "Parth worked at Zeta as an intern in 2019.", "expect": "not_found", "source": "", "kind": "dates", "note": "Zeta roles start May 2022; no 2019 internship."}
+{"claim": "Parth's Chalk app has been downloaded 10,000 times.", "expect": "not_found", "source": "", "kind": "number", "note": "No download numbers on record."}
+{"claim": "Parth holds a CFA charter.", "expect": "not_found", "source": "", "kind": "education", "note": "No CFA on record."}
+{"claim": "Parth has managed a team of product managers as their direct manager.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "People management of PMs is marked as a gap."}
+{"claim": "Parth has hired and managed a team of PMs.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Gap in the competency list."}
+{"claim": "Parth has been a people manager of product managers.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Gap in the competency list."}
+{"claim": "Parth has held a director of product role with PMs reporting to him.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Gap in the competency list."}
+{"claim": "Parth's ~20 internal PMs at Backbase report to him directly.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Record says he coordinates them as MCP users, not as direct reports."}

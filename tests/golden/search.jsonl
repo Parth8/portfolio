@@ -1,0 +1,60 @@
+{"query": "Where did he study?", "expect": "hit", "where": "profile", "must_include": "PES University", "note": "Education line in the profile: B.Tech at PES University, Bengaluru, 2017-2021."}
+{"query": "What degree does he have?", "expect": "hit", "where": "profile", "must_include": "Electrical & Electronics Engineering", "note": "The B.Tech is in electrical and electronics engineering."}
+{"query": "Where is he based?", "expect": "hit", "where": "profile", "must_include": "Hyderabad, India", "note": "Location field in the profile."}
+{"query": "visa status", "expect": "hit", "where": "profile", "must_include": "US B1/B2 visa, valid to Oct 2035", "note": "Travel line in the profile; business travel only."}
+{"query": "awards", "expect": "hit", "where": "awards", "must_include": "Outstanding Award", "note": "Awards list; first entry is Zeta's Outstanding Award, Jul 2024."}
+{"query": "Mountain Mover", "expect": "hit", "where": "awards", "must_include": "Mountain Mover", "note": "Two Mountain Mover awards at Zeta, Dec 2023 and Mar 2024."}
+{"query": "What award did he get for wind-down execution?", "expect": "hit", "where": "awards", "must_include": "Shining Star", "note": "Shining Star, Zeta, Nov 2022, for wind-down program execution."}
+{"query": "Which award did he get in Dec 2023?", "expect": "hit", "where": "awards", "must_include": "Platform stability initiative", "note": "Mountain Mover award dated Dec 2023."}
+{"query": "certifications", "expect": "hit", "where": "certifications", "must_include": "Agile with Atlassian Jira", "note": "Certifications list: Udemy and two Atlassian entries."}
+{"query": "Has he worked at Backbase?", "expect": "hit", "where": "role:backbase-fdpm", "must_include": "Forward Deployed Product Manager", "note": "Current role at Backbase."}
+{"query": "Where did he work at HackerEarth?", "expect": "hit", "where": "role:hackerearth-pm", "must_include": "Delivered hiring solutions", "note": "Project Manager role at HackerEarth."}
+{"query": "What was his role at Zeta between 2024 and 2026?", "expect": "hit", "where": "role:zeta-tpm", "must_include": "Technical Product Manager", "note": "Zeta role running May 2024 to Aug 2026."}
+{"query": "What was his role at Zeta in 2023?", "expect": "hit", "where": "role:zeta-tpgm", "must_include": "Technical Program Manager", "note": "Zeta TPGM role, May 2022 to May 2024, covers 2023."}
+{"query": "When did he join Backbase?", "expect": "hit", "where": "role:backbase-fdpm", "must_include": "Aug 2026 - present", "note": "Backbase role period."}
+{"query": "When was he at HackerEarth?", "expect": "hit", "where": "role:hackerearth-pm", "must_include": "Feb 2021 - Apr 2022", "note": "HackerEarth role period."}
+{"query": "Zeta Technical Program Manager dates", "expect": "hit", "where": "role:zeta-tpgm", "must_include": "May 2022 - May 2024", "note": "Role period for the Zeta TPGM role."}
+{"query": "Did he build an MCP for banks?", "expect": "hit", "where": "case:connector-studio", "must_include": "Launched the Connector Studio MCP", "note": "Connector Studio MCP launched in six weeks."}
+{"query": "Who was the sponsor bank for the Optum program?", "expect": "hit", "where": "case:optum-virtual-cards", "must_include": "Optum Bank (Optum Financial)", "note": "Optum Bank was the sponsor bank on Mastercard rails."}
+{"query": "What did he do to eliminate MongoDB?", "expect": "hit", "where": "case:data-platform", "must_include": "Eliminated the MongoDB dependency", "note": "MongoDB removal saved about $50K a year."}
+{"query": "How many cards did Sparrow Card issue?", "expect": "hit", "where": "case:sparrow-launch", "must_include": "150K+ issuances", "note": "Sparrow Card reached 150K+ issuances by July 2024."}
+{"query": "Has he built a train tracker?", "expect": "hit", "where": "project:track", "must_include": "tracker for Indian trains", "note": "Track is a train and flight tracker."}
+{"query": "snooker scoring app", "expect": "hit", "where": "project:chalk", "must_include": "Snooker and 8-ball pool scored", "note": "Chalk scores snooker and 8-ball pool."}
+{"query": "reading tracker you drive", "expect": "hit", "where": "project:shelfie", "must_include": "reading tracker you drive", "note": "Shelfie is a gesture-driven reading tracker."}
+{"query": "credit card guide for India", "expect": "hit", "where": "project:credit", "must_include": "22 interactive chapters", "note": "Decoding Credit Cards: 22 chapters for India."}
+{"query": "Did he write an AI learning curriculum?", "expect": "hit", "where": "project:ai", "must_include": "open, vendor-neutral curriculum", "note": "Zero to a Hundred is an AI curriculum in 22 phases."}
+{"query": "Jira AI prototype", "expect": "hit", "where": "project:jira", "must_include": "AI layer on Jira", "note": "Jira 2.0 is a clickable prototype of an AI layer."}
+{"query": "Formula 1 2026 reset", "expect": "hit", "where": "project:grid", "must_include": "Formula 1's 2026 reset", "note": "GRID is an editorial reference for the 2026 F1 reset."}
+{"query": "recipe site", "expect": "hit", "where": "project:cookbook", "must_include": "216 dishes and drinks", "note": "The Cookbook has 216 dishes and drinks."}
+{"query": "print-ready poster", "expect": "hit", "where": "project:posters", "must_include": "print-ready poster", "note": "Map Poster Studio makes print-ready posters."}
+{"query": "Has he worked with Kafka?", "expect": "hit", "where": "case:data-platform", "must_include": "real-time Kafka", "note": "Kafka is in the Zeta data platform ingestion work."}
+{"query": "dbt", "expect": "hit", "where": "skills", "must_include": "dbt, Apache Airflow", "note": "dbt is listed under Data & Analytics technologies."}
+{"query": "Python", "expect": "hit", "where": "skills", "must_include": "Python (automation, reporting)", "note": "Python is listed under programming."}
+{"query": "Postman", "expect": "hit", "where": "skills", "must_include": "Postman (API testing)", "note": "Postman is listed for API testing."}
+{"query": "Figma", "expect": "hit", "where": "skills", "must_include": "Figma (wireframing", "note": "Figma is listed for wireframing and design collaboration."}
+{"query": "Cursor", "expect": "hit", "where": "skills", "must_include": "Cursor, Claude, Copilot", "note": "Cursor is listed under AI tools."}
+{"query": "RAG pipeline", "expect": "hit", "where": "case:connector-studio", "must_include": "Benchmarking the current RAG pipeline", "note": "RAG pipeline benchmark in Connector Studio."}
+{"query": "PCI DSS", "expect": "hit", "where": "skills", "must_include": "PII, PCI DSS, GDPR", "note": "PCI DSS is listed under compliance and governance skills."}
+{"query": "OFAC sanctions", "expect": "hit", "where": "case:data-platform", "must_include": "sanctions/AML data flows (OFAC, FinCEN)", "note": "Sanctions and AML data flows on the data platform."}
+{"query": "RBI", "expect": "hit", "where": "role:zeta-tpgm", "must_include": "RBI prepaid lending guidelines", "note": "Wind-down of 22 fintechs to comply with RBI guidelines."}
+{"query": "Has he led a team?", "expect": "hit", "where": "role:zeta-tpgm", "must_include": "Led a team of 3 CSMs", "note": "Led three CSMs as TPGM at Zeta."}
+{"query": "How big was the engineering team he led?", "expect": "hit", "where": "case:data-platform", "must_include": "team of 8 engineers", "note": "Led a team of 8 engineers at 90%+ on-time delivery."}
+{"query": "How many years in B2B SaaS?", "expect": "hit", "where": "profile", "must_include": "5+ years in B2B SaaS", "note": "Experience line in the profile."}
+{"query": "How should I contact him?", "expect": "hit", "where": "profile", "must_include": "Email. A line about the role", "note": "Preferred contact is email."}
+{"query": "What has he written on Medium?", "expect": "hit", "where": "writing", "must_include": "Decoding Credit Cards (5-part series)", "note": "Writing list includes the five-part Medium series."}
+{"query": "PM interviews", "expect": "hit", "where": "writing", "must_include": "PM interviews still obsessed", "note": "Medium post on PM guesstimate interviews, Oct 2025."}
+{"query": "Visa sponsorship for employees", "expect": "none", "where": "", "must_include": "", "note": "Only a travel visa is on record; no sponsorship is described."}
+{"query": "Kubernetes platform experience", "expect": "none", "where": "", "must_include": "", "note": "Kubernetes is not on record."}
+{"query": "Stripe payments integration", "expect": "none", "where": "", "must_include": "", "note": "Stripe is not on record; payments work is card issuing."}
+{"query": "Salesforce integration", "expect": "none", "where": "", "must_include": "", "note": "Salesforce is not on record."}
+{"query": "PMP certification", "expect": "none", "where": "", "must_include": "", "note": "Only Udemy and Atlassian certifications are on record."}
+{"query": "Salary expectations for a new role", "expect": "none", "where": "", "must_include": "", "note": "Compensation is not on record."}
+{"query": "Snowflake data warehouse", "expect": "none", "where": "", "must_include": "", "note": "Snowflake is not on record."}
+{"query": "Has he shipped a native iOS app?", "expect": "none", "where": "", "must_include": "", "note": "Record says no native iOS or Android product is on record."}
+{"query": "Experience in Germany", "expect": "none", "where": "", "must_include": "", "note": "No Germany work on record; markets are US, EMEA and India."}
+{"query": "Terraform infrastructure", "expect": "none", "where": "", "must_include": "", "note": "Terraform is not on record."}
+{"query": "Did he work at Amazon?", "expect": "none", "where": "", "must_include": "", "note": "Amazon is not an employer on record."}
+{"query": "PhD in computer science", "expect": "none", "where": "", "must_include": "", "note": "No PhD on record; the degree is a B.Tech in electrical engineering."}
+{"query": "Notice period for a new role", "expect": "none", "where": "", "must_include": "", "note": "Notice period is not on record."}
+{"query": "Blockchain projects", "expect": "none", "where": "", "must_include": "", "note": "No blockchain work on record."}
+{"query": "Redis cache", "expect": "none", "where": "", "must_include": "", "note": "Redis is not on record."}
