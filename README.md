@@ -45,7 +45,9 @@ For each requirement (from a job description or a reader persona), `js/career-en
   different name, number, place or date is `differs`. `search_evidence` indexes every line and typed fact (education,
   location, visa, awards, certifications, employers with dates) and returns nothing when a distinctive word is absent.
 - `node tests/golden-report.mjs` scores the engine on `tests/golden/` (claims with near-miss twins, 80 true paraphrases,
-  search, jobs) and writes `data/accuracy.json`.
+  search, jobs), 60 held-out claims, and a seeded mutation fuzz (about 5,000 false variants of every supported claim,
+  none may be confirmed), and writes `data/accuracy.json`. Employment claims are decided from the typed employment
+  facts only, and wants, needs and plans are never evidenced by a line that merely shares words.
 
 The For-you page shows each requirement's confidence, its reasons, every quoted line with its weights, and the maths;
 `fit_for` returns the same to an AI. Tests check that every quoted line really is on the record.

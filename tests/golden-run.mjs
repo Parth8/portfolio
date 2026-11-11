@@ -26,6 +26,15 @@ export function runParaphrases() {
   return { total: rows.length, supported: rows.length - wrong.length, false_negatives: wrong.length, wrong, unsourced, kinds: [...new Set(rows.map(r => r.kind))] };
 }
 
+// held-out: written after the engine was tuned on the other sets, run once before any fixing (see AUDIT.md)
+export function runHeldout() {
+  const rows = jsonl('heldout.jsonl').map(c => ({ ...c, got: E.proveClaim(data, c.claim) }));
+  const t = rows.filter(r => r.expect === 'supported'), f = rows.filter(r => r.expect !== 'supported');
+  const okExpect = r => r.got.verdict === r.expect || (r.kind === 'intent' && r.got.verdict === 'unclear');
+  return { total: rows.length, true_total: t.length, true_supported: t.filter(r => r.got.verdict === 'supported').length, false_total: f.length,
+    false_confirmations: f.filter(r => r.got.verdict === 'supported').length, exact: f.filter(okExpect).length, wrong: rows.filter(r => (r.expect === 'supported' ? r.got.verdict !== 'supported' : !okExpect(r))) };
+}
+
 export function runSearch() {
   const rows = jsonl('search.jsonl');
   const bad = [];

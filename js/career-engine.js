@@ -80,7 +80,7 @@ const COMMON = stems('year month week day hour time ago later earlier first seco
 const ABSOLUTE = new Set('never always every everything everyone everybody entire entirely whole each none nobody nothing fully completely only solely exclusively all'.split(' '));
 const NEGATORS = new Set('refuse refused refuses refusing reject rejected forbid forbade forbidden no not never without none nothing nobody neither nor cannot cant dont doesnt didnt wasnt isnt arent hasnt havent'.split(' '));
 const MONTHS3 = 'jan feb mar apr may jun jul aug sep oct nov dec'.split(' ');
-const NUMWORDS = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, fifteen: 15, twenty: 20 };
+const NUMWORDS = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15, sixteen: 16, eighteen: 18, twenty: 20, thirty: 30, forty: 40, fifty: 50, sixty: 60, seventy: 70, eighty: 80, ninety: 90 };
 // groups of near-synonyms: stems in one group count as the same word
 const SYN_GROUPS = [
   // down / removal
@@ -93,13 +93,13 @@ const SYN_GROUPS = [
   'join start begin', 'study education school', 'qualification degree', 'article post essay', 'tool app application',
   'generate synthesise synthesize produce', 'expire expiry expiration', 'span cover', 'automatic automate automat',
   'double twice 2x', 'compare benchmark evaluate', 'refuse reject decline', 'require mandate demand', 'write author document',
-  'execute execution', 'accurate accuracy', 'refuse refusal', 'tell inform say', 'serve deliver', 'unintuitive confusing',
+  'fast quick rapid speed', 'shutdown winddown', 'within inside', 'execute execution', 'accurate accuracy', 'refuse refusal', 'tell inform say', 'serve deliver', 'unintuitive confusing',
 ].map(g => g.split(' ').map(st));
 const DOWN = new Set('cut reduce reduction lower fall drop decrease decline slash shrink down save saving remove removal eliminate elimination delete retire shorten trim'.split(' ').map(st));
 const UP = new Set('rise increase raise grow growth boost lift improve gain climb jump up'.split(' ').map(st));
 // ordinary words that cannot decide a claim about a career record
 // verbs and modifiers that may be missing from the line a claim paraphrases without changing what it says
-const LIGHT = stems('live build make create develop implement deploy release plan define set establish handle support help enable allow provide offer include contain track monitor measure report able successful successfully proven ship deliver own run drive publish write launch start begin end finish stop add change high low large small big strong key main major recent often usually new first full whole half');
+const LIGHT = stems('live build make create develop implement deploy release plan define set establish handle support help enable allow provide offer include contain track monitor measure report able successful successfully proven ship deliver own run drive publish write launch start begin end finish stop add change high low large small big strong key main major recent often usually new first full whole half system feature tool app application service approach solution page site');
 const GLUE = stems('keep bring see span meet thank wait get go there here right well way find like even also still already just really very quite kind sort lot bit part because enough while although though however whether should would could might try give him them ask come hit one');
 const SYN = new Map();
 for (const g of SYN_GROUPS) for (const s of g) SYN.set(s, [...new Set([...(SYN.get(s) || []), ...g])]);
@@ -149,6 +149,7 @@ function normNum(text) {
     return `${pre}1${sep === '-' ? '-' : ' '}`;
   });
   t = t.replace(new RegExp(`\\bone(?=[\\s-]+${TIMEU}\\b)`, 'gi'), '1').replace(/\b(from [\w$.,~]+(?: [a-z]+)? to) one\b/gi, '$1 1');
+  t = t.replace(/\b(?:a|one) decade\b/gi, '10 years').replace(/\b(two|three) decades\b/gi, (m, w) => `${NUMWORDS[w.toLowerCase()] * 10} years`);
   t = t.replace(/\b(?:by |in )(?:about |roughly |nearly |around )?half\b/gi, ' 50%').replace(/\b(?:double|doubled|twice|two times)\b(?: as (?:much|many))?/gi, '2x');
   return t;
 }
@@ -179,14 +180,43 @@ function numbersOf(text) {
     const run = [];
     for (const w of (m[6] || '').split(/\s+/).filter(Boolean)) { if (STOP.has(w.toLowerCase())) break; run.push(...w.split('-').filter(Boolean).map(st)); }
     const taken = []; for (const w of (m[6] || '').split(/\s+/).filter(Boolean)) { if (STOP.has(w.toLowerCase())) break; taken.push(w); }
-    out.push({ value, cls, nouns: run, noun: run[run.length - 1] || '', raw: (m[0].slice(0, m[0].length - (m[6] || '').length).replace(/[\s-]+$/, '') + (taken.length ? ' ' + taken.join(' ') : '')).trim(), plus: !!m[5] });
+    out.push({ value, cls, nouns: run, noun: run[run.length - 1] || '', raw: (m[0].slice(0, m[0].length - (m[6] || '').length).replace(/[\s-]+$/, '') + (taken.length ? ' ' + taken.join(' ') : '')).trim(), plus: !!m[5], at: m.index, end: m.index + m[0].length });
+  }
+  // "from 12 days to ~2": the bare figure after a figure with a unit shares that unit
+  for (let k = 1; k < out.length; k++) {
+    const a = out[k - 1], b = out[k];
+    if (!b.cls && a.cls && /^\W*(?:to|vs\.?|-|–)\W*$/i.test(t.slice(a.end, b.at))) { b.cls = a.cls; if (!b.nouns.length) b.nouns = a.nouns; }
   }
   return out;
 }
 const famOf = cls => (TIME[cls] || ['hour', 'minute', 'second', 'day', 'week', 'month', 'year'].includes(cls) ? 'time' : cls || 'count');
-const numEq = (a, b) => Math.abs(a.value - b.value) <= 1e-9 * Math.max(1, Math.abs(a.value)) && (!a.nouns.length || !b.nouns.length || a.nouns.some(x => b.nouns.includes(x))) && (!a.cls || !b.cls || a.cls === b.cls || (a.cls === '$' && !b.cls));
+const nounHit = (xs, ys) => xs.some(x => alts(x).some(y => ys.includes(y)));
+const numEq = (a, b) => Math.abs(a.value - b.value) <= 1e-9 * Math.max(1, Math.abs(a.value)) && (!a.nouns.length || !b.nouns.length || nounHit(a.nouns, b.nouns)) && (!a.cls || (!b.cls ? (b.nouns.includes(a.cls) || a.cls === '$') : a.cls === b.cls)) && (!b.cls || !a.cls || a.cls === b.cls) && !(!a.cls && b.cls && !['$', '%', 'x'].includes(b.cls) && a.nouns.length && !nounHit(a.nouns, b.nouns) && !a.nouns.includes(b.cls));
 // the doc number a claim number should be compared with: same unit family, same noun, or the same order of magnitude
 const comparable = (a, b) => (a.cls && b.cls ? famOf(a.cls) === famOf(b.cls) : a.nouns.some(x => b.nouns.includes(x)) || (a.cls && b.nouns.includes(a.cls)) || (b.cls && a.nouns.includes(b.cls))) || (!a.cls && !b.cls && ((a.nouns.some(x => b.nouns.includes(x))) || (!a.nouns.length && !b.nouns.length && Math.max(a.value / b.value, b.value / a.value) <= 20) || ((!a.nouns.length || !b.nouns.length) && a.value >= 1000 && b.value >= 1000 && Math.max(a.value / b.value, b.value / a.value) <= 20)));
+
+/* ---------- abbreviations: spelled out and short forms count as the same words ----------
+   A built-in list of the ones a career record uses, plus every "ABBR (long form)" the record itself defines. Job titles
+   (product manager, program manager) are never rewritten: they are checked against the typed employment facts. */
+const ABBR_BUILTIN = [['CSM', 'customer success managers?'], ['PM', 'product managers'], ['GTM', 'go[- ]to[- ]market'], ['SLA', 'service[- ]level agreements?'], ['SLO', 'service[- ]level objectives?'], ['KPI', 'key performance indicators?'],
+  ['OKR', 'objectives? and key results?'], ['NPS', 'net promoter scores?'], ['CSAT', 'customer satisfaction(?: scores?)?'], ['FRM', 'fraud[- ]risk[- ]management'], ['PII', 'personally identifiable information'], ['RAG', 'retrieval[- ]augmented generation'],
+  ['LLM', 'large language models?'], ['MCP', 'model context protocol'], ['BAU', 'business as usual'], ['API', 'application programming interfaces?'], ['QA', 'quality assurance'], ['KYC', 'know[- ]your[- ]customer'], ['AML', 'anti[- ]money[- ]laundering'],
+  ['RBAC', 'role[- ]based access control'], ['DAG', 'directed acyclic graphs?'], ['MVP', 'minimum viable products?'], ['DAU', 'daily active users'], ['MAU', 'monthly active users'], ['SMB', 'small (?:and medium )?business(?:es)?'],
+  ['RBI', 'reserve bank of india'], ['APR', 'annual percentage rate'], ['PWA', 'progressive web apps?'], ['ML', 'machine[- ]learning'], ['AI', 'artificial intelligence'], ['UX', 'user experience'], ['UI', 'user interfaces?'], ['ETL', 'extract,? transform,? and load'],
+  ['SQL', 'structured query language']];
+function abbrOf(data) {
+  if (abbrOf.cache.has(data)) return abbrOf.cache.get(data);
+  const list = ABBR_BUILTIN.map(([short, long]) => [new RegExp(`\\b${long}\\b`, 'gi'), short]);
+  const text = JSON.stringify(data);
+  for (const m of text.matchAll(/\b([A-Z][A-Za-z]{1,7})\s*\(([a-z][A-Za-z -]{5,60})\)/g)) {
+    const long = m[2].trim();
+    if (!list.some(([, sh]) => sh === m[1])) list.push([new RegExp(`\\b${long.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[- ]/g, '[- ]')}s?\\b`, 'gi'), m[1]]);
+  }
+  abbrOf.cache.set(data, list);
+  return list;
+}
+abbrOf.cache = new WeakMap();
+const canon = (list, text) => list.reduce((t, [re, short]) => t.replace(re, m => (/s$/i.test(m) && !/s$/i.test(short) ? short + 's' : short)), String(text));
 
 /* ================= index: every record, evidence line and typed fact ================= */
 const cache = new WeakMap();
@@ -256,6 +286,7 @@ facts.cache = new WeakMap();
 
 export function index(data) {
   if (cache.has(data)) return cache.get(data);
+  const abbr = abbrOf(data);
   const base = data.base_url;
   const records = new Map();
   const add = (ref, r) => records.set(ref, { ref, ...r });
@@ -347,7 +378,7 @@ export function index(data) {
   }
   // search weights: index every unit's stems
   for (const u of units) {
-    u.w = wordsOf(u.line);
+    u.w = wordsOf(canon(abbr, u.line));
     u.nums = numbersOf(u.line);
     u.dates = datesOf(u.line, data.updated);
     u.body = new Set(u.w.map(x => x.stem));
@@ -376,7 +407,7 @@ export function index(data) {
   const toolSrc = [...Object.values(data.skills || {}).flatMap(g => Object.values(g)), ...data.cases.flatMap(c => [(c.stack || []).join(', ')]), ...data.projects.flatMap(x => [(x.built_with || []).join(', ')])];
   for (const s of toolSrc) for (const item of s.replace(/\([^)]*\)/g, ',').split(/[,;]/)) { const t = item.trim(); if (t && !/\s/.test(t) && /[A-Za-z]/.test(t)) tools.add(st(t)); }
   const comps = data.competencies.map(c => ({ ...c, res: c.keywords.map(k => ({ k, re: kwRegex(k) })) }));
-  const out = { records, frecs, units, docs: units, idf, comps, vocab, vocabAll, wholeWords, names, tools, F };
+  const out = { abbr, records, frecs, units, docs: units, idf, comps, vocab, vocabAll, wholeWords, names, tools, F };
   cache.set(data, out);
   return out;
 }
@@ -549,7 +580,7 @@ const SLOT_STEMS = stems('sponsor bank rails rail network partner launch issuer 
 const CAPFRAME = new Set('the he his she it this that in at on by an a and or but if so we our they every all one also his her their parth aggarwal there here is are was were to of for from with as'.split(' '));
 const ROLE_NOUNS = stems('manager engineer officer director lead head intern analyst scientist designer architect developer owner consultant president executive specialist');
 const TITLE_MODS = stems('senior junior staff principal lead head chief technical product program project platform forward deployed associate group vp director software data backend frontend full stack growth marketing sales operations executive of');
-const EMP_CUES = stems('work employ join hire promot title role position tenure leave resign since');
+const EMP_CUES = stems('work employ join hire promot title role position tenure leave resign since stint ended end start started begin began depart exit spent spend');
 const TITLE_SET = stems('senior junior staff principal chief head vp intern associate group software technical product program project forward deployed platform data growth marketing sales operations executive');
 
 // each figure with the first words that follow it: "76 snooker, 52 pool" -> [{v:76, s:'snooker'}, {v:52, s:'pool'}]
@@ -570,7 +601,7 @@ function pairsOf(text) {
   return out;
 }
 function analyseClaim(ix, claim, data) {
-  const text = normClaim(claim);
+  const text = canon(ix.abbr, normClaim(claim));
   const all = wordsOf(stripDates(text));
   const w = all.filter(x => !x.joined);
   const nums = numbersOf(text);
@@ -693,6 +724,88 @@ function substitution(C, term, rows) {
   return null;
 }
 
+
+/* ---------- employment claims: a positive check against the typed employment facts ----------
+   "works at / employed by / joined / interned at X", "was <title> at X", "is the <title> of X": supported only when X is one
+   of his employers AND every word of the title is in his title there. Anything else is decided here, never by a line
+   that merely shares words (Google is a client in a case study, "CEO Office" is a team). */
+const EMP_VERBS = new Set('work works worked working employed employee hired interned intern internship joined joins join joining serves served serving left leaving leaves resigned quit promoted appointed employ staff'.split(' '));
+const EMP_PREP = new Set(['at', 'by', 'for', 'to', 'with', 'from', 'of']);
+const ORG_FILLER = new Set('a an the as full time part previously currently also formerly once now then since'.split(' '));
+const TITLE_NOUN = new Set('manager engineer officer director head intern analyst scientist designer architect developer owner consultant president executive specialist founder cofounder recruiter accountant nurse associate administrator coordinator representative writer lawyer teacher doctor technician programmer tester strategist marketer salesperson ceo cto cfo coo cpo cmo cio ciso vp svp evp chief'.split(' '));
+const NOT_ORG = new Set('he his she her they it its the a an this that these those i we you parth aggarwal our their product engineering platform data growth marketing sales design operations finance technology program project card cards payments banking bank team teams record'.split(' '));
+const isMonthWord = w => MONTH_NAMES.some(m => m.toLowerCase() === w || m.slice(0, 3).toLowerCase() === w);
+function employmentGate(data, ix, C) {
+  const T = C.w;
+  const empl = ix.F.employers;
+  const companies = [...new Set(empl.map(e => e.company))];
+  const isEmployer = name => companies.some(c => norm(c) === norm(name).trim() || wordsOf(name).every(x => wordsOf(c).some(y => y.stem === x.stem)));
+  // 1. organisations named as a place of employment
+  const orgs = [];
+  const cues = T.map((x, k) => (EMP_VERBS.has(x.low) ? k : -1)).filter(k => k >= 0);
+  const titleish = x => TITLE_NOUN.has(x.low) || TITLE_MODS.has(x.stem) || ROLE_NOUNS.has(x.stem);
+  const run = k => { const parts = []; let j = k; while (j < T.length && T[j].cap && !NOT_ORG.has(T[j].low) && !titleish(T[j]) && !isMonthWord(T[j].low) || (parts.length && j < T.length && T[j].raw === '&')) { parts.push(T[j].raw); j++; } return parts; };
+  for (const k of cues) {
+    const verb = T[k].low;
+    let j = k + 1, prep = /^(joined|joins|join|joining)$/.test(verb);
+    for (; j < T.length && j <= k + 8; j++) {
+      const w = T[j];
+      if (EMP_PREP.has(w.low) && !(w.low === 'with' && !/^(interned|intern|internship|employed|employee)$/.test(verb)) && !(w.low === 'of')) { prep = true; continue; }
+      if (ORG_FILLER.has(w.low) || w.low === 'join') continue;
+      if (!prep) { if (TITLE_NOUN.has(w.low) || w.cap) continue; break; }
+      const r = run(j);
+      if (r.length) { orgs.push(r.join(' ')); j += r.length - 1; prep = /^(left|leaving|leaves)$/.test(verb) ? false : prep; continue; }
+      if (!w.cap && w.low.length > 2 && !NUMWORDS[w.low] && w.low !== 'one' && !UNITWORDS.has(w.stem) && !STOP.has(w.low) && !FRAME.has(w.stem) && !COMMON.has(w.stem) && !TITLE_NOUN.has(w.low) && !EMP_VERBS.has(w.low) && /^(works?|worked|employed|interned|joined)$/.test(verb) && T[j - 1] && EMP_PREP.has(T[j - 1].low)) { orgs.push(w.raw); break; }
+      if (!TITLE_NOUN.has(w.low)) break;
+    }
+  }
+  const outsiders = [...new Set(orgs)].filter(o => !isEmployer(o));
+  const emplUnits = () => empl.map(e => ix.units.find(u => u.ref === e.ref && u.fact));
+  if (outsiders.length) {
+    const seen = outsiders.filter(o => wordsOf(o).every(x => ix.vocab.has(x.stem)));
+    return { verdict: 'not_found', explanation: `${list(outsiders)} ${seen.length ? 'appears in the record, but not as an employer' : 'is never mentioned in the record'}. His employers on record: ${empl.map(e => `${e.company} (${e.period})`).join('; ')}.`, units: emplUnits(), checked: { typed: 'role' } };
+  }
+  // 2. a title: every word must be in his title at the employer named (or at any employer when none is named)
+  const named = companies.filter(c => wordsOf(c).every(x => C.stemSet.has(x.stem)));
+  const tk = T.findIndex((x, k) => TITLE_NOUN.has(x.low) && !(x.low === 'head' && !(T[k + 1] && T[k + 1].low === 'of')) && !(x.low === 'lead'));
+  if (tk < 0) return null;
+  const next = T[tk + 1];
+  if (next && (['award', 'awards', 'office', 'team', 'badge', 'prize'].includes(next.low) || /['’]s$/.test(T[tk].raw))) return null;
+  const before = T.slice(Math.max(0, tk - 4), tk).map(x => x.low);
+  // "is / was / became / as" then only articles and modifiers up to the title: "was a senior product manager"
+  let pj = tk - 1; while (pj >= 0 && !['is', 'was', 'am', 'as', 'be', 'been', 'being', 'became', 'become', 'held', 'holds', 'hold'].includes(T[pj].low) && tk - pj <= 4 && !STOP.has(T[pj].low) || (pj >= 0 && ['a', 'an', 'the'].includes(T[pj].low) && tk - pj <= 4)) pj--;
+  const direct = pj >= 0 && ['is', 'was', 'am', 'as', 'be', 'been', 'being', 'became', 'become', 'held', 'holds', 'hold'].includes(T[pj].low);
+  const ctx = direct || (before.length && ['the', 'a', 'an'].includes(before[before.length - 1]) && (cues.length || named.length || orgs.length) && !before.some(w => STOP.has(w) && !['a', 'an', 'the'].includes(w)));
+  const inRole = (T[tk + 1] && ['at', 'of', 'for', 'with'].includes(T[tk + 1].low)) || cues.length || named.length;
+  if (!ctx && !(inRole && named.length && before.length && !before.some(w => STOP.has(w) && !['a', 'an', 'the'].includes(w)))) return null;
+  // the title run: modifiers before the noun, and "of Product" after it
+  const stop = w => STOP.has(w.low) || FRAME.has(w.stem) && !TITLE_MODS.has(w.stem) || EMP_VERBS.has(w.low) || ['is', 'was', 'am', 'been', 'being', 'became', 'become', 'as', 'currently', 'now', 'then', 'newly', 'formerly', 'previously', 'held', 'holds', 'hold', 'title', 'titled', 'role', 'position', 'he', 'his'].includes(w.low);
+  const mods = []; for (let j = tk - 1; j >= 0 && mods.length < 3 && !stop(T[j]); j--) mods.unshift(T[j]);
+  const after = []; if (T[tk + 1] && T[tk + 1].low === 'of') for (let j = tk + 2; j < T.length && after.length < 2 && T[j].cap && !named.some(c => wordsOf(c).some(x => x.stem === T[j].stem)); j++) after.push(T[j]);
+  const claimWords = [...mods, T[tk], ...after];
+  const scope = named.length ? empl.filter(e => named.includes(e.company)) : empl;
+  const allowed = new Set(scope.flatMap(e => [e.title, ...e.products.map(p => p.split(':')[0])].flatMap(t => wordsOf(t).map(x => x.stem))));
+  const headline = new Set(wordsOf(ix.F.headline).map(x => x.stem));
+  const bad = claimWords.filter(x => !allowed.has(x.stem) && !(!named.length && headline.has(x.stem)) && x.stem !== 'of');
+  if (!bad.length) return null;
+  const titles = list(scope.map(e => `${e.title} (${e.period})`));
+  if (named.length) return { verdict: 'differs', explanation: `Not as stated: his title${scope.length > 1 ? 's' : ''} at ${list(named)} ${scope.length > 1 ? 'were' : 'was'} ${titles}; the record has no "${claimWords.map(x => x.raw).join(' ')}".`, units: scope.map(e => ix.units.find(u => u.ref === e.ref && u.fact)), checked: { typed: 'role' } };
+  return { verdict: 'not_found', explanation: `No such title on the record ("${claimWords.map(x => x.raw).join(' ')}"). His titles: ${list(empl.map(e => `${e.title}, ${e.company} (${e.period})`))}.`, units: emplUnits(), checked: { typed: 'role' } };
+}
+
+// needs, wants, plans and preferences: only what the record says about availability counts, never a line that shares words
+const INTENT = /\b(?:needs?|needed|requires?|requiring|wants?|wanted|wishes|wishing|plans?\s+(?:to|on)|planning\s+(?:to|on|for)|prefers?|prefer(?:red)?\s+to|hopes?|hoping|intends?|intending|aims?\s+to|aspires?|aspiring|going to|would like|looking to|likes? to|loves? to|dreams?|expects?|seeks?|seeking|interested in|keen (?:on|to)|will (?:\w+ ){0,2}(?:move|relocate|join|start|leave|require|need|want|become|launch|found|quit|retire|study|apply|ask))\b/i;
+function intentCheck(data, ix, C, claim) {
+  if (!INTENT.test(claim)) return null;
+  const visa = /\b(visa|sponsor\w*|h-?1b|l-?1|green ?card|work (?:permit|authori[sz]ation)|immigra\w*)\b/i.test(claim);
+  const unit = ix.units.find(u => u.ref === (visa ? 'profile:visa' : 'profile:open_to'));
+  const open = ix.units.find(u => u.ref === 'profile:open_to');
+  if (visa) return { verdict: 'unclear', explanation: `The record does not say what he needs or wants. It states only his current status: ${ix.F.visa.text} Ask him about sponsorship.`, units: [unit], checked: { typed: 'intent' } };
+  const e = evalUnit(C, open);
+  if (e.mw > 0 && !e.entMiss.length && !e.nu.length && !e.dx.length && e.knownCover >= 0.5) return { verdict: 'unclear', explanation: `The record says what he is open to ("${open.line}"); it does not say he wants, plans or prefers this. Ask him.`, units: [open], checked: { typed: 'intent' } };
+  return { verdict: 'not_found', explanation: `The record states no wants, needs, plans or preferences beyond his availability ("${open.line}"). Do not repeat this as fact; ask Parth.`, units: [open], checked: { typed: 'intent' } };
+}
+
 const GAP_EXTRA = /\b(?:pms?|product managers?)\b[^.]*\b(?:report\w*|direct reports?|managed by|manag\w+ them)\b|\b(?:manag\w+|hir\w+|supervis\w+|coach\w+)\b[^.]*\b(?:pms|product managers)\b/i;
 
 export function proveClaim(data, claim) {
@@ -703,18 +816,23 @@ export function proveClaim(data, claim) {
   const res = (verdict, explanation, us = [], checked = {}) => ({ claim, verdict, explanation, evidence: ev(us), checked: finishChecked(C, checked) });
   if (!C.terms.length && !C.nums.length && !C.dates.length) return res('not_found', 'The claim has no names, numbers or dates to check against the record.');
 
+  { const it = intentCheck(data, ix, C, claim); if (it) return res(it.verdict, it.explanation, it.units, it.checked); }
+  const namesEmployer = ix.F.employers.some(e => wordsOf(e.company).every(x => C.stemSet.has(x.stem)));
+  const gateNow = () => { const g = employmentGate(data, ix, C); return g && res(g.verdict, g.explanation, g.units, g.checked); };
+  if (!C.hasNeg && namesEmployer) { const r0 = gateNow(); if (r0) return r0; }
+  const gap = detect(claim, ix.comps).find(f => f.c.strength === 'gap');
+  const gapHit = gap || (GAP_EXTRA.test(claim) && !C.hasNeg ? { c: ix.comps.find(c => c.strength === 'gap') } : null);
+  if (gapHit && gapHit.c) return res('not_supported', `Not supported. ${gapHit.c.note}`, [], { typed: 'gap' });
+  if (!C.hasNeg && !namesEmployer) { const r1 = gateNow(); if (r1) return r1; }
+
   // 1. a recorded gap (e.g. managing PMs); a plain title claim naming one of his employers is checked as a role first
   if (!C.hasNeg && ix.F.employers.some(e => wordsOf(e.company).every(x => C.stemSet.has(x.stem)))) {
     const t = roleCheck(data, ix, C);
     if (t) return res(t.verdict, t.explanation, t.units, t.checked);
   }
-  const gap = detect(claim, ix.comps).find(f => f.c.strength === 'gap');
-  const gapHit = gap || (GAP_EXTRA.test(claim) && !C.hasNeg ? { c: ix.comps.find(c => c.strength === 'gap') } : null);
-  if (gapHit && gapHit.c) return res('not_supported', `Not supported. ${gapHit.c.note}`, [], { typed: 'gap' });
-
   // 2. typed checks: role, education, location, visa, years
   if (!C.hasNeg) {
-    const typed = roleCheck(data, ix, C) || educationCheck(data, ix, C) || locationCheck(data, ix, C) || visaCheck(data, ix, C) || yearsCheck(data, ix, C);
+    const typed = roleCheck(data, ix, C) || educationCheck(data, ix, C) || locationCheck(data, ix, C) || visaCheck(data, ix, C) || durationCheck(data, ix, C) || yearsCheck(data, ix, C);
     if (typed) return res(typed.verdict, typed.explanation, typed.units, typed.checked);
   }
 
@@ -737,7 +855,7 @@ export function proveClaim(data, claim) {
   const near = topRows.find(r => r.absMiss.length || r.conflicts.length) || topRows[0] || best;
 
   // absolute overclaim: the record states it for a specific scope only
-  const absRow = rows.find(r => r.absMiss.length && r.mw >= 2 && r.knownCover >= 0.25 && !r.entMiss.length);
+  const absRow = !unknown.some(t => t.unk === 'hard') && rows.find(r => r.absMiss.length && r.mw >= 2 && r.knownCover >= 0.25 && !r.entMiss.length);
   if (absRow) {
     return res('differs', `Overclaim: "${absRow.absMiss.map(a => a.raw).join('", "')}" goes beyond the record, which states this only for the scope quoted below.`, rows.filter(r => r.knownCover >= 0.25 && r.mw >= 2 && !r.entMiss.length).slice(0, 3).map(r => r.u), { best: absRow, absRow });
   }
@@ -964,6 +1082,25 @@ function visaCheck(data, ix, C) {
   return { verdict: 'supported', explanation: 'Supported: the record states this, quoted below.', units: [unit], checked };
 }
 
+// "five years at HackerEarth": time spent with an employer, from the dates of his roles there
+function durationCheck(data, ix, C) {
+  const tn = C.nums.filter(n => ['year', 'month', 'week'].includes(n.cls));
+  if (!tn.length || C.nums.length !== tn.length) return null;
+  const empl = ix.F.employers;
+  const named = [...new Set(empl.filter(e => wordsOf(e.company).every(x => C.stemSet.has(x.stem))).map(e => e.company))];
+  if (named.length !== 1 || !/\b(for|spent|spend|stayed|tenure|duration|lasted|stint|worked|working|years?|months?)\b/i.test(C.text)) return null;
+  const rs = empl.filter(e => e.company === named[0]);
+  const start = rs.map(r => r.start).sort()[0], end = rs.some(r => !r.end) ? cur(data) : rs.map(r => r.end).sort().pop();
+  const have = monthsBetween(start, end);
+  const unit = ix.units.find(u => u.ref === rs[0].ref && u.fact);
+  const n = tn[0], claimM = n.value * (n.cls === 'year' ? 12 : n.cls === 'week' ? 12 / 52 : 1);
+  const loose = /\b(over|more than|at least|above|exceed\w*)\b/i.test(C.text), about = /\b(about|roughly|around|nearly|almost|approximately)\b/i.test(C.text);
+  const ok = loose ? claimM <= have + 1 : Math.abs(claimM - have) <= Math.max(n.cls === 'year' ? 6 : 1.5, about ? have * 0.15 : 0);
+  const facts = `${named[0]}: ${rs.map(r => r.period).join('; ')}, ${fmtTenure(have)} in all`;
+  return ok ? { verdict: 'supported', explanation: `Supported: ${facts}.`, units: [unit], checked: { typed: 'duration' } }
+    : { verdict: 'differs', explanation: `Not as stated: you said ${n.raw}; the record has ${facts}.`, units: rs.map(r => ix.units.find(u => u.ref === r.ref && u.fact)), checked: { typed: 'duration' } };
+}
+
 function yearsCheck(data, ix, C) {
   const yn = C.nums.filter(n => n.cls === 'year');
   if (!yn.length || C.nums.length > yn.length) return null;
@@ -977,6 +1114,7 @@ function yearsCheck(data, ix, C) {
   const unit = ix.units.find(u => u.ref === 'profile:experience');
   const checked = { typed: 'years' };
   if (C.terms.some(t => ['product', 'manag', 'pm', 'program', 'platform', 'payment', 'card', 'ai', 'data'].includes(t.s))) return { verdict: 'unclear', explanation: `The record gives ${ex.text} It does not state years in that narrower area; the roles with dates are listed under get_facts.`, units: [unit], checked };
+  if (C.dates.length) { const since = ctx.has('fintech') ? ex.fintech_since : ex.since; const [sy, sm] = since.split('-').map(Number); if (C.dates.some(d => d.y !== sy || (d.m && d.m !== sm))) return { verdict: 'differs', explanation: `Not as stated: the record says ${ex.text} (${ctx.has('fintech') ? `fintech since ${fmtYM(ex.fintech_since)}` : `since ${fmtYM(ex.since)}`}).`, units: [unit], checked }; }
   const fin = ctx.has('fintech');
   const floor = fin ? ex.fintech_years_min : ex.b2b_saas_years_min;
   const n = yn[0].value;
@@ -1464,3 +1602,4 @@ export function resumeMarkdown(data) {
 
 // exposed for tests and debugging only
 export const _internals = { index, analyseClaim, evalUnit };
+export const _gate = employmentGate;

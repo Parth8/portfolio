@@ -1,7 +1,7 @@
 // Golden sets (tests/golden/*.jsonl) against the evidence engine. Thresholds are fixed: do not lower them to pass.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { runClaims, runSearch, runJobs, runParaphrases } from './golden-run.mjs';
+import { runClaims, runSearch, runJobs, runParaphrases, runHeldout } from './golden-run.mjs';
 import { readFileSync } from 'node:fs';
 
 test('golden claims: zero false confirmations, at least 95% accuracy', () => {
@@ -38,4 +38,13 @@ test('golden paraphrases: true rewordings are supported in >= 92% of cases, each
   for (const k of ['case', 'role', 'project', 'profile', 'award']) assert.ok(p.kinds.includes(k), `no ${k} paraphrase`);
   const show = p.wrong.map(r => `[${r.got.verdict}] ${r.claim}`).join('\n');
   assert.ok(p.supported / p.total >= 0.92, `supported ${p.supported}/${p.total}\n${show}`);
+});
+
+test('held-out claims: zero false confirmations, >= 90% of true ones supported, >= 90% of false ones with the right verdict', () => {
+  const h = runHeldout();
+  assert.ok(h.total >= 60 && h.true_total >= 20 && h.false_total >= 40, `only ${h.total} held-out claims`);
+  const show = h.wrong.map(r => `[${r.expect} -> ${r.got.verdict}] ${r.claim}`).join('\n');
+  assert.equal(h.false_confirmations, 0, show);
+  assert.ok(h.true_supported / h.true_total >= 0.9, `true ${h.true_supported}/${h.true_total}\n${show}`);
+  assert.ok(h.exact / h.false_total >= 0.9, `false ${h.exact}/${h.false_total}\n${show}`);
 });

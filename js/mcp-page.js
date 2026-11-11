@@ -31,12 +31,12 @@ try {
 fetch(new URL('../data/accuracy.json', import.meta.url)).then(r => (r.ok ? r.json() : null)).then(a => {
   const legend = $('.dock .legend');
   if (!a || !legend) return;
-  const n = (a.claims?.total || 0) + (a.paraphrases?.total || 0) + (a.search?.total || 0) + (a.jobs?.total || 0);
+  const n = (a.claims?.total || 0) + (a.paraphrases?.total || 0) + (a.search?.total || 0) + (a.jobs?.total || 0) + (a.heldout?.total || 0);
   const fc = a.claims?.false_confirmations ?? 0;
   const p = document.createElement('p');
   p.className = 'legend acc';
   p.textContent = `Tested on ${n} cases · ${fc} false confirmation${fc === 1 ? '' : 's'}`;
-  p.title = `${a.claims.total} claims (${a.claims.correct} right), ${a.paraphrases?.total} true rewordings (${a.paraphrases?.supported} supported), ${a.search.total} searches, ${a.jobs.total} job descriptions`;
+  p.title = `${a.claims.total} claims (${a.claims.correct} right), ${a.paraphrases?.total} true rewordings (${a.paraphrases?.supported} supported), ${a.search.total} searches, ${a.jobs.total} job descriptions, ${a.heldout?.total} held-out claims, and ${a.fuzz?.mutants} mutated false claims (${a.fuzz?.false_confirmations} confirmed)`;
   legend.after(p);
 }).catch(() => {});
 

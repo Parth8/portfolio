@@ -11,6 +11,17 @@
     "supported": 80,
     "false_negatives": 0
   },
+  "heldout": {
+    "total": 60,
+    "true_supported": "20/20",
+    "false_confirmations": 0,
+    "false_right_verdict": "40/40"
+  },
+  "fuzz": {
+    "mutants": 5279,
+    "source_claims": 156,
+    "false_confirmations": 0
+  },
   "search": {
     "total": 63,
     "hits": 47,

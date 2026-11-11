@@ -1,0 +1,60 @@
+{"claim": "Backbase's Connector Studio is something he owns end to end.", "expect": "supported", "source": "Owns Connector Studio end-to-end", "kind": "true", "note": "case"}
+{"claim": "He has been working in B2B SaaS since February 2021.", "expect": "supported", "source": "5+ years in B2B SaaS (since Feb 2021)", "kind": "true", "note": "profile"}
+{"claim": "His Zeta stint ended in August 2026.", "expect": "supported", "source": "Technical Product Manager, Zeta, May 2024 - Aug 2026", "kind": "true", "note": "role"}
+{"claim": "He ran a 22-fintech shutdown for RBI compliance inside 60 days.", "expect": "supported", "source": "Drove the wind-down of 22 fintechs within a 60-day deadline", "kind": "true", "note": "role"}
+{"claim": "He supervised a team of three CSMs.", "expect": "supported", "source": "Led a team of 3 CSMs", "kind": "true", "note": "role"}
+{"claim": "The Sparrow Card programme issued over 150,000 cards.", "expect": "supported", "source": "150K+ issuances (July 2024)", "kind": "true", "note": "case"}
+{"claim": "His data platform removed roughly $50,000 a year in infrastructure spend.", "expect": "supported", "source": "saving ~$50K a year in recurring infrastructure cost", "kind": "true", "note": "case"}
+{"claim": "He holds a bachelor's degree in electrical and electronics engineering from PES University.", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering", "kind": "true", "note": "education"}
+{"claim": "He published seven or more case studies with HackerEarth's Fortune 500 clients.", "expect": "supported", "source": "Published 7+ case studies with Fortune 500 clients", "kind": "true", "note": "role"}
+{"claim": "Two phones can keep score of one Chalk game through a QR code.", "expect": "supported", "source": "Two phones can score one game through a link or QR code", "kind": "true", "note": "project"}
+{"claim": "Track has no ads, sign-ups, cookies or analytics.", "expect": "supported", "source": "with no ads, sign-ups, cookies or analytics", "kind": "true", "note": "project"}
+{"claim": "Zero to a Hundred carries 175 concepts.", "expect": "supported", "source": "It carries 175 concepts and 129 resource cards", "kind": "true", "note": "project"}
+{"claim": "Map Poster Studio ships with 96 pre-extracted race circuits.", "expect": "supported", "source": "96 pre-extracted race circuits", "kind": "true", "note": "project"}
+{"claim": "Zeta honoured him with a Mountain Mover award in March 2024 for US support automation.", "expect": "supported", "source": "Mountain Mover, Zeta, Mar 2024", "kind": "true", "note": "award"}
+{"claim": "He completed the Confluence Fundamentals badge from Atlassian in May 2023.", "expect": "supported", "source": "Confluence Fundamentals Badge, Atlassian, May 2023", "kind": "true", "note": "cert"}
+{"claim": "Shelfie's progress system has streaks, goals and 20 badges.", "expect": "supported", "source": "streaks, goals and 20 badges", "kind": "true", "note": "project"}
+{"claim": "The Cookbook includes a 14-day planner that totals macros.", "expect": "supported", "source": "A 14-day planner totals macros", "kind": "true", "note": "project"}
+{"claim": "At Zeta he owned the architecture boundaries of the data platform.", "expect": "supported", "source": "Owned architecture boundaries", "kind": "true", "note": "case"}
+{"claim": "He is open to roles in India and globally.", "expect": "supported", "source": "Product and platform roles, India and global.", "kind": "true", "note": "profile"}
+{"claim": "GRID gets its live timing from OpenF1.", "expect": "supported", "source": "with live timing from OpenF1", "kind": "true", "note": "project"}
+{"claim": "He previously worked at Stripe.", "expect": "not_found", "source": "", "kind": "employer", "note": ""}
+{"claim": "Parth interned at Microsoft.", "expect": "not_found", "source": "", "kind": "employer", "note": "Microsoft is a HackerEarth client on the record, not an employer."}
+{"claim": "He works at Walmart.", "expect": "not_found", "source": "", "kind": "employer", "note": "Walmart Global Tech India is a client."}
+{"claim": "He joined Amazon in 2023.", "expect": "not_found", "source": "", "kind": "employer", "note": ""}
+{"claim": "He was employed by Accenture.", "expect": "not_found", "source": "", "kind": "employer", "note": "Accenture is a client."}
+{"claim": "He is a full-time employee at Google.", "expect": "not_found", "source": "", "kind": "employer", "note": ""}
+{"claim": "He left Zeta to join Visa in 2026.", "expect": "not_found", "source": "", "kind": "employer", "note": ""}
+{"claim": "He spent two years at Infosys.", "expect": "not_found", "source": "", "kind": "employer", "note": ""}
+{"claim": "He was Head of Product at Zeta.", "expect": "differs", "source": "", "kind": "title", "note": ""}
+{"claim": "He was a Staff Software Engineer at Backbase.", "expect": "differs", "source": "", "kind": "title", "note": ""}
+{"claim": "He served as CTO of HackerEarth.", "expect": "differs", "source": "", "kind": "title", "note": ""}
+{"claim": "He was a UX Designer at Zeta.", "expect": "differs", "source": "", "kind": "title", "note": ""}
+{"claim": "He is a Director of Product at Backbase.", "expect": "differs", "source": "", "kind": "title", "note": ""}
+{"claim": "He was Vice President of Engineering.", "expect": "not_found", "source": "", "kind": "title", "note": "no employer named"}
+{"claim": "He shipped the Connector Studio MCP in two weeks.", "expect": "differs", "source": "", "kind": "number", "note": ""}
+{"claim": "He worked at HackerEarth for five years.", "expect": "differs", "source": "", "kind": "duration", "note": "Feb 2021 - Apr 2022 is 14 months."}
+{"claim": "He spent a decade at Zeta.", "expect": "differs", "source": "", "kind": "duration", "note": ""}
+{"claim": "The data platform has 40 live connectors.", "expect": "differs", "source": "", "kind": "number", "note": "12+"}
+{"claim": "He managed a team of 20 engineers.", "expect": "differs", "source": "", "kind": "number", "note": "8 engineers."}
+{"claim": "Sparrow Card issued 1.5 million cards.", "expect": "differs", "source": "", "kind": "number", "note": "150K+"}
+{"claim": "He cut onboarding by six months.", "expect": "differs", "source": "", "kind": "number", "note": "90 days."}
+{"claim": "He has 12 years of experience.", "expect": "differs", "source": "", "kind": "number", "note": ""}
+{"claim": "He joined Backbase in March 2025.", "expect": "differs", "source": "", "kind": "date", "note": ""}
+{"claim": "He started at HackerEarth in 2019.", "expect": "differs", "source": "", "kind": "date", "note": ""}
+{"claim": "He graduated in 2023.", "expect": "differs", "source": "", "kind": "date", "note": ""}
+{"claim": "His B1/B2 visa expires in 2028.", "expect": "differs", "source": "", "kind": "date", "note": ""}
+{"claim": "He plans to start his own company.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He wants to move to the US.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He prefers remote work.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He will require H-1B sponsorship from a US employer.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He is planning to relocate to London next year.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He aspires to become a Chief Product Officer.", "expect": "not_found", "source": "", "kind": "intent", "note": ""}
+{"claim": "He built the data platform on Snowflake.", "expect": "not_found", "source": "", "kind": "tool", "note": ""}
+{"claim": "He used Terraform to provision the connectors.", "expect": "not_found", "source": "", "kind": "tool", "note": ""}
+{"claim": "He wrote Connector Studio in Rust.", "expect": "not_found", "source": "", "kind": "tool", "note": ""}
+{"claim": "He runs the fraud engine on Databricks.", "expect": "not_found", "source": "", "kind": "tool", "note": ""}
+{"claim": "He deployed Track on AWS Lambda.", "expect": "not_found", "source": "", "kind": "tool", "note": "Lambda is never mentioned (AWS is, for the data platform), so not_found."}
+{"claim": "He uses Salesforce every day.", "expect": "not_found", "source": "", "kind": "tool", "note": ""}
+{"claim": "He is a certified PMP.", "expect": "not_found", "source": "", "kind": "cert", "note": ""}
+{"claim": "He won an award at Google.", "expect": "not_found", "source": "", "kind": "award", "note": ""}
