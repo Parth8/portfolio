@@ -54,7 +54,7 @@ const kwRegex = kw => kw.startsWith('re:')
 
 /* ================= text analysis shared by search, claims and fit =================
    Words are reduced to stems; numbers keep their units and scale; dates keep month and year. */
-const IRREGULAR = { led: 'lead', ran: 'run', built: 'build', won: 'win', wrote: 'write', written: 'write', held: 'hold', went: 'go', made: 'make', began: 'begin', got: 'get', did: 'do', took: 'take', gave: 'give', paid: 'pay', sold: 'sell', taught: 'teach', grew: 'grow', drove: 'drive', driven: 'drive', fell: 'fall', fallen: 'fall', spoke: 'speak', spoken: 'speak', saw: 'see', knew: 'know', known: 'know', left: 'leave', met: 'meet', lost: 'lose', chose: 'choose', cut: 'cut', shipped: 'ship', issuance: 'issue', issuances: 'issue', delivery: 'deliver', deliveries: 'deliver', won: 'win', people: 'person', annually: 'year', annual: 'year', yearly: 'year', wound: 'wind' };
+const IRREGULAR = { led: 'lead', ran: 'run', built: 'build', won: 'win', wrote: 'write', written: 'write', held: 'hold', went: 'go', made: 'make', began: 'begin', got: 'get', did: 'do', took: 'take', gave: 'give', paid: 'pay', sold: 'sell', taught: 'teach', grew: 'grow', drove: 'drive', driven: 'drive', fell: 'fall', fallen: 'fall', spoke: 'speak', spoken: 'speak', saw: 'see', knew: 'know', known: 'know', left: 'leave', met: 'meet', lost: 'lose', chose: 'choose', cut: 'cut', shipped: 'ship', issuance: 'issue', issuances: 'issue', delivery: 'deliver', deliveries: 'deliver', won: 'win', people: 'person', annually: 'year', annual: 'year', yearly: 'year', wound: 'wind', rose: 'rise', risen: 'rise', shrank: 'shrink', shrunk: 'shrink', kept: 'keep', brought: 'bring', saw: 'see', seen: 'see', thought: 'think', found: 'find' };
 function st(word) {
   let w = String(word).toLowerCase().replace(/['’]s?$/, '').replace(/\./g, '');
   if (IRREGULAR[w]) w = IRREGULAR[w];
@@ -78,15 +78,29 @@ const FRAME = new Set([...STOP, ...('parth aggarwal she her they people person t
 // ordinary words that may be absent from the record without meaning the claim is about something new
 const COMMON = stems('year month week day hour time ago later earlier first second third last next previous current present future past recent often sometimes usually thing something someone kind type sort part series list number amount level high low large small big old good great best better strong key main major minor lead team group client customer user company business market industry field area domain career experience skill knowledge expert expertise familiar proficient background tool technology tech software product project program service system process worker manager management design code data fall drop increase decrease decline grow rise improve boost save spend spent cost pay sell buy hire join leave start begin end finish stop change add remove create develop implement deploy test release plan define set establish focus handle support help enable allow provide offer include contain cover track monitor measure report analyse analyze review talk able ability successful successfully proven live status question answer result outcome figure metric score rate speed size scale impact value goal target stage phase step case example detail reason cause effect issue problem solution approach method model version feature deliver ship own run drive manage build cut reduce lower raise miss publish write app application site page website web online digital global local national international public private open free paid full whole half double triple cent percent plus minus above below among inside outside near far same different similar either neither both');
 const ABSOLUTE = new Set('never always every everything everyone everybody entire entirely whole each none nobody nothing fully completely only solely exclusively all'.split(' '));
-const NEGATORS = new Set('no not never without none nothing nobody neither nor cannot cant dont doesnt didnt wasnt isnt arent hasnt havent'.split(' '));
+const NEGATORS = new Set('refuse refused refuses refusing reject rejected forbid forbade forbidden no not never without none nothing nobody neither nor cannot cant dont doesnt didnt wasnt isnt arent hasnt havent'.split(' '));
 const MONTHS3 = 'jan feb mar apr may jun jul aug sep oct nov dec'.split(' ');
 const NUMWORDS = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, fifteen: 15, twenty: 20 };
 // groups of near-synonyms: stems in one group count as the same word
 const SYN_GROUPS = [
-  'cut reduce lower fall drop decrease decline slash shrink down save saving', 'launch ship deliver release golive', 'win receive earn award',
-  'own lead run drive', 'build create develop make', 'saving save', 'cost spend', 'owned own', 'use utilise', 'issue issuance',
+  // down / removal
+  'cut reduce reduction lower fall drop decrease decline slash shrink down save saving remove removal eliminate elimination delete retire shorten trim',
+  // up
+  'rise increase raise grow growth boost lift improve gain climb jump up',
+  // making things
+  'build create develop make ship launch deliver release golive produce',
+  'win receive earn award', 'own lead run drive', 'cost spend', 'use utilise', 'issue issuance',
   'join start begin', 'study education school', 'qualification degree', 'article post essay', 'tool app application',
+  'generate synthesise synthesize produce', 'expire expiry expiration', 'span cover', 'automatic automate automat',
+  'double twice 2x', 'compare benchmark evaluate', 'refuse reject decline', 'require mandate demand', 'write author document',
+  'execute execution', 'accurate accuracy', 'refuse refusal', 'tell inform say', 'serve deliver', 'unintuitive confusing',
 ].map(g => g.split(' ').map(st));
+const DOWN = new Set('cut reduce reduction lower fall drop decrease decline slash shrink down save saving remove removal eliminate elimination delete retire shorten trim'.split(' ').map(st));
+const UP = new Set('rise increase raise grow growth boost lift improve gain climb jump up'.split(' ').map(st));
+// ordinary words that cannot decide a claim about a career record
+// verbs and modifiers that may be missing from the line a claim paraphrases without changing what it says
+const LIGHT = stems('live build make create develop implement deploy release plan define set establish handle support help enable allow provide offer include contain track monitor measure report able successful successfully proven ship deliver own run drive publish write launch start begin end finish stop add change high low large small big strong key main major recent often usually new first full whole half');
+const GLUE = stems('keep bring see span meet thank wait get go there here right well way find like even also still already just really very quite kind sort lot bit part because enough while although though however whether should would could might try give him them ask come hit one');
 const SYN = new Map();
 for (const g of SYN_GROUPS) for (const s of g) SYN.set(s, [...new Set([...(SYN.get(s) || []), ...g])]);
 const alts = s => SYN.get(s) || [s];
@@ -122,11 +136,29 @@ function datesOf(text, updated = '2026-11-10') {
 }
 const dateMatch = (c, ds) => ds.some(d => d.y === c.y && (c.m == null || d.m === c.m));
 
-const SCALE = { k: 1e3, thousand: 1e3, m: 1e6, million: 1e6, b: 1e9, bn: 1e9, billion: 1e9, lakh: 1e5, lakhs: 1e5 };
+const SCALE = { k: 1e3, thousand: 1e3, m: 1e6, million: 1e6, b: 1e9, bn: 1e9, billion: 1e9, lakh: 1e5, lakhs: 1e5, crore: 1e7, crores: 1e7 };
 const TIME = { day: 'day', days: 'day', week: 'week', weeks: 'week', month: 'month', months: 'month', mo: 'month', year: 'year', years: 'year', yr: 'year', yrs: 'year', hour: 'hour', hours: 'hour', hr: 'hour', hrs: 'hour', minute: 'minute', minutes: 'minute', min: 'minute', mins: 'minute', second: 'second', seconds: 'second', sec: 'second', secs: 'second' };
+// number phrases written in words: "a week" -> "1 week" (not after an amount: "$50K a year"), "twice" -> "2x", "by half" -> "50%"
+const TIMEU = '(?:day|week|month|year|hour|minute|second)s?';
+function normNum(text) {
+  let t = String(text);
+  t = t.replace(new RegExp(`(^|[^\\w$~.,/%])(an?|one)(\\s+|-)(?=${TIMEU}\\b)`, 'gi'), (m, pre, w, sep, off, all) => {
+    const before = all.slice(0, off + pre.length).trimEnd().split(/\s+/).pop() || '';
+    if (/^[~$₹]?\d[\d,.]*[kmb%+]*$/i.test(before) || /^(per|each|every)$/i.test(before) || /\//.test(before)) return m;
+    if (/^an?$/i.test(w) && !/\b(from|in|within|for|took|take|waiting|wait|over|under|after|before|than|about|around|every)\s*(?:\w+\s+)?$/i.test(all.slice(0, off + pre.length))) return m;
+    return `${pre}1${sep === '-' ? '-' : ' '}`;
+  });
+  t = t.replace(new RegExp(`\\bone(?=[\\s-]+${TIMEU}\\b)`, 'gi'), '1').replace(/\b(from [\w$.,~]+(?: [a-z]+)? to) one\b/gi, '$1 1');
+  t = t.replace(/\b(?:by |in )(?:about |roughly |nearly |around )?half\b/gi, ' 50%').replace(/\b(?:double|doubled|twice|two times)\b(?: as (?:much|many))?/gi, '2x');
+  return t;
+}
+// wordy equivalents, applied to a claim before it is analysed
+const PHRASES = [[/go[- ]to[- ]market/gi, 'GTM'], [/machine[- ]learning/gi, 'ML'], [/artificial intelligence/gi, 'AI'], [/pre-?production/gi, 'pre-prod'], [/from (?:nothing|zero)\b/gi, 'from scratch'], [/fraud[- ]risk[- ]management/gi, 'FRM'], [/key performance indicators?/gi, 'KPI'], [/service[- ]level (?:agreement|objective)s?/gi, 'SLA'], [/one[- ]year/gi, '1-year'], [/per cent\b/gi, '%'], [/\bpercent\b/gi, '%'], [/\bdocs\b/gi, 'documentation'], [/\bmore than\b/gi, 'over']];
+const normClaim = text => PHRASES.reduce((t, [re, r]) => t.replace(re, r), normNum(text));
+
 // numbers with their units: { value, cls ('' | '$' | '%' | 'x' | time unit | size unit), noun, raw }
 function numbersOf(text) {
-  let t = String(text).replace(/[‐-―]/g, '-');
+  let t = normNum(text).replace(/[‐-―]/g, '-');
   t = t.replace(new RegExp(`(?:\\b\\d{1,2}(?:st|nd|rd|th)?\\s+)?\\b${MONTH_RE}\\.?,?\\s+(?:\\d{1,2}(?:st|nd|rd|th)?,?\\s+)?(?:19|20)\\d{2}\\b`, 'gi'), m => ' '.repeat(m.length))
     .replace(/\b(?:19|20)\d{2}-\d{2}(?:-\d{2})?\b/g, m => ' '.repeat(m.length))
     .replace(/(?<![\d,])\b(?:19|20)\d{2}\b(?![,\d])/g, m => ' '.repeat(m.length));
@@ -134,7 +166,7 @@ function numbersOf(text) {
   t = t.replace(new RegExp(`\\b(${Object.keys(NUMWORDS).join('|')})\\b`, 'gi'), m => String(NUMWORDS[m.toLowerCase()]));
   t = t.replace(/\bzero\b(?!\s+to\b)/g, '0');
   const out = [];
-  const re = /(?<![A-Za-z0-9.])(~?)(\$|₹|rs\.?\s?)?(\d+(?:\.\d+)?)\s?(bn|billion|million|thousand|lakhs?|days?|weeks?|months?|years?|yrs?|hours?|hrs?|minutes?|mins?|seconds?|secs?|ms|kib|kb|mb|gb|dpi|times|[%xkmb])?(?![A-Za-z])(\+?)(?:[\s-]+([A-Za-z][A-Za-z-]*(?:\s+[A-Za-z][A-Za-z-]*){0,3}))?/gi;
+  const re = /(?<![A-Za-z0-9.])(~?)(\$|₹|rs\.?\s?)?(\d+(?:\.\d+)?)\s?(bn|billion|million|thousand|lakhs?|crores?|days?|weeks?|months?|years?|yrs?|hours?|hrs?|minutes?|mins?|seconds?|secs?|ms|kib|kb|mb|gb|dpi|times|[%xkmb])?(?![A-Za-z])(\+?)(?:[\s-]+([A-Za-z][A-Za-z-]*(?:\s+[A-Za-z][A-Za-z-]*){0,3}))?/gi;
   for (const m of t.matchAll(re)) {
     const unit = (m[4] || '').toLowerCase();
     let value = parseFloat(m[3]);
@@ -154,7 +186,7 @@ function numbersOf(text) {
 const famOf = cls => (TIME[cls] || ['hour', 'minute', 'second', 'day', 'week', 'month', 'year'].includes(cls) ? 'time' : cls || 'count');
 const numEq = (a, b) => Math.abs(a.value - b.value) <= 1e-9 * Math.max(1, Math.abs(a.value)) && (!a.nouns.length || !b.nouns.length || a.nouns.some(x => b.nouns.includes(x))) && (!a.cls || !b.cls || a.cls === b.cls || (a.cls === '$' && !b.cls));
 // the doc number a claim number should be compared with: same unit family, same noun, or the same order of magnitude
-const comparable = (a, b) => (a.cls && b.cls ? famOf(a.cls) === famOf(b.cls) : a.nouns.some(x => b.nouns.includes(x))) || (!a.cls && !b.cls && ((a.nouns.some(x => b.nouns.includes(x))) || (!a.nouns.length && !b.nouns.length && Math.max(a.value / b.value, b.value / a.value) <= 20) || (a.value >= 1000 && b.value >= 1000 && Math.max(a.value / b.value, b.value / a.value) <= 20)));
+const comparable = (a, b) => (a.cls && b.cls ? famOf(a.cls) === famOf(b.cls) : a.nouns.some(x => b.nouns.includes(x)) || (a.cls && b.nouns.includes(a.cls)) || (b.cls && a.nouns.includes(b.cls))) || (!a.cls && !b.cls && ((a.nouns.some(x => b.nouns.includes(x))) || (!a.nouns.length && !b.nouns.length && Math.max(a.value / b.value, b.value / a.value) <= 20) || ((!a.nouns.length || !b.nouns.length) && a.value >= 1000 && b.value >= 1000 && Math.max(a.value / b.value, b.value / a.value) <= 20)));
 
 /* ================= index: every record, evidence line and typed fact ================= */
 const cache = new WeakMap();
@@ -178,9 +210,12 @@ function startOf(period) {
   if (!m) return null;
   return `${m[2]}-${String(m[1] ? MONTHS.indexOf(m[1]) + 1 || 1 : 1).padStart(2, '0')}`;
 }
-const monthsBetween = (a, b) => { const [ya, ma] = a.split('-').map(Number), [yb, mb] = b.split('-').map(Number); return Math.max(0, (yb - ya) * 12 + (mb - ma)); };
+// whole months from "YYYY-MM" a to "YYYY-MM" b (never negative), and its plain-words form
+export const monthsBetween = (a, b) => { const [ya, ma] = a.split('-').map(Number), [yb, mb] = b.split('-').map(Number); return Math.max(0, (yb - ya) * 12 + (mb - ma)); };
 
 // the record's typed facts, derived once: employers with dates, education, location, visa, years, awards, ...
+export const fmtTenure = m => { const y = Math.floor(m / 12), r = m % 12; return [y ? `${y} year${y > 1 ? 's' : ''}` : '', r ? `${r} month${r > 1 ? 's' : ''}` : ''].filter(Boolean).join(' ') || '0 months'; };
+export const fmtYM = ym => { const [y, m] = ym.split('-').map(Number); return `${MONTH_NAMES[m - 1].slice(0, 3)} ${y}`; };
 export function facts(data) {
   if (facts.cache.has(data)) return facts.cache.get(data);
   const p = data.profile, upd = data.updated.slice(0, 7);
@@ -189,7 +224,13 @@ export function facts(data) {
     return { ref: `role:${r.id}`, id: r.id, company: r.company, title: r.title, period: r.period, start, end: present ? null : endOf(r.period, data.updated), current: present, location: r.location, products: (r.products || []).map(x => `${x.as}: ${x.name}`) };
   });
   const first = employers.reduce((a, e) => (e.start && (!a || e.start < a) ? e.start : a), null);
-  const yrs = first ? Math.floor(monthsBetween(first, upd) / 12 * 10) / 10 : null;
+  // tenure is counted in whole months from the first role's start month to the record's `updated` month
+  const months = first ? monthsBetween(first, upd) : null;
+  // fintech tenure: from the first role whose own lines are about cards, banks or payments (Zeta, May 2022)
+  const FIN = /\b(banks?|banking|cards?|fintech|payments?|issuing|issuer)\b/i;
+  const finRole = data.roles.filter(r => FIN.test([r.scope, ...r.evidence, ...(r.cases || []).flatMap(id => { const c = data.cases.find(x => x.id === id); return c ? [c.title, c.summary, ...c.evidence] : []; })].join(' ')))
+    .map(r => startOf(r.period)).filter(Boolean).sort()[0] || null;
+  const finMonths = finRole ? monthsBetween(finRole, upd) : null;
   const ed = p.education_detail || {};
   const loc = p.location_detail || {};
   const vd = p.visa_detail || {};
@@ -200,7 +241,7 @@ export function facts(data) {
     location: { text: p.location, city: loc.city || p.location.split(',')[0].trim(), country: loc.country || (p.location.split(',')[1] || '').trim(), open_to_relocation: /relocat/i.test(p.open_to), open_to: p.open_to, ref: 'profile:location' },
     visa: { text: p.travel, country: vd.country || 'US', type: vd.type || (p.travel.match(/B1\/B2/) ? 'B1/B2' : null), valid_to: vd.valid_to || null, purpose: vd.purpose || (/business travel/i.test(p.travel) ? 'business travel' : null), work_authorisation: false, ref: 'profile:visa' },
     education: { text: p.education, degree: ed.degree || null, field: ed.field || null, specialisation: ed.specialisation || null, school: ed.school || null, city: ed.city || null, start: ed.start || null, end: ed.end || null, ref: 'profile:education' },
-    experience: { text: p.experience, years: yrs, since: first, b2b_saas_years_min: 5, fintech_years_min: 4, as_of: data.updated, ref: 'profile:experience' },
+    experience: { text: p.experience, months, years: months == null ? null : r2(months / 12), since: first, fintech_since: finRole, fintech_months: finMonths, fintech_years: finMonths == null ? null : r2(finMonths / 12), b2b_saas_years_min: 5, fintech_years_min: 4, as_of: data.updated, ref: 'profile:experience' },
     awards: data.awards.map((a, i) => ({ ref: `award:${i}`, ...a })),
     certifications: data.certifications.map((c, i) => ({ ref: `cert:${i}`, ...c })),
     writing: data.writing.map((w, i) => ({ ref: `writing:${i}`, ...w })),
@@ -315,7 +356,10 @@ export function index(data) {
     u.ctxL = new Set(wordsOf(u.ctx).map(x => x.low));
     u.fieldS = { title: new Set(wordsOf(u.title).map(x => x.stem)), org: new Set(wordsOf(u.org).map(x => x.stem)), period: new Set(wordsOf(u.period).map(x => x.stem)), label: new Set(wordsOf(u.label).map(x => x.stem)) };
     u.numS = new Set([...u.dates.map(d => String(d.y)), ...u.nums.map(n => String(n.value))]);
-    u.neg = negScope(u.w);
+    u.neg = negScope(u.w.filter(x => !x.joined));
+    u.pairs = pairsOf(u.line);
+    u.pos = posScope(u.w.filter(x => !x.joined));
+    u.ctxNums = numbersOf(u.ctx);
   }
   const df = new Map();
   for (const u of units) for (const t of new Set([...u.body, ...u.ctxS, ...Object.values(u.fieldS).flatMap(s => [...s])])) df.set(t, (df.get(t) || 0) + 1);
@@ -338,6 +382,12 @@ export function index(data) {
 }
 const p_headlines = data => data.profile.headline_numbers || [];
 const monthIso = s => { const d = datesOf(s)[0]; return d ? `${d.y}-${String(d.m || 1).padStart(2, '0')}` : null; };
+// stems that occur at least once outside any negator's reach
+function posScope(ws) {
+  const bad = new Set();
+  ws.forEach((w, k) => { if (NEGATORS.has(w.low) || NEGATORS.has(w.low.replace("'", ''))) for (let j = k + 1; j <= k + 4 && j < ws.length; j++) bad.add(j); });
+  return new Set(ws.filter((w, k) => !bad.has(k)).map(w => w.stem));
+}
 // stems that sit within 3 words after a negator: "there are no network calls" -> {network, call}
 function negScope(ws) {
   const s = new Set();
@@ -494,7 +544,7 @@ export function searchEvidence(data, query, limit = 8) {
    a known subject with a different name, number, place or date gives differs, quoting what the record says;
    "never/every/all" beyond what the record states gives differs with the scope the record does give. */
 const FRAMELOW = new Set([...STOP, 'been', 'being', 'had', 'experience', 'cover', 'covers', 'include', 'includes', 'contain', 'contains', 'dated', 'date', 'worked', 'work', 'works', 'working']);
-const UNITWORDS = stems('year day week month hour minute second percent cent time');
+const UNITWORDS = stems('year day week month hour minute second percent cent time lakh crore thousand million billion');
 const SLOT_STEMS = stems('sponsor bank rails rail network partner launch issuer processor');
 const CAPFRAME = new Set('the he his she it this that in at on by an a and or but if so we our they every all one also his her their parth aggarwal there here is are was were to of for from with as'.split(' '));
 const ROLE_NOUNS = stems('manager engineer officer director lead head intern analyst scientist designer architect developer owner consultant president executive specialist');
@@ -502,14 +552,31 @@ const TITLE_MODS = stems('senior junior staff principal lead head chief technica
 const EMP_CUES = stems('work employ join hire promot title role position tenure leave resign since');
 const TITLE_SET = stems('senior junior staff principal chief head vp intern associate group software technical product program project forward deployed platform data growth marketing sales operations executive');
 
+// each figure with the first words that follow it: "76 snooker, 52 pool" -> [{v:76, s:'snooker'}, {v:52, s:'pool'}]
+function pairsOf(text) {
+  const toks = normNum(text).match(/[~$₹]?\d[\d,]*(?:\.\d+)?[kmb%x+]*|[A-Za-z][A-Za-z'-]*/g) || [];
+  const out = [];
+  toks.forEach((tk, i) => {
+    if (!/\d/.test(tk)) return;
+    const v = parseFloat(tk.replace(/[^\d.]/g, ''));
+    let n = 0;
+    for (let j = i + 1; j < toks.length && n < 1 && j <= i + 3; j++) {
+      if (/\d/.test(toks[j])) break;
+      const low = toks[j].toLowerCase();
+      if (STOP.has(low) || FRAME.has(st(low))) continue;
+      out.push({ v, raw: tk, s: st(low), w: toks[j] }); n++;
+    }
+  });
+  return out;
+}
 function analyseClaim(ix, claim, data) {
-  const text = String(claim);
+  const text = normClaim(claim);
   const all = wordsOf(stripDates(text));
   const w = all.filter(x => !x.joined);
   const nums = numbersOf(text);
   const terms = [], absolutes = [];
   const total = ix.units.length;
-  const hardW = Math.log(1 + total / 0.5), weakW = Math.log(1 + total / 6);
+  const hardW = Math.log(1 + total / 0.5), weakW = 1;
   for (const x of w) {
     if (x.low === 'parth' || x.low === 'aggarwal') continue;
     if (ABSOLUTE.has(x.low)) { absolutes.push(x); continue; }
@@ -518,21 +585,27 @@ function analyseClaim(ix, claim, data) {
     if (nums.length && UNITWORDS.has(x.stem)) continue;
     if (x.low === 'zero' && nums.some(n => n.value === 0)) continue;
     if (x.low.length === 1) continue;
+    if (!x.cap && (GLUE.has(x.stem) || NUMWORDS[x.low])) continue;
     const capEnt = x.cap && !CAPFRAME.has(x.low) && (x.i > 0 || ix.names.has(x.stem) || x.caps);
     const known0 =  x.low.length <= 3 && x.cap ? ix.wholeWords.has(x.low) || (x.part && ix.vocab.has(x.stem)) : alts(x.stem).some(a => ix.vocab.has(a));
     const entity = capEnt || (x.caps && x.low.length > 1) || ix.tools.has(x.stem) || (x.i === 0 && x.cap && !known0);
     const known = x.low.length <= 3 && x.cap ? ix.wholeWords.has(x.low) || (x.part && ix.vocab.has(x.stem)) : alts(x.stem).some(a => ix.vocab.has(a));
     let unk = null;
     if (!known) unk = entity && !COMMON.has(x.stem) ? 'hard' : (COMMON.has(x.stem) || /(ed|ing|ly)$/.test(x.low)) ? 'weak' : 'soft';
-    const wt = unk === 'hard' || unk === 'soft' ? hardW : unk === 'weak' ? weakW : ix.idf(x.stem) * (entity ? 1.4 : 1);
-    terms.push({ s: x.stem, raw: x.raw, low: x.low, entity, unk, w: wt, i: x.i, cap: x.cap, part: x.part });
+    const light = !entity && LIGHT.has(x.stem);
+    const wt = (unk === 'hard' || unk === 'soft' ? hardW : unk === 'weak' ? weakW : ix.idf(x.stem) * (entity ? 1.4 : 1)) * (light && !unk ? 0.35 : 1);
+    terms.push({ light, s: x.stem, raw: x.raw, low: x.low, entity, unk, w: wt, i: x.i, cap: x.cap, part: x.part });
   }
   const neg = negScope(w);
   const hasNeg = w.some(x => NEGATORS.has(x.low));
-  return { text, w, terms, nums, dates: datesOf(text, data.updated), absolutes, neg, hasNeg, stemSet: new Set(w.map(x => x.stem)) };
+  const pairs = pairsOf(text);
+  const ft = text.match(/\bfrom\s+(\S+(?:\s+[a-z]+)?)\s+to\s+(\S+)/i);
+  const fromTo = ft && nums.length >= 2 ? [numbersOf(ft[1])[0], numbersOf(ft[2])[0]].filter(Boolean) : null;
+  return { pairs, fromTo: fromTo && fromTo.length === 2 ? fromTo : null, text, w, terms, nums, dates: datesOf(text, data.updated), absolutes, neg, hasNeg, stemSet: new Set(w.map(x => x.stem)) };
 }
 
-const hasS = (u, s) => alts(s).some(a => u.body.has(a) || u.ctxS.has(a));
+const hasS = (u, s) => alts(s).some(a => u.body.has(a) || u.ctxS.has(a)) || (s === st('double') && u.nums.some(n => n.value === 2 && n.cls === 'x'));
+const dirOf = s => (UP.has(s) ? 1 : DOWN.has(s) ? -1 : 0);
 // a proper name must appear as the same word (Track is not "tracking")
 const hasT = (u, t) => (t.entity && t.cap && t.low.length > 3 ? [t.low, t.low.replace(/s$/, ''), t.low + 's'].some(l => u.lows.has(l) || u.ctxL.has(l)) : hasS(u, t.s));
 function evalUnit(C, u, skip = null) {
@@ -548,14 +621,29 @@ function evalUnit(C, u, skip = null) {
   }
   const nm = [], nx = [], nu = [];
   for (const n of C.nums) {
-    if (u.nums.some(m => numEq(n, m))) nm.push(n);
+    if (u.nums.some(m => numEq(n, m)) || u.ctxNums.some(m => m.value === n.value)) nm.push(n);
     else if (u.nums.some(m => comparable(n, m))) nx.push(n);
     else nu.push(n);
   }
   const dm = [], dx = [];
   for (const d of C.dates) (dateMatch(d, u.dates) ? dm : dx).push(d);
   const absMiss = C.absolutes.filter(a => !u.w.some(x => x.low === a.low));
-  const conflicts = C.terms.filter(t => !t.unk && hasS(u, t.s) && C.neg.has(t.s) !== u.neg.has(t.s));
+  const conflicts = C.terms.filter(t => !t.unk && hasS(u, t.s) && (C.neg.has(t.s) !== u.neg.has(t.s)) && !(!C.neg.has(t.s) && u.pos.has(t.s)));
+  // direction: "increased" against a line that only says "reduced" (and the reverse)
+  const udir = new Set(u.w.map(x => dirOf(x.stem)).filter(Boolean));
+  for (const t of C.terms) { const d = dirOf(t.s); if (d && udir.size && !udir.has(d) && !conflicts.includes(t)) conflicts.push({ ...t, direction: true }); }
+    // "52 about snooker and 76 about pool": each figure must sit next to the same word in the line
+  for (const p of C.pairs) {
+    if (u.pairs.some(q => q.v === p.v && q.s === p.s)) continue;
+    const swap = C.pairs.find(c => c.v !== p.v && c.s !== p.s && u.pairs.some(q => q.v === p.v && q.s === c.s) && u.pairs.some(q => q.v === c.v && q.s === p.s));
+    if (swap) conflicts.push({ raw: `${p.raw} ${p.w}`, direction: true });
+  }
+  // "from A to B": the two figures must come in the same order in the line
+  if (C.fromTo) {
+    const [a, b] = C.fromTo;
+    const ia = u.nums.findIndex(m => numEq(a, m)), ib = u.nums.findIndex(m => numEq(b, m));
+    if (ia >= 0 && ib >= 0 && ia > ib) conflicts.push({ raw: `${a.raw} to ${b.raw}`, direction: true });
+  }
   const wordMiss = C.terms.filter(t => !t.unk && t !== skip && !hasT(u, t));
   const cover = tw ? mw / tw : 0;
   const knownCover = kw ? km / kw : 0;
@@ -639,11 +727,11 @@ export function proveClaim(data, claim) {
   const kinds = [/\b(certif\w*|certificate|course|badge)\b/i.test(C.text) ? 'cert:' : null, /\b(awards?|awarded|prize)\b/i.test(C.text) ? 'award:' : null].filter(Boolean);
 
   const kindOk = r => kinds.every(k => r.u.ref.startsWith(k));
-  const ok = r => kindOk(r) && !unknown.length && weak.length <= 1 && !r.entMiss.length && r.cover >= 0.72 && !r.wordMiss.length && !r.nx.length && !r.nu.length && !r.dx.length && !r.absMiss.length && !r.conflicts.length;
+  const ok = r => kindOk(r) && !unknown.length && weak.length <= 2 && !r.entMiss.length && r.cover >= 0.72 && (r.wordMiss.every(t => t.light) && r.wordMiss.length <= 3 || (r.nm.length + r.dm.length >= 2 && r.cover >= 0.7 && r.wordMiss.filter(t => !t.light).length <= 1 && !r.wordMiss.some(t => t.entity))) && !r.nx.length && !r.nu.length && !r.dx.length && !r.absMiss.length && !r.conflicts.length;
   const good = rows.filter(ok);
   if (good.length && decisive) return res('supported', 'Supported: the record states this, quoted below.', good.map(r => r.u), { best: good[0] });
 
-  const best = rows[0];
+  const best = rows.length ? rows.filter(r => r.score >= rows[0].score * 0.7).sort((a, b) => a.entMiss.length - b.entMiss.length || b.score - a.score)[0] : undefined;
   if (!best) return res('not_found', unknown.length ? `The record never mentions ${list(unknown.map(t => t.raw))}. Do not repeat the claim as fact; ask Parth.` : 'No evidence for this claim in the record. Do not repeat it as fact; ask Parth.', [], { unknown });
   const topRows = rows.filter(r => topical(r, C));
   const near = topRows.find(r => r.absMiss.length || r.conflicts.length) || topRows[0] || best;
@@ -654,7 +742,7 @@ export function proveClaim(data, claim) {
     return res('differs', `Overclaim: "${absRow.absMiss.map(a => a.raw).join('", "')}" goes beyond the record, which states this only for the scope quoted below.`, rows.filter(r => r.knownCover >= 0.25 && r.mw >= 2 && !r.entMiss.length).slice(0, 3).map(r => r.u), { best: absRow, absRow });
   }
   const polRow = unknown.length ? null : rows.find(r => r.conflicts.length && topical(r, C));
-  if (polRow) return res('differs', `Not as stated: the record says the opposite or something different here (${list(polRow.conflicts.map(t => t.raw))} is negated on one side only). Quoted below.`, [polRow.u], { best: polRow });
+  if (polRow) return res('differs', `Not as stated: the record says the opposite or something different here (${polRow.conflicts.some(t => t.direction) ? `${list(polRow.conflicts.map(t => t.raw))} points the other way` : `${list(polRow.conflicts.map(t => t.raw))} is negated on one side only`}). Quoted below.`, [polRow.u], { best: polRow });
 
   // a name the record never mentions: a different name in the same slot, or simply not found
   if (unknown.length) {
@@ -666,7 +754,7 @@ export function proveClaim(data, claim) {
     return res('not_found', `The record never mentions ${list(unknown.map(t => t.raw))}. Do not repeat the claim as fact; ask Parth.`, [], { unknown });
   }
   const numRow = topRows.find(r => r.nx.length);
-  if (numRow && !weak.length) {
+  if (numRow && weak.length <= 2) {
     return res('differs', `Not as stated: you said ${list(numRow.nx.map(n => n.raw))}; the record says ${list(numRow.u.nums.filter(m => numRow.nx.some(n => comparable(n, m))).map(m => m.raw))}. Use the quoted figures instead.`, topRows.filter(r => r.nx.length).slice(0, 3).map(r => r.u), { best: numRow });
   }
   const dateRow = topRows.find(r => r.dx.length && r.u.dates.length);
@@ -674,6 +762,11 @@ export function proveClaim(data, claim) {
     return res('differs', `Not as stated: you said ${list(dateRow.dx.map(d => fmtDate(d)))}; the record says ${list(dateRow.u.dates.map(d => fmtDate(d)))}.`, topRows.filter(r => r.dx.length && r.u.dates.length).slice(0, 3).map(r => r.u), { best: dateRow });
   }
   // known names that never appear together
+  for (const r of rows.slice(0, 8)) {
+    if (r.entMiss.length !== 1) continue;
+    const sub = substitution(C, r.entMiss[0], rows);
+    if (sub) return res('differs', `Not as stated: where you said ${r.entMiss[0].raw} the record has a different name (${sub.filler}). See the quoted line.`, [sub.row.u], { best: sub.row, sub: { term: r.entMiss[0], filler: sub.filler } });
+  }
   const lonely = best.entMiss;
   if (lonely.length) {
     if (lonely.length === 1) {
@@ -820,7 +913,7 @@ function educationCheck(data, ix, C) {
     return { verdict: 'differs', explanation: `Not as stated: the record has ${ed.degree}, ${ed.field}${ed.specialisation ? ` (${ed.specialisation})` : ''}, ${ed.school}, ${ed.city}, ${ed.start}-${ed.end}; it does not mention ${list(fieldWords)}.`, units: [unit], checked };
   }
   const years = C.dates.map(d => d.y);
-  if (years.some(y => y !== ed.start && y !== ed.end)) return { verdict: 'differs', explanation: `Not as stated: the record has ${ed.degree}, ${ed.school}, ${ed.start}-${ed.end}.`, units: [unit], checked };
+  if (years.some(y => y !== ed.start && y !== ed.end) || C.nums.some(n => n.value >= 1000 && !n.cls && n.value !== ed.start && n.value !== ed.end)) return { verdict: 'differs', explanation: `Not as stated: the record has ${ed.degree}, ${ed.school}, ${ed.start}-${ed.end}.`, units: [unit], checked };
   return { verdict: 'supported', explanation: 'Supported: the record states this, quoted below.', units: [unit], checked };
 }
 
@@ -888,7 +981,7 @@ function yearsCheck(data, ix, C) {
   const floor = fin ? ex.fintech_years_min : ex.b2b_saas_years_min;
   const n = yn[0].value;
   const loose = C.w.some(x => ['over', 'than', 'least'].includes(x.low));
-  if (n <= floor || (loose && n < (fin ? ex.years - 1 : ex.years))) return { verdict: 'supported', explanation: 'Supported: the record states this, quoted below.', units: [unit], checked };
+  if (n <= floor || (loose && n < (fin ? ex.fintech_years : ex.years))) return { verdict: 'supported', explanation: 'Supported: the record states this, quoted below.', units: [unit], checked };
   return { verdict: 'differs', explanation: `Not as stated: the record says ${ex.text}`, units: [unit], checked };
 }
 
@@ -1009,22 +1102,26 @@ function hardChecks(line, data, ix, comps) {
   const F = ix.F, ex = F.experience;
   const soft = SOFT.test(line);
   const out = [];
-  const have = ex.years;
   // years of experience
   for (const m of line.matchAll(/(\d{1,2})\s*(?:\+|plus)?\s*(?:-|–|to)?\s*(\d{1,2})?\s*\+?\s*(?:or more\s+)?(?:years?|yrs?)\b(?:['’]?\s*of)?\s*((?:(?:relevant|professional|hands-on|proven|progressive|full[- ]time|work|industry|related|prior|direct)\s+)*)(?:experience)?\s*(?:(?:in|with|as|of|on|managing|leading|building|within|at)\s+)?([^.,;:()\n]{0,70})/gi)) {
     const need = parseInt(m[1], 10);
     const domain = (m[4] || '').trim();
     if (need < 1 || need > 40) continue;
     const known = !domain || GENERIC_DOMAIN.test(domain) || domainKnown(domain, ix);
-    const hv = /product|program|\bpm\b|payments?|card|bank|fintech|platform|data|api/i.test(domain) ? Math.min(have, 4.5) : have;
-    const status = known ? (need <= hv + 0.5 ? 'pass' : 'fail') : 'fail';
+    // which tenure is compared: fintech roles for a fintech / payments / cards / banking ask, else his whole career
+    const fin = ex.fintech_months != null && /fintech|payments?|\bcards?\b|card issuing|bank(?:s|ing)?\b|financial/i.test(domain);
+    const months = fin ? ex.fintech_months : ex.months, since = fin ? ex.fintech_since : ex.since, hv = months / 12;
+    const compared = fin ? 'fintech' : 'total';
+    const status = known ? (need * 12 <= months ? 'pass' : 'fail') : 'fail';
     let cap = null;
     if (status === 'fail') cap = !known ? 59 : need >= hv + 4 ? 49 : need >= hv + 1.5 ? 62 : null;
+    const basis = fin ? `his fintech tenure (Zeta and Backbase, ${fmtYM(since)} to ${fmtYM(data.updated.slice(0, 7))})` : `his total tenure (${fmtYM(since)} to ${fmtYM(data.updated.slice(0, 7))}: HackerEarth, Zeta, Backbase)`;
     out.push({
       type: 'years', requirement: m[0].trim().replace(/\s+/g, ' '), need: `${need}+ years${domain ? ` ${/^(in|of|with|as)\b/i.test(domain) ? '' : 'in '}${domain}` : ''}`.trim(),
-      have: known ? `about ${hv} years (since ${ex.since}); 5+ in B2B SaaS, 4+ in fintech` : 'no recorded years in that field',
-      status, soft, cap: soft ? null : cap,
-      detail: !known ? `The record shows no ${need}+ years in "${domain}".` : status === 'pass' ? `He has about ${hv} years, which meets ${need}+.` : `The role asks for ${need}+ years; he has about ${hv}.`,
+      have: known ? `${fmtTenure(months)} ${fin ? 'in fintech' : 'in total'} (since ${fmtYM(since)})` : 'no recorded years in that field',
+      compared: known ? compared : null, have_months: known ? months : null,
+      status, soft, cap: soft ? null : cap, near: status === 'fail' && known && need * 12 - months <= 12,
+      detail: !known ? `The record shows no ${need}+ years in "${domain}".` : status === 'pass' ? `Compared with ${basis}: ${fmtTenure(months)}, which meets ${need}+.` : `Compared with ${basis}: ${fmtTenure(months)}, which is short of ${need}+.`,
     });
   }
   // degrees
@@ -1102,7 +1199,9 @@ export function checkRequirements(data, requirements, { title } = {}) {
 
 
 // things the row names that his record never mentions: acronyms and product names (HIPAA, PyTorch, Swift, Salesforce)
-const NAMED_SKIP = new Set(["bachelor", "master", "degree", "diploma", "mba", "phd", "doctorate", "excellent", "strong", "advanced", "proven"]);
+const NAMED_SKIP = new Set(["bachelor", "master", "degree", "diploma", "mba", "phd", "doctorate", "excellent", "strong", "advanced", "proven",
+  // seniority and region words describe the role, not a tool or product his record could be missing
+  "senior", "junior", "staff", "principal", "lead", "head", "chief", "associate", "group", "director", "manager", "europe", "european", "asia", "apac", "latam", "africa", "america", "americas", "north", "south", "east", "west", "global", "worldwide", "remote", "hybrid"]);
 function namedMissing(ix, data, line) {
   const C = analyseClaim(ix, line, data);
   const caps = C.w.filter(x => x.cap);
@@ -1210,14 +1309,21 @@ function build(data, found, { title, text, persona, req }) {
   const quoted = new Set();
   const rows = found.map(f => ({ f, a: assess(data, f, records, quoted) }))
     .sort((x, y) => y.f.w * y.a.confidence - x.f.w * x.a.confidence);
-  const U = 0.6;
-  const failW = h => (h.status === 'fail' && h.type !== 'people-management' ? (h.soft ? 0.4 : 1) : 0);
-  const namedCount = reqRows.filter((r, i) => r.found.length && namedRows[i].length).length;
-  const den = found.reduce((s, f) => s + f.w, 0) + U * (unmappedRows.length + namedCount) + hard.reduce((s, h) => s + failW(h), 0);
+  const U = 0.6;   // an unmapped line, or a line that names things his record never mentions, counts as this much zero-evidence weight
+  const failW = h => (h.status === 'fail' && h.type !== 'people-management' ? (h.soft || h.near ? 0.4 : 1) : 0);
+  const namedLines = reqRows.filter((r, i) => r.found.length && namedRows[i].length);
+  const namedCount = namedLines.length;
+  const failedHard = hard.filter(h => failW(h) > 0);
+  const num = rows.reduce((s, x) => s + x.f.w * x.a.confidence, 0);
+  const wsum = found.reduce((s, f) => s + f.w, 0);
+  const extra = U * (unmappedRows.length + namedCount) + failedHard.reduce((s, h) => s + failW(h), 0);
+  const den = wsum + extra;
   // a must-have asked for more than once with (almost) no evidence caps the whole fit: an average shouldn't hide it
   const hardGaps = rows.filter(x => x.f.w >= 1.5 && x.a.confidence <= 0.15).map(x => x.f.c.label);
   const HARD_CAP = 44;
-  let score = den ? Math.round(100 * rows.reduce((s, x) => s + x.f.w * x.a.confidence, 0) / den) : 0;
+  const mean = wsum ? Math.round(100 * num / wsum) : 0;
+  let score = den ? Math.round(100 * num / den) : 0;
+  const beforeCaps = score;
   const caps = [];
   if (hardGaps.length) caps.push([HARD_CAP, `Hard gap: ${hardGaps.join(', ')} is asked for repeatedly and nothing in his record evidences it, so the fit is capped at ${HARD_CAP}.`]);
   for (const h of hard) if (h.cap && !h.soft && h.status === 'fail') caps.push([h.cap, `Hard requirement not met (${h.type}): ${h.detail} The fit is capped at ${h.cap}.`]);
@@ -1236,6 +1342,11 @@ function build(data, found, { title, text, persona, req }) {
   const lowest = caps.reduce((m, c) => (c[0] < m ? c[0] : m), 101);
   if (lowest <= 100) score = Math.min(score, lowest);
   const band = FIT_BANDS.find(([min]) => score >= min)[1];
+  const scoreMath = {
+    weighted_mean: mean, weight: r2(wsum), numerator: r2(num),
+    zero_rows: { unmapped: unmappedRows.length, named_terms: namedCount, each: U, hard_fail_weight: r2(failedHard.reduce((s, h) => s + failW(h), 0)) },
+    denominator: r2(den), before_caps: beforeCaps, caps: caps.map(([value, why]) => ({ value, why })), applied_cap: lowest <= 100 ? lowest : null, final: score,
+  };
 
   const toRow = ({ f, a }) => ({
     id: f.c.id, label: f.c.label, weight: f.w, matched: f.kws,
@@ -1269,7 +1380,7 @@ function build(data, found, { title, text, persona, req }) {
     : r.not_on_record ? { text: r.text, reason: 'named-terms', missing: r.not_on_record, note: `Mapped to ${r.competencies[0].label} by general words, but it names ${r.not_on_record.join(', ')}, which his record never mentions.` }
     : { text: r.text, reason: 'adjacent', note: `Only adjacent evidence on record (${r.competencies[0].label}, confidence ${r.confidence}).` }));
   const evidenced = req
-    ? requirements.filter(r => (r.status === 'mapped' && r.confidence >= 0.65) || (r.status === 'hard' && r.confidence >= 0.65)).length
+    ? requirements.filter(r => ((r.status === 'mapped' && !r.not_on_record) || r.status === 'hard') && r.confidence >= 0.65).length
     : rows.filter(x => x.a.confidence >= 0.65).length;
   const coverage = { evidenced, total: req ? requirements.length : rows.length };
 
@@ -1291,18 +1402,24 @@ function build(data, found, { title, text, persona, req }) {
   const notes = [];
   if (outOfScope) notes.push(family.message);
   for (const c of caps) if (!outOfScope || c[1] !== family.message) notes.push(c[1]);
-  const yr = hard.find(h => h.type === 'years' && h.status !== 'unknown');
+  const yr = hard.find(h => h.type === 'years' && h.status !== 'unknown' && h.compared);
   if (yr && !persona) {
-    const need = parseInt(yr.need, 10), have = F.experience.years;
-    notes.push(need <= have
-      ? `Experience: the role asks for ${need}+ years; Parth has ~${have} years in B2B SaaS (4+ in fintech).`
-      : `Experience: the role asks for ${need}+ years; Parth has ~${have} years in B2B SaaS (4+ in fintech) - weigh scope and results against tenure.`);
+    const need = parseInt(yr.need, 10), ex = F.experience, fin = yr.compared === 'fintech';
+    notes.push(`Experience: the role asks for ${yr.need}. I compared it with his ${fin ? `fintech tenure, ${fmtTenure(ex.fintech_months)} (Zeta and Backbase, since ${fmtYM(ex.fintech_since)})` : `total tenure, ${fmtTenure(ex.months)} (since ${fmtYM(ex.since)})`}, which ${yr.status === 'pass' ? 'meets' : 'falls short of'} ${need}+. His profile says "${ex.text.split(',').slice(0, 2).join(',')}".`);
+  }
+  // the one sentence that lets a reader reproduce the number when it sits below the plain weighted average
+  if (!persona && wsum && extra > 0) {
+    const bits = [];
+    if (namedCount) bits.push(`${namedCount} requirement line${namedCount > 1 ? 's' : ''} naming things his record never mentions (${[...new Set(namedLines.flatMap(r => namedRows[reqRows.indexOf(r)]))].slice(0, 4).join(', ')})`);
+    if (unmappedRows.length) bits.push(`${unmappedRows.length} unmapped line${unmappedRows.length > 1 ? 's' : ''}`);
+    if (failedHard.length) bits.push(`${failedHard.length} failed hard check${failedHard.length > 1 ? 's' : ''} (${failedHard.map(h => h.type).join(', ')})`);
+    notes.push(`Score arithmetic: the weighted average of the evidenced requirements is ${mean}, but ${bits.join(' and ')} are counted as zero evidence, adding weight (${U} per such line, ${failedHard.some(h => h.soft || h.near) ? '0.4 per preferred check or years shortfall under a year, ' : ''}1 per other failed hard check), so the weights grow from ${r2(wsum)} to ${r2(den)} and the score is ${beforeCaps}${scoreMath.applied_cap != null && beforeCaps > scoreMath.applied_cap ? `, then capped at ${scoreMath.applied_cap}` : ''}.`);
   }
   for (const h of hard) if (h.status === 'fail' && !h.cap && h.type !== 'years' && h.type !== 'people-management' && !h.soft) notes.push(`Not on record (${h.type}): ${h.need}. ${h.detail}`);
   if (/\b(director|head of|vp|vice president|group product manager)\b/i.test(text) && !persona) notes.push('Level: this reads as a people-leadership role; see the "Managing PMs" gap.');
   if (/\b(remote)\b/i.test(text)) notes.push('Location: based in Hyderabad, India; open to relocation.');
   const none = unmapped.filter(u => u.reason !== 'adjacent');
-  if (none.length) notes.push(`${none.length} requirement${none.length > 1 ? 's have' : ' has'} no evidence on his record (or name something it never mentions) and count as zero in the score.`);
+  if (none.length) notes.push(`${none.length} requirement${none.length > 1 ? 's have' : ' has'} no evidence on his record (or ${none.length > 1 ? 'name' : 'names'} something it never mentions) and ${none.length > 1 ? 'count' : 'counts'} as zero in the score.`);
 
   const questions = [];
   for (const g of gaps.slice(0, 2)) questions.push(`${g.label}: ask how he'd close this gap in his first 90 days.${g.note ? ` On record: ${g.note}` : ''}`);
@@ -1316,9 +1433,9 @@ function build(data, found, { title, text, persona, req }) {
   const detected = found.map(f => ({ id: f.c.id, w: f.w }));
   return {
     title, score, band, credit: Math.round(300 + (score / 100) * 550), coverage,
-    method: 'Each requirement: every line of evidence is weighed on relevance (your words 1.0, linked 0.7) × ownership (owned or led 1.0, else 0.85) × specificity (a number 1.0, else 0.85) × recency (1 year 1.0, 3 years 0.9, older 0.75) × setting (day job 1.0, side project 0.85). Lines from the same product or project count once. Places combine as confidence = 1 - Π(1 - 0.75 × place), so one strong place reaches 0.75 and 0.85+ needs two. His self-assessment can only cap it. Fit = the average of confidence across your requirements, weighted by how often you ask for each, × 100; a must-have with no evidence caps it at 44. Every requirement line gets a row: a line no competency covers is "unmapped" (nothing on record) and counts as zero confidence, so a description that is mostly unmapped scores low. Hard requirements (years, degrees, licences, managing PMs, work authorisation) are explicit pass/fail checks and cap the score when missed; a role outside product, program and client-facing technical work is capped at 35. Everything is from his own record: much of it is internal to employers, so nothing is checked against the web.',
+    method: 'Each requirement: every line of evidence is weighed on relevance (your words 1.0, linked 0.7) × ownership (owned or led 1.0, else 0.85) × specificity (a number 1.0, else 0.85) × recency (1 year 1.0, 3 years 0.9, older 0.75) × setting (day job 1.0, side project 0.85). Lines from the same product or project count once. Places combine as confidence = 1 - Π(1 - 0.75 × place), so one strong place reaches 0.75 and 0.85+ needs two. His self-assessment can only cap it. Fit = the average of confidence across your requirements, weighted by how often you ask for each, × 100 (see below for what lowers it); a must-have with no evidence caps it at 44. Every requirement line gets a row: a line no competency covers is "unmapped" (nothing on record), and a line that names things his record never mentions, adds 0.6 of zero-evidence weight each (a failed hard check adds 1) to the weights you divide by, so the score is sum(weight × confidence) ÷ (sum of weights + that extra weight) × 100 and a description that is mostly unmapped scores low; any cap then takes the minimum. The score_math field lists every number. Hard requirements (years, degrees, licences, managing PMs, work authorisation) are explicit pass/fail checks and cap the score when missed; a role outside product, program and client-facing technical work is capped at 35. Everything is from his own record: much of it is internal to employers, so nothing is checked against the web.',
     matches, gaps, also, read_first, notes, questions, summary, detected,
-    requirements, unmapped, hard, family,
+    requirements, unmapped, hard, family, score_math: scoreMath,
   };
 }
 
@@ -1344,3 +1461,6 @@ export function resumeMarkdown(data) {
   lines.push('', `Contact: ${p.contact.email} · ${p.contact.linkedin} · ${p.links.portfolio}`);
   return lines.join('\n');
 }
+
+// exposed for tests and debugging only
+export const _internals = { index, analyseClaim, evalUnit };

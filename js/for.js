@@ -1,7 +1,7 @@
 // "For you": a fit machine. Pick who's asking or paste the job; the scoreboard stays beside you while
 // the details sit behind tabs. Scores come from js/career-engine.js and only ever quote Parth's own record.
 
-import { fitFor, fitFromIds, getProfile, PERSONAS } from './career-engine.js';
+import { fitFor, fitFromIds, getProfile, bandOf, PERSONAS } from './career-engine.js';
 import { initCursor } from './cursor.js';
 
 const SAMPLES = {
@@ -114,27 +114,34 @@ function setBoard(fit, { label = 'Fit score', hint } = {}) {
     els.credit.textContent = '---'; shownCredit = null;
     els.led.classList.add('off');
     els.stats.innerHTML = '';
+    $('#famNote')?.remove();
     els.actions.hidden = true;
     els.dialTitle.textContent = 'Credit-style score: waiting for input';
     return;
   }
   setFlaps(String(fit.score));
-  els.band.textContent = fit.band;
-  els.band.classList.add('b-' + lower(fit.band));
+  const out = !!fit.family && fit.family.in_scope === false;
+  els.band.textContent = out ? 'Outside his field' : fit.band;
+  els.band.classList.add(out ? 'b-stretch' : 'b-' + lower(fit.band));
+  $('#famNote')?.remove();
+  if (out) els.stats.insertAdjacentHTML('beforebegin', `<p class="fam-note" id="famNote" role="note">${esc(fit.family.message)}</p>`);
   els.needle.classList.remove('idle');
   els.needle.style.transform = `rotate(${(fit.score * 1.8 - 90).toFixed(1)}deg)`;
   countCredit(fit.credit);
   els.led.classList.remove('off');
   els.dialTitle.textContent = `Score ${fit.score} out of 100, ${fit.band}; ${fit.credit} on a 300 to 850 scale`;
-  const n = fit.matches.length + fit.gaps.length;
+  const n = fit.coverage.total;
+  const hc = fit.hard || [], hcFail = hc.filter(h => h.status === 'fail').length;
+  const gn = gapCount(fit);
   els.stats.innerHTML = `<li><span>Requirements read</span><b>${n}</b></li>
     <li><span>Well evidenced</span><b>${fit.coverage.evidenced} of ${n}</b></li>
-    <li class="${fit.gaps.length ? 'warn' : ''}"><span>Gaps</span><b>${fit.gaps.length}</b></li>`;
+    ${hc.length ? `<li class="${hcFail ? 'warn' : ''}"><span>Hard checks met</span><b>${hc.filter(h => h.status === 'pass').length} of ${hc.length}</b></li>` : ''}
+    <li class="${gn ? 'warn' : ''}"><span>Gaps</span><b>${gn}</b></li>`;
   els.actions.hidden = false;
   setTimeout(() => {
-    els.stamp.textContent = fit.band;
+    els.stamp.textContent = out ? 'Not his field' : fit.band;
     els.stamp.classList.add('show');
-    if (STAMP_TONE[fit.band]) els.stamp.classList.add(STAMP_TONE[fit.band]);
+    if (!out && STAMP_TONE[fit.band]) els.stamp.classList.add(STAMP_TONE[fit.band]);
   }, reduceMotion ? 0 : 900);
 }
 
@@ -204,6 +211,52 @@ const reqRow = (m, i, asked) => {
   </li>`;
 };
 
+/* requirement-level rows: every line of the job, with evidence or "nothing on his record" */
+const HARD_LABEL = { years: 'Years', degree: 'Degree', licence: 'Licence', certification: 'Certification', 'people-management': 'Managing PMs', language: 'Language', 'work-authorisation': 'Work authorisation', location: 'Location' };
+const hardWord = h => (h.status === 'pass' ? 'Met' : h.status === 'fail' ? 'Not met' : 'Unclear');
+const hardLine = h => `<li class="hc hc-${esc(h.status)}"><b>${hardWord(h)}</b><span><em>${esc(HARD_LABEL[h.type] || h.type)}</em>: needs ${esc(h.need)}${h.soft ? ' (preferred)' : ''}. ${esc(h.detail)}</span></li>`;
+const hardList = list => (list.length ? `<ul class="hc-list">${list.map(hardLine).join('')}</ul>` : '');
+const clip = (t, n = 150) => (t.length > n ? t.slice(0, n - 1).trimEnd() + '…' : t);
+function reqRowR(r, i, fit, comps) {
+  const checks = (r.hard || []).map(k => fit.hard[k]).filter(Boolean);
+  const failed = checks.some(h => h.status === 'fail');
+  const none = r.status === 'unmapped' || (r.status === 'hard' && r.confidence == null);
+  const conf = none ? 0 : r.confidence;
+  const band = none ? 'None' : r.confidence_band || bandOf(conf);
+  const m = { confidence: conf, confidence_band: band };
+  const top = r.status === 'mapped' && r.competencies[0] ? comps.get(r.competencies[0].id) : null;
+  const small = r.status === 'unmapped' ? 'nothing on his record'
+    : r.status === 'mapped' ? `${r.competencies.slice(0, 2).map(c => c.label).join(', ')}${r.not_on_record ? ` · never mentions ${r.not_on_record.join(', ')}` : ''}`
+    : checks.map(h => `${HARD_LABEL[h.type] || h.type}: ${hardWord(h).toLowerCase()}`).join(', ');
+  const tagText = r.status === 'unmapped' ? 'None' : failed && r.status === 'hard' ? 'Not met' : band;
+  const body = r.status === 'unmapped'
+    ? `<p class="why-none">Nothing in his record evidences this line, so it counts as zero in the score. ${esc(r.note || '')} <a href="../mcp/">Ask him directly</a>.</p>`
+    : (top ? whyBody(top) : '') + (r.not_on_record ? `<p class="why-none">His record never mentions ${esc(r.not_on_record.join(', '))}, so this line also adds zero-evidence weight to the score.</p>` : '') + hardList(checks);
+  return `<li class="req${none ? ' req-none' : ''}" style="animation-delay:${Math.min(i, 14) * 40}ms">
+    <button type="button" class="req-h" aria-expanded="false">
+      <span class="req-l"><b>${esc(clip(r.text))}</b><small>${esc(small)}</small></span>
+      ${meter(m)}
+      <span class="req-c">${conf.toFixed(2)}</span>
+      <span class="tag ${TAG(tagText === 'Not met' ? 'none' : tagText)}">${esc(tagText)}</span>
+      <span class="req-x" aria-hidden="true">+</span>
+    </button>
+    <div class="req-b" hidden>${body}</div>
+  </li>`;
+}
+const outOfScope = fit => !!fit.family && fit.family.in_scope === false;
+const famBanner = fit => (outOfScope(fit) ? `<div class="fam-banner" role="note"><b>Outside his field</b><p>${esc(fit.family.message)}</p></div>` : '');
+// what the Gaps tab lists: thin competencies, requirements with nothing behind them, and failed hard checks
+const gapParts = fit => ({
+  thin: fit.gaps,
+  none: (fit.unmapped || []).filter(u => u.reason !== 'adjacent'),
+  failed: (fit.hard || []).filter(h => h.status === 'fail'),
+});
+const gapCount = fit => { const g = gapParts(fit); return g.thin.length + g.none.length + g.failed.length + (outOfScope(fit) ? 1 : 0); };
+
+function scoreMathHtml(fit) {
+  const m = fit.score_math, z = m.zero_rows, extra = Math.round((m.denominator - m.weight) * 100) / 100;
+  return `<p class="how-p"><b>This job, step by step.</b></p><p class="math">sum(weight × confidence) = <b>${m.numerator}</b> over weights <b>${m.weight}</b> → average <b>${m.weighted_mean}</b>${extra ? `<br>zero-evidence weight +<b>${extra}</b> (${z.unmapped + z.named_terms} line${z.unmapped + z.named_terms === 1 ? '' : 's'} × ${z.each}, failed hard checks ${z.hard_fail_weight}) → ${m.numerator} ÷ ${m.denominator} = <b>${m.before_caps}</b>` : ''}${m.caps.length ? `<br>caps: ${m.caps.map(c => c.value).join(', ')} → lowest wins` : '<br>no caps apply'} → score <b>${m.final}</b></p>`;
+}
 function tabsFor(fit, opts) {
   const asked = opts.mode === 'jd';
   const tabs = [];
@@ -213,15 +266,27 @@ function tabsFor(fit, opts) {
       <dl class="facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>
       <div class="nums">${profile.headline_numbers.map(n => `<div><b>${esc(n.value)}</b><span>${esc(n.label)}</span></div>`).join('')}</div>`;
   } });
-  tabs.push({ id: 'evidence', label: 'Evidence', count: fit.matches.length, render: () => `
-    <div class="tp-head"><h3 class="tp-title">${asked ? 'Your asks' : 'What matters'} → <em>his record</em></h3><span class="tp-sub">tap a row to see why</span></div>
-    <ol class="reqs">${fit.matches.map((m, i) => reqRow(m, i, asked)).join('')}</ol>
+  const rows = fit.requirements || [];
+  const byComp = new Map([...fit.matches, ...fit.gaps].map(m => [m.id, m]));
+  const detailed = asked && rows.length > 0;
+  tabs.push({ id: 'evidence', label: 'Evidence', count: detailed ? rows.length : fit.matches.length, render: () => `
+    ${famBanner(fit)}
+    <div class="tp-head"><h3 class="tp-title">${asked ? 'Your asks' : 'What matters'} → <em>his record</em></h3><span class="tp-sub">${detailed ? `every line of the job, ${rows.filter(r => r.status === 'mapped' && !r.not_on_record).length} of ${rows.length} backed by evidence · tap a row to see why` : 'tap a row to see why'}</span></div>
+    <ol class="reqs">${detailed ? rows.map((r, i) => reqRowR(r, i, fit, byComp)).join('') : fit.matches.map((m, i) => reqRow(m, i, asked)).join('')}</ol>
+    ${fit.hard && fit.hard.length ? `<div class="hcs"><p class="reads-h">hard requirements ↓</p>${hardList(fit.hard)}</div>` : ''}
     ${fit.read_first.length ? `<div class="reads"><p class="reads-h">start with these ↓</p>${fit.read_first.map(r => `<a class="read" ${linkAttrs(r.url)}><span class="read-k">${esc(kindLabel(r))}</span><span class="read-t">${esc(r.title)}</span>${r.metric ? `<span class="read-m">${esc(r.metric)}</span>` : ''}</a>`).join('')}</div>` : ''}` });
-  tabs.push({ id: 'gaps', label: 'Gaps', count: fit.gaps.length, warn: fit.gaps.length > 0, render: () => `
+  const gp = gapParts(fit), gn = gapCount(fit);
+  tabs.push({ id: 'gaps', label: 'Gaps', count: gn, warn: gn > 0, render: () => {
+    const notes = fit.notes.filter(n => !(outOfScope(fit) && n === fit.family.message));
+    return `
+    ${famBanner(fit)}
     <div class="tp-head"><h3 class="tp-title">Where it's <em>thin</em></h3><span class="tp-sub">said plainly, from his own record</span></div>
-    ${fit.notes.length ? `<ul class="warnings">${fit.notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
-    ${fit.gaps.length ? `<div class="gaps">${fit.gaps.map(g => `<div class="gap"><div class="gap-h"><b>${esc(g.label)}</b><span class="tag ${TAG(g.confidence_band)}">${esc(g.confidence_band)} · ${g.confidence.toFixed(2)}</span></div><p>${esc(g.note || g.reasons[0] || '')}</p>${meter(g)}</div>`).join('')}</div>`
-      : '<span class="sticker neon all-clear">nothing here he can\'t back up</span>'}` });
+    ${notes.length ? `<ul class="warnings">${notes.map(n => `<li>${esc(n)}</li>`).join('')}</ul>` : ''}
+    ${gn - (outOfScope(fit) ? 1 : 0) ? `<div class="gaps">
+      ${gp.failed.map(h => `<div class="gap"><div class="gap-h"><b>${esc(HARD_LABEL[h.type] || h.type)}: not met</b><span class="tag t-none">Hard check</span></div><p>Needs ${esc(h.need)}. ${esc(h.detail)}</p></div>`).join('')}
+      ${gp.none.map(u => `<div class="gap"><div class="gap-h"><b>${esc(clip(u.text, 110))}</b><span class="tag t-none">${u.reason === 'none' ? 'Nothing on record' : 'Names unknowns'}</span></div><p>${esc(u.reason === 'none' ? 'Nothing on his record covers this line; it counts as zero in the score.' : u.note)}</p></div>`).join('')}
+      ${gp.thin.map(g => `<div class="gap"><div class="gap-h"><b>${esc(g.label)}</b><span class="tag ${TAG(g.confidence_band)}">${esc(g.confidence_band)} · ${g.confidence.toFixed(2)}</span></div><p>${esc(g.note || g.reasons[0] || '')}</p>${meter(g)}</div>`).join('')}</div>`
+      : outOfScope(fit) ? '' : '<span class="sticker neon all-clear">nothing here he can\'t back up</span>'}`; } });
   tabs.push({ id: 'ask', label: 'Ask him', count: fit.questions.length, render: () => `
     <div class="tp-head"><h3 class="tp-title">Questions for <em>the call</em></h3><button type="button" class="btn paper sm" data-copy-qs>Copy all</button></div>
     <ol class="asks">${fit.questions.map(q => `<li>${esc(q)}</li>`).join('')}</ol>` });
@@ -236,6 +301,7 @@ function tabsFor(fit, opts) {
     </div>
     <p class="how-p">Each quoted line is worth those five multiplied together. Lines from the same product or project count once (one role can run two products). Different places add up like independent examples:</p>
     <span class="how-f">confidence = 1 − Π(1 − 0.75 × place)</span>
+    ${fit.score_math ? scoreMathHtml(fit) : ''}
     <p class="how-p">So one strong place reaches 0.75, and "Strong" needs evidence from two. His own self-assessment can only lower a score (a declared gap caps it at 0.15), never raise it. The fit is the average across your requirements, weighted by how often you ask for each, and a must-have with nothing behind it caps the fit at 44. Everything comes from his own record; much of it is internal to employers, so nothing is checked against the web.</p>` });
   return tabs;
 }

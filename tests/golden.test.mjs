@@ -1,13 +1,16 @@
 // Golden sets (tests/golden/*.jsonl) against the evidence engine. Thresholds are fixed: do not lower them to pass.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { runClaims, runSearch, runJobs } from './golden-run.mjs';
+import { runClaims, runSearch, runJobs, runParaphrases } from './golden-run.mjs';
+import { readFileSync } from 'node:fs';
 
 test('golden claims: zero false confirmations, at least 95% accuracy', () => {
   const c = runClaims();
   const show = c.wrong.map(r => `[${r.expect} -> ${r.got.verdict}] ${r.claim}`).join('\n');
   assert.equal(c.false_confirmations, 0, `false confirmations:\n${c.falseConf.map(r => `${r.claim} (${r.expect})`).join('\n')}`);
   assert.ok(c.total >= 140, `only ${c.total} claims`);
+  const twins = readFileSync(new URL('./golden/claims.jsonl', import.meta.url), 'utf8').split('\n').filter(l => l.includes('"twin-')).length;
+  assert.ok(twins >= 30, `only ${twins} near-miss twins`);
   assert.ok(c.correct / c.total >= 0.95, `accuracy ${c.correct}/${c.total}\n${show}`);
 });
 
@@ -26,4 +29,13 @@ test('golden jobs: scores in range, out-of-family roles stay low, hard requireme
   assert.ok(j.in_range / j.total >= 0.9, `in range ${j.in_range}/${j.total}\n${bad}`);
   assert.equal(j.out_of_family_ok, j.out_of_family, `out-of-family roles scoring above 39\n${bad}`);
   assert.ok(j.flags_ok / j.flags >= 0.85, `flags ${j.flags_ok}/${j.flags}\n${JSON.stringify(j.detail.filter(d => d.missed.length), null, 1)}`);
+});
+
+test('golden paraphrases: true rewordings are supported in >= 92% of cases, each cites a verbatim record line', () => {
+  const p = runParaphrases();
+  assert.ok(p.total >= 60, `only ${p.total} paraphrases`);
+  assert.equal(p.unsourced.length, 0, `source not on the record:\n${p.unsourced.map(r => r.source).join('\n')}`);
+  for (const k of ['case', 'role', 'project', 'profile', 'award']) assert.ok(p.kinds.includes(k), `no ${k} paraphrase`);
+  const show = p.wrong.map(r => `[${r.got.verdict}] ${r.claim}`).join('\n');
+  assert.ok(p.supported / p.total >= 0.92, `supported ${p.supported}/${p.total}\n${show}`);
 });

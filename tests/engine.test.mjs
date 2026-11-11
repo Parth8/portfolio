@@ -18,10 +18,10 @@ test('prove_claim: true claims are supported, inflated ones differ, invented one
 });
 
 test('fit_for: a card-issuing JD is a strong fit; a consumer-growth director JD is a stretch with honest gaps', () => {
-  const card = E.fitFor(data, 'Senior Product Manager, Card Issuing. Own virtual cards, card lifecycle APIs, webhooks, fraud and disputes with sponsor banks and Mastercard. PCI DSS. 6+ years.');
+  const card = E.fitFor(data, 'Senior Product Manager, Card Issuing. Own virtual cards, card lifecycle APIs, webhooks, fraud and disputes with sponsor banks and Mastercard. PCI DSS. 5+ years.');
   assert.ok(card.score >= 85, `card score ${card.score}`);
   assert.equal(card.read_first[0].id, 'optum-virtual-cards');
-  assert.ok(card.notes.some(n => n.includes('6+ years')));
+  assert.ok(card.notes.some(n => n.includes('5+ years')));
   const growth = E.fitFor(data, 'Director of Product, Consumer Growth. Manage a team of 6 product managers. Own experimentation, A/B testing and retention for our iOS and Android apps.');
   assert.ok(growth.score < 50, `growth score ${growth.score}`);
   assert.ok(growth.gaps.some(g => g.id === 'people-management'));

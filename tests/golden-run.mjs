@@ -17,6 +17,15 @@ export function runClaims() {
   return { total: rows.length, correct: rows.length - wrong.length, false_confirmations: falseConf.length, wrong, falseConf };
 }
 
+// natural rewordings of true record lines: each must be supported (a false negative otherwise)
+export function runParaphrases() {
+  const rows = jsonl('paraphrases.jsonl').map(c => ({ ...c, got: E.proveClaim(data, c.claim) }));
+  const lines = E.index(data).units.map(u => u.line);
+  const unsourced = rows.filter(r => !lines.some(l => l.includes(r.source)));
+  const wrong = rows.filter(r => r.got.verdict !== 'supported');
+  return { total: rows.length, supported: rows.length - wrong.length, false_negatives: wrong.length, wrong, unsourced, kinds: [...new Set(rows.map(r => r.kind))] };
+}
+
 export function runSearch() {
   const rows = jsonl('search.jsonl');
   const bad = [];

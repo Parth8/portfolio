@@ -27,17 +27,25 @@ For each requirement (from a job description or a reader persona), `js/career-en
   two products counts as two places. Places combine like independent examples:
   `confidence = 1 - Π(1 - 0.75 × place)`, so one strong place reaches 0.75 and "Strong" (0.85+) needs two.
 - Parth's self-assessment in `competencies[].strength` can only cap a score (gap 0.15, adjacent 0.45, working 0.70).
-- Fit = the confidence average across requirements, weighted by how often each is asked for, × 100. A must-have with
-  no evidence caps the fit at 44.
+- Fit = sum(weight × confidence) ÷ (sum of weights + zero-evidence weight) × 100. The extra weight is 0.6 for each
+  unmapped line and each line that names something his record never mentions, 1 for a failed hard check (0.4 for a
+  preferred check or a years shortfall under a year). Whenever that puts the score below the plain weighted average, a
+  `Score arithmetic:` note says so with the numbers, and `score_math` lists every term. A must-have with no evidence
+  caps the fit at 44; every cap is named in `notes`, and the lowest one wins.
 - Every requirement line of a job description gets a row: mapped to a competency with its confidence, or **unmapped**
   (nothing on record), which counts as zero, so a description that is mostly unmapped scores low. Hard requirements
   (years, degrees, licences, managing PMs, work authorisation) are explicit pass/fail checks that cap the score, and a
   role outside product, program and client-facing technical work is capped at 35 with a plain `family` note.
+- Years: tenure is counted in whole months from the first role's start (Feb 2021) to the record's `updated` month
+  (5 years 9 months). An ask for fintech, payments, cards or banking is compared with fintech tenure (Zeta and
+  Backbase, from May 2022: 4 years 6 months); any other ask with total tenure. The check says which one it used, and
+  there is no tolerance: 4 years 6 months does not meet 5+.
 - `prove_claim` splits a claim into names, numbers with units, dates and absolute words (never, every, all) and calls it
-  supported only when one line or typed fact states all of them; a name the record never mentions is `not_found`, a
+  supported only when one line or typed fact states all of them (paraphrases count: stems, a small synonym list, number words, "from A to B" order and direction words are normalised, and a reworded line passes only when every name, figure and date is present together and the remaining words overlap); a name the record never mentions is `not_found`, a
   different name, number, place or date is `differs`. `search_evidence` indexes every line and typed fact (education,
   location, visa, awards, certifications, employers with dates) and returns nothing when a distinctive word is absent.
-- `node tests/golden-report.mjs` scores the engine on `tests/golden/` and writes `data/accuracy.json`.
+- `node tests/golden-report.mjs` scores the engine on `tests/golden/` (claims with near-miss twins, 80 true paraphrases,
+  search, jobs) and writes `data/accuracy.json`.
 
 The For-you page shows each requirement's confidence, its reasons, every quoted line with its weights, and the maths;
 `fit_for` returns the same to an AI. Tests check that every quoted line really is on the record.

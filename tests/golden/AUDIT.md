@@ -23,3 +23,9 @@ No case changed except the family tag of the Solutions Engineer job (`sales` -> 
 
 ## Harness notes
 `must_flag` items are matched loosely by keyword against the `hard` list, the `unmapped` list (which carries `reason`: none, named-terms or adjacent) and, for "not a product role", `family.in_scope === false`. "unclear", "partial" count as wrong for accuracy, never as false confirmations.
+
+## Second pass (paraphrases, near-miss twins, years, score arithmetic)
+- `paraphrases.jsonl` (80, new): true claims, each a recruiter-style rewording of one verbatim record line (`source`), covering every case study, every role, every project, profile, education, visa, awards, a certification and a writing item. The harness requires >= 92% supported and checks that every `source` really is on the record.
+- `claims.jsonl` 178 -> 225: 47 near-miss twins (`kind` starts with `twin-`), each a paraphrase with exactly one decisive part changed (a number, a unit, a company, a bank, a network, a year, a place, or two swapped figures). Expectation rule as before: a record value that is different -> `differs`; a name the record never mentions as an employer -> `not_found`. Three twins were reworded while writing them because the first wording changed two things at once ("Cross River Bank" -> "Citibank", the sponsor-bank twin now asks about "Visa rails").
+- `tests/engine.test.mjs`: the card-issuing fixture asked for "6+ years" and expected a score of 85+. The old engine passed it only through a +0.5 year tolerance on a wrong 4.5-year ceiling. His total tenure is 5 years 9 months, so "6+" is a genuine near miss; the fixture now asks for "5+ years" (which he meets). A 6+ ask is covered by `tests/fit.test.mjs`.
+- Product Operations Manager still scores 74 against 45-65 (unchanged, see above).
