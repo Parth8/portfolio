@@ -43,10 +43,10 @@ test('legacy: initialized notification is accepted with 202 and no body', async 
   assert.equal(r.json, null);
 });
 
-test('legacy: tools/list returns seven read-only tools in a stable order', async () => {
+test('legacy: tools/list returns nine read-only tools in a stable order', async () => {
   const r = await legacy('tools/list');
   const names = r.json.result.tools.map(t => t.name);
-  assert.deepEqual(names, ['get_profile', 'list_work', 'get_work', 'search_evidence', 'prove_claim', 'fit_for', 'contact']);
+  assert.deepEqual(names, ['get_profile', 'list_work', 'get_work', 'search_evidence', 'prove_claim', 'fit_for', 'check_requirements', 'get_facts', 'contact']);
   for (const t of r.json.result.tools) {
     assert.equal(t.annotations.readOnlyHint, true);
     assert.equal(t.inputSchema.type, 'object');
@@ -98,7 +98,7 @@ test('modern: server/discover advertises both eras and identifies the server', a
 test('modern: list results are cacheable; tools/call works with mirrored headers', async () => {
   const l = await modern('tools/list');
   assert.equal(l.json.result.cacheScope, 'public');
-  assert.equal(l.json.result.tools.length, 7);
+  assert.equal(l.json.result.tools.length, 9);
   const c = await modern('tools/call', { name: 'fit_for', arguments: { job_description: 'Senior Product Manager, card issuing: APIs, webhooks, fraud, Mastercard, enterprise banks. 5+ years.' } });
   assert.equal(c.json.result.resultType, 'complete');
   assert.ok(c.json.result.structuredContent.score >= 80);
@@ -142,4 +142,22 @@ test('security: foreign browser origins are refused; oversized bodies are 413', 
   assert.equal(local.status, 200);
   const big = await post({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'fit_for', arguments: { job_description: 'x'.repeat(70000) } } });
   assert.equal(big.status, 413);
+});
+
+test('new tools: get_facts and check_requirements', async () => {
+  const f = await legacy('tools/call', { name: 'get_facts', arguments: {} });
+  assert.equal(f.json.result.structuredContent.education.school, 'PES University');
+  assert.equal(f.json.result.structuredContent.employers.length, 4);
+  const c = await legacy('tools/call', { name: 'check_requirements', arguments: { title: 'Staff Backend Engineer', requirements: ['10+ years of backend engineering', 'Deep Java and Kubernetes experience', 'Own card issuing APIs'] } });
+  const s = c.json.result.structuredContent;
+  assert.equal(s.family.in_scope, false);
+  assert.ok(s.requirements.length === 3 && s.score <= 35);
+  assert.ok(s.hard.some(h => h.type === 'years' && h.status === 'fail'));
+  assert.match(c.json.result.content[0].text, /no evidence on record|Not on record/);
+  const bad = await legacy('tools/call', { name: 'check_requirements', arguments: { requirements: [] } });
+  assert.equal(bad.json.result.isError, true);
+  const p = await legacy('tools/call', { name: 'prove_claim', arguments: { claim: 'He works at Stripe' } });
+  assert.equal(p.json.result.structuredContent.verdict, 'not_found');
+  assert.ok(p.json.result.structuredContent.checked.unknown.includes('Stripe'));
+  assert.equal((await legacy('initialize', {})).json.result.serverInfo.version, '3.0.0');
 });

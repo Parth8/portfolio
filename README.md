@@ -29,6 +29,15 @@ For each requirement (from a job description or a reader persona), `js/career-en
 - Parth's self-assessment in `competencies[].strength` can only cap a score (gap 0.15, adjacent 0.45, working 0.70).
 - Fit = the confidence average across requirements, weighted by how often each is asked for, × 100. A must-have with
   no evidence caps the fit at 44.
+- Every requirement line of a job description gets a row: mapped to a competency with its confidence, or **unmapped**
+  (nothing on record), which counts as zero, so a description that is mostly unmapped scores low. Hard requirements
+  (years, degrees, licences, managing PMs, work authorisation) are explicit pass/fail checks that cap the score, and a
+  role outside product, program and client-facing technical work is capped at 35 with a plain `family` note.
+- `prove_claim` splits a claim into names, numbers with units, dates and absolute words (never, every, all) and calls it
+  supported only when one line or typed fact states all of them; a name the record never mentions is `not_found`, a
+  different name, number, place or date is `differs`. `search_evidence` indexes every line and typed fact (education,
+  location, visa, awards, certifications, employers with dates) and returns nothing when a distinctive word is absent.
+- `node tests/golden-report.mjs` scores the engine on `tests/golden/` and writes `data/accuracy.json`.
 
 The For-you page shows each requirement's confidence, its reasons, every quoted line with its weights, and the maths;
 `fit_for` returns the same to an AI. Tests check that every quoted line really is on the record.

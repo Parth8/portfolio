@@ -58,3 +58,6 @@
 {"query": "Notice period for a new role", "expect": "none", "where": "", "must_include": "", "note": "Notice period is not on record."}
 {"query": "Blockchain projects", "expect": "none", "where": "", "must_include": "", "note": "No blockchain work on record."}
 {"query": "Redis cache", "expect": "none", "where": "", "must_include": "", "note": "Redis is not on record."}
+{"query": "Has he worked with Kubernetes?", "expect": "none", "where": "", "must_include": "", "note": "Kubernetes never appears on the record; unrelated lines must not be returned."}
+{"query": "What did he do at HackerEarth?", "expect": "hit", "where": "role:hackerearth-pm", "must_include": "Delivered solutions for 60+ enterprises", "note": "HackerEarth role lines."}
+{"query": "Which awards has he won?", "expect": "hit", "where": "awards", "must_include": "Spot Award", "note": "Awards list (six awards)."}

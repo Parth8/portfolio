@@ -1,0 +1,25 @@
+{
+  "updated": "2026-11-10",
+  "record_updated": "2026-11-10",
+  "claims": {
+    "total": 178,
+    "correct": 178,
+    "false_confirmations": 0
+  },
+  "search": {
+    "total": 63,
+    "hits": 47,
+    "hits_in_top3": 47,
+    "unanswerable": 16,
+    "returned_nothing": 16,
+    "correct": 63
+  },
+  "jobs": {
+    "total": 30,
+    "in_range": 29,
+    "out_of_family": 12,
+    "out_of_family_below_40": 12,
+    "flagged_items": 62,
+    "flagged_surfaced": 58
+  }
+}

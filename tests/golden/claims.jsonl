@@ -1,7 +1,7 @@
 {"claim": "He is a Forward Deployed Product Manager at Backbase.", "expect": "supported", "source": "Forward Deployed Product Manager", "kind": "title", "note": "Current title on the record."}
 {"claim": "Parth has worked at Backbase since Aug 2026.", "expect": "supported", "source": "Aug 2026 - present", "kind": "dates", "note": "Backbase role period starts Aug 2026."}
 {"claim": "Parth held the title Technical Product Manager at Zeta.", "expect": "supported", "source": "Technical Product Manager", "kind": "title", "note": "Zeta TPM role, May 2024 to Aug 2026."}
-{"claim": "Parth has worked at Zeta.", "expect": "supported", "source": "Zeta's first US credit card program, later used as a reference case", "kind": "employer", "note": "Zeta roles appear in the record (sparrow-launch case)."}
+{"claim": "Parth has worked at Zeta.", "expect": "supported", "source": "Technical Product Manager, Zeta, May 2024 - Aug 2026", "kind": "employer", "note": "Source pointed at an unrelated case line; the role fact is the backing."}
 {"claim": "Parth studied at PES University in Bengaluru.", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Degree and institution are on the record."}
 {"claim": "He has a B.Tech in Electrical & Electronics Engineering.", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Field of study matches exactly."}
 {"claim": "Parth is based in Hyderabad, India.", "expect": "supported", "source": "Hyderabad, India", "kind": "location", "note": "Profile location."}
@@ -79,12 +79,12 @@
 {"claim": "Shelfie has 12 levels, from Fresh Spine to Literary Final Boss.", "expect": "differs", "source": "9 levels from Fresh Spine to Literary Final Boss", "kind": "project", "note": "Record says 9 levels."}
 {"claim": "Chalk has 300 quick answers for snooker and pool.", "expect": "differs", "source": "128 quick answers", "kind": "project", "note": "Record says 128."}
 {"claim": "Decoding Credit Cards has 40 chapter pages.", "expect": "differs", "source": "The guide has 22 chapter pages", "kind": "project", "note": "Record says 22."}
-{"claim": "Part two of Zero to a Hundred has 14 phases.", "expect": "differs", "source": "The path has 22 phases in two parts: 14 on understanding and building with AI, and 8 on running, serving, evaluating and fine-tuning open models.", "kind": "number", "note": "Part two has 8 phases; 14 is part one."}
+{"claim": "Zero to a Hundred has 30 phases.", "expect": "differs", "source": "The path has 22 phases in two parts", "kind": "number", "note": "Reworded: the original ('part two has 14 phases') was ambiguous because 14 is the size of part one; the record says 22 phases in total."}
 {"claim": "The AI curriculum defines 585 AI terms in 12 categories.", "expect": "differs", "source": "A searchable dictionary covers 585 AI terms in 17 categories.", "kind": "number", "note": "Record says 17 categories."}
-{"claim": "Jira 2.0 connects to a live Jira Cloud instance for its AI answers.", "expect": "differs", "source": "The AI answers are scripted samples: there are no network calls", "kind": "entity", "note": "Record says scripted samples with no network calls."}
+{"claim": "Jira 2.0 makes network calls to answer questions.", "expect": "differs", "source": "The AI answers are scripted samples: there are no network calls", "kind": "entity", "note": "Reworded to a direct contradiction of the record line 'there are no network calls'; the original named a product ('Jira Cloud') the record never mentions, which made it not_found rather than differs."}
 {"claim": "The GRID calendar covers 24 races.", "expect": "differs", "source": "a 22-race calendar", "kind": "number", "note": "Record says 22 races."}
 {"claim": "The Cookbook has 300 dishes and drinks.", "expect": "differs", "source": "216 dishes and drinks that start from context, not chapters.", "kind": "number", "note": "Record says 216."}
-{"claim": "Map Poster Studio loads its map data from Overpass as the primary source.", "expect": "differs", "source": "Map data now loads from OpenFreeMap vector tiles in a web worker, with VersaTiles and Overpass as fallbacks.", "kind": "entity", "note": "Overpass is only a fallback."}
+{"claim": "Map Poster Studio loads its map data only from Overpass.", "expect": "differs", "source": "Map data now loads from OpenFreeMap vector tiles in a web worker, with VersaTiles and Overpass as fallbacks.", "kind": "entity", "note": "Reworded: 'primary source' is not a phrase the record uses; the record says Overpass is one of two fallbacks, so 'only from Overpass' is an overclaim."}
 {"claim": "Parth was a Technical Product Manager at Zeta from May 2022 to May 2024.", "expect": "differs", "source": "Technical Program Manager", "kind": "title", "note": "Role in that period was Technical Program Manager."}
 {"claim": "Parth was Head of Product at Backbase.", "expect": "differs", "source": "Forward Deployed Product Manager", "kind": "title", "note": "Record title is Forward Deployed Product Manager."}
 {"claim": "Parth joined Backbase in Jan 2026.", "expect": "differs", "source": "Aug 2026 - present", "kind": "dates", "note": "Record says Aug 2026."}
@@ -111,8 +111,8 @@
 {"claim": "Parth writes Java services.", "expect": "not_found", "source": "", "kind": "skill", "note": "Java does not appear in the record."}
 {"claim": "Parth uses Terraform to provision infrastructure.", "expect": "not_found", "source": "", "kind": "skill", "note": "Terraform does not appear in the record."}
 {"claim": "Parth has worked with Go for backend services.", "expect": "not_found", "source": "", "kind": "skill", "note": "Go does not appear in the record."}
-{"claim": "Parth holds a US H-1B visa.", "expect": "not_found", "source": "", "kind": "location", "note": "Only a B1/B2 visa is on record."}
-{"claim": "Parth has a US green card.", "expect": "not_found", "source": "", "kind": "location", "note": "No green card on record."}
+{"claim": "Parth holds a US H-1B visa.", "expect": "differs", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "The record states his single immigration status (B1/B2, business travel), so a different status contradicts it: differs, not not_found."}
+{"claim": "Parth has a US green card.", "expect": "differs", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "Same reason: the record states his status (B1/B2, business travel), so residency contradicts it."}
 {"claim": "Parth has lived in London for two years.", "expect": "not_found", "source": "", "kind": "location", "note": "London does not appear in the record."}
 {"claim": "Parth relocated to Singapore in 2025.", "expect": "not_found", "source": "", "kind": "location", "note": "Singapore does not appear in the record."}
 {"claim": "Parth won an Outstanding Award at HackerEarth.", "expect": "not_found", "source": "", "kind": "award", "note": "The Outstanding Award is from Zeta; HackerEarth has Spot Awards."}
@@ -135,12 +135,12 @@
 {"claim": "Parth's cards at Zeta were issued on American Express rails.", "expect": "not_found", "source": "", "kind": "entity", "note": "American Express does not appear in the record."}
 {"claim": "Parth led product at Revolut.", "expect": "not_found", "source": "", "kind": "employer", "note": "Revolut does not appear in the record."}
 {"claim": "Parth received a Mastercard award for fraud innovation.", "expect": "not_found", "source": "", "kind": "award", "note": "No such award on record."}
-{"claim": "Parth was promoted to Senior Product Manager at Backbase.", "expect": "not_found", "source": "", "kind": "title", "note": "No senior title on record."}
-{"claim": "Parth was Chief Product Officer at Zeta.", "expect": "not_found", "source": "", "kind": "title", "note": "No CPO title on record."}
+{"claim": "Parth was promoted to Senior Product Manager at Backbase.", "expect": "differs", "source": "Forward Deployed Product Manager", "kind": "title", "note": "The record states his title at Backbase, so a different title differs (consistent with 'Head of Product at Backbase')."}
+{"claim": "Parth was Chief Product Officer at Zeta.", "expect": "differs", "source": "Technical Product Manager; Technical Program Manager", "kind": "title", "note": "The record states his titles at Zeta; a different title differs."}
 {"claim": "Parth is a Data Scientist by title.", "expect": "not_found", "source": "", "kind": "title", "note": "No data scientist title on record."}
-{"claim": "Parth was a Software Engineer at HackerEarth.", "expect": "not_found", "source": "", "kind": "title", "note": "HackerEarth title was Project Manager."}
+{"claim": "Parth was a Software Engineer at HackerEarth.", "expect": "differs", "source": "Project Manager", "kind": "title", "note": "The record states his HackerEarth title (Project Manager); a different title differs."}
 {"claim": "Parth's Track app has over 100,000 monthly users.", "expect": "not_found", "source": "", "kind": "number", "note": "No user numbers for Track on record."}
-{"claim": "Parth worked at Zeta as an intern in 2019.", "expect": "not_found", "source": "", "kind": "dates", "note": "Zeta roles start May 2022; no 2019 internship."}
+{"claim": "Parth worked at Zeta as an intern in 2019.", "expect": "differs", "source": "May 2022 - May 2024; May 2024 - Aug 2026", "kind": "dates", "note": "The record dates every Zeta role (May 2022 to Aug 2026); 2019 conflicts with those dates, so differs."}
 {"claim": "Parth's Chalk app has been downloaded 10,000 times.", "expect": "not_found", "source": "", "kind": "number", "note": "No download numbers on record."}
 {"claim": "Parth holds a CFA charter.", "expect": "not_found", "source": "", "kind": "education", "note": "No CFA on record."}
 {"claim": "Parth has managed a team of product managers as their direct manager.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "People management of PMs is marked as a gap."}
@@ -148,3 +148,31 @@
 {"claim": "Parth has been a people manager of product managers.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Gap in the competency list."}
 {"claim": "Parth has held a director of product role with PMs reporting to him.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Gap in the competency list."}
 {"claim": "Parth's ~20 internal PMs at Backbase report to him directly.", "expect": "not_supported", "source": "No direct reports who are PMs on record.", "kind": "gap", "note": "Record says he coordinates them as MCP users, not as direct reports."}
+{"claim": "He works at Stripe.", "expect": "not_found", "source": "", "kind": "employer", "note": "Example from the engine's failure list: the record never mentions Stripe."}
+{"claim": "He is based in Bengaluru.", "expect": "differs", "source": "Hyderabad, India", "kind": "location", "note": "Failure-list example: current location is Hyderabad (he worked in Bengaluru until Aug 2026)."}
+{"claim": "He launched the Sparrow Card with Chase.", "expect": "differs", "source": "Delivered the Sparrow Card multi-phase launch with Evolve Bank", "kind": "entity", "note": "Failure-list example: partner bank is Evolve Bank."}
+{"claim": "He worked on Visa rails at Optum.", "expect": "differs", "source": "the program runs on Mastercard rails", "kind": "entity", "note": "Failure-list example: Optum runs on Mastercard rails."}
+{"claim": "He has a US green card.", "expect": "differs", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "Failure-list example."}
+{"claim": "He knows Kubernetes.", "expect": "not_found", "source": "", "kind": "skill", "note": "Failure-list example: Kubernetes never appears on the record."}
+{"claim": "He never shipped anything with defects.", "expect": "differs", "source": "Shipped with 0 P1/P2 defects and a 4-week GTM", "kind": "absolute", "note": "Failure-list example: the record gives 0 P1/P2 for specific launches only."}
+{"claim": "B.Tech from PES University", "expect": "supported", "source": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Failure-list example: true and on the record."}
+{"claim": "Parth won the Shining Star award at Zeta in Nov 2022.", "expect": "supported", "source": "Shining Star | Zeta | Nov 2022", "kind": "award", "note": "Failure-list example (award): name, organisation and date match."}
+{"claim": "5+ years in B2B SaaS", "expect": "supported", "source": "5+ years in B2B SaaS (since Feb 2021)", "kind": "number", "note": "Failure-list example: matches the experience field."}
+{"claim": "Technical Product Manager at Zeta from 2024 to 2026", "expect": "supported", "source": "Technical Product Manager, Zeta, May 2024 - Aug 2026", "kind": "title", "note": "Failure-list example: title, employer and years all match."}
+{"claim": "He currently works at Backbase.", "expect": "supported", "source": "Forward Deployed Product Manager, Backbase, Aug 2026 - present", "kind": "employer", "note": "Current role."}
+{"claim": "He currently works at Zeta.", "expect": "differs", "source": "Technical Product Manager, Zeta, May 2024 - Aug 2026", "kind": "employer", "note": "The Zeta roles ended in Aug 2026."}
+{"claim": "Parth is a Technical Platform Product Manager.", "expect": "supported", "source": "Technical Platform Product Manager", "kind": "title", "note": "Headline title on the profile."}
+{"claim": "Parth was a Technical Program Manager at Zeta from May 2022 to May 2024.", "expect": "supported", "source": "Technical Program Manager, Zeta, May 2022 - May 2024", "kind": "title", "note": "Title, employer and dates match the role."}
+{"claim": "He worked at Zeta from 2022 to 2026.", "expect": "supported", "source": "May 2022 - Aug 2026 across two roles", "kind": "dates", "note": "Zeta tenure covers 2022 to 2026."}
+{"claim": "He was at HackerEarth from Feb 2021 to Apr 2022.", "expect": "supported", "source": "Project Manager, HackerEarth, Feb 2021 - Apr 2022", "kind": "dates", "note": "Dates match the HackerEarth role."}
+{"claim": "He joined HackerEarth in 2019.", "expect": "differs", "source": "Feb 2021 - Apr 2022", "kind": "dates", "note": "HackerEarth started Feb 2021."}
+{"claim": "Parth worked at Optum.", "expect": "not_found", "source": "", "kind": "employer", "note": "Optum was a client (he led the Optum program at Zeta), not an employer."}
+{"claim": "Parth was Head of Product at Zeta.", "expect": "differs", "source": "Technical Product Manager; Technical Program Manager", "kind": "title", "note": "Different title at Zeta."}
+{"claim": "He studied at PES University from 2017 to 2021.", "expect": "supported", "source": "PES University, Bengaluru, 2017-2021.", "kind": "education", "note": "Dates match."}
+{"claim": "He holds a B.Tech in Mechanical Engineering.", "expect": "differs", "source": "B.Tech, Electrical & Electronics Engineering", "kind": "education", "note": "Different field."}
+{"claim": "He has a PhD in computer science.", "expect": "not_found", "source": "", "kind": "education", "note": "Only a B.Tech is on record."}
+{"claim": "He holds a US work visa.", "expect": "differs", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "B1/B2 is a business-travel visa, not work authorisation."}
+{"claim": "He has a US B1/B2 visa.", "expect": "supported", "source": "US B1/B2 visa, valid to Oct 2035 (business travel).", "kind": "location", "note": "Stated."}
+{"claim": "Parth speaks German.", "expect": "not_found", "source": "", "kind": "skill", "note": "Languages are not on the record."}
+{"claim": "Parth worked at Google as a product manager.", "expect": "not_found", "source": "", "kind": "employer", "note": "Google appears only as a HackerEarth client in the case studies, never as an employer."}
+{"claim": "Parth has built a Ruby on Rails app.", "expect": "not_found", "source": "", "kind": "skill", "note": "Ruby and Rails never appear on the record."}

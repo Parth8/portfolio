@@ -18,6 +18,25 @@
   "experience": "5+ years in B2B SaaS (since Feb 2021), 4+ in fintech, from 0-to-1 through enterprise scale.",
   "summary": "Built a $2B+/yr virtual card disbursement platform for a Fortune 3 enterprise, architected and launched a full-stack, multi-tenant, multi-geography, multi-vendor financial data platform sold to US and EMEA banks, and now owns Backbase's agentic AI connector platform. Led GTMs with 0 P1/P2 defects and owned platform economics.",
   "education": "B.Tech, Electrical & Electronics Engineering (Embedded Systems & Entrepreneurship), PES University, Bengaluru, 2017-2021.",
+  "education_detail": {
+   "degree": "B.Tech",
+   "field": "Electrical & Electronics Engineering",
+   "specialisation": "Embedded Systems & Entrepreneurship",
+   "school": "PES University",
+   "city": "Bengaluru",
+   "start": 2017,
+   "end": 2021
+  },
+  "location_detail": {
+   "city": "Hyderabad",
+   "country": "India"
+  },
+  "visa_detail": {
+   "country": "US",
+   "type": "B1/B2",
+   "valid_to": "2035-10",
+   "purpose": "business travel"
+  },
   "links": {
    "portfolio": "https://parth8.github.io/portfolio/",
    "tailored": "https://parth8.github.io/portfolio/for/",

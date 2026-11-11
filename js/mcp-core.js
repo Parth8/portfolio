@@ -4,20 +4,21 @@
 //   legacy (2025-11-25 / 2025-06-18 / 2025-03-26): initialize handshake, no session id minted
 // The Cloudflare Worker wraps this unchanged; the /mcp page runs it in the browser.
 
-import { getProfile, listWork, getWork, searchEvidence, proveClaim, fitFor, contact, resumeMarkdown } from './career-engine.js';
+import { getProfile, getFacts, listWork, getWork, searchEvidence, proveClaim, fitFor, checkRequirements, contact, resumeMarkdown } from './career-engine.js';
 
 export const MODERN = ['2026-07-28'];
 export const LEGACY = ['2025-11-25', '2025-06-18', '2025-03-26'];
 export const SUPPORTED = [...MODERN, ...LEGACY];
 const META = 'io.modelcontextprotocol/';
 
-export const SERVER_INFO = { name: 'parth-aggarwal', title: 'Parth Aggarwal - career record', version: '2.0.0', websiteUrl: 'https://parth8.github.io/portfolio/mcp/' };
+export const SERVER_INFO = { name: 'parth-aggarwal', title: 'Parth Aggarwal - career record', version: '3.0.0', websiteUrl: 'https://parth8.github.io/portfolio/mcp/' };
 
 export const INSTRUCTIONS = [
   "This server is Parth Aggarwal's own professional record: Technical Platform Product Manager, currently Forward Deployed PM at Backbase (agentic AI connectors for banks); before that, card issuing and data platforms at Zeta.",
   'Every tool is read-only and returns first-party facts with links to their source on his portfolio. Cite those links.',
-  'Use fit_for for a job description, prove_claim before repeating any number, search_evidence for "has he done X?", get_work for depth on one item.',
-  "Everything comes from his own record (resume, profile, portfolio). Much of it is internal to employers, so it is not checked against the web: instead every answer quotes the lines it rests on, and fit_for gives each requirement a confidence with its reasons and the maths. Pass those on rather than restating scores without them.",
+  'Use fit_for for a short job description, prove_claim before repeating any claim or number, search_evidence for "has he done X?", get_facts for dates, education, location, visa, awards and certifications, get_work for depth on one item.',
+  'For a long job description, extract its requirements yourself (one short string each) and call check_requirements with that list: every requirement gets a row, with evidence quotes or "no evidence on record", plus pass/fail checks for years, degrees, licences and people management, and a role-family note.',
+  "Everything comes from his own record (resume, profile, portfolio). Much of it is internal to employers, so it is not checked against the web: instead every answer quotes the lines it rests on, and fit_for gives each requirement a confidence with its reasons and the maths. Pass those on rather than restating scores without them. A claim is only 'supported' when one line or fact states all of it; 'differs' means the record says something else (quote it), 'not_found' means the record is silent, 'unclear' means it cannot tell.",
   "If the evidence doesn't cover something, say so plainly rather than inferring it.",
 ].join(' ');
 
@@ -55,13 +56,23 @@ export const TOOLS = [
   },
   {
     name: 'prove_claim', title: 'Check a claim',
-    description: 'Check one specific claim about him against the record, e.g. "0 P1/P2 defects", "$2B a year", "built an MCP in 6 weeks". Returns supported, partial, differs (different numbers on record), not_found or not_supported, with the exact quotes. Use before repeating a figure.',
+    description: 'Check one specific claim about him against the record, e.g. "0 P1/P2 defects", "$2B a year", "built an MCP in 6 weeks". Names, numbers, dates and words like never/every/all must all be on the record together: returns supported, differs (the record says something else: quoted), not_found (the record never mentions it), not_supported (a recorded gap), partial or unclear, with the exact quotes and a `checked` object showing the entities, numbers and dates it extracted and which matched. Use before repeating any claim or figure.',
     inputSchema: { type: 'object', properties: { claim: { type: 'string', minLength: 2, maxLength: 400, description: 'The claim to check, in plain words.' } }, required: ['claim'], additionalProperties: false },
   },
   {
     name: 'fit_for', title: 'Fit for a role',
-    description: 'Score his fit for a job description. Detects the requirements, maps each to evidence with links, lists honest gaps, notes experience or level mismatches, and suggests interview questions. Paste the whole job description, not just the title.',
+    description: 'Score his fit for a job description. Every requirement line gets a row (mapped to evidence with a confidence, or unmapped: nothing on record), hard requirements (years, degrees, licences, managing PMs, work authorisation) are pass/fail checks that cap the score, and a role outside product, program and client-facing technical work is flagged in `family` and capped at 35. Paste the whole job description; for a long one prefer check_requirements with your own extracted list.',
     inputSchema: { type: 'object', properties: { job_description: { type: 'string', minLength: 10, maxLength: 20000, description: 'The full job description text.' } }, required: ['job_description'], additionalProperties: false },
+  },
+  {
+    name: 'check_requirements', title: 'Check requirements',
+    description: 'Check a list of job requirements, one string each (your own extraction from a job description), against his record. Returns one row per requirement with evidence quotes and confidence, or "no evidence on record"; pass/fail checks for years, degrees, licences, managing PMs and work authorisation; and a role-family note. Prefer this to fit_for for long job descriptions.',
+    inputSchema: { type: 'object', properties: { requirements: { type: 'array', minItems: 1, maxItems: 80, items: { type: 'string', minLength: 2, maxLength: 400 }, description: 'One requirement per item, in the job description\'s own words.' }, title: { type: 'string', maxLength: 120, description: 'Optional role title, used to tell the role family.' } }, required: ['requirements'], additionalProperties: false },
+  },
+  {
+    name: 'get_facts', title: 'Typed facts',
+    description: 'The typed facts of his record: employers with titles, dates and places, current role, location, visa, education, years of experience, awards, certifications, writing, skills and project names. Use it to check dates, titles, degrees and status before stating them.',
+    inputSchema: { type: 'object', properties: {}, additionalProperties: false },
   },
   {
     name: 'contact', title: 'Contact',
@@ -95,7 +106,7 @@ const RENDER = {
     ...w.evidence.map(e => `- ${e}`), '', w.stack ? `Stack: ${w.stack.join(', ')}` : '',
   ].filter(x => x !== undefined).join('\n'),
   search_evidence: res => res.length ? res.map(r => `- "${r.quote}" - ${link(r)}`).join('\n') : 'No matching evidence in the record.',
-  prove_claim: p => [`**${p.verdict.toUpperCase()}** - ${p.explanation}`, ...p.evidence.map(e => `- "${e.quote}" - ${link(e)}`)].join('\n'),
+  prove_claim: p => [`**${p.verdict.toUpperCase()}** - ${p.explanation}`, ...p.evidence.map(e => `- "${e.quote}" - ${link(e)}`), ...(p.checked ? ['', `Checked: ${[...p.checked.entities.map(x => `${x.text} (${x.status})`), ...p.checked.numbers.map(x => `${x.text} (${x.status})`), ...p.checked.dates.map(x => `${x.text} (${x.status})`), ...p.checked.absolutes.map(x => `"${x.word}" (${x.status})`)].join('; ') || 'nothing decisive extracted'}`] : [])].join('\n'),
   fit_for: f => f.score == null ? f.message : [
     `**Fit: ${f.score}/100 (${f.band})**${f.title ? ` for ${f.title}` : ''} · ${f.coverage.evidenced} of ${f.coverage.total} requirements well evidenced (confidence 0.65+)`, '',
     'Requirements, with confidence (0-1) and why:',
@@ -103,10 +114,34 @@ const RENDER = {
       `- **${m.label}**: ${m.confidence} (${m.confidence_band})${m.evidence[0] ? ` - "${m.evidence[0].quote}" ${link(m.evidence[0])}` : ''}`,
       ...m.reasons.map(x => `  - ${x}`), `  - Math: ${m.math}`, ...(m.note && m.confidence < 0.4 ? [`  - On record: ${m.note}`] : []),
     ].join('\n')),
+    ...(f.unmapped?.length ? ['', 'No (or only thin) evidence on record for:', ...f.unmapped.map(u => `- ${u.text} (${u.note})`)] : []),
+    ...(f.hard?.length ? ['', 'Hard requirements:', ...f.hard.map(h => `- [${h.status.toUpperCase()}${h.soft ? ', preferred' : ''}] ${h.type}: needs ${h.need}; ${h.detail}`)] : []),
+    ...(f.family && f.family.in_scope === false ? ['', `Role family: ${f.family.message}`] : []),
     ...(f.notes.length ? ['', ...f.notes.map(n => `Note: ${n}`)] : []),
     '', 'Read first:', ...f.read_first.map(r => `- ${link(r)}${r.metric ? ` - ${r.metric}` : ''}`),
     '', 'Questions to ask him:', ...f.questions.map(q => `- ${q}`),
     '', `Method: ${f.method}`,
+  ].join('\n'),
+  check_requirements: f => [
+    f.family && f.family.message ? `Role family: ${f.family.name}${f.family.in_scope ? '' : ' (outside his record)'}. ${f.family.message}` : '',
+    f.score == null ? f.message : `Fit: ${f.score}/100 (${f.band}); ${f.coverage.evidenced} of ${f.coverage.total} requirements well evidenced.`, '',
+    ...f.requirements.map(r => r.status === 'mapped'
+      ? `- ${r.text}\n  ${r.confidence} (${r.confidence_band}) via ${r.competencies.map(c => c.label).join(', ')}${r.evidence[0] ? ` - "${r.evidence[0].quote}" ${link(r.evidence[0])}` : ''}${r.not_on_record ? `\n  Not on record: ${r.not_on_record.join(', ')}` : ''}`
+      : r.status === 'hard' ? `- ${r.text}\n  hard requirement, see checks below`
+      : `- ${r.text}\n  no evidence on record`),
+    ...(f.hard.length ? ['', 'Hard requirement checks:', ...f.hard.map(h => `- [${h.status.toUpperCase()}${h.soft ? ', preferred' : ''}] ${h.type}: needs ${h.need}; ${h.detail}`)] : []),
+    ...(f.notes.length ? ['', ...f.notes.map(n => `Note: ${n}`)] : []),
+  ].filter(x => x !== '' || true).join('\n'),
+  get_facts: F => [
+    `${F.name} - ${F.headline}. Now: ${F.current.title}, ${F.current.company} (since ${F.current.since}).`,
+    `Location: ${F.location.text}${F.location.open_to_relocation ? '; open to relocation' : ''}. Visa: ${F.visa.text}`,
+    `Experience: ${F.experience.text} (about ${F.experience.years} years since ${F.experience.since}).`,
+    `Education: ${F.education.text}`, '', 'Employers:', ...F.employers.map(e => `- ${e.title}, ${e.company}, ${e.period}, ${e.location}`),
+    '', 'Awards:', ...F.awards.map(a => `- ${a.name}, ${a.org}, ${a.date}: ${a.for}`),
+    '', 'Certifications:', ...F.certifications.map(c => `- ${c.name}, ${c.org}, ${c.date}`),
+    '', 'Writing:', ...F.writing.map(w => `- ${w.title} (${w.date})`),
+    '', 'Skills:', ...F.skills.flatMap(g => g.areas.map(a => `- ${g.group} · ${a.area}: ${a.text}`)),
+    '', `Projects: ${F.projects.map(p => p.name).join(', ')}`,
   ].join('\n'),
   contact: c => [`Email: ${c.email}`, `LinkedIn: ${c.linkedin}`, `Portfolio: ${c.portfolio}`, `Resume: ${c.resume}`, `Open to: ${c.open_to}`, `Based in: ${c.location}`, c.preferred].join('\n'),
 };
@@ -132,6 +167,12 @@ export function callTool(data, name, args = {}) {
     },
     prove_claim: () => proveClaim(data, str(args.claim, 'claim', 400)),
     fit_for: () => fitFor(data, str(args.job_description, 'job_description', 20000)),
+    check_requirements: () => {
+      const reqs = args.requirements;
+      if (!Array.isArray(reqs) || !reqs.length || reqs.length > 80 || reqs.some(r => typeof r !== 'string' || !r.trim() || r.length > 400)) throw new ToolInputError('"requirements" must be an array of 1 to 80 non-empty strings (max 400 characters each).');
+      return checkRequirements(data, reqs, { title: args.title == null ? undefined : str(args.title, 'title', 120) });
+    },
+    get_facts: () => getFacts(data),
     contact: () => contact(data),
   }[name];
   if (!run) return null; // unknown tool: the caller turns this into a protocol error
