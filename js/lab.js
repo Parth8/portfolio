@@ -1,220 +1,125 @@
-// PROOF - design prototype (lab/). Everything here reads the same record as the live site.
-// The line patterns are generated: each one is seeded by the work it decorates, so no two are alike.
+// Prototype 2: the page is a payments machine. Everything below is a simulation that runs in the browser.
+const $ = s => document.querySelector(s);
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const C = { ink: '#0E0D0B', neon: '#00FF94', pink: '#FF2D78', gold: '#E6B547', dim: '#8F897A', paper: '#F3EFE4', pipe: '#26231D' };
+function size(c) { const r = c.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); c.width = r.width * d; c.height = r.height * d; const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return { x, w: r.width, h: r.height }; }
+const fmt = n => n >= 1e6 ? `$${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `$${(n / 1e3).toFixed(1)}K` : `$${Math.round(n)}`;
 
-import { fitFor } from './career-engine.js';
-
-const $ = (s, r = document) => r.querySelector(s);
-const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-let uv = false;
-
-/* ---------- pattern generator ---------- */
-function hash(str) { let h = 2166136261; for (const c of str) { h ^= c.codePointAt(0); h = Math.imul(h, 16777619); } return h >>> 0; }
-function rng(seed) { let s = seed || 1; return () => ((s = Math.imul(s ^ (s >>> 15), 2246822507) ^ Math.imul(s ^ (s >>> 13), 3266489909), (s ^= s >>> 16) >>> 0) / 4294967296); }
-function fit2d(c) {
-  const r = c.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2);
-  c.width = Math.max(1, Math.round(r.width * d)); c.height = Math.max(1, Math.round(r.height * d));
-  const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0);
-  return { x, w: r.width, h: r.height };
+/* ---------- 1 · the rail ---------- */
+const rail = $('#rail'); let R = size(rail), pts = [], len = [], total = 0;
+const STOPS = ['ISSUE', 'AUTHORISE', 'FRAUD CHECK', 'MASTERCARD RAILS', 'SETTLE'];
+function layout() {
+  R = size(rail);
+  const { w, h } = R, narrow = w < 700, y0 = h * (narrow ? 0.66 : 0.675), amp = h * (narrow ? 0.05 : 0.05), ctrl = [];
+  ctrl.push([-40, y0 + amp]);
+  STOPS.forEach((_, i) => ctrl.push([w * (0.08 + 0.84 * i / 4), y0 + (i % 2 ? -amp : amp)]));
+  ctrl.push([w + 40, y0 - amp]);
+  pts = []; // Catmull-Rom through the stops
+  for (let i = 0; i < ctrl.length - 1; i++) {
+    const p0 = ctrl[Math.max(0, i - 1)], p1 = ctrl[i], p2 = ctrl[i + 1], p3 = ctrl[Math.min(ctrl.length - 1, i + 2)];
+    for (let t = 0; t < 1; t += 0.04) { const t2 = t * t, t3 = t2 * t;
+      pts.push([0.5 * (2 * p1[0] + (-p0[0] + p2[0]) * t + (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 + (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3),
+                0.5 * (2 * p1[1] + (-p0[1] + p2[1]) * t + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3)]); }
+  }
+  len = [0]; for (let i = 1; i < pts.length; i++) len.push(len[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  total = len[len.length - 1];
+  stops = STOPS.map((name, i) => { const c = ctrl[i + 1]; let best = 0, bd = 1e9; pts.forEach((p, k) => { const d = Math.hypot(p[0] - c[0], p[1] - c[1]); if (d < bd) { bd = d; best = k; } }); return { name, at: len[best] / total, x: c[0], y: c[1] }; });
 }
-// one woven ring: `curves` closed lines whose phase steps through a full turn
-function ring(x, cx, cy, R, o, upto = 1) {
-  x.lineWidth = o.lw || 0.6; x.strokeStyle = o.color;
-  const n = Math.ceil(o.curves * upto);
-  for (let k = 0; k < n; k++) {
-    const off = k / o.curves * Math.PI * 2;
-    x.beginPath();
-    for (let i = 0; i <= 480; i++) {
-      const t = i / 480 * Math.PI * 2;
-      const r = R * (1 - o.a - o.b + o.a * Math.sin(o.n * t + off + (o.phase || 0)) + o.b * Math.sin(o.m * t - off * 2));
-      const px = cx + r * Math.cos(t), py = cy + r * Math.sin(t);
-      i ? x.lineTo(px, py) : x.moveTo(px, py);
+let stops = [];
+function at(u) { const d = u * total; let i = 1; while (i < len.length - 1 && len[i] < d) i++; const f = (d - len[i - 1]) / (len[i] - len[i - 1] || 1), a = pts[i - 1], b = pts[i]; return { x: a[0] + (b[0] - a[0]) * f, y: a[1] + (b[1] - a[1]) * f, ang: Math.atan2(b[1] - a[1], b[0] - a[0]) }; }
+const cards = [], stat = { issued: 0, ok: 0, no: 0, settled: 0 }, pulses = [];
+function issue(mine = false) {
+  cards.push({ u: 0, v: (mine ? 0.16 : 0.09 + Math.random() * 0.05), mine, amt: 200 + Math.random() * 8800, bad: !mine && Math.random() < 0.13, checked: false, fall: null, trail: [] });
+  stat.issued++; if (mine) { $('#nudge').style.opacity = 0; pulses.push({ i: 0, t: 0 }); }
+}
+function drawRail(dt) {
+  const { x, w, h } = R; x.clearRect(0, 0, w, h);
+  x.lineCap = 'round'; x.lineJoin = 'round';
+  x.beginPath(); pts.forEach((p, i) => i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1]));
+  x.strokeStyle = C.pipe; x.lineWidth = w < 700 ? 22 : 34; x.stroke();
+  x.strokeStyle = 'rgba(0,255,148,0.22)'; x.lineWidth = 1.5; x.setLineDash([2, 10]); x.lineDashOffset = -performance.now() / 40; x.stroke(); x.setLineDash([]);
+  for (const s of stops) {
+    const p = pulses.filter(q => stops[q.i] === s).reduce((m, q) => Math.max(m, 1 - q.t), 0);
+    x.fillStyle = C.ink; x.strokeStyle = p ? C.neon : '#4a463c'; x.lineWidth = 2 + p * 3;
+    x.beginPath(); x.arc(s.x, s.y, (w < 700 ? 15 : 22) + p * 8, 0, 7); x.fill(); x.stroke();
+    x.fillStyle = p ? C.neon : C.dim; x.font = `600 ${w < 700 ? 8 : 10}px "Martian Mono", monospace`; x.textAlign = 'center';
+    const up = s.y < h * (w < 700 ? 0.66 : 0.675); x.fillText(w < 700 ? s.name.split(' ')[0] : s.name, s.x, s.y + (up ? -34 : 44));
+  }
+  for (let i = cards.length - 1; i >= 0; i--) {
+    const c = cards[i];
+    if (c.fall) { c.fall.vy += 900 * dt; c.fall.x += c.fall.vx * dt; c.fall.y += c.fall.vy * dt; c.fall.r += 6 * dt; if (c.fall.y > h + 40) { cards.splice(i, 1); continue; } }
+    else {
+      c.u += c.v * dt;
+      if (!c.checked && c.u >= stops[2].at) { c.checked = true; if (c.bad) { const p = at(c.u); c.fall = { x: p.x, y: p.y, vx: 60, vy: -160, r: p.ang }; stat.no++; } }
+      if (c.mine) for (let k = 0; k < stops.length; k++) if (!c['s' + k] && c.u >= stops[k].at) { c['s' + k] = 1; pulses.push({ i: k, t: 0 }); }
+      if (c.u >= stops[4].at && !c.done) { c.done = true; stat.ok++; stat.settled += c.amt * (c.mine ? 40 : 1); }
+      if (c.u >= 1) { cards.splice(i, 1); continue; }
     }
-    x.closePath(); x.stroke();
+    const p = c.fall ? { x: c.fall.x, y: c.fall.y, ang: c.fall.r } : at(c.u), s = c.mine ? 2.1 : 1, cw = 20 * s, ch = 13 * s;
+    if (c.mine && !c.fall) { c.trail.push([p.x, p.y]); if (c.trail.length > 26) c.trail.shift(); x.beginPath(); c.trail.forEach((t, k) => k ? x.lineTo(t[0], t[1]) : x.moveTo(t[0], t[1])); x.strokeStyle = 'rgba(0,255,148,0.5)'; x.lineWidth = 6; x.stroke(); }
+    x.save(); x.translate(p.x, p.y); x.rotate(p.ang);
+    x.fillStyle = c.fall ? C.pink : c.mine ? C.neon : c.done ? C.gold : C.paper; if (c.mine) { x.shadowColor = C.neon; x.shadowBlur = 24; }
+    x.beginPath(); x.roundRect(-cw / 2, -ch / 2, cw, ch, 2.5 * s); x.fill(); x.shadowBlur = 0;
+    x.fillStyle = C.ink; x.fillRect(-cw / 2 + 3 * s, -ch / 2 + 3 * s, 4.5 * s, 3.5 * s); x.fillRect(-cw / 2 + 3 * s, ch / 2 - 4 * s, cw - 6 * s, 1.2 * s);
+    x.restore();
+  }
+  for (let i = pulses.length - 1; i >= 0; i--) { pulses[i].t += dt * 1.6; if (pulses[i].t >= 1) pulses.splice(i, 1); }
+  $('#mIssued').textContent = stat.issued; $('#mOk').textContent = stat.ok; $('#mNo').textContent = stat.no; $('#mSettled').textContent = fmt(stat.settled);
+}
+layout(); addEventListener('resize', () => { layout(); sizeLanes(); });
+$('#issue').addEventListener('click', () => issue(true));
+rail.addEventListener('click', () => issue(true));
+addEventListener('keydown', e => { if (e.code === 'Space' && !/INPUT|TEXTAREA|BUTTON/.test(document.activeElement.tagName)) { e.preventDefault(); issue(true); } });
+
+/* ---------- 2 · the fraud desk ---------- */
+const lanes = $('#lanes'); let L = size(lanes); const sizeLanes = () => { L = size(lanes); };
+const tx = [], desk = { paid: 0, fraud: 0, fp: 0, caught: 0 }, feed = $('#feed');
+const NAMES = ['St Mary Clinic', 'Lakeview Dental', 'Dr Okafor', 'Peak Ortho', 'Harbor Imaging', 'Sunrise Peds', 'Northside Lab', 'Cedar Pharmacy', 'QuickCash LLC', 'Unit 4B Trading', 'Dr Patel', 'Valley Physio'];
+function spawn() {
+  const fraud = Math.random() < 0.16, risk = Math.round(fraud ? 45 + Math.random() * 54 : Math.random() ** 1.7 * 78), amt = Math.round(fraud ? 8 + Math.random() * 90 : 1 + Math.random() ** 2 * 70);
+  tx.push({ x: -10, y: 30 + Math.random() * (L.h - 190), fraud, risk, amt, name: NAMES[fraud && Math.random() < 0.5 ? 8 + (Math.random() * 2 | 0) : Math.random() * NAMES.length | 0], v: 110 + Math.random() * 60, st: null, vy: 0 });
+}
+function decide(t) {
+  const block = t.risk > +$('#risk').value || t.amt > +$('#amt').value;
+  t.st = block ? (t.fraud ? 'caught' : 'fp') : (t.fraud ? 'fraud' : 'paid'); desk[t.st]++;
+  const cls = { paid: 'ok', fraud: 'no', fp: 'fp', caught: '' }[t.st], word = { paid: 'PAID', fraud: 'FRAUD GOT THROUGH', fp: 'REAL PAYMENT BLOCKED', caught: 'fraud blocked' }[t.st];
+  feed.insertAdjacentHTML('beforeend', `<li class="${cls}"><span>${t.name} · $${t.amt}K · risk ${t.risk}</span><span>${word}</span></li>`);
+  while (feed.children.length > 5) feed.firstChild.remove();
+  $('#sPaid').textContent = desk.paid; $('#sFraud').textContent = desk.fraud; $('#sFalse').textContent = desk.fp;
+  const n = desk.paid + desk.fraud + desk.fp + desk.caught;
+  if (n > 14) { const fr = desk.fraud / n, fp = desk.fp / n;
+    $('#verdict').textContent = fr > 0.05 ? 'Too loose. Fraud is walking out the door.' : fp > 0.12 ? 'Too tight. Real doctors are not getting paid, and they will call.' : 'That is the job: catch the fraud, pay everyone else. Now do it across 9 functional areas.'; }
+}
+function drawLanes(dt) {
+  const { x, w, h } = L; x.clearRect(0, 0, w, h); const gate = w * 0.58;
+  x.strokeStyle = 'rgba(243,239,228,0.06)'; x.lineWidth = 1; for (let y = 40; y < h - 150; y += 34) { x.beginPath(); x.moveTo(0, y); x.lineTo(w, y); x.stroke(); }
+  x.strokeStyle = C.neon; x.lineWidth = 3; x.shadowColor = C.neon; x.shadowBlur = 14; x.beginPath(); x.moveTo(gate, 14); x.lineTo(gate, h - 150); x.stroke(); x.shadowBlur = 0;
+  x.fillStyle = C.neon; x.font = '600 10px "Martian Mono", monospace'; x.textAlign = 'center'; x.fillText('YOUR RULES', gate, h - 132);
+  for (let i = tx.length - 1; i >= 0; i--) { const t = tx[i];
+    if (t.st === 'fp' || t.st === 'caught') { t.vy += 700 * dt; t.y += t.vy * dt; t.x += 20 * dt; } else t.x += t.v * dt;
+    if (!t.st && t.x >= gate) decide(t);
+    if (t.x > w + 20 || t.y > h + 20) { tx.splice(i, 1); continue; }
+    const r = 4 + Math.sqrt(t.amt) * 1.25;
+    x.fillStyle = t.st === 'paid' ? C.neon : t.st === 'fraud' ? C.pink : t.st === 'fp' ? C.gold : t.st === 'caught' ? '#4a463c' : `rgb(${150 + t.risk},${200 - t.risk * 1.3},${190 - t.risk * 1.1})`;
+    if (t.st === 'fraud') { x.shadowColor = C.pink; x.shadowBlur = 18; }
+    x.beginPath(); x.arc(t.x, t.y, r, 0, 7); x.fill(); x.shadowBlur = 0;
   }
 }
-const INK = () => (uv
-  ? ['rgba(0,255,148,0.75)', 'rgba(255,45,120,0.75)', 'rgba(255,225,77,0.75)']
-  : ['rgba(0,168,112,0.55)', 'rgba(255,45,120,0.5)', 'rgba(21,19,15,0.5)']);
-function paramsFor(seed) {
-  const r = rng(hash(seed));
-  const pick = (a, b) => a + Math.floor(r() * (b - a + 1));
-  return [
-    { curves: 22, n: pick(12, 20), m: pick(4, 7), a: 0.09, b: 0.04, s: 1 },
-    { curves: 18, n: pick(8, 13), m: pick(3, 5), a: 0.1, b: 0.05, s: 0.74 },
-    { curves: 14, n: pick(5, 9), m: pick(2, 4), a: 0.1, b: 0.04, s: 0.5 },
-  ];
-}
-const rosettes = $$('[data-ros]').map(el => {
-  const p = paramsFor(el.dataset.ros);
-  if (el.hasAttribute('data-label')) el.dataset.params = `pattern  n${p[0].n} · m${p[0].m} · n${p[1].n} · m${p[1].m}  seeded by "${el.dataset.ros.split('·')[0]}"`;
-  return { el, c: $('canvas', el), p, t: reduceMotion ? 1 : 0, phase: 0 };
-});
-function drawRos(R) {
-  const { x, w, h } = fit2d(R.c);
-  x.clearRect(0, 0, w, h);
-  if (w < 8) return;
-  const ink = INK(), rad = Math.min(w, h) / 2 - 2;
-  R.p.forEach((o, i) => ring(x, w / 2, h / 2, rad * o.s, { ...o, color: ink[i], phase: R.phase * (i % 2 ? -1.3 : 1) }, R.t));
-}
-function drawField(c) {
-  const { x, w, h } = fit2d(c);
-  x.clearRect(0, 0, w, h);
-  const g = x.createLinearGradient(0, 0, w, 0);
-  if (uv) { g.addColorStop(0, 'rgba(126,100,230,0.26)'); g.addColorStop(1, 'rgba(126,100,230,0.1)'); }
-  else { g.addColorStop(0, 'rgba(0,168,112,0.34)'); g.addColorStop(0.55, 'rgba(168,130,42,0.26)'); g.addColorStop(1, 'rgba(255,45,120,0.3)'); }
-  x.strokeStyle = g; x.lineWidth = 0.6;
-  for (let y = -10; y < h + 10; y += 5) {
-    x.beginPath();
-    for (let px = 0; px <= w; px += 6) { const yy = y + 4 * Math.sin(px / 38 + y / 27) + 2.2 * Math.sin(px / 11 - y / 40); px ? x.lineTo(px, yy) : x.moveTo(px, yy); }
-    x.stroke();
-  }
-}
-function drawFibres() {
-  const { x, w, h } = fit2d($('#fibres'));
-  x.clearRect(0, 0, w, h);
-  const r = rng(7), cols = ['#00FF94', '#FF2D78', '#FFE14D', '#6FA8FF'];
-  for (let i = 0; i < Math.round(w * h / 9000); i++) {
-    const fx = r() * w, fy = r() * h, a = r() * Math.PI, col = cols[i % 4];
-    x.strokeStyle = col; x.shadowColor = col; x.shadowBlur = 6; x.lineWidth = 1.1;
-    x.beginPath(); x.moveTo(fx, fy); x.quadraticCurveTo(fx + 6 * Math.cos(a + 1), fy + 6 * Math.sin(a + 1), fx + 11 * Math.cos(a), fy + 11 * Math.sin(a)); x.stroke();
-  }
-}
-function drawAll() { $$('[data-field]').forEach(drawField); rosettes.forEach(drawRos); if (uv) drawFibres(); }
-
-// microtext is real text: zoom in and read it
-const MICRO = '0 P1/P2 DEFECTS · 150K+ CARDS ISSUED · 90 DAYS OFF ONBOARDING · ~80% FASTER CONNECTOR BUILDS · 1,200+ ATTRIBUTES GOVERNED · 12+ CONNECTORS LIVE · ';
-$$('[data-micro]').forEach(el => { el.textContent = (el.dataset.micro || MICRO).repeat(8); });
-
-drawAll();
-document.fonts?.ready.then(drawAll);
-let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(drawAll, 120); });
-
-// the patterns plot themselves once, when first seen; the hero one then turns slowly
-const seen = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  const R = rosettes.find(r => r.el === e.target);
-  seen.unobserve(e.target);
-  if (reduceMotion) return;
-  const t0 = performance.now();
-  (function grow(now) { R.t = Math.min(1, (now - t0) / 1400); drawRos(R); if (R.t < 1) requestAnimationFrame(grow); })(t0);
-}), { threshold: 0.3 });
-rosettes.forEach(R => seen.observe(R.el));
-if (!reduceMotion) {
-  const hero = rosettes.find(r => r.el.dataset.size === 'hero');
-  let last = 0, vis = true;
-  new IntersectionObserver(([e]) => { vis = e.isIntersecting; }).observe(hero.el);
-  (function turn(ts) { if (vis && hero.t >= 1 && ts - last > 70) { last = ts; hero.phase += 0.012; drawRos(hero); } requestAnimationFrame(turn); })(0);
-}
-
-/* ---------- the lamp ---------- */
-const uvBtn = $('#uvBtn');
-uvBtn.addEventListener('click', () => {
-  uv = !uv;
-  document.body.classList.toggle('uv', uv);
-  uvBtn.setAttribute('aria-pressed', String(uv));
-  $('meta[name="theme-color"]').content = uv ? '#0B0620' : '#F3EFE4';
-  drawAll();
-});
-
-/* ---------- the note turns over ---------- */
+for (const [id, out, f] of [['risk', 'riskV', v => v], ['amt', 'amtV', v => `$${v},000`]]) $('#' + id).addEventListener('input', e => { $('#' + out).textContent = f(e.target.value); });
+$('#reset').addEventListener('click', () => { Object.keys(desk).forEach(k => desk[k] = 0); feed.innerHTML = ''; ['sPaid', 'sFraud', 'sFalse'].forEach(i => $('#' + i).textContent = 0); $('#verdict').textContent = 'Running…'; });
 const flip = $('#flip'), turn = $('#turn');
-turn.addEventListener('click', () => {
-  const on = flip.classList.toggle('turned');
-  turn.setAttribute('aria-pressed', String(on));
-  $('#turnL').textContent = on ? 'Back to the front' : 'Turn it over';
-  $('.front', flip).setAttribute('aria-hidden', String(on));
-  $('.back', flip).setAttribute('aria-hidden', String(!on));
-});
+turn.addEventListener('click', () => { const on = flip.classList.toggle('turned'); turn.setAttribute('aria-pressed', on); turn.textContent = on ? 'Back to the number ↻' : 'What the real one did ↻'; flip.querySelector('.front').setAttribute('aria-hidden', on); flip.querySelector('.back').setAttribute('aria-hidden', !on); });
 
-/* ---------- the record ---------- */
-let data;
-try {
-  const res = await fetch(new URL('../data/career.json', import.meta.url));
-  if (!res.ok) throw new Error(res.status);
-  data = await res.json();
-} catch {
-  $('#detail').textContent = 'The record did not load. Reload the page.';
-  throw new Error('career.json failed to load');
-}
-
-/* ---------- stamps ---------- */
-const P = (d) => `<svg viewBox="0 0 48 32" aria-hidden="true">${d}</svg>`;
-const LOOK = {
-  track: { c: '#00A870', v: '8,677', u: 'stations', ic: P('<path d="M3 24h42M8 24v-9h14v9M26 24v-12h16v12"/><circle cx="12" cy="27" r="2"/><circle cx="34" cy="27" r="2"/><path d="M12 19h6M30 16h8"/>') },
-  chalk: { c: '#15130F', v: '81', u: 'tests', f: '#00FF94', ic: P('<rect x="4" y="5" width="40" height="22" rx="3"/><circle cx="15" cy="16" r="3"/><circle cx="27" cy="12" r="2"/><circle cx="31" cy="20" r="2"/><path d="M18 16l7-3"/>') },
-  shelfie: { c: '#FF2D78', v: '30', u: 'sounds', ic: P('<path d="M6 27V7h7v20M13 27V10h6v17M19 27V5h8v22M30 27l-4-19 6-1 5 19zM3 27h42"/>') },
-  credit: { c: '#2B50D8', v: '22', u: 'chapters', ic: P('<rect x="5" y="6" width="38" height="21" rx="3"/><path d="M5 13h38M10 21h9"/><rect x="31" y="18" width="7" height="5" rx="1"/>') },
-  ai: { c: '#7A3FF2', v: '22', u: 'phases', ic: P('<circle cx="8" cy="16" r="3"/><circle cx="24" cy="7" r="3"/><circle cx="24" cy="25" r="3"/><circle cx="40" cy="16" r="3"/><path d="M11 15l10-6M11 17l10 6M27 8l10 6M27 24l10-6M24 10v12"/>') },
-  jira: { c: '#E6B547', v: '3', u: 'surfaces', f: '#15130F', ic: P('<rect x="5" y="5" width="11" height="22" rx="1.5"/><rect x="18.5" y="5" width="11" height="15" rx="1.5"/><rect x="32" y="5" width="11" height="9" rx="1.5"/>') },
-  grid: { c: '#D7261E', v: '22', u: 'tracks', ic: P('<path d="M8 22c-4-6 2-14 9-11l9 4c5 2 8-6 14-4 5 2 4 10-1 12-6 2-9-3-15-2-6 2-11 6-16 1z"/><path d="M22 9v6"/>') },
-  cookbook: { c: '#E8632B', v: '216', u: 'cards', ic: P('<path d="M6 17h36a18 14 0 0 1-36 0zM14 12c-2-3 2-4 0-7M24 12c-2-3 2-4 0-7M34 12c-2-3 2-4 0-7"/>') },
-  posters: { c: '#0F6E8C', v: '96', u: 'circuits', ic: P('<rect x="9" y="3" width="30" height="26"/><path d="M13 22l8-9 5 5 4-6 5 10M13 11h6M30 9h5M17 25h14"/>') },
-};
-const stampsEl = $('#stamps'), detail = $('#detail');
-const projects = data.projects.filter(p => LOOK[p.id]);
-stampsEl.innerHTML = projects.map((p, i) => {
-  const L = LOOK[p.id];
-  return `<button type="button" class="stamp" role="tab" aria-selected="false" data-id="${p.id}" style="--c:${L.c};${L.f ? `--f:${L.f}` : ''}">
-    <span class="st-in"><span class="st-k"><span>Parth</span><span>${String(i + 1).padStart(2, '0')}</span></span><span class="st-ic">${L.ic}</span><span class="st-v">${L.v}</span><span class="st-n">${esc(p.name)}</span></span>
-  </button>`;
-}).join('');
-function showProject(id, animate = true) {
-  const p = projects.find(x => x.id === id), L = LOOK[id];
-  $$('.stamp', stampsEl).forEach(b => b.setAttribute('aria-selected', String(b.dataset.id === id)));
-  detail.innerHTML = `
-    <svg class="postmark" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="pmc" d="M50 50m-36 0a36 36 0 1 1 72 0a36 36 0 1 1-72 0"/></defs>
-      <circle cx="50" cy="50" r="46"/><circle cx="50" cy="50" r="27"/><text><textPath href="#pmc">HYDERABAD · SHIPPED · LIVE · PARTH8 · </textPath></text>
-      <text x="50" y="48" class="pm-d">${esc((p.updated || '').split(' ')[0] || 'LIVE').toUpperCase()}</text><text x="50" y="61" class="pm-d">${esc((p.updated || '').split(' ')[1] || '')}</text>
-      <path d="M2 38q8-5 16 0M2 50q8-5 16 0M2 62q8-5 16 0"/></svg>
-    <h3>${esc(p.name)}</h3>
-    <p class="d-tag">${esc(p.tagline)}</p>
-    ${p.based_on ? `<p class="d-fork">${esc(p.based_on)}</p>` : ''}
-    <ul>${p.evidence.slice(0, 3).map(e => `<li>${esc(e)}</li>`).join('')}</ul>
-    <div class="d-links"><a class="btn" href="${esc(p.url)}" target="_blank" rel="noopener">Open it ↗</a>${p.repo ? `<a class="btn ghost" href="${esc(p.repo)}" target="_blank" rel="noopener">Code</a>` : ''}</div>`;
-  if (animate && !reduceMotion) { detail.classList.remove('in'); void detail.offsetWidth; detail.classList.add('in'); }
-}
-stampsEl.addEventListener('click', e => { const b = e.target.closest('.stamp'); if (b) showProject(b.dataset.id); });
-showProject(projects[0].id, false);
-
-/* ---------- the terminal ---------- */
-const JOBS = [
-  { key: 'F1', label: 'Card-issuing PM', jd: 'Senior Product Manager, Card Issuing. Own our card issuing platform: virtual and physical cards, processor integrations and the APIs our enterprise clients build on. Work with compliance and risk to launch card programs in the US and Europe. 5+ years in fintech or payments; card networks (Visa, Mastercard), chargebacks and disputes, fraud controls, KYC and PCI DSS; webhooks; go-to-market with sales; SQL and dashboards.' },
-  { key: 'F2', label: 'AI platform PM', jd: 'Product Manager, AI Platform (Forward Deployed). Own the platform that lets enterprise customers build agents on our APIs: tools over MCP, retrieval (RAG) and evaluation pipelines, and the call between open-weight and hosted models on cost, latency and accuracy. 4+ years on developer or platform products; hands-on with LLMs, prompt engineering, evals and guardrails; technical enough to prototype; regulated industries a plus.' },
-  { key: 'F3', label: 'Growth director', jd: 'Director of Product, Consumer Growth. Lead and manage a team of 6 product managers across activation, retention and monetisation for our consumer app on iOS and Android. Own experimentation: A/B testing, funnels, growth loops. 10+ years of product experience, including 4+ years managing product managers.' },
-];
-const VERDICT = { Excellent: ['Approved', 'ok', '00'], Strong: ['Approved', 'ok', '00'], Fair: ['Refer to issuer', 'mid', '01'], Stretch: ['Declined', 'no', '05'] };
-const jobsEl = $('#jobs'), slip = $('#slip');
-jobsEl.innerHTML = JOBS.map((j, i) => `<button type="button" class="key" aria-pressed="false" data-i="${i}">${esc(j.label)} <span>${j.key}</span></button>`).join('');
-const sleep = ms => new Promise(r => setTimeout(r, ms));
-let run = 0;
-async function runJob(i) {
-  const me = ++run, j = JOBS[i];
-  $$('.key', jobsEl).forEach((b, k) => b.setAttribute('aria-pressed', String(k === i)));
-  $('#termRole').textContent = j.label;
-  $('#termStatus').textContent = 'Authorising…';
-  if (!reduceMotion) await sleep(550);
-  if (me !== run) return;
-  const f = fitFor(data, j.jd);
-  const [word, tone, code] = VERDICT[f.band] || VERDICT.Stretch;
-  $('#termStatus').textContent = `${code} · ${word}`;
-  const rows = [...f.matches, ...f.gaps.filter(g => !f.matches.some(m => m.id === g.id))].slice(0, 10);
-  const hard = f.notes.find(n => /^Hard gap/i.test(n));
-  slip.innerHTML = `
-    <div class="sl-h"><span>Fit check · authorisation</span><span>${new Date().toISOString().slice(0, 10)}</span></div>
-    <p class="sl-v ${tone}">${word}</p>
-    <div class="sl-score"><b>${f.score}</b><span>/ 100 · ${esc(f.band)} · response ${code}</span></div>
-    <p class="sl-why">${hard ? esc(hard) : `${f.coverage.evidenced} of ${f.coverage.total} requirements have solid evidence on his record.`}</p>
-    <hr class="sl-rule">
-    ${rows.map(m => { const c = m.confidence ?? 0, on = Math.round(c * 10); return `<div class="sl-row${c < 0.4 ? ' low' : ''}"><span>${esc(m.label)}</span><span class="seg">${Array.from({ length: 10 }, (_, k) => `<i${k < on ? ' class="on"' : ''}></i>`).join('')}</span><b>${c.toFixed(2)}</b></div>`; }).join('')}
-    <hr class="sl-rule">
-    <div class="sl-f"><span>Auth code</span><b>${f.credit}</b></div>
-    <div class="sl-f"><span>Declined lines</span><b>${f.gaps.length || 'none'}</b></div>
-    <div class="sl-f"><span>Method</span><b>arithmetic, no model</b></div>
-    <div class="bc" aria-hidden="true"></div>`;
-  if (!reduceMotion) { slip.classList.remove('print'); void slip.offsetWidth; slip.classList.add('print'); }
-}
-jobsEl.addEventListener('click', e => { const b = e.target.closest('.key'); if (b) runJob(+b.dataset.i); });
-addEventListener('keydown', e => { const i = ['F1', 'F2', 'F3'].indexOf(e.key); if (i >= 0) { e.preventDefault(); runJob(i); } });
-runJob(0);
+/* ---------- loop ---------- */
+let last = performance.now(), tA = 0, tB = 0, deskOn = false;
+new IntersectionObserver(([e]) => { deskOn = e.isIntersecting; }).observe(lanes);
+document.fonts?.ready.then(layout);
+(function loop(now) {
+  const dt = Math.min(0.05, (now - last) / 1000); last = now;
+  if (!document.hidden) {
+    tA += dt; if (tA > (reduce ? 1.6 : 0.55)) { tA = 0; issue(); }
+    drawRail(dt);
+    if (deskOn) { tB += dt; if (tB > 0.42) { tB = 0; spawn(); } drawLanes(dt); }
+  }
+  requestAnimationFrame(loop);
+})(last);
