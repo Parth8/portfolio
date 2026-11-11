@@ -4,179 +4,93 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Proof - design prototype - Parth Aggarwal</title>
-<meta name="theme-color" content="#F3EFE4">
+<title>Follow the money - prototype - Parth Aggarwal</title>
+<meta name="theme-color" content="#0E0D0B">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,800;1,6..96,500;1,6..96,700&family=Caveat+Brush&family=Instrument+Sans:wght@400;500;600;700&family=Martian+Mono:wght@400;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,800;1,6..96,500&family=Caveat+Brush&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/lab.css">
-<script>document.documentElement.classList.add('js')</script>
 <script type="module" src="../js/lab.js"></script>
 </head>
 <body>
 
-<div class="bar">
-  <span class="bar-l"><b>PROOF</b> · design prototype · not the live site</span>
-  <button type="button" class="uv-btn" id="uvBtn" aria-pressed="false"><i aria-hidden="true"></i><span>UV light</span></button>
-</div>
-<canvas class="fibres" id="fibres" aria-hidden="true"></canvas>
-
-<main>
-
-<!-- 1 · the opening: a press sheet, checked and signed -->
-<section class="sheet" aria-label="Opening">
-  <div class="sheet-top" aria-hidden="true">
-    <svg class="reg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 1v22M1 12h22"/></svg>
-    <span class="slug">PLATE 01 · PARTH AGGARWAL · REV 2026.11 · HYDERABAD, IN</span>
-    <span class="bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-    <svg class="reg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 1v22M1 12h22"/></svg>
+<!-- 1 · the opening: a live issuing platform. Issue a card and watch it travel. -->
+<section class="hero" id="hero">
+  <canvas id="rail" aria-hidden="true"></canvas>
+  <p class="tag">prototype 2 · not the live site</p>
+  <div class="hero-copy">
+    <p class="kick">Parth Aggarwal · Technical Platform Product Manager</p>
+    <h1>I build the <em>boring</em> machines money runs on.</h1>
+    <p class="lead">Card issuing, bank data platforms, agentic AI connectors. This page is one of those machines, running. Put a card through it.</p>
+    <div class="hero-act">
+      <button type="button" class="go" id="issue">Issue a card <kbd>space</kbd></button>
+      <span class="hand" id="nudge">go on, press it.</span>
+    </div>
   </div>
-
-  <article class="note hero" id="hero">
-    <canvas class="field" data-field aria-hidden="true"></canvas>
-    <div class="note-top">
-      <span class="issuer">Parth Aggarwal · Technical Platform Product Manager</span>
-      <span class="serial">PA 2021 0548 26</span>
-    </div>
-    <div class="hero-grid">
-      <div class="hero-main">
-        <p class="promise">I promise to ship the bearer, on demand,</p>
-        <h1 class="hero-h">Big, boring, <em><span>beautiful</span></em> things.</h1>
-        <p class="hero-p">I own the platforms other teams build on: card issuing, bank data pipelines, and now agentic AI connectors at Backbase.</p>
-        <div class="sig"><i>Parth Aggarwal</i><span>Platform owner</span></div>
-        <div class="cta">
-          <a class="btn" href="#fit">Check my fit <span aria-hidden="true">→</span></a>
-          <a class="btn ghost" href="#case">See the work <span aria-hidden="true">↓</span></a>
-        </div>
-      </div>
-      <div class="hero-side">
-        <div class="ros" data-ros="PA·2021·platform" data-size="hero"><canvas aria-hidden="true"></canvas><span>PA</span></div>
-        <dl class="spec">
-          <div><dt>Issuer</dt><dd>Backbase, since Aug 2026</dd></div>
-          <div><dt>Series</dt><dd>Forward Deployed PM</dd></div>
-          <div><dt>Rails</dt><dd>Cards · Data · Agentic AI</dd></div>
-          <div><dt>In service</dt><dd>5+ yrs B2B SaaS, 4+ fintech</dd></div>
-          <div><dt>Defects</dt><dd>0 P1/P2 on two launches</dd></div>
-          <div><dt>Based</dt><dd>Hyderabad · B1/B2 to 2035</dd></div>
-        </dl>
-      </div>
-    </div>
-    <div class="note-bot">
-      <span class="den"><small>$</small>2B<em>+</em></span>
-      <span class="micro" aria-hidden="true" data-micro></span>
-      <span class="serial">PA 2021 0548 26</span>
-    </div>
-    <p class="mark m-b" aria-hidden="true">yes, with a B! <svg viewBox="0 0 60 30"><path d="M56 4C40 2 18 8 6 24M6 24l2-9M6 24l9-1" /></svg></p>
-    <p class="mark m-ok" aria-hidden="true"><span>OK to print</span><small>P.A. 10/11</small></p>
-    <p class="uv-note n1" aria-hidden="true">psst. the gaps are listed too.<br>ask the MCP.</p>
-  </article>
-
-  <!-- the uncut strip: four numbers that moved -->
-  <div class="strip" aria-label="Impact">
-    <article class="note bill" style="--tint:var(--neon)"><div class="ros sm" data-ros="2B·optum"><canvas aria-hidden="true"></canvas></div><span class="b-den"><small>$</small>2B<em>+</em></span><span class="b-cap">a year in virtual card disbursements</span><span class="b-org">Optum · UnitedHealth Group</span></article>
-    <article class="note bill" style="--tint:var(--pink)"><div class="ros sm" data-ros="80·connector"><canvas aria-hidden="true"></canvas></div><span class="b-den">~80<em>%</em></span><span class="b-cap">faster connector builds, with agents</span><span class="b-org">Backbase · Connector Studio</span></article>
-    <article class="note bill" style="--tint:var(--gold)"><div class="ros sm" data-ros="150K·sparrow"><canvas aria-hidden="true"></canvas></div><span class="b-den">150K<em>+</em></span><span class="b-cap">cards issued on a first US program</span><span class="b-org">Zeta · Sparrow Card</span></article>
-    <article class="note bill" style="--tint:var(--neon)"><div class="ros sm" data-ros="90·dpaas"><canvas aria-hidden="true"></canvas></div><span class="b-den">90<em>d</em></span><span class="b-cap">cut from bank onboarding and GTM</span><span class="b-org">Zeta · Data Platform SaaS</span></article>
-  </div>
-  <p class="cutline" aria-hidden="true"><span>✂</span> uncut sheet · four numbers that moved</p>
+  <dl class="meters" aria-live="off">
+    <div><dt>Issued</dt><dd id="mIssued">0</dd></div>
+    <div><dt>Approved</dt><dd id="mOk">0</dd></div>
+    <div><dt>Declined</dt><dd id="mNo">0</dd></div>
+    <div><dt>Settled</dt><dd id="mSettled">$0</dd></div>
+  </dl>
+  <p class="sim">a simulation, running in your browser. the real one moves $2B+ a year.</p>
 </section>
 
-<!-- 2 · one case study: a note you can turn over -->
-<section class="sec" id="case">
-  <header class="sec-h">
-    <p class="k">Case 002 · Zeta, for Optum Financial</p>
-    <h2>The <em>$2B</em> note</h2>
-    <p class="s">The front is the result. The back is how it works.</p>
+<!-- 2 · one case study you can operate -->
+<section class="desk" id="desk">
+  <header class="desk-h">
+    <p class="kick dark">Case 002 · Zeta, for Optum Financial · 2024 to 2026</p>
+    <h2>Now <em>you</em> run the fraud desk.</h2>
+    <p class="lead dark">I designed a real-time fraud rules engine with configurable merchant, amount and risk thresholds. Here's a toy version. Set the rules too loose and fraud gets through. Too tight and you block real doctors getting paid.</p>
   </header>
+  <div class="desk-grid">
+    <div class="ctl">
+      <label for="risk">Block when risk score is above <b id="riskV">70</b></label>
+      <input type="range" id="risk" min="10" max="99" value="70">
+      <label for="amt">Hold payments above <b id="amtV">$40,000</b></label>
+      <input type="range" id="amt" min="5" max="100" value="40">
+      <div class="score">
+        <div class="sc good"><b id="sPaid">0</b><span>providers paid</span></div>
+        <div class="sc bad"><b id="sFraud">0</b><span>fraud let through</span></div>
+        <div class="sc warn"><b id="sFalse">0</b><span>real payments blocked</span></div>
+      </div>
+      <p class="verdict" id="verdict">Running…</p>
+      <button type="button" class="go small" id="reset">Reset the desk</button>
+    </div>
+    <div class="feed-wrap">
+      <canvas id="lanes" aria-hidden="true"></canvas>
+      <ol class="feed" id="feed" aria-label="Transactions"></ol>
+    </div>
+  </div>
+
   <div class="flip" id="flip">
-    <article class="note face front">
-      <canvas class="field" data-field aria-hidden="true"></canvas>
-      <div class="note-top"><span class="issuer">Virtual card issuance platform · Fortune 3</span><span class="serial">ZT 2024 0009 26</span></div>
-      <div class="case-grid">
-        <div>
-          <p class="case-den"><small>$</small>2B<em>+</em></p>
-          <p class="case-cap">a year, disbursed to US healthcare providers</p>
-          <h3 class="case-t">Launched with 0 P1/P2 defects, for UnitedHealthcare payers, on Mastercard rails.</h3>
-          <p class="case-m">Zeta · Optum Bank as sponsor · May 2024 to Aug 2026</p>
-        </div>
-        <div class="ros lg" data-ros="2B·optum·mastercard" data-label><canvas aria-hidden="true"></canvas><span>2B</span></div>
-      </div>
-      <div class="note-bot"><span class="micro" aria-hidden="true" data-micro="ISSUE · CANCEL · REISSUE · RESET · WEBHOOKS · IDEMPOTENCY · FRM RULES · TRACEABILITY · "></span></div>
-      <p class="uv-note n2" aria-hidden="true">0 P1/P2.<br>we checked. twice.</p>
+    <article class="face front">
+      <p class="big"><small>$</small>2B<i>+</i></p>
+      <p class="cap">a year, disbursed to US healthcare providers. Launched with 0 P1/P2 defects, on Mastercard rails.</p>
     </article>
-    <article class="note face back" aria-hidden="true">
-      <div class="note-top"><span class="issuer">Reverse · how it works</span><span class="serial">ZT 2024 0009 26</span></div>
-      <div class="back-grid">
-        <figure class="dia">
-          <svg viewBox="0 0 520 290" role="img" aria-label="System diagram: payer to issuing API to Mastercard rails to provider, with fraud rules and an event trail">
-            <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0l10 5-10 5z" class="ah"/></marker></defs>
-            <g class="bx"><rect x="4" y="38" width="100" height="48"/><text x="54" y="59">UHC payer</text><text x="54" y="74" class="t2">disburse</text></g>
-            <g class="bx hot"><rect x="150" y="20" width="180" height="84"/><text x="240" y="40">Issuing API</text><text x="240" y="56" class="t2">issue · cancel</text><text x="240" y="69" class="t2">reissue · reset</text><text x="240" y="84" class="t3">webhooks · idempotency · fallback</text></g>
-            <g class="bx"><rect x="380" y="38" width="130" height="48"/><text x="445" y="59">Mastercard</text><text x="445" y="74" class="t2">rails</text></g>
-            <g class="bx"><rect x="380" y="136" width="130" height="48"/><text x="445" y="157">Provider</text><text x="445" y="172" class="t2">gets paid</text></g>
-            <g class="bx pk"><rect x="150" y="134" width="180" height="62"/><text x="240" y="155">FRM rules engine</text><text x="240" y="171" class="t2">merchant · amount · risk</text><text x="240" y="186" class="t3">+ FeatureSpace ML</text></g>
-            <g class="bx"><rect x="150" y="230" width="180" height="50"/><text x="240" y="251">Event trail</text><text x="240" y="267" class="t2">every transaction traceable</text></g>
-            <g class="bx"><rect x="380" y="230" width="134" height="50"/><text x="447" y="251">Compliance, ops</text><text x="447" y="267" class="t2">fraud · disputes</text></g>
-            <g class="ln"><path d="M104 62h44"/><path d="M330 62h48"/><path d="M445 86v48"/><path d="M240 104v28"/><path d="M240 196v32"/><path d="M330 255h48"/><path class="dash" d="M54 86v169h94"/></g>
-            <text x="60" y="246" class="t3 l">events</text>
-          </svg>
-        </figure>
-        <ul class="ev">
-          <li>Owned product strategy across <b>9 functional areas</b>, discovery to regulatory sign-off.</li>
-          <li>Designed the API specs and led QA for the card lifecycle: webhooks, idempotency, error handling, fallback.</li>
-          <li>Designed a real-time fraud rules engine with configurable merchant, amount and risk thresholds.</li>
-          <li>Built event-based traceability so compliance teams can investigate fraud and resolve disputes in real time.</li>
-        </ul>
-      </div>
+    <article class="face back" aria-hidden="true">
+      <ul>
+        <li>Owned product strategy across <b>9 functional areas</b>, discovery to regulatory sign-off.</li>
+        <li>Designed the API specs and led QA for the card lifecycle: issue, cancel, reissue, reset.</li>
+        <li>Built event-based traceability so compliance teams can investigate fraud in real time.</li>
+        <li>Led the FeatureSpace integration for ML-based fraud detection.</li>
+      </ul>
     </article>
   </div>
-  <button type="button" class="btn turn" id="turn" aria-pressed="false"><span aria-hidden="true">↻</span> <span id="turnL">Turn it over</span></button>
+  <button type="button" class="go small light" id="turn" aria-pressed="false">What the real one did ↻</button>
 </section>
 
-<!-- 3 · projects: a sheet of stamps -->
-<section class="sec" id="built">
-  <header class="sec-h">
-    <p class="k">Built off the clock · nine, all live</p>
-    <h2>Small <em>change</em></h2>
-    <p class="s">Nobody asked for these. Tap a stamp.</p>
-    <p class="hand credit">Crafted with love+coffee (&amp; Claude)</p>
-  </header>
-  <div class="stamps-wrap">
-    <div class="stamps" id="stamps" role="tablist" aria-label="Side projects"></div>
-    <article class="detail" id="detail" role="tabpanel" aria-live="polite"></article>
-  </div>
-  <p class="uv-note n3" aria-hidden="true">nobody asked for these.</p>
-</section>
-
-<!-- 4 · the fit check answers like a terminal -->
-<section class="sec" id="fit">
-  <header class="sec-h">
-    <p class="k">Fit check · runs on the same record</p>
-    <h2>Approved, referred, or <em>declined</em></h2>
-    <p class="s">Paste a job and the terminal answers, with the reason for every line. Three samples to try:</p>
-  </header>
-  <div class="fit-grid">
-    <div class="term">
-      <div class="term-screen"><span class="term-k">ROLE</span><span class="term-v" id="termRole">…</span><span class="term-k">STATUS</span><span class="term-v" id="termStatus">READING</span></div>
-      <div class="term-keys" id="jobs" role="group" aria-label="Sample jobs"></div>
-      <p class="hand term-note">a credit check, but on me.</p>
-    </div>
-    <div class="slip-wrap"><article class="slip" id="slip" aria-live="polite"></article></div>
-  </div>
-  <p class="uv-note n4" aria-hidden="true">no model. just arithmetic.</p>
-</section>
-
-<section class="sec ask">
-  <h2>What I need to know</h2>
+<section class="next">
+  <h2>That's one machine. Each piece of work gets its own.</h2>
   <ul>
-    <li>Does this feel like yours, or like a costume?</li>
-    <li>Which parts do you love, and which feel like too much?</li>
-    <li>Is anything from the current site missing that you'd miss?</li>
+    <li><b>Data platform:</b> drag a bank onto the pipeline and watch it onboard in days, with the cost-versus-freshness dial.</li>
+    <li><b>Connector Studio:</b> an agent builds a banking connector in front of you, 12 days down to 2.</li>
+    <li><b>Sparrow Card:</b> a launch countdown that issues 150K cards.</li>
+    <li><b>The end of the page:</b> your visit settles, and the receipt prints.</li>
   </ul>
-  <p><a href="../#sec-hero">Back to the current site</a></p>
+  <p>Does this have the wow the others lacked? <a href="../#sec-hero">Back to the current site</a></p>
 </section>
 
-</main>
 </body>
 </html>
