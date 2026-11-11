@@ -27,6 +27,19 @@ try {
   throw new Error('career.json failed to load');
 }
 
+// the measured accuracy, from data/accuracy.json, under the chat
+fetch(new URL('../data/accuracy.json', import.meta.url)).then(r => (r.ok ? r.json() : null)).then(a => {
+  const legend = $('.dock .legend');
+  if (!a || !legend) return;
+  const n = (a.claims?.total || 0) + (a.paraphrases?.total || 0) + (a.search?.total || 0) + (a.jobs?.total || 0);
+  const fc = a.claims?.false_confirmations ?? 0;
+  const p = document.createElement('p');
+  p.className = 'legend acc';
+  p.textContent = `Tested on ${n} cases · ${fc} false confirmation${fc === 1 ? '' : 's'}`;
+  p.title = `${a.claims.total} claims (${a.claims.correct} right), ${a.paraphrases?.total} true rewordings (${a.paraphrases?.supported} supported), ${a.search.total} searches, ${a.jobs.total} job descriptions`;
+  legend.after(p);
+}).catch(() => {});
+
 let toastT;
 function toast(msg) {
   $('.toast-x')?.remove();
@@ -49,7 +62,7 @@ const JD = {
 function route(text) {
   const raw = text.trim();
   const q = raw.replace(/\s+/g, ' ').replace(/[?.!]+$/, '').trim();
-  if (raw.length >= 220 || raw.split('\n').length >= 4) return { tool: 'fit_for', args: { job_description: raw } };
+  if (raw.length >= 220 || raw.split('\n').length >= 4 || (raw.length >= 120 && /\b(requirements?|responsibilities|qualifications|you will|we are (?:hiring|looking))\b/i.test(raw))) return { tool: 'fit_for', args: { job_description: raw } };
   if (/\b(fit|match|good hire|right (?:person|hire)|suit(?:ed|able))\b/i.test(q) && /\b(for|as|role|job|position)\b/i.test(q)) return { tool: 'fit_for', args: { job_description: q } };
   if (/\b(contact|reach him|email him|get in touch|hire him|is he (?:open|available)|availability)\b/i.test(q)) return { tool: 'contact', args: {} };
   if (/^(?:who(?: is|'s) (?:he|parth)|about (?:him|parth)|tl;?dr|intro(?:duce him)?|summari[sz]e (?:him|parth))$/i.test(q)) return { tool: 'get_profile', args: {} };
@@ -114,14 +127,16 @@ async function call(tool, args) {
 }
 
 /* ---------- reading what came back ---------- */
-const tone = v => (/^(supported|excellent|strong)/i.test(v) ? 'ok' : /^(partial|differs|fair|good)/i.test(v) ? 'mid' : 'no');
+const tone = v => (/^(supported|excellent|strong)/i.test(v) ? 'ok' : /^(partial|differs|fair|good|unclear)/i.test(v) ? 'mid' : 'no');
 function verdictOf(tool, r) {
   const sc = r?.structuredContent;
   if (!r || r.isError || !sc) return { res: 'nothing on record', tone: 'no' };
   switch (tool) {
     case 'prove_claim': return { res: sc.verdict.replace(/_/g, ' '), tone: tone(sc.verdict), stamp: sc.verdict.replace(/_/g, ' ') };
-    case 'fit_for': return sc.score == null ? { res: 'no requirements found', tone: 'no' }
-      : { res: `${sc.band} · ${sc.score}/100`, tone: tone(sc.band), stamp: `${sc.band} · ${sc.score}` };
+    case 'fit_for': case 'check_requirements':
+      if (sc.score == null) return { res: 'no requirements found', tone: 'no' };
+      if (sc.family && sc.family.in_scope === false) return { res: `outside his field · ${sc.score}/100`, tone: 'no', stamp: `Not his field · ${sc.score}` };
+      return { res: `${sc.band} · ${sc.score}/100`, tone: tone(sc.band), stamp: `${sc.band} · ${sc.score}` };
     case 'search_evidence': {
       const n = sc.results.length;
       return n ? { res: `${n} quote${n > 1 ? 's' : ''}`, tone: 'ok', stamp: `${n} quote${n > 1 ? 's' : ''}` } : { res: 'nothing found', tone: 'no', stamp: 'No match' };

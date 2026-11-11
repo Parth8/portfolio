@@ -106,22 +106,41 @@ const RENDER = {
     ...w.evidence.map(e => `- ${e}`), '', w.stack ? `Stack: ${w.stack.join(', ')}` : '',
   ].filter(x => x !== undefined).join('\n'),
   search_evidence: res => res.length ? res.map(r => `- "${r.quote}" - ${link(r)}`).join('\n') : 'No matching evidence in the record.',
-  prove_claim: p => [`**${p.verdict.toUpperCase()}** - ${p.explanation}`, ...p.evidence.map(e => `- "${e.quote}" - ${link(e)}`), ...(p.checked ? ['', `Checked: ${[...p.checked.entities.map(x => `${x.text} (${x.status})`), ...p.checked.numbers.map(x => `${x.text} (${x.status})`), ...p.checked.dates.map(x => `${x.text} (${x.status})`), ...p.checked.absolutes.map(x => `"${x.word}" (${x.status})`)].join('; ') || 'nothing decisive extracted'}`] : [])].join('\n'),
-  fit_for: f => f.score == null ? f.message : [
-    `**Fit: ${f.score}/100 (${f.band})**${f.title ? ` for ${f.title}` : ''} · ${f.coverage.evidenced} of ${f.coverage.total} requirements well evidenced (confidence 0.65+)`, '',
-    'Requirements, with confidence (0-1) and why:',
-    ...[...f.matches, ...f.gaps].map(m => [
-      `- **${m.label}**: ${m.confidence} (${m.confidence_band})${m.evidence[0] ? ` - "${m.evidence[0].quote}" ${link(m.evidence[0])}` : ''}`,
-      ...m.reasons.map(x => `  - ${x}`), `  - Math: ${m.math}`, ...(m.note && m.confidence < 0.4 ? [`  - On record: ${m.note}`] : []),
-    ].join('\n')),
-    ...(f.unmapped?.length ? ['', 'No (or only thin) evidence on record for:', ...f.unmapped.map(u => `- ${u.text} (${u.note})`)] : []),
-    ...(f.hard?.length ? ['', 'Hard requirements:', ...f.hard.map(h => `- [${h.status.toUpperCase()}${h.soft ? ', preferred' : ''}] ${h.type}: needs ${h.need}; ${h.detail}`)] : []),
-    ...(f.family && f.family.in_scope === false ? ['', `Role family: ${f.family.message}`] : []),
-    ...(f.notes.length ? ['', ...f.notes.map(n => `Note: ${n}`)] : []),
-    '', 'Read first:', ...f.read_first.map(r => `- ${link(r)}${r.metric ? ` - ${r.metric}` : ''}`),
-    '', 'Questions to ask him:', ...f.questions.map(q => `- ${q}`),
-    '', `Method: ${f.method}`,
-  ].join('\n'),
+  prove_claim: p => {
+    const c = p.checked;
+    const parts = c ? [...c.entities.map(x => `${x.text} (${x.status})`), ...c.numbers.map(x => `${x.text} (${x.status})`), ...c.dates.map(x => `${x.text} (${x.status})`), ...c.absolutes.map(x => `"${x.word}" (${x.status})`)] : [];
+    const word = { supported: 'SUPPORTED', differs: 'DIFFERS', not_found: 'NOT FOUND', not_supported: 'NOT SUPPORTED', partial: 'PARTIAL', unclear: 'UNCLEAR' }[p.verdict] || String(p.verdict).toUpperCase();
+    const say = { supported: 'Safe to repeat, with the quote.', differs: 'Do not repeat the claim as stated: use what the record says.', not_found: 'Do not repeat it: nothing on the record backs it.', not_supported: 'Do not repeat it: the record says he does not have this.', partial: 'Related evidence only: quote the evidence, not the claim.', unclear: 'The record does not settle it: say so.' }[p.verdict];
+    return [`**${word}** - ${p.explanation}`, ...(say ? [say] : []),
+      ...(p.evidence.length ? ['', p.verdict === 'supported' ? 'The record says:' : 'The record actually says:', ...p.evidence.map(e => `- "${e.quote}" - ${link(e)}`)] : []),
+      ...(parts.length || (c && c.unknown.length) ? ['', `Checked: ${parts.join('; ') || 'nothing decisive extracted'}${c.unknown.length ? `; never mentioned on the record: ${c.unknown.join(', ')}` : ''}${c.typed ? `; fact type: ${c.typed}` : ''}`] : [])].join('\n');
+  },
+  fit_for: f => {
+    if (f.score == null) return f.message;
+    const out = f.family && f.family.in_scope === false;
+    const sm = f.score_math;
+    const reqs = f.requirements || [];
+    const hardWord = h => (h.status === 'pass' ? 'MET' : h.status === 'fail' ? 'NOT MET' : 'UNCLEAR');
+    return [
+      out ? `**OUTSIDE HIS FIELD - ${f.score}/100 (capped)**${f.title ? ` for ${f.title}` : ''}` : `**Fit: ${f.score}/100 (${f.band})**${f.title ? ` for ${f.title}` : ''} · ${f.coverage.evidenced} of ${f.coverage.total} requirements well evidenced (confidence 0.65+)`,
+      ...(out ? [f.family.message] : []),
+      ...(sm ? ['', `Score: weighted average ${sm.weighted_mean}${sm.denominator > sm.weight ? `; zero-evidence weight added (${sm.weight} -> ${sm.denominator}) gives ${sm.before_caps}` : ''}${sm.applied_cap != null ? `; capped at ${sm.applied_cap}` : ''}; final ${sm.final}.`] : []),
+      ...(reqs.length ? ['', `Every requirement line (${reqs.length}):`, ...reqs.map(r => r.status === 'unmapped' ? `- NOTHING ON RECORD: ${r.text}`
+        : r.status === 'hard' ? `- HARD CHECK: ${r.text}`
+        : `- ${r.confidence} (${r.confidence_band}) ${r.text}${r.not_on_record ? ` [never mentions ${r.not_on_record.join(', ')}]` : ''}`)] : []),
+      ...(f.hard?.length ? ['', 'Hard requirements:', ...f.hard.map(h => `- ${hardWord(h)}${h.soft ? ' (preferred)' : ''} ${h.type}: needs ${h.need}; ${h.detail}`)] : []),
+      '', 'Requirements he evidences, with confidence (0-1) and why:',
+      ...[...f.matches, ...f.gaps].map(m => [
+        `- **${m.label}**: ${m.confidence} (${m.confidence_band})${m.evidence[0] ? ` - "${m.evidence[0].quote}" ${link(m.evidence[0])}` : ''}`,
+        ...m.reasons.map(x => `  - ${x}`), `  - Math: ${m.math}`, ...(m.note && m.confidence < 0.4 ? [`  - On record: ${m.note}`] : []),
+      ].join('\n')),
+      ...(f.unmapped?.length ? ['', 'No (or only thin) evidence on record for:', ...f.unmapped.map(u => `- ${u.text} (${u.note})`)] : []),
+      ...(f.notes.length ? ['', ...f.notes.filter(n => !(out && n === f.family.message)).map(n => `Note: ${n}`)] : []),
+      '', 'Read first:', ...f.read_first.map(r => `- ${link(r)}${r.metric ? ` - ${r.metric}` : ''}`),
+      '', 'Questions to ask him:', ...f.questions.map(q => `- ${q}`),
+      '', `Method: ${f.method}`,
+    ].join('\n');
+  },
   check_requirements: f => [
     f.family && f.family.message ? `Role family: ${f.family.name}${f.family.in_scope ? '' : ' (outside his record)'}. ${f.family.message}` : '',
     f.score == null ? f.message : `Fit: ${f.score}/100 (${f.band}); ${f.coverage.evidenced} of ${f.coverage.total} requirements well evidenced.`, '',

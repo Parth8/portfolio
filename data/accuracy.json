@@ -6,6 +6,11 @@
     "correct": 225,
     "false_confirmations": 0
   },
+  "paraphrases": {
+    "total": 80,
+    "supported": 80,
+    "false_negatives": 0
+  },
   "search": {
     "total": 63,
     "hits": 47,

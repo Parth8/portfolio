@@ -163,6 +163,24 @@
 
 .fx-empty{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.3rem;color:var(--gray)}
 
+
+/* ---------- requirement rows with nothing behind them, hard checks, out-of-field notice ---------- */
+.req-none{background:#FFF1F5;border-style:dashed}
+.req-none .req-l small{color:var(--pink)}
+.why-none{font-size:0.9rem;line-height:1.55;padding-top:0.7rem}
+.why-none a{color:var(--ink);font-weight:500}
+.hcs{margin-top:1.4rem;display:grid;gap:0.5rem}
+.hc-list{list-style:none;display:grid;gap:0.4rem;padding-top:0.5rem}
+.hc{display:flex;gap:0.6rem;align-items:flex-start;font-size:0.86rem;line-height:1.5;padding:0.5rem 0.7rem;border:2px solid var(--ink);background:#FFFDF7}
+.hc b{flex:none;min-width:4.2rem;text-align:center;font-family:'DM Mono',monospace;font-size:0.56rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;padding:0.2rem 0.3rem;border:2px solid var(--ink);background:var(--neon)}
+.hc em{font-style:normal;font-weight:600}
+.hc-fail{background:#FFF1F5}.hc-fail b{background:#FFC9D7}
+.hc-unknown b{background:#FFE7A0}
+.fam-banner{margin-bottom:1.2rem;padding:0.9rem 1.1rem;background:#FFF1F5;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--pink)}
+.fam-banner b{font-family:'DM Serif Display',serif;font-weight:400;font-size:1.3rem;font-style:italic}
+.fam-banner p{margin-top:0.3rem;font-size:0.92rem;line-height:1.55}
+.fam-note{margin-top:0.9rem;padding:0.6rem 0.75rem;border:2px solid var(--pink);color:var(--eggshell);font-size:0.8rem;line-height:1.5;text-align:left}
+
 /* ---------- closing ---------- */
 .fx-cta{margin-top:3rem;padding:1.8rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap;box-shadow:8px 8px 0 var(--neon)}
 .fx-cta .ax-title{font-size:clamp(2rem,3.6vw,3rem);max-width:36rem}
