@@ -1,0 +1,75 @@
+/* FLIP - the page turns like Flipboard: the lower half folds up over the top to bring in the next page.
+   Only applies once js/flip.js has built the pages (html.flip); without it the page scrolls as one. */
+
+html.flip,html.flip body{height:100%;overflow:hidden}
+.flipbook{position:fixed;inset:0;z-index:1;perspective:2600px;background:var(--eggshell)}
+.fp{
+  position:absolute;inset:0;display:none;flex-direction:column;
+  overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  background:var(--eggshell);outline:none;
+}
+.fp.on{display:flex}
+.fp-body{flex:1 0 auto;display:flex;flex-direction:column}
+.fp-body > :last-child{flex:1 0 auto}
+/* while a page is being turned in, its scroll-reveal pieces show at once so the turning leaf is not blank */
+.fp-snap .reveal,.fp-snap .case,.fp-snap .project,.fp-snap .aw-card,.fp-snap .index,.fp-snap .case-stack span{transition:none!important;opacity:1!important;transform:none!important}
+/* short pages sit in the middle of their sheet instead of hugging the top */
+.fp-body > .quote-section:only-child{display:flex;flex-direction:column;justify-content:center}
+
+/* the fold line: what is next, and a tap turns the page */
+.fp-next{
+  flex:none;position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
+  width:100%;padding:1.35rem 2.5rem 1.5rem;cursor:pointer;
+  font:inherit;color:var(--ink);text-align:left;background:var(--eggshell-deep);border:0;
+  border-top:1.5px dashed var(--ink);
+  transition:background 0.3s;
+}
+.fp-next::before{content:'✂';position:absolute;left:1.1rem;top:-0.72rem;font-size:0.9rem;background:var(--eggshell-deep);padding:0 0.2rem;color:var(--ink)}
+.fp-next:hover{background:var(--neon)}
+.fp-next:hover::before{background:var(--neon)}
+.fpn-k{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gray)}
+.fpn-hand{font-family:'Caveat',cursive;font-weight:700;font-size:1.3rem;color:var(--pink);transform:rotate(-2deg)}
+.fpn-to{justify-self:end;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1;letter-spacing:0.02em}
+.fpn-to span{display:inline-block;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.fp-next:hover .fpn-to span{transform:translateY(4px)}
+
+/* the pager: a small stack under the side dots */
+.pager{
+  position:fixed;right:0.95rem;top:calc(50% + 7.2rem);z-index:80;
+  display:flex;flex-direction:column;align-items:center;gap:0.1rem;padding:0.2rem 0;
+  background:none;border:0;
+  font-family:'DM Mono',monospace;font-size:0.58rem;letter-spacing:0.04em;color:var(--ink);
+  transition:opacity 0.3s;
+}
+.pg-b{width:1.6rem;height:1.5rem;border-radius:50%!important;display:grid;place-items:center;font:inherit;font-size:0.8rem;color:var(--ink);background:none;border:0;cursor:pointer;transition:background 0.2s}
+.pg-b:hover{background:var(--neon)}
+.pager.first .pg-b[data-d="-1"],.pager.last .pg-b[data-d="1"]{opacity:0.25;pointer-events:none}
+.pg-n{display:flex;flex-direction:column;align-items:center;line-height:1.2;padding:0.1rem 0}
+.pg-n b{font-weight:500}
+.pg-n i{display:none}
+html.door-open .pager{opacity:0;pointer-events:none}
+
+/* the turn */
+.fp-leaf{position:absolute;left:0;right:0;height:50%;z-index:5;transform-style:preserve-3d;pointer-events:none}
+.fp-leaf.lower{top:50%;transform-origin:50% 0}
+.fp-leaf.upper{top:0;transform-origin:50% 100%}
+.fp-half{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.fp-half.back{transform:rotateX(180deg)}
+.fp-half > .fp{inset:auto;left:0;right:0;overflow:hidden}
+.fp-shade,.fp-under{position:absolute;background:var(--ink);opacity:0;pointer-events:none}
+.fp-shade{inset:0}
+.fp-under{left:0;right:0;height:50%;z-index:4}
+.fp-under.lower{top:50%}
+.fp-under.upper{top:0}
+
+@media(max-width:900px){
+  .pager{display:none}
+  .fp-next{grid-template-columns:1fr auto;padding:1.1rem 1.5rem 1.3rem}
+  .fpn-hand{display:none}
+}
+@media print{
+  html.flip,html.flip body{height:auto;overflow:visible}
+  .flipbook{position:static}
+  .fp{display:block!important;position:static;overflow:visible}
+  .fp-next,.pager{display:none}
+}

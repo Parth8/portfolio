@@ -4,12 +4,14 @@
 import { initReceipt } from './receipt.js';
 import { initCursor } from './cursor.js';
 import { initDoor } from './door.js';
+import { initFlip } from './flip.js';
 
 const root = document.documentElement;
 root.classList.add('js');
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 initDoor({ reduceMotion });
+const flip = initFlip({ reduceMotion });
 
 /* ---------- custom cursor (mouse and trackpad only) ---------- */
 const HOVER_TARGETS = '.door-card,a,button,[role="tab"],.bn-cell,.case-stack span,.project-stack span,.sc-list li,.aw-card,.cert-card,.xp-row,.essay,.chapter,.feature-essay,.stamp,.side-dot,.boss-sticker,.ph-figure,.idx-list a';
@@ -33,7 +35,7 @@ function watch(selector, { threshold = 0.15, once = false, cls = 'in-view', onEn
   els.forEach(el => io.observe(el));
 }
 
-let jumpHook = () => false;
+let jumpHook = id => (flip ? flip.reveal(document.getElementById(id)) : false);
 const receipt = initReceipt({ reduceMotion, onJump: id => jumpHook(id) });
 
 watch('.reveal', { threshold: 0.05, once: true, cls: 'visible' });
@@ -89,12 +91,23 @@ const phFig = document.querySelector('.ph-figure');
 let reelUpdate = () => {};
 let ticking = false;
 function onScroll() {
-  const y = scrollY, vh = innerHeight;
-  const max = root.scrollHeight - vh;
+  const vh = innerHeight;
+  let y = scrollY, progress, middle;
+  if (flip) {
+    // pages: progress is the page you are on plus how far down it you are
+    const p = flip.page(), room = p.scrollHeight - p.clientHeight;
+    progress = (flip.index + (room > 0 ? p.scrollTop / room : 1)) / flip.count;
+    y = flip.index ? vh : p.scrollTop;
+    middle = flip.index > 0 && flip.index < flip.count - 1;
+  } else {
+    const max = root.scrollHeight - vh;
+    progress = max > 0 ? y / max : 0;
+    middle = y > vh * 0.6 && y + vh < root.scrollHeight - vh;
+  }
 
-  if (scrollFill) scrollFill.style.height = (max > 0 ? (y / max) * 100 : 0) + '%';
+  if (scrollFill) scrollFill.style.height = progress * 100 + '%';
 
-  if (floatCta) floatCta.classList.toggle('visible', y > vh * 0.6 && y + vh < root.scrollHeight - vh);
+  if (floatCta) floatCta.classList.toggle('visible', middle);
   receipt?.setVisible(y > vh * 0.6);
   reelUpdate();
 
@@ -120,7 +133,8 @@ function onScroll() {
   ticking = false;
 }
 const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
-addEventListener('scroll', requestScroll, { passive: true });
+addEventListener('scroll', requestScroll, { passive: true, capture: true });
+addEventListener('flip:change', requestScroll);
 addEventListener('resize', requestScroll, { passive: true });
 onScroll();
 
@@ -158,12 +172,14 @@ if (reel) {
 
   const goTo = (i, focus = false) => {
     const behavior = reduceMotion ? 'auto' : 'smooth';
+    // in pages, the reel scrolls inside its page; otherwise the window scrolls
+    const scrollByTop = top => { const p = flip?.page(); if (p?.contains(reel)) p.scrollTo({ top: p.scrollTop + top, behavior }); else scrollTo({ top: scrollY + top, behavior }); };
     if (mode === 'pinned') {
-      scrollTo({ top: reel.getBoundingClientRect().top + scrollY - navH() + i * seg + 2, behavior });
+      scrollByTop(reel.getBoundingClientRect().top - navH() + i * seg + 2);
     } else if (mode === 'carousel') {
       strip.scrollTo({ left: panels[i].offsetLeft - parseFloat(getComputedStyle(strip).paddingLeft), behavior });
     } else {
-      scrollTo({ top: panels[i].getBoundingClientRect().top + scrollY - navH() - 8, behavior });
+      scrollByTop(panels[i].getBoundingClientRect().top - navH() - 8);
     }
     activate(i, focus);
   };
@@ -225,10 +241,19 @@ if (reel) {
 
   jumpHook = id => {
     const i = panels.findIndex(p => p.id === id);
-    if (i < 0) return false;
-    goTo(i);
+    if (i < 0) return flip ? flip.reveal(document.getElementById(id)) : false;
+    if (flip && flip.pageOf(reel) !== flip.index) flip.go(flip.pageOf(reel), { focus: false }).then(() => goTo(i));
+    else goTo(i);
     return true;
   };
+  // a page that was hidden had no size: measure the reel again when its page turns up
+  addEventListener('flip:change', e => { if (e.detail.page.contains(reel)) layout(); });
+
+  // every case can be played: a short game that puts you in the decision
+  reel.addEventListener('click', e => {
+    const b = e.target.closest('[data-game]');
+    if (b) import('./games.js').then(m => m.openGame(b.dataset.game, b));
+  });
 
   let resizeTimer;
   addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(layout, 150); });

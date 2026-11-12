@@ -68,6 +68,8 @@ css/sections.css      portfolio sections: hero, stamps, index (+ the two other w
 css/projects.css      the Built tiles and every project's looping SVG animation
 css/receipt.css       the proof-of-work receipt and the "30 seconds?" button (portfolio only)
 css/door.css          the door: the choice every visit opens on
+css/flip.css          the portfolio as pages that turn like Flipboard, the fold line and the pager
+css/games.css         the four case-study games ("Run it yourself")
 css/arcade.css        the language modes 02 and 03 share: ink-bordered panels with hard shadows, buttons that press
                       in, chips, stickers, stamps, split-flap digits, block meters, folder tabs, confetti (light + dark)
 css/for.css           mode 02: who's asking, the JD sheet, the scoreboard and dial, the evidence tabs
@@ -76,6 +78,9 @@ css/mcp.css           mode 03: the interview room, plug-it-in steps, tool cartri
 js/main.js            portfolio: scroll loop, observers, number scramble, case reel, tiles, journey, marquee
 js/receipt.js         portfolio: the receipt
 js/door.js            portfolio: the door (choose, lift, keys, scroll, back-button restore)
+js/flip.js            portfolio: groups the sections into pages; wheel, swipe or keys at the end of a page turn it.
+                      Add ?scroll to the address for the old single long page.
+js/games.js           portfolio: one short game per case study, loaded when someone presses "Run it yourself"
 js/cursor.js          the custom cursor, shared by all three pages (mouse/trackpad only)
 js/career-engine.js   pure functions over career.json: profile, search, claim checking, fit scoring
 js/mcp-core.js        the MCP protocol (both eras), tools, resources and prompts; used by the console and the Worker
