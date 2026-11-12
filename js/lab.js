@@ -3,6 +3,7 @@ const $ = s => document.querySelector(s);
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const C = { ink: '#0E0D0B', neon: '#00FF94', pink: '#FF2D78', gold: '#E6B547', dim: '#8F897A', paper: '#F3EFE4', pipe: '#26231D' };
 function size(c) { const r = c.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); c.width = r.width * d; c.height = r.height * d; const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return { x, w: r.width, h: r.height }; }
+const T = (window.labTally ||= {});
 const fmt = n => n >= 1e6 ? `$${(n / 1e6).toFixed(2)}M` : n >= 1e3 ? `$${(n / 1e3).toFixed(1)}K` : `$${Math.round(n)}`;
 
 /* ---------- 1 · the rail ---------- */
@@ -30,7 +31,7 @@ function at(u) { const d = u * total; let i = 1; while (i < len.length - 1 && le
 const cards = [], stat = { issued: 0, ok: 0, no: 0, settled: 0 }, pulses = [];
 function issue(mine = false) {
   cards.push({ u: 0, v: (mine ? 0.16 : 0.09 + Math.random() * 0.05), mine, amt: 200 + Math.random() * 8800, bad: !mine && Math.random() < 0.13, checked: false, fall: null, trail: [] });
-  stat.issued++; if (mine) { $('#nudge').style.opacity = 0; pulses.push({ i: 0, t: 0 }); }
+  stat.issued++; if (mine) { T.mine = (T.mine || 0) + 1; $('#nudge').style.opacity = 0; pulses.push({ i: 0, t: 0 }); }
 }
 function drawRail(dt) {
   const { x, w, h } = R; x.clearRect(0, 0, w, h);
@@ -50,9 +51,9 @@ function drawRail(dt) {
     if (c.fall) { c.fall.vy += 900 * dt; c.fall.x += c.fall.vx * dt; c.fall.y += c.fall.vy * dt; c.fall.r += 6 * dt; if (c.fall.y > h + 40) { cards.splice(i, 1); continue; } }
     else {
       c.u += c.v * dt;
-      if (!c.checked && c.u >= stops[2].at) { c.checked = true; if (c.bad) { const p = at(c.u); c.fall = { x: p.x, y: p.y, vx: 60, vy: -160, r: p.ang }; stat.no++; } }
+      if (!c.checked && c.u >= stops[2].at) { c.checked = true; if (c.bad) { if (c.mine) T.mineDeclined = (T.mineDeclined || 0) + 1; const p = at(c.u); c.fall = { x: p.x, y: p.y, vx: 60, vy: -160, r: p.ang }; stat.no++; } }
       if (c.mine) for (let k = 0; k < stops.length; k++) if (!c['s' + k] && c.u >= stops[k].at) { c['s' + k] = 1; pulses.push({ i: k, t: 0 }); }
-      if (c.u >= stops[4].at && !c.done) { c.done = true; stat.ok++; stat.settled += c.amt * (c.mine ? 40 : 1); }
+      if (c.u >= stops[4].at && !c.done) { c.done = true; stat.ok++; stat.settled += c.amt * (c.mine ? 40 : 1); T.settled = stat.settled; if (c.mine) T.mineSettled = (T.mineSettled || 0) + 1; }
       if (c.u >= 1) { cards.splice(i, 1); continue; }
     }
     const p = c.fall ? { x: c.fall.x, y: c.fall.y, ang: c.fall.r } : at(c.u), s = c.mine ? 2.1 : 1, cw = 20 * s, ch = 13 * s;
@@ -81,7 +82,7 @@ function spawn() {
 }
 function decide(t) {
   const block = t.risk > +$('#risk').value || t.amt > +$('#amt').value;
-  t.st = block ? (t.fraud ? 'caught' : 'fp') : (t.fraud ? 'fraud' : 'paid'); desk[t.st]++;
+  t.st = block ? (t.fraud ? 'caught' : 'fp') : (t.fraud ? 'fraud' : 'paid'); desk[t.st]++; T.desk = desk;
   const cls = { paid: 'ok', fraud: 'no', fp: 'fp', caught: '' }[t.st], word = { paid: 'PAID', fraud: 'FRAUD GOT THROUGH', fp: 'REAL PAYMENT BLOCKED', caught: 'fraud blocked' }[t.st];
   feed.insertAdjacentHTML('beforeend', `<li class="${cls}"><span>${t.name} · $${t.amt}K · risk ${t.risk}</span><span>${word}</span></li>`);
   while (feed.children.length > 5) feed.firstChild.remove();

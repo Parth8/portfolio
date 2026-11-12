@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,800;1,6..96,500&family=Caveat+Brush&family=Instrument+Sans:wght@400;500;600&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/lab.css">
 <script type="module" src="../js/lab.js"></script>
+<script type="module" src="../js/lab-machines.js"></script>
 </head>
 <body>
 
@@ -37,10 +38,53 @@
   <p class="sim">a simulation, running in your browser. the real one moves $2B+ a year.</p>
 </section>
 
-<!-- 2 · one case study you can operate -->
+
+<!-- the route: every role, every product, each with its machine -->
+<nav class="route" aria-label="Roles and products">
+  <p class="kick">Four roles · five machines · 2021 to now</p>
+  <h2>Every product I owned is a machine <em>you can run</em>.</h2>
+  <ol class="stops">
+    <li><span class="when">Aug 2026 → now</span><span class="who">Backbase<small>Forward Deployed Product Manager</small></span><span class="what"><a href="#m-connector">Connector Studio <i>run it ↓</i></a></span></li>
+    <li><span class="when">May 2024 → Aug 2026</span><span class="who">Zeta<small>Technical Product Manager · one role, two products</small></span><span class="what"><a href="#desk">Optum virtual cards <i>run it ↓</i></a><a href="#m-data">Data Platform SaaS <i>run it ↓</i></a></span></li>
+    <li><span class="when">May 2022 → May 2024</span><span class="who">Zeta<small>Technical Program Manager · one role, two programs</small></span><span class="what"><a href="#m-launch">Sparrow Card, US <i>run it ↓</i></a><a href="#m-winddown">RBI wind-down, India <i>run it ↓</i></a></span></li>
+    <li><span class="when">Feb 2021 → Apr 2022</span><span class="who">HackerEarth<small>Project Manager</small></span><span class="what plain">60+ enterprise programs · NPS 9 · churn down 25% · ₹38L revenue in 9 months</span></li>
+  </ol>
+</nav>
+
+<!-- Backbase · Connector Studio -->
+<section class="mach cs" id="m-connector">
+  <header class="m-h">
+    <p class="kick">Backbase · Forward Deployed PM · Connector Studio · 2026 → now</p>
+    <h2>Build a bank connector <em>with an agent</em>.</h2>
+    <p class="lead">A bank's core system has its own field names. Backbase speaks BIAN. The agent maps one onto the other, and a wrong line means a customer sees the wrong balance. Your call: when is it safe to ship?</p>
+  </header>
+  <div class="m-grid">
+    <div class="stage cs-stage"><canvas id="csCanvas" aria-label="Field mapping between the bank's system and BIAN"></canvas></div>
+    <div class="ctl">
+      <div class="meter"><span>Agent mapping accuracy</span><b id="csAcc">55%</b><div class="bar"><i id="csBar"></i><s aria-hidden="true"></s></div><small>production gate at 90%</small></div>
+      <button type="button" class="mbtn pri" id="csRun">Run the agent</button>
+      <button type="button" class="mbtn" id="csGold">Review the misses, add them to the golden dataset</button>
+      <label class="sw"><input type="checkbox" id="csGate" checked> <span>Hold every build in pre-prod until accuracy reaches 90%</span></label>
+      <button type="button" class="mbtn ship" id="csShip">Ship to production</button>
+      <dl class="tally"><div><dt>Build time</dt><dd id="csDays">0 days</dd></div><div><dt>By hand</dt><dd>~12 days</dd></div></dl>
+      <p class="verdict" id="csVerdict">Run the agent to start.</p>
+    </div>
+  </div>
+  <div class="flip" data-flip>
+    <article class="face front"><p class="big">~80<i>%</i></p><p class="cap">faster connector builds: about 12 days down to 2, review and deployment included.</p></article>
+    <article class="face back" aria-hidden="true"><ul>
+      <li>Shipped the Connector Studio MCP in <b>6 weeks</b>; banks and ~20 internal PMs and services engineers now build connectors with agents.</li>
+      <li>Gated every MCP and UI build to pre-prod until mapping accuracy is safe for production banking traffic.</li>
+      <li>Driving mapping accuracy from ~50-60% to 90%+, baselined against a golden dataset.</li>
+    </ul></article>
+  </div>
+  <button type="button" class="mbtn turnb" data-turn aria-pressed="false">What the real one did ↻</button>
+</section>
+
+<!-- Zeta · Optum virtual cards -->
 <section class="desk" id="desk">
   <header class="desk-h">
-    <p class="kick dark">Case 002 · Zeta, for Optum Financial · 2024 to 2026</p>
+    <p class="kick dark">Zeta · Technical PM · Optum virtual cards · 2024 → 2026</p>
     <h2>Now <em>you</em> run the fraud desk.</h2>
     <p class="lead dark">I designed a real-time fraud rules engine with configurable merchant, amount and risk thresholds. Here's a toy version. Set the rules too loose and fraud gets through. Too tight and you block real doctors getting paid.</p>
   </header>
@@ -81,15 +125,101 @@
   <button type="button" class="go small light" id="turn" aria-pressed="false">What the real one did ↻</button>
 </section>
 
-<section class="next">
-  <h2>That's one machine. Each piece of work gets its own.</h2>
-  <ul>
-    <li><b>Data platform:</b> drag a bank onto the pipeline and watch it onboard in days, with the cost-versus-freshness dial.</li>
-    <li><b>Connector Studio:</b> an agent builds a banking connector in front of you, 12 days down to 2.</li>
-    <li><b>Sparrow Card:</b> a launch countdown that issues 150K cards.</li>
-    <li><b>The end of the page:</b> your visit settles, and the receipt prints.</li>
-  </ul>
-  <p>Does this have the wow the others lacked? <a href="../#sec-hero">Back to the current site</a></p>
+<!-- Zeta · Data Platform SaaS -->
+<section class="mach dp" id="m-data">
+  <header class="m-h">
+    <p class="kick">Zeta · Technical PM · Data Platform SaaS · 2024 → 2026</p>
+    <h2>Onboard four banks <em>without writing code</em>.</h2>
+    <p class="lead">Every bank asks for its own build. Every custom build is one more thing to break, forever. And every bank wants real-time data, which costs money. Onboard them your way.</p>
+  </header>
+  <div class="m-grid">
+    <div class="stage dp-stage"><canvas id="dpCanvas" aria-label="Data pipeline with one lane per bank"></canvas></div>
+    <div class="ctl">
+      <div class="ask" id="dpAsk"></div>
+      <div class="pair"><button type="button" class="mbtn pri" id="dpConfig">Onboard by config <small>~1 month</small></button><button type="button" class="mbtn" id="dpCustom">Build what they asked <small>~4 months</small></button></div>
+      <ul class="tenants" id="dpTenants"></ul>
+      <dl class="tally"><div><dt>Banks live</dt><dd id="dpLive">0</dd></div><div><dt>Months spent</dt><dd id="dpMonths">0</dd></div><div><dt>Infra / month</dt><dd id="dpCost">$0</dd></div><div><dt>Custom code paths</dt><dd id="dpPaths">0</dd></div></dl>
+      <p class="verdict" id="dpVerdict">The first bank is waiting.</p>
+      <p class="fine">Costs are illustrative.</p>
+    </div>
+  </div>
+  <div class="flip" data-flip>
+    <article class="face front"><p class="big">90<i>days</i></p><p class="cap">cut from bank onboarding and go-to-market: 4 months to 1, with 0 code changes per bank.</p></article>
+    <article class="face back" aria-hidden="true"><ul>
+      <li>Mandated subscription-based, config-driven onboarding and said no to client-specific builds.</li>
+      <li>Made data freshness a per-tenant config tied to its AWS cost; removed MongoDB for <b>~$50K a year</b>.</li>
+      <li>Data contracts and a governed semantic layer across 1,200+ attributes; 12+ connectors live.</li>
+    </ul></article>
+  </div>
+  <button type="button" class="mbtn turnb" data-turn aria-pressed="false">What the real one did ↻</button>
+</section>
+
+<!-- Zeta · Sparrow Card -->
+<section class="mach sp" id="m-launch">
+  <header class="m-h">
+    <p class="kick">Zeta · Technical Program Manager · US banking program · 2022 → 2024</p>
+    <h2>Launch a credit card <em>in a new country</em>.</h2>
+    <p class="lead">Zeta's first US credit card, with Evolve Bank. Every release brings cardholders in, and every cardholder can open a support ticket. Set the pace and decide when to automate support.</p>
+  </header>
+  <div class="m-grid">
+    <div class="stage sp-stage">
+      <div class="sp-top"><p class="sp-n" id="spIssued">0</p><p class="sp-l">cards issued · <span id="spMonth">Jan 2024</span></p></div>
+      <canvas id="spCanvas" aria-label="Issuance curve and support queue"></canvas>
+    </div>
+    <div class="ctl">
+      <label for="spPace">Releases a week <b id="spPaceV">3</b></label>
+      <input type="range" id="spPace" min="1" max="8" value="3">
+      <label class="sw"><input type="checkbox" id="spAuto"> <span>Webhook-based support automation</span></label>
+      <button type="button" class="mbtn pri" id="spGo">Start the launch</button>
+      <dl class="tally"><div><dt>Releases</dt><dd id="spRel">0</dd></div><div><dt>Tickets waiting</dt><dd id="spQ">0</dd></div><div><dt>First response</dt><dd id="spFrt">-</dd></div><div><dt>CSAT</dt><dd id="spCsat">-</dd></div></dl>
+      <p class="verdict" id="spVerdict">Seven months, January to July. Ready when you are.</p>
+    </div>
+  </div>
+  <div class="flip" data-flip>
+    <article class="face front"><p class="big">150K<i>+</i></p><p class="cap">cards issued by July 2024, and 2x the revenue projections by December.</p></article>
+    <article class="face back" aria-hidden="true"><ul>
+      <li>Built the US support and ops function from scratch: first response time <b>down 99%</b>, CSAT from 2.5 to 4.6 in 3 months.</li>
+      <li>Managed 300+ releases at 89% SLO and 99% SLA adherence.</li>
+      <li>Became the reference case in Zeta's later US deals.</li>
+    </ul></article>
+  </div>
+  <button type="button" class="mbtn turnb" data-turn aria-pressed="false">What the real one did ↻</button>
+</section>
+
+<!-- Zeta · RBI wind-down -->
+<section class="mach rb" id="m-winddown">
+  <header class="m-h">
+    <p class="kick">Zeta · Technical Program Manager · India banking program · 2022 → 2024</p>
+    <h2>Wind down 22 fintechs <em>in 60 days</em>.</h2>
+    <p class="lead">The RBI changed the rules on prepaid lending. Every partner had to be closed out cleanly: customers refunded, balances settled with the bank, accounts closed. You have 3 CSMs and 60 days. Pick a plan.</p>
+  </header>
+  <div class="rb-plans" role="radiogroup" aria-label="Plan">
+    <button type="button" role="radio" aria-checked="false" data-plan="easy">Easiest first,<br>one at a time</button>
+    <button type="button" role="radio" aria-checked="false" data-plan="big">Biggest first,<br>one at a time</button>
+    <button type="button" role="radio" aria-checked="false" data-plan="lanes">Three lanes, riskiest first,<br>settle while the next one starts</button>
+  </div>
+  <div class="stage rb-stage"><canvas id="rbCanvas" aria-label="60-day plan"></canvas></div>
+  <div class="rb-tiles" id="rbTiles"></div>
+  <p class="verdict" id="rbVerdict">Pick a plan to run the 60 days.</p>
+  <p class="fine">A toy model. Solid bars: hands-on work. Hatched: waiting on the bank to settle.</p>
+  <div class="flip" data-flip>
+    <article class="face front"><p class="big">22<i>in 60</i></p><p class="cap">fintechs wound down inside the RBI's 60-day deadline.</p></article>
+    <article class="face back" aria-hidden="true"><ul>
+      <li>Coordinated Zeta product, BI, engineering, bank partners and every fintech.</li>
+      <li>Led a team of <b>3 CSMs</b> through the multi-party negotiations and timelines.</li>
+      <li>Automated the banking reports with SQL and Python, and trained the ops team on them.</li>
+    </ul></article>
+  </div>
+  <button type="button" class="mbtn turnb" data-turn aria-pressed="false">What the real one did ↻</button>
+</section>
+
+<!-- the end: your visit settles -->
+<section class="settle" id="settle">
+  <h2>Your visit, <em>settled</em>.</h2>
+  <p class="lead">Everything you did on this page, on one slip.</p>
+  <button type="button" class="go" id="print">Print my receipt</button>
+  <div class="slip-wrap"><div class="slip" id="slip" aria-live="polite"></div></div>
+  <p class="fine back-link">Prototype · <a href="../#sec-hero">back to the current site</a></p>
 </section>
 
 </body>
