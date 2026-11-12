@@ -86,7 +86,7 @@ export function initReceipt({ reduceMotion = false, onJump } = {}) {
       <hr class="rc-hr">
       <p class="rc-pay"><span>Pay with</span>${PAY.map(([t, h]) => `<a href="${h}"${h.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>${t}</a>`).join('')}</p>
       ${barcode()}
-      <p class="rc-thanks">thank you for scrolling</p>`;
+      <p class="rc-thanks">thank you for reading</p>`;
     const n = `${pad(printed.size)}/${pad(total)}`;
     count.textContent = n;
     dock.setAttribute('aria-label', `Proof-of-work receipt: ${printed.size} of ${total} lines printed. Open the receipt.`);
@@ -199,7 +199,7 @@ export function initReceipt({ reduceMotion = false, onJump } = {}) {
     const seed = [...(state.txn + 'PARTH')].map(ch => ch.charCodeAt(0));
     for (let i = 0, bx = P; bx < W - P; i++) { const w = 1 + (seed[i % seed.length] * (i + 3)) % 4; if (i % 2 === 0) x.fillRect(bx, y, w * 1.6, 54); bx += (w + 1) * 1.6; }
     y += 84; x.textAlign = 'center'; x.font = mono(14); x.fillStyle = ink; x.fillText('parth8.github.io/portfolio', W / 2, y);
-    y += 28; x.fillStyle = pink; x.font = '24px Caveat, cursive'; x.fillText('thank you for scrolling', W / 2, y);
+    y += 28; x.fillStyle = pink; x.font = '24px Caveat, cursive'; x.fillText('thank you for reading', W / 2, y);
 
     const blob = await new Promise(res => c.toBlob(res, 'image/png'));
     if (!blob) return;

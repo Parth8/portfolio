@@ -794,3 +794,22 @@ html:not(.js) .project-desc .pd-mark::before{transform:scaleX(1)}
   .ch-art svg{height:140px}
   .po-art svg{height:140px}
 }
+
+/* ===== fewer boxes: the art sits on the page like a print, the story under it, links instead of buttons ===== */
+.project{border:0;background:none;box-shadow:none}
+.project:hover{box-shadow:none}
+.project-right{border-radius:16px;transition:transform 0.5s cubic-bezier(0.22,1,0.36,1),box-shadow 0.5s}
+.project:hover .project-right{transform:translateY(-5px) rotate(-0.35deg);box-shadow:0 18px 30px -18px rgba(21,19,15,0.55)}
+.project-left{padding:1.6rem 0.25rem 0.5rem}
+.project.open .project-left{border-right:0;padding:1rem 3rem 1rem 0.25rem}
+.project.open .project-right{padding:2.5rem}
+.built .project-link{border:0;border-bottom:1.5px solid var(--ink);padding:0.45rem 0.1rem;background:none}
+.built .project-link:hover{background:none;color:var(--pink);border-color:var(--pink);transform:translateY(-2px)}
+.built .project-link.primary{background:var(--ink);color:var(--eggshell);border:0;border-radius:999px;padding:0.75rem 1.25rem}
+.built .project-link.primary:hover{background:var(--pink);color:var(--eggshell)}
+.project-links{align-items:center;gap:0.9rem 1.6rem}
+.project-next{border-radius:16px}
+@media(max-width:900px){
+  .project.open .project-left{padding:1.4rem 0.25rem 0.5rem}
+  .project.open .project-right{padding:1.75rem 1.5rem}
+}

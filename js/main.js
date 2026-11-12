@@ -158,7 +158,8 @@ if (reel) {
     if (i !== active) {
       active = i;
       tabs.forEach((t, j) => { t.setAttribute('aria-selected', i === j); t.tabIndex = i === j ? 0 : -1; });
-      panels.forEach((p, j) => { p.classList.toggle('is-active', i === j); p.inert = mode === 'pinned' && i !== j; });
+      panels.forEach((p, j) => { p.classList.toggle('is-active', i === j); p.inert = (mode === 'pinned' || mode === 'tabs') && i !== j; });
+      if (mode === 'tabs') tabs.forEach((t, j) => t.style.setProperty('--p', i === j ? 1 : 0));
       if (mode !== 'stacked') {
         // replay the chips' entrance so each flip feels like turning a page
         const p = panels[i];
@@ -174,7 +175,9 @@ if (reel) {
     const behavior = reduceMotion ? 'auto' : 'smooth';
     // in pages, the reel scrolls inside its page; otherwise the window scrolls
     const scrollByTop = top => { const p = flip?.page(); if (p?.contains(reel)) p.scrollTo({ top: p.scrollTop + top, behavior }); else scrollTo({ top: scrollY + top, behavior }); };
-    if (mode === 'pinned') {
+    if (mode === 'tabs') {
+      // the stage is already on screen: nothing to scroll
+    } else if (mode === 'pinned') {
       scrollByTop(reel.getBoundingClientRect().top - navH() + i * seg + 2);
     } else if (mode === 'carousel') {
       strip.scrollTo({ left: panels[i].offsetLeft - parseFloat(getComputedStyle(strip).paddingLeft), behavior });
@@ -185,11 +188,15 @@ if (reel) {
   };
 
   const layout = () => {
-    reel.classList.remove('is-pinned', 'is-carousel');
+    reel.classList.remove('is-pinned', 'is-carousel', 'is-tabs');
     reel.style.removeProperty('--reel-h');
     panels.forEach(p => { p.inert = false; });
     if (innerWidth <= 900) {
       mode = 'carousel';
+    } else if (flip) {
+      // in pages, scrolling belongs to the page: the tabs pick the case
+      mode = 'tabs';
+      reel.classList.add('is-pinned', 'is-tabs');
     } else {
       reel.classList.add('is-pinned');                      // measure the stage as it would be pinned
       mode = stage.offsetHeight <= innerHeight - navH() ? 'pinned' : 'stacked';

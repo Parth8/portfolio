@@ -16,21 +16,16 @@ html.flip,html.flip body{height:100%;overflow:hidden}
 /* short pages sit in the middle of their sheet instead of hugging the top */
 .fp-body > .quote-section:only-child{display:flex;flex-direction:column;justify-content:center}
 
-/* the fold line: what is next, and a tap turns the page */
+/* the running foot: a quiet line naming the next page */
 .fp-next{
-  flex:none;position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;
-  width:100%;padding:1.35rem 2.5rem 1.5rem;cursor:pointer;
-  font:inherit;color:var(--ink);text-align:left;background:var(--eggshell-deep);border:0;
-  border-top:1.5px dashed var(--ink);
-  transition:background 0.3s;
+  flex:none;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  width:100%;padding:1.6rem 2.5rem 1.8rem;cursor:pointer;
+  font:inherit;color:var(--ink);text-align:left;background:none;border:0;border-top:1px solid var(--border);
 }
-.fp-next::before{content:'✂';position:absolute;left:1.1rem;top:-0.72rem;font-size:0.9rem;background:var(--eggshell-deep);padding:0 0.2rem;color:var(--ink)}
-.fp-next:hover{background:var(--neon)}
-.fp-next:hover::before{background:var(--neon)}
-.fpn-k{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--gray)}
-.fpn-hand{font-family:'Caveat',cursive;font-weight:700;font-size:1.3rem;color:var(--pink);transform:rotate(-2deg)}
-.fpn-to{justify-self:end;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,2.6vw,2.1rem);line-height:1;letter-spacing:0.02em}
-.fpn-to span{display:inline-block;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.fpn-k{font-family:'DM Mono',monospace;font-size:0.6rem;letter-spacing:0.16em;color:var(--gray)}
+.fpn-to{font-family:'DM Serif Display',serif;font-style:italic;font-size:clamp(1.2rem,2vw,1.5rem);line-height:1;color:var(--gray);transition:color 0.3s}
+.fpn-to span{display:inline-block;font-style:normal;transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1)}
+.fp-next:hover .fpn-to{color:var(--ink)}
 .fp-next:hover .fpn-to span{transform:translateY(4px)}
 
 /* the pager: a small stack under the side dots */
@@ -50,7 +45,8 @@ html.flip,html.flip body{height:100%;overflow:hidden}
 html.door-open .pager{opacity:0;pointer-events:none}
 
 /* the turn */
-.fp-leaf{position:absolute;left:0;right:0;height:50%;z-index:5;transform-style:preserve-3d;pointer-events:none}
+.fp-leaf{position:absolute;left:0;right:0;height:50%;z-index:5;transform-style:preserve-3d;pointer-events:none;will-change:transform}
+html.turning .flipbook{cursor:grabbing}
 .fp-leaf.lower{top:50%;transform-origin:50% 0}
 .fp-leaf.upper{top:0;transform-origin:50% 100%}
 .fp-half{position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden}
@@ -64,8 +60,7 @@ html.door-open .pager{opacity:0;pointer-events:none}
 
 @media(max-width:900px){
   .pager{display:none}
-  .fp-next{grid-template-columns:1fr auto;padding:1.1rem 1.5rem 1.3rem}
-  .fpn-hand{display:none}
+  .fp-next{padding:1.2rem 1.5rem 1.4rem}
 }
 @media print{
   html.flip,html.flip body{height:auto;overflow:visible}

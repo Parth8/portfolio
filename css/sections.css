@@ -1882,6 +1882,9 @@ html:not(.js) .idx-list li,.index.in-view .idx-list li{opacity:1;transform:none}
 .case-reel.is-pinned .case-desc{line-height:1.7;margin-bottom:1.25rem}
 /* the tab underline becomes the progress rail for its case */
 .case-reel.is-pinned .case-tab::after{transform:scaleX(var(--p,0));transition:none}
+.case-reel.is-tabs{height:auto}
+.case-reel.is-tabs .case-stage{position:static}
+.case-reel.is-tabs .case-tab::after{transition:transform 0.5s cubic-bezier(0.22,1,0.36,1)}
 
 .case-reel.is-carousel .case-panels{
   display:flex;gap:0.9rem;align-items:flex-start;
@@ -1924,3 +1927,67 @@ html:not(.js) .idx-list li,.index.in-view .idx-list li{opacity:1;transform:none}
 }
 
 @media(max-width:380px){.hero-type{font-size:2.85rem}}
+
+/* ===== fewer boxes: the contents read like a magazine's, the case tabs like a rail ===== */
+.idx-list{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(4,auto);grid-auto-flow:column;column-gap:clamp(2rem,5vw,5rem);border:0}
+.idx-list li{border:0}
+.idx-list a{
+  grid-template-columns:3.6rem auto minmax(1.5rem,1fr) auto;grid-template-rows:auto;align-items:baseline;column-gap:0.9rem;
+  padding:0.95rem 0 0.85rem;background:none;overflow:visible;border-bottom:1px solid var(--border);
+}
+.idx-list a::before{content:none}
+.idx-list a::after{
+  content:'';position:static;grid-column:3;grid-row:1;align-self:end;margin-bottom:0.45em;height:2px;opacity:1;transform:none;
+  background:radial-gradient(circle,var(--gray-light) 1px,transparent 1.3px) 0 0/7px 2px repeat-x;
+}
+.idx-n{grid-row:1;grid-column:1;font-size:2.7rem;line-height:0.8;align-self:center}
+.idx-t{grid-column:2;grid-row:1;font-size:clamp(1.35rem,2vw,1.7rem);
+  background:linear-gradient(var(--neon),var(--neon)) 0 88%/0% 38% no-repeat;transition:background-size 0.45s cubic-bezier(0.76,0,0.24,1)}
+.idx-c{grid-column:4;grid-row:1;margin-top:0;text-align:right}
+.idx-list a:hover{color:var(--ink)}
+.idx-list a:hover .idx-t{background-size:100% 38%}
+.idx-list a:hover .idx-n{color:var(--pink);-webkit-text-stroke-color:var(--pink);transform:rotate(-6deg) translateX(-3px)}
+.idx-list a:hover .idx-c{color:var(--ink)}
+
+.idx-modes{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:1rem 3rem;margin-top:2.4rem;align-items:end}
+.idx-mode,.idx-mode.dark{
+  grid-template-columns:minmax(0,1fr) auto;padding:0 0 0.7rem;background:none;color:var(--ink);
+  border:0;border-bottom:2px solid var(--ink);box-shadow:none;transform:none;
+}
+.idx-mode:hover,.idx-mode.dark:hover{transform:none;box-shadow:none}
+.idx-mode .im-n{display:none}
+.idx-mode .im-t{grid-column:1;font-size:clamp(1.4rem,2.3vw,1.9rem)}
+.idx-mode .im-t em{color:var(--neon-dark);background:linear-gradient(var(--neon),var(--neon)) 0 90%/0% 34% no-repeat;transition:background-size 0.45s cubic-bezier(0.76,0,0.24,1)}
+.idx-mode.dark .im-t em{color:var(--pink)}
+.idx-mode:hover .im-t em{background-size:100% 34%;color:var(--ink)}
+.idx-mode .im-c{grid-column:1}
+.idx-mode .im-go{grid-column:2;grid-row:1/span 2;font-size:1.6rem}
+
+.case-tabs{gap:0;padding:2.25rem 2.5rem 0.25rem}
+.case-tab,.case-tab:nth-child(odd),.case-tab:nth-child(even){
+  background:none;border:0;border-left:1px solid var(--border);box-shadow:none;transform:none;
+  padding:0.3rem 1.5rem 1.1rem;
+}
+.case-tab:first-child{border-left:0;padding-left:0}
+.case-tab .ct-name,.case-tab .ct-metric{transition:color 0.35s,opacity 0.35s}
+.case-tab:not([aria-selected="true"]) .ct-name{color:var(--gray)}
+.case-tab:not([aria-selected="true"]) .ct-metric{opacity:0.45}
+.case-tab:hover{transform:none;box-shadow:none}
+.case-tab:hover .ct-name{color:var(--ink)}
+.case-tab:hover .ct-metric{opacity:1}
+.case-tab[aria-selected="true"]{background:none;color:var(--ink);transform:none;box-shadow:none}
+.case-tab[aria-selected="true"] .ct-metric{color:var(--neon-dark)}
+.case-tab[aria-selected="true"] .ct-co,.case-tab[aria-selected="true"] .ct-metric small{color:var(--gray)}
+.case-tab::after{left:1.5rem;right:1.5rem;bottom:0;height:3px;background:var(--ink)}
+.case-tab:first-child::after{left:0}
+.ct-metric{font-size:2.5rem}
+@media(max-width:1200px){
+  .case-tab:nth-child(3){border-left:0;padding-left:0}
+  .case-tab:nth-child(3)::after{left:0}
+}
+@media(max-width:900px){
+  .idx-list{grid-template-columns:minmax(0,1fr);grid-template-rows:none;grid-auto-flow:row}
+  .idx-list a{grid-template-columns:2.8rem auto minmax(1rem,1fr)}
+  .idx-c{grid-column:2/-1;grid-row:2;text-align:left;margin-top:0.25rem}
+  .idx-modes{grid-template-columns:minmax(0,1fr);gap:1.4rem}
+}
